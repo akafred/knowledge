@@ -1,0 +1,71 @@
+<!doctype html><html><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>Non-Deterministic Software</title><style>
+:root { --bg:#ffffff; --fg:#1a1a1a; --muted:#6b6b6b; --line:#e3e3e0;
+  --card:#f7f7f5; --accent:#4a6fa5; --accent2:#8a6fae; --warn:#b3593a;
+  --ok:#4a7a55; --chip:#eceff4; }
+@media (prefers-color-scheme: dark) {
+  :root { --bg:#191917; --fg:#e8e6e3; --muted:#9a9892; --line:#33322f;
+    --card:#22211f; --accent:#8fb0dd; --accent2:#b6a2d8; --warn:#d98a68;
+    --ok:#84b591; --chip:#2c2b28; }
+}
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:var(--fg);
+  font:16px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+main { max-width:960px; margin:0 auto; padding:1.5rem 1.25rem 4rem; }
+nav.top { display:flex; flex-wrap:wrap; gap:.35rem 1.1rem; padding:.8rem 1.25rem;
+  border-bottom:1px solid var(--line); font-size:.92rem; }
+nav.top a { color:var(--muted); text-decoration:none; }
+nav.top a:hover, nav.top a.here { color:var(--accent); }
+h1 { font-size:1.55rem; line-height:1.25; margin:.8rem 0 .3rem; }
+h2 { font-size:1.15rem; margin:2rem 0 .6rem; border-bottom:1px solid var(--line);
+  padding-bottom:.3rem; }
+h3 { font-size:1rem; margin:1.2rem 0 .4rem; }
+a { color:var(--accent); }
+.muted { color:var(--muted); font-size:.9rem; }
+.unity { border-left:3px solid var(--accent); background:var(--card);
+  padding:.7rem 1rem; margin:1rem 0; font-style:italic; }
+.chips { display:flex; flex-wrap:wrap; gap:.35rem; margin:.5rem 0; }
+.chip { background:var(--chip); border-radius:999px; padding:.1rem .7rem;
+  font-size:.82rem; text-decoration:none; color:var(--fg); }
+.chip:hover { outline:1px solid var(--accent); }
+.chip.count { color:var(--muted); }
+.card { background:var(--card); border:1px solid var(--line); border-radius:8px;
+  padding: .8rem 1rem; margin:.6rem 0; }
+.badge { font-size:.72rem; border-radius:4px; padding:.05rem .4rem;
+  vertical-align:middle; margin-right:.4rem; white-space:nowrap; }
+.badge.explicit { background:var(--ok); color:var(--bg); }
+.badge.implicit { background:var(--accent2); color:var(--bg); }
+.badge.gap { background:var(--warn); color:var(--bg); }
+.badge.closed { background:var(--ok); color:var(--bg); }
+.badge.rel { background:var(--accent); color:var(--bg); }
+.badge.contested { background:var(--warn); color:var(--bg); }
+.badge.established, .badge.corroborated { background:var(--ok); color:var(--bg); }
+.badge.developed { background:var(--accent2); color:var(--bg); }
+.tag.conf { font-size:.72rem; color:var(--muted); border:1px solid var(--line);
+  border-radius:4px; padding:.05rem .4rem; margin-left:.3rem; }
+ul.plain { list-style:none; padding-left:0; }
+ul.plain > li { margin:.55rem 0; }
+table { border-collapse:collapse; width:100%; font-size:.92rem; }
+th, td { text-align:left; padding:.4rem .6rem; border-bottom:1px solid var(--line);
+  vertical-align:top; }
+.tablewrap { overflow-x:auto; }
+.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:.7rem; }
+.stat { font-size:1.7rem; font-weight:600; color:var(--accent); }
+.rel-line { font-size:.86rem; color:var(--muted); margin:.15rem 0 .15rem 1rem; }
+.searchbox { width:100%; padding:.5rem .8rem; border:1px solid var(--line);
+  border-radius:6px; background:var(--card); color:var(--fg); font-size:1rem; }
+.issue-card h3 { margin:.1rem 0 .5rem; }
+.issue-cols { display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin:.6rem 0; }
+@media (max-width:640px) { .issue-cols { grid-template-columns:1fr; } }
+.issue-side h4 { margin:0 0 .4rem; font-size:.85rem; text-transform:uppercase;
+  letter-spacing:.03em; color:var(--muted); }
+.issue-side li { margin:.6rem 0; }
+.supported-by { margin:.15rem 0 .15rem 1rem; }
+.issue-edges { margin-top:.6rem; font-size:.9rem; }
+.verdict-box { margin-top:.7rem; padding:.6rem .8rem; border-radius:6px; font-size:.92rem; }
+.verdict-box.verdict-set { background:var(--card); border-left:3px solid var(--ok); }
+.verdict-box.verdict-empty { background:var(--card); border-left:3px solid var(--line);
+  color:var(--muted); }
+.verdict-box code { font-size:.85em; }
+.issue-key { margin-top:.4rem; }
+</style></head><body><nav class='top'><a href="../index.html">Overview</a><a href="../graph.html">Graph</a><a href="../concepts.html" class=here>Concepts</a><a href="../tensions.html">Tensions</a><a href="../issues.html">Issues</a><a href="../claims.html">Claims</a><a href="../threads.html">Threads</a><a href="../gaps.html">Gaps</a><a href="../timeline.html">Timeline</a></nav><main><h1>Non-Deterministic Software</h1><p>The shift in which software behavior is increasingly elicited via natural-language prompts — raising the level of abstraction while trading away deterministic execution — and the open question of what durable, persistent representation of a system replaces human-readable source code.</p><p class='muted'>Also known as: sideways move into non-determinism, non-deterministic behavior, persistent statement of non-deterministic behavior, non-human deterministic representation, future source code</p><h2>How authors use it</h2><p class='muted'>Oldest first (extraction date when no publication date is known).</p><div class='tablewrap'><table><tr><th>Author</th><th>Their term</th><th>Their meaning</th></tr><tr><td><a href="../docs/extract-fowler-fragments-february-9.html">Fragments: February 9</a><br><span class='muted'>Martin Fowler · 2026-02-09</span></td><td><b>sideways move into non-determinism</b></td><td>The trade-off whereby eliciting behavior through prompts and natural-language context raises the level of abstraction but yields non-deterministic behavior rather than deterministic execution</td></tr><tr><td><a href="../docs/extract-fowler-fragments-february-9.html">Fragments: February 9</a><br><span class='muted'>Martin Fowler · 2026-02-09</span></td><td><b>future source code</b></td><td>A speculated durable, non-human, possibly non-textual semantic representation of a system (in the spirit of Language Workbenches&#x27; persisted models) designed to maximize expression with minimal tokens, rendered to humans via projectional editors</td></tr></table></div><h2>Documents (1)</h2><ul class='plain'><li><a href="../docs/extract-fowler-fragments-february-9.html">Fragments: February 9</a> <span class='muted'>Martin Fowler · 2026-02-09</span> <a href="https://read.readwise.io/read/01kwywj4g453ksswxbbjytjbw0">source</a> <a href="wiseread://read/01kwywj4g453ksswxbbjytjbw0" title="Open in Reader app">🖥️</a><br><span class='muted'>As LLMs absorb more of the work of building software, the pressing questions are less about model capability than about what humans stand to lose — the team&#x27;s understanding of the system (cognitive debt), the intellectual craft-joy of model-building, and even the meaning of &#x27;source code&#x27; as behavior shifts from deterministic text toward non-deterministic natural-language prompting.</span></li></ul><h2>Propositions touching this concept (1)</h2><p class='muted'>By publication month, oldest first (extraction month when no publication date is known).</p><h3>2026-02</h3><ul class='plain'><li><span class='badge implicit'>implicit</span>The future &#x27;source code&#x27; may be a non-human deterministic representation designed to maximize expression with minimal tokens.<div class='rel-line'><a href="../docs/extract-fowler-fragments-february-9.html">Fragments: February 9</a></div></li></ul><h2>Tensions</h2><div class='card'><b>Where does the non-delegable human asset now live — the harness/platform, the oracle, the fundamentals, or the developer&#x27;s understanding?</b><div class='muted'>from: What is the future of software development in the agentic/AI age?</div><ul><li><b><a href="../docs/extract-notes-from-fose-europe.html">Notes from FOSE Europe</a> <span class='muted'>(Giles Edwards-Alexander)</span></b>: In the harness — the continuously-evolving scaffolding of architecture guidance and rigour around the agents — though it must stay team-distributed, not centralized.</li><li><b><a href="../docs/extract-what-survived-contact.html">What Survived Contact</a> <span class='muted'>(Sam Ruby)</span></b>: In the oracle — the objective&#x27;s evaluation is the single thing the person directing the model cannot delegate back to it.</li><li><b><a href="../docs/extract-nilsson-fose-linkedin.html">Jimmy Nilsson&#x27;s Post — reflections after the Thoughtworks &#x27;Future of Software Development&#x27; retreat</a> <span class='muted'>(Jimmy Nilsson)</span></b>: In the fundamentals plus a renewed &#x27;Extreme Humanism&#x27; — the durable disciplines and the conspicuously human element.</li><li><b><a href="../docs/extract-ai-changing-software-fundamentals-still-matter.html">AI Is Changing Software Engineering. The Fundamentals Still Matter.</a> <span class='muted'>(Abby Bangser)</span></b>: In right-sized boundaries and the operational loop — humans must stay in operations because their learning is the irreplaceable asset.</li><li><b><a href="../docs/extract-fowler-fragments-february-9.html">Fragments: February 9</a> <span class='muted'>(Martin Fowler (Feb 9))</span></b>: In the developer&#x27;s model-building and shared understanding — the craft of devising abstractions to reason about the domain.</li></ul><div class='muted'>Assessment: This is the deepest structural disagreement — every author agrees a human residue remains but nominates a different residue, and the choice determines what to invest in and what to teach. The harness-centric (Edwards-Alexander), oracle-centric (Ruby), fundamentals-centric (Nilsson/Bangser), and understanding-centric (Fowler) camps are not merely emphases: they imply different career ladders, different hiring, and different failure modes. Ruby&#x27;s oracle and Bangser&#x27;s operational-learning are the most operationally concrete; Nilsson&#x27;s is the least argued. The absence in the corpus of anyone who holds &#x27;nothing is non-delegable&#x27; is itself telling (see unexamined assumptions).</div></div><div class='card'><b>Is preserving human understanding of the system a first-order value, or is comprehension safely offloadable so long as output is verifiable?</b><div class='muted'>from: What is the future of software development in the agentic/AI age?</div><ul><li><b><a href="../docs/extract-fowler-fragments-february-4.html">Fragments: February 4</a> <span class='muted'>(Martin Fowler (Feb 4))</span></b>: Preserve understanding: it is a first-order value, and practices that force explanation defend it.</li><li><b><a href="../docs/extract-fowler-fragments-february-9.html">Fragments: February 9</a> <span class='muted'>(Martin Fowler (Feb 9))</span></b>: Preserve understanding and craft: cognitive debt and the loss of model-building are the real costs to guard against.</li><li><b><a href="../docs/extract-nilsson-fose-linkedin.html">Jimmy Nilsson&#x27;s Post — reflections after the Thoughtworks &#x27;Future of Software Development&#x27; retreat</a> <span class='muted'>(Jimmy Nilsson)</span></b>: Preserve the human: &#x27;Extreme Humanism&#x27; and being conspicuously human are load-bearing anchors.</li><li><b><a href="../docs/extract-stopped-arguing-whether-ai-changes-software.html">We&#x27;ve Stopped Arguing About Whether AI Changes Software</a> <span class='muted'>(Greg Herlein)</span></b>: Offloadable: the quality bar is &#x27;is it verifiable enough,&#x27; not whether a human read or understood the code.</li><li><b><a href="../docs/extract-looking-back-at-fose-2026.html">Looking back at the Future of Software Engineering unconference</a> <span class='muted'>(Bartosz Ocytko)</span></b>: Offloadable for most builders: citizen developers need never read the code if a constrained platform makes failure modes disappear.</li></ul><div class='muted'>Assessment: The optimist-practitioner vs. skeptic-humanist axis. Fowler and Nilsson treat comprehension and craft as intrinsic goods whose loss is a harm even when output is fine; Herlein and Ocytko treat comprehension as instrumental — replaceable by verification and platform guardrails. The humanist camp has the stronger long-run argument (Fowler&#x27;s cognitive-debt case and Ocytko&#x27;s own &#x27;who-guards-the-guards&#x27; problem both show verification and guardrails are themselves fallible artifacts that someone must understand), but the offloadable camp is describing what is actually happening at scale. The crux is whether verifiability can ever be robust enough to make understanding optional — which Ruby&#x27;s own Goodhart gap (a passable oracle diverging from true intent) suggests it cannot fully be.</div></div></main></body></html>

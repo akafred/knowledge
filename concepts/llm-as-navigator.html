@@ -1,0 +1,71 @@
+<!doctype html><html><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>LLM as Navigator (Not Oracle)</title><style>
+:root { --bg:#ffffff; --fg:#1a1a1a; --muted:#6b6b6b; --line:#e3e3e0;
+  --card:#f7f7f5; --accent:#4a6fa5; --accent2:#8a6fae; --warn:#b3593a;
+  --ok:#4a7a55; --chip:#eceff4; }
+@media (prefers-color-scheme: dark) {
+  :root { --bg:#191917; --fg:#e8e6e3; --muted:#9a9892; --line:#33322f;
+    --card:#22211f; --accent:#8fb0dd; --accent2:#b6a2d8; --warn:#d98a68;
+    --ok:#84b591; --chip:#2c2b28; }
+}
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:var(--fg);
+  font:16px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+main { max-width:960px; margin:0 auto; padding:1.5rem 1.25rem 4rem; }
+nav.top { display:flex; flex-wrap:wrap; gap:.35rem 1.1rem; padding:.8rem 1.25rem;
+  border-bottom:1px solid var(--line); font-size:.92rem; }
+nav.top a { color:var(--muted); text-decoration:none; }
+nav.top a:hover, nav.top a.here { color:var(--accent); }
+h1 { font-size:1.55rem; line-height:1.25; margin:.8rem 0 .3rem; }
+h2 { font-size:1.15rem; margin:2rem 0 .6rem; border-bottom:1px solid var(--line);
+  padding-bottom:.3rem; }
+h3 { font-size:1rem; margin:1.2rem 0 .4rem; }
+a { color:var(--accent); }
+.muted { color:var(--muted); font-size:.9rem; }
+.unity { border-left:3px solid var(--accent); background:var(--card);
+  padding:.7rem 1rem; margin:1rem 0; font-style:italic; }
+.chips { display:flex; flex-wrap:wrap; gap:.35rem; margin:.5rem 0; }
+.chip { background:var(--chip); border-radius:999px; padding:.1rem .7rem;
+  font-size:.82rem; text-decoration:none; color:var(--fg); }
+.chip:hover { outline:1px solid var(--accent); }
+.chip.count { color:var(--muted); }
+.card { background:var(--card); border:1px solid var(--line); border-radius:8px;
+  padding: .8rem 1rem; margin:.6rem 0; }
+.badge { font-size:.72rem; border-radius:4px; padding:.05rem .4rem;
+  vertical-align:middle; margin-right:.4rem; white-space:nowrap; }
+.badge.explicit { background:var(--ok); color:var(--bg); }
+.badge.implicit { background:var(--accent2); color:var(--bg); }
+.badge.gap { background:var(--warn); color:var(--bg); }
+.badge.closed { background:var(--ok); color:var(--bg); }
+.badge.rel { background:var(--accent); color:var(--bg); }
+.badge.contested { background:var(--warn); color:var(--bg); }
+.badge.established, .badge.corroborated { background:var(--ok); color:var(--bg); }
+.badge.developed { background:var(--accent2); color:var(--bg); }
+.tag.conf { font-size:.72rem; color:var(--muted); border:1px solid var(--line);
+  border-radius:4px; padding:.05rem .4rem; margin-left:.3rem; }
+ul.plain { list-style:none; padding-left:0; }
+ul.plain > li { margin:.55rem 0; }
+table { border-collapse:collapse; width:100%; font-size:.92rem; }
+th, td { text-align:left; padding:.4rem .6rem; border-bottom:1px solid var(--line);
+  vertical-align:top; }
+.tablewrap { overflow-x:auto; }
+.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:.7rem; }
+.stat { font-size:1.7rem; font-weight:600; color:var(--accent); }
+.rel-line { font-size:.86rem; color:var(--muted); margin:.15rem 0 .15rem 1rem; }
+.searchbox { width:100%; padding:.5rem .8rem; border:1px solid var(--line);
+  border-radius:6px; background:var(--card); color:var(--fg); font-size:1rem; }
+.issue-card h3 { margin:.1rem 0 .5rem; }
+.issue-cols { display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin:.6rem 0; }
+@media (max-width:640px) { .issue-cols { grid-template-columns:1fr; } }
+.issue-side h4 { margin:0 0 .4rem; font-size:.85rem; text-transform:uppercase;
+  letter-spacing:.03em; color:var(--muted); }
+.issue-side li { margin:.6rem 0; }
+.supported-by { margin:.15rem 0 .15rem 1rem; }
+.issue-edges { margin-top:.6rem; font-size:.9rem; }
+.verdict-box { margin-top:.7rem; padding:.6rem .8rem; border-radius:6px; font-size:.92rem; }
+.verdict-box.verdict-set { background:var(--card); border-left:3px solid var(--ok); }
+.verdict-box.verdict-empty { background:var(--card); border-left:3px solid var(--line);
+  color:var(--muted); }
+.verdict-box code { font-size:.85em; }
+.issue-key { margin-top:.4rem; }
+</style></head><body><nav class='top'><a href="../index.html">Overview</a><a href="../graph.html">Graph</a><a href="../concepts.html" class=here>Concepts</a><a href="../tensions.html">Tensions</a><a href="../issues.html">Issues</a><a href="../claims.html">Claims</a><a href="../threads.html">Threads</a><a href="../gaps.html">Gaps</a><a href="../timeline.html">Timeline</a></nav><main><h1>LLM as Navigator (Not Oracle)</h1><p>The stance that an LLM is best used to guide you toward an answer — orienting, locating, and explaining — rather than trusted to deliver the final answer itself.</p><p class='muted'>Also known as: help navigate the way to the answer, navigate to the crucial parts of the code, LLM as navigator, navigator not oracle</p><p class='muted'>Part of: <a class="chip" href="../concepts/llm-limitations.html">LLM Limitations</a></p><h2>Documents (1)</h2><ul class='plain'><li><a href="../docs/extract-fowler-fragments-february-4.html">Fragments: February 4</a> <span class='muted'>Martin Fowler · 2026-02-04</span> <a href="https://read.readwise.io/read/01kwywj2p47f9b4scfx633t2a9">source</a> <a href="wiseread://read/01kwywj2p47f9b4scfx633t2a9" title="Open in Reader app">🖥️</a><br><span class='muted'>AI is reshaping the developer&#x27;s relationship to understanding: it can erode comprehension of the systems we build, is wisely used to navigate toward an answer but never trusted for the answer itself, and may make code cheap enough that the specification becomes the durable engineering artifact.</span></li></ul><h2>Propositions touching this concept (1)</h2><p class='muted'>By publication month, oldest first (extraction month when no publication date is known).</p><h3>2026-02</h3><ul class='plain'><li><span class='badge explicit'>explicit</span>Fully trusting the answer an LLM gives you is foolish, but using an LLM to help navigate the way to the answer is wise.<div class='rel-line'><a href="../docs/extract-fowler-fragments-february-4.html">Fragments: February 4</a></div></li></ul><h2>Tensions</h2><div class='card'><b>Is code a durable artifact to be maintained, or an ephemeral byproduct regenerated from a more durable source (spec/objective)?</b><div class='muted'>from: What is the future of software development in the agentic/AI age?</div><ul><li><b><a href="../docs/extract-stopped-arguing-whether-ai-changes-software.html">We&#x27;ve Stopped Arguing About Whether AI Changes Software</a> <span class='muted'>(Greg Herlein)</span></b>: Code is (or is becoming) ephemeral — a disposable byproduct the agent regenerates from the spec; the spec is &#x27;the point.&#x27;</li><li><b><a href="../docs/extract-fowler-fragments-february-4.html">Fragments: February 4</a> <span class='muted'>(Martin Fowler (Feb 4))</span></b>: When coding is free, the specification-plus-tests becomes the durable, primary engineering artifact.</li><li><b><a href="../docs/extract-software-design-in-the-agentic-age.html">Software Design in the Agentic Age: Place Your Bets</a> <span class='muted'>(Mathias Verraes)</span></b>: Specifications could replace code as the source of truth, but throwaway regeneration is a bet he is unwilling to make; keep code durable and revertible.</li><li><b><a href="../docs/extract-why-fowler-invited-60-engineers.html">Why did Martin Fowler invite 60 engineers to a ski resort?</a> <span class='muted'>(Ivett Ördög)</span></b>: Code endures because the winning agents behave like engineers moulding a maintained codebase, not compilers regenerating from scratch.</li><li><b><a href="../docs/extract-what-survived-contact.html">What Survived Contact</a> <span class='muted'>(Sam Ruby)</span></b>: The durability question is a category error — what endures is neither the code nor the prose spec but the objective and its oracle.</li></ul><div class='muted'>Assessment: The most-cited open question of the corpus, and genuinely unresolved (Herlein: &#x27;no consensus here. None.&#x27;). The &#x27;code is the better spec&#x27; counter is strong — code is unambiguous, executable, deterministic, whereas a prose spec is reinterpreted each run, which sits in tension with verifiability being the quality bar. Ruby&#x27;s move is the most defensible: it dissolves the code-vs-spec fight by locating durability in the evaluation rather than any representation. Verraes and Ördög expose the load-bearing empirical unknown — nobody has data on regenerate-vs-patch cost or on long-term evolvability of agent-maintained code.</div></div><div class='card'><b>Is preserving human understanding of the system a first-order value, or is comprehension safely offloadable so long as output is verifiable?</b><div class='muted'>from: What is the future of software development in the agentic/AI age?</div><ul><li><b><a href="../docs/extract-fowler-fragments-february-4.html">Fragments: February 4</a> <span class='muted'>(Martin Fowler (Feb 4))</span></b>: Preserve understanding: it is a first-order value, and practices that force explanation defend it.</li><li><b><a href="../docs/extract-fowler-fragments-february-9.html">Fragments: February 9</a> <span class='muted'>(Martin Fowler (Feb 9))</span></b>: Preserve understanding and craft: cognitive debt and the loss of model-building are the real costs to guard against.</li><li><b><a href="../docs/extract-nilsson-fose-linkedin.html">Jimmy Nilsson&#x27;s Post — reflections after the Thoughtworks &#x27;Future of Software Development&#x27; retreat</a> <span class='muted'>(Jimmy Nilsson)</span></b>: Preserve the human: &#x27;Extreme Humanism&#x27; and being conspicuously human are load-bearing anchors.</li><li><b><a href="../docs/extract-stopped-arguing-whether-ai-changes-software.html">We&#x27;ve Stopped Arguing About Whether AI Changes Software</a> <span class='muted'>(Greg Herlein)</span></b>: Offloadable: the quality bar is &#x27;is it verifiable enough,&#x27; not whether a human read or understood the code.</li><li><b><a href="../docs/extract-looking-back-at-fose-2026.html">Looking back at the Future of Software Engineering unconference</a> <span class='muted'>(Bartosz Ocytko)</span></b>: Offloadable for most builders: citizen developers need never read the code if a constrained platform makes failure modes disappear.</li></ul><div class='muted'>Assessment: The optimist-practitioner vs. skeptic-humanist axis. Fowler and Nilsson treat comprehension and craft as intrinsic goods whose loss is a harm even when output is fine; Herlein and Ocytko treat comprehension as instrumental — replaceable by verification and platform guardrails. The humanist camp has the stronger long-run argument (Fowler&#x27;s cognitive-debt case and Ocytko&#x27;s own &#x27;who-guards-the-guards&#x27; problem both show verification and guardrails are themselves fallible artifacts that someone must understand), but the offloadable camp is describing what is actually happening at scale. The crux is whether verifiability can ever be robust enough to make understanding optional — which Ruby&#x27;s own Goodhart gap (a passable oracle diverging from true intent) suggests it cannot fully be.</div></div></main></body></html>
