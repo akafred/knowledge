@@ -1,0 +1,71 @@
+<!doctype html><html><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>API Products &amp; Sprawl</title><style>
+:root { --bg:#ffffff; --fg:#1a1a1a; --muted:#6b6b6b; --line:#e3e3e0;
+  --card:#f7f7f5; --accent:#4a6fa5; --accent2:#8a6fae; --warn:#b3593a;
+  --ok:#4a7a55; --chip:#eceff4; }
+@media (prefers-color-scheme: dark) {
+  :root { --bg:#191917; --fg:#e8e6e3; --muted:#9a9892; --line:#33322f;
+    --card:#22211f; --accent:#8fb0dd; --accent2:#b6a2d8; --warn:#d98a68;
+    --ok:#84b591; --chip:#2c2b28; }
+}
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:var(--fg);
+  font:16px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+main { max-width:960px; margin:0 auto; padding:1.5rem 1.25rem 4rem; }
+nav.top { display:flex; flex-wrap:wrap; gap:.35rem 1.1rem; padding:.8rem 1.25rem;
+  border-bottom:1px solid var(--line); font-size:.92rem; }
+nav.top a { color:var(--muted); text-decoration:none; }
+nav.top a:hover, nav.top a.here { color:var(--accent); }
+h1 { font-size:1.55rem; line-height:1.25; margin:.8rem 0 .3rem; }
+h2 { font-size:1.15rem; margin:2rem 0 .6rem; border-bottom:1px solid var(--line);
+  padding-bottom:.3rem; }
+h3 { font-size:1rem; margin:1.2rem 0 .4rem; }
+a { color:var(--accent); }
+.muted { color:var(--muted); font-size:.9rem; }
+.unity { border-left:3px solid var(--accent); background:var(--card);
+  padding:.7rem 1rem; margin:1rem 0; font-style:italic; }
+.chips { display:flex; flex-wrap:wrap; gap:.35rem; margin:.5rem 0; }
+.chip { background:var(--chip); border-radius:999px; padding:.1rem .7rem;
+  font-size:.82rem; text-decoration:none; color:var(--fg); }
+.chip:hover { outline:1px solid var(--accent); }
+.chip.count { color:var(--muted); }
+.card { background:var(--card); border:1px solid var(--line); border-radius:8px;
+  padding: .8rem 1rem; margin:.6rem 0; }
+.badge { font-size:.72rem; border-radius:4px; padding:.05rem .4rem;
+  vertical-align:middle; margin-right:.4rem; white-space:nowrap; }
+.badge.explicit { background:var(--ok); color:var(--bg); }
+.badge.implicit { background:var(--accent2); color:var(--bg); }
+.badge.gap { background:var(--warn); color:var(--bg); }
+.badge.closed { background:var(--ok); color:var(--bg); }
+.badge.rel { background:var(--accent); color:var(--bg); }
+.badge.contested { background:var(--warn); color:var(--bg); }
+.badge.established, .badge.corroborated { background:var(--ok); color:var(--bg); }
+.badge.developed { background:var(--accent2); color:var(--bg); }
+.tag.conf { font-size:.72rem; color:var(--muted); border:1px solid var(--line);
+  border-radius:4px; padding:.05rem .4rem; margin-left:.3rem; }
+ul.plain { list-style:none; padding-left:0; }
+ul.plain > li { margin:.55rem 0; }
+table { border-collapse:collapse; width:100%; font-size:.92rem; }
+th, td { text-align:left; padding:.4rem .6rem; border-bottom:1px solid var(--line);
+  vertical-align:top; }
+.tablewrap { overflow-x:auto; }
+.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:.7rem; }
+.stat { font-size:1.7rem; font-weight:600; color:var(--accent); }
+.rel-line { font-size:.86rem; color:var(--muted); margin:.15rem 0 .15rem 1rem; }
+.searchbox { width:100%; padding:.5rem .8rem; border:1px solid var(--line);
+  border-radius:6px; background:var(--card); color:var(--fg); font-size:1rem; }
+.issue-card h3 { margin:.1rem 0 .5rem; }
+.issue-cols { display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin:.6rem 0; }
+@media (max-width:640px) { .issue-cols { grid-template-columns:1fr; } }
+.issue-side h4 { margin:0 0 .4rem; font-size:.85rem; text-transform:uppercase;
+  letter-spacing:.03em; color:var(--muted); }
+.issue-side li { margin:.6rem 0; }
+.supported-by { margin:.15rem 0 .15rem 1rem; }
+.issue-edges { margin-top:.6rem; font-size:.9rem; }
+.verdict-box { margin-top:.7rem; padding:.6rem .8rem; border-radius:6px; font-size:.92rem; }
+.verdict-box.verdict-set { background:var(--card); border-left:3px solid var(--ok); }
+.verdict-box.verdict-empty { background:var(--card); border-left:3px solid var(--line);
+  color:var(--muted); }
+.verdict-box code { font-size:.85em; }
+.issue-key { margin-top:.4rem; }
+</style></head><body><nav class='top'><a href="../index.html">Overview</a><a href="../graph.html">Graph</a><a href="../concepts.html" class=here>Concepts</a><a href="../tensions.html">Tensions</a><a href="../issues.html">Issues</a><a href="../claims.html">Claims</a><a href="../threads.html">Threads</a><a href="../gaps.html">Gaps</a><a href="../timeline.html">Timeline</a></nav><main><h1>API Products &amp; Sprawl</h1><p>Designing and governing APIs as products for both human and agent consumers — while agent protocols multiply the sprawl and governance surface.</p><p class='muted'>Also known as: API product, API-as-a-product, API sprawl, API sprawl squared, multi-protocol, federated API management layer</p><h2>How authors use it</h2><p class='muted'>Oldest first (extraction date when no publication date is known).</p><div class='tablewrap'><table><tr><th>Author</th><th>Their term</th><th>Their meaning</th></tr><tr><td><a href="../docs/extract-mcp-api-sprawl.html">MCP Is Making API Sprawl Worse</a><br><span class='muted'>Art Anthony · 2025-01-01</span></td><td><b>API sprawl</b></td><td>The uncontrolled proliferation of APIs across an organization to the point where no one has a complete inventory, leading to security, quality, and governance blind spots.</td></tr><tr><td><a href="../docs/extract-mcp-api-sprawl.html">MCP Is Making API Sprawl Worse</a><br><span class='muted'>Art Anthony · 2025-01-01</span></td><td><b>API sprawl squared</b></td><td>Axway marketing&#x27;s characterization: MCP doesn&#x27;t just add APIs, it multiplies the sprawl problem by adding a whole new layer of unmanaged endpoints (MCP servers) on top of existing API surfaces.</td></tr><tr><td><a href="../docs/extract-mcp-api-sprawl.html">MCP Is Making API Sprawl Worse</a><br><span class='muted'>Art Anthony · 2025-01-01</span></td><td><b>federated API management layer</b></td><td>A governance architecture where a unified policy/discovery layer spans multiple underlying API gateways, event platforms, and legacy systems — providing a single view despite heterogeneous infrastructure.</td></tr><tr><td><a href="../docs/extract-building-api-products-in-the-ai-era.html">Building API Products in the AI Era</a><br><span class='muted'>Janet Wagner · 2026-05-09</span></td><td><b>API product</b></td><td>An API built around business capabilities to solve a specific problem, where the business team drives the product decisions and IT provides the technical solution</td></tr><tr><td><a href="../docs/extract-building-api-products-in-the-ai-era.html">Building API Products in the AI Era</a><br><span class='muted'>Janet Wagner · 2026-05-09</span></td><td><b>API-as-a-product</b></td><td>An API that is itself the standalone product being sold, serving as the core value of the business (e.g., Twilio, Stripe)</td></tr><tr><td><a href="../docs/extract-building-api-products-in-the-ai-era.html">Building API Products in the AI Era</a><br><span class='muted'>Janet Wagner · 2026-05-09</span></td><td><b>multi-protocol</b></td><td>Offering the same API product through multiple architectural styles and protocols (REST, gRPC, webhooks, MCP, A2A) so consumers can choose their preferred interaction pattern</td></tr></table></div><h2>Documents (2)</h2><ul class='plain'><li><a href="../docs/extract-building-api-products-in-the-ai-era.html">Building API Products in the AI Era</a> <span class='muted'>Janet Wagner · 2026-05-09</span> <a href="https://read.readwise.io/read/01kr0v3kg4gafgsmztz26qwpdf">source</a> <a href="wiseread://read/01kr0v3kg4gafgsmztz26qwpdf" title="Open in Reader app">🖥️</a><br><span class='muted'>APIs must now serve both human developers and AI agent consumers, which requires rethinking API product design across multiple dimensions — granularity, protocol diversity, monetization models, and developer experience — to remain competitive in an AI-driven market.</span></li><li><a href="../docs/extract-mcp-api-sprawl.html">MCP Is Making API Sprawl Worse</a> <span class='muted'>Art Anthony · 2025-01-01</span> <a href="https://read.readwise.io/read/01kqvgnchw931jetnhm2fjvjs9">source</a> <a href="wiseread://read/01kqvgnchw931jetnhm2fjvjs9" title="Open in Reader app">🖥️</a><br><span class='muted'>MCP introduces a new abstraction layer over APIs that amplifies existing API sprawl and governance challenges rather than solving them, because each MCP server becomes an additional unmanaged surface; but the same agentic AI driving the problem could also power the automated discovery, cataloging, and governance needed to finally bring sprawl under control.</span></li></ul><h2>Propositions touching this concept (4)</h2><p class='muted'>By publication month, oldest first (extraction month when no publication date is known).</p><h3>2025-01</h3><ul class='plain'><li><span class='badge explicit'>explicit</span>The pattern of managed, third-party, and unmanaged MCP servers will mirror today&#x27;s API sprawl categories — but with higher stakes because MCP exposes actions.<div class='rel-line'><a href="../docs/extract-mcp-api-sprawl.html">MCP Is Making API Sprawl Worse</a></div></li><li><span class='badge explicit'>explicit</span>The trends shaping 2026 (agentic AI, event-driven chaining, MCP proliferation) threaten to make the outcomes of failing to address API sprawl far more catastrophic than in earlier eras.<div class='rel-line'><a href="../docs/extract-mcp-api-sprawl.html">MCP Is Making API Sprawl Worse</a></div></li></ul><h3>2026-05</h3><ul class='plain'><li><span class='badge explicit'>explicit</span>APIs must now serve both human developers and AI agents as primary consumers, requiring a fundamental rethink of API product design.<div class='rel-line'><a href="../docs/extract-building-api-products-in-the-ai-era.html">Building API Products in the AI Era</a></div></li><li><span class='badge implicit'>implicit</span>API product companies that do not adapt to AI consumers risk losing market share to those that do.<div class='rel-line'><a href="../docs/extract-building-api-products-in-the-ai-era.html">Building API Products in the AI Era</a></div></li></ul><h2>Open gaps (6)</h2><ul class='plain'><li><span class='badge gap'>incomplete</span>The article asserts AI agents need different API design but provides no concrete examples of an API that has successfully been redesigned for dual human/AI consumption. All recommendations are forward-looking prescriptions without case studies.<div class='rel-line'><a href="../docs/extract-building-api-products-in-the-ai-era.html">Building API Products in the AI Era</a> — read next: Look for case studies of companies that have added MCP server interfaces to existing API products and measured the impact on AI agent adoption.</div></li><li><span class='badge gap'>incomplete</span>The multi-protocol recommendation (REST + gRPC + MCP + A2A + webhooks) is presented without addressing the engineering cost, maintenance burden, or consistency challenges of maintaining multiple protocol surfaces for the same product.<div class='rel-line'><a href="../docs/extract-building-api-products-in-the-ai-era.html">Building API Products in the AI Era</a> — read next: Look for experience reports on multi-protocol API management — how companies like Google handle protocol parity and version drift across surfaces.</div></li><li><span class='badge gap'>incomplete</span>The monetization discussion identifies the problem (per-call pricing is inadequate for AI) but the proposed alternatives — outcome-based pricing, dynamic pricing, agent payment protocols — are all nascent. No practical implementation guidance is offered.<div class='rel-line'><a href="../docs/extract-building-api-products-in-the-ai-era.html">Building API Products in the AI Era</a> — read next: Track AP2 and ACP protocol development; look for early adopter reports on outcome-based API pricing implementations.</div></li><li><span class='badge gap'>unacknowledged</span>The panel&#x27;s advice is entirely provider-centric. The consumer perspective — what developers and AI agent builders actually want from API products — is not represented with data or research.<div class='rel-line'><a href="../docs/extract-building-api-products-in-the-ai-era.html">Building API Products in the AI Era</a> — read next: Look for developer surveys or agent-builder interviews about API product preferences and pain points.</div></li><li><span class='badge gap'>incomplete</span>The Norway/Europe-vs-Big-Tech argument is geopolitically sharp but treats the US bloc as monolithic. The conversation does not engage with the question of whether dependency on US open-weight models (Llama, Mistral-Mistral-Mistral, etc.) is qualitatively different from dependency on closed-API products like Copilot — even though that distinction may be the most actionable lever Norway has.<div class='rel-line'><a href="../docs/extract-heis-16-inga-strumke-hvor-ai-er-paa-vei-datamanifolden.html">16) Inga Strümke om hvor AI er på vei, den outsourcede problemløsningen og datamanifolden</a> — read next: Together AI / Mistral / EuroLLM positioning papers; Sam Altman&#x27;s geopolitical AI writings as counter-foil; Helen Toner / RAND on AI compute geopolitics; recent open-weight-vs-closed-API analyses from CSET.</div></li><li><span class='badge gap'>tension</span>The article concludes optimistically that the pressure of MCP-amplified sprawl &#x27;may be just the pressure that teams need to finally bring API sprawl under control.&#x27; But the entire preceding argument establishes that organizations have failed to solve sprawl for over a decade despite growing consequences. No mechanism is identified that would make this time different beyond &#x27;the stakes are higher now.&#x27;<div class='rel-line'><a href="../docs/extract-mcp-api-sprawl.html">MCP Is Making API Sprawl Worse</a> — read next: Research on organizational behavior under existential vs. incremental risk; whether catastrophic failure scenarios actually drive governance adoption or just insurance purchases.</div></li></ul></main></body></html>

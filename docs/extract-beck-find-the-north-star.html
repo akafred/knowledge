@@ -1,0 +1,71 @@
+<!doctype html><html><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>Find the North Star</title><style>
+:root { --bg:#ffffff; --fg:#1a1a1a; --muted:#6b6b6b; --line:#e3e3e0;
+  --card:#f7f7f5; --accent:#4a6fa5; --accent2:#8a6fae; --warn:#b3593a;
+  --ok:#4a7a55; --chip:#eceff4; }
+@media (prefers-color-scheme: dark) {
+  :root { --bg:#191917; --fg:#e8e6e3; --muted:#9a9892; --line:#33322f;
+    --card:#22211f; --accent:#8fb0dd; --accent2:#b6a2d8; --warn:#d98a68;
+    --ok:#84b591; --chip:#2c2b28; }
+}
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:var(--fg);
+  font:16px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+main { max-width:960px; margin:0 auto; padding:1.5rem 1.25rem 4rem; }
+nav.top { display:flex; flex-wrap:wrap; gap:.35rem 1.1rem; padding:.8rem 1.25rem;
+  border-bottom:1px solid var(--line); font-size:.92rem; }
+nav.top a { color:var(--muted); text-decoration:none; }
+nav.top a:hover, nav.top a.here { color:var(--accent); }
+h1 { font-size:1.55rem; line-height:1.25; margin:.8rem 0 .3rem; }
+h2 { font-size:1.15rem; margin:2rem 0 .6rem; border-bottom:1px solid var(--line);
+  padding-bottom:.3rem; }
+h3 { font-size:1rem; margin:1.2rem 0 .4rem; }
+a { color:var(--accent); }
+.muted { color:var(--muted); font-size:.9rem; }
+.unity { border-left:3px solid var(--accent); background:var(--card);
+  padding:.7rem 1rem; margin:1rem 0; font-style:italic; }
+.chips { display:flex; flex-wrap:wrap; gap:.35rem; margin:.5rem 0; }
+.chip { background:var(--chip); border-radius:999px; padding:.1rem .7rem;
+  font-size:.82rem; text-decoration:none; color:var(--fg); }
+.chip:hover { outline:1px solid var(--accent); }
+.chip.count { color:var(--muted); }
+.card { background:var(--card); border:1px solid var(--line); border-radius:8px;
+  padding: .8rem 1rem; margin:.6rem 0; }
+.badge { font-size:.72rem; border-radius:4px; padding:.05rem .4rem;
+  vertical-align:middle; margin-right:.4rem; white-space:nowrap; }
+.badge.explicit { background:var(--ok); color:var(--bg); }
+.badge.implicit { background:var(--accent2); color:var(--bg); }
+.badge.gap { background:var(--warn); color:var(--bg); }
+.badge.closed { background:var(--ok); color:var(--bg); }
+.badge.rel { background:var(--accent); color:var(--bg); }
+.badge.contested { background:var(--warn); color:var(--bg); }
+.badge.established, .badge.corroborated { background:var(--ok); color:var(--bg); }
+.badge.developed { background:var(--accent2); color:var(--bg); }
+.tag.conf { font-size:.72rem; color:var(--muted); border:1px solid var(--line);
+  border-radius:4px; padding:.05rem .4rem; margin-left:.3rem; }
+ul.plain { list-style:none; padding-left:0; }
+ul.plain > li { margin:.55rem 0; }
+table { border-collapse:collapse; width:100%; font-size:.92rem; }
+th, td { text-align:left; padding:.4rem .6rem; border-bottom:1px solid var(--line);
+  vertical-align:top; }
+.tablewrap { overflow-x:auto; }
+.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:.7rem; }
+.stat { font-size:1.7rem; font-weight:600; color:var(--accent); }
+.rel-line { font-size:.86rem; color:var(--muted); margin:.15rem 0 .15rem 1rem; }
+.searchbox { width:100%; padding:.5rem .8rem; border:1px solid var(--line);
+  border-radius:6px; background:var(--card); color:var(--fg); font-size:1rem; }
+.issue-card h3 { margin:.1rem 0 .5rem; }
+.issue-cols { display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin:.6rem 0; }
+@media (max-width:640px) { .issue-cols { grid-template-columns:1fr; } }
+.issue-side h4 { margin:0 0 .4rem; font-size:.85rem; text-transform:uppercase;
+  letter-spacing:.03em; color:var(--muted); }
+.issue-side li { margin:.6rem 0; }
+.supported-by { margin:.15rem 0 .15rem 1rem; }
+.issue-edges { margin-top:.6rem; font-size:.9rem; }
+.verdict-box { margin-top:.7rem; padding:.6rem .8rem; border-radius:6px; font-size:.92rem; }
+.verdict-box.verdict-set { background:var(--card); border-left:3px solid var(--ok); }
+.verdict-box.verdict-empty { background:var(--card); border-left:3px solid var(--line);
+  color:var(--muted); }
+.verdict-box code { font-size:.85em; }
+.issue-key { margin-top:.4rem; }
+</style></head><body><nav class='top'><a href="../index.html">Overview</a><a href="../graph.html">Graph</a><a href="../concepts.html">Concepts</a><a href="../tensions.html">Tensions</a><a href="../issues.html">Issues</a><a href="../claims.html">Claims</a><a href="../threads.html">Threads</a><a href="../gaps.html">Gaps</a><a href="../timeline.html">Timeline</a></nav><main><h1>Find the North Star</h1><p class='muted'>Kent Beck — Still Burning Podcast · email · 2026-04-22 <a href="https://read.readwise.io/read/01kptn3y5r9w58kwcx2sayw2gb">source</a> <a href="wiseread://read/01kptn3y5r9w58kwcx2sayw2gb" title="Open in Reader app">🖥️</a></p><div class='chips'><a class="chip" href="../concepts/agentic-engineering.html">Agentic Engineering</a><a class="chip" href="../concepts/intrinsic-motivation.html">Intrinsic Motivation &amp; Making</a></div><div class='unity'>Play and intrinsic motivation matter more than productivity metrics in augmented software development, and knowing when to step back may be the most important skill as AI reshapes the field — but this claim is only gestured at in a promotional blurb, not developed.</div><p class='muted'>theoretical · promotional — A Substack email promoting a podcast episode. The only substantive content is a single-paragraph episode description. The form is promotional rather than expository, argumentative, or narrative.</p><h2>Structure</h2><div class='tablewrap'><table><tr><th>Part</th><th>Role</th></tr><tr><td>Subscription pitch</td><td>Paywall upsell for Kent Beck&#x27;s &#x27;Software Design: Tidy First?&#x27; Substack</td></tr><tr><td>Episode blurb</td><td>The only substantive content: a ~60-word description of the conversation with Amelia Wattenberger</td></tr><tr><td>Sponsorship and footer</td><td>Credits WorkOS and Augment Code as season sponsors; standard Substack email footer</td></tr></table></div><h2>Key terms</h2><ul class='plain'><li><b>augmented development</b> <a class="chip" href="../concepts/agentic-engineering.html">Agentic Engineering</a><br><span class='muted'>Software development practice enhanced by AI tools — implied but not defined in this blurb</span></li><li><b>play</b> <a class="chip" href="../concepts/intrinsic-motivation.html">Intrinsic Motivation &amp; Making</a><br><span class='muted'>Intrinsically motivated, exploratory creative work — contrasted with KPI-driven productivity</span></li></ul><h2>Propositions</h2><ul class='plain'><li id='p1'><span class='badge explicit'>explicit</span>Play matters more right now than productivity in software development.<span class='tag conf' title='author-stated confidence'>conf: low</span></li><li id='p2'><span class='badge explicit'>explicit</span>Attaching a KPI to every project causes real losses.<span class='tag conf' title='author-stated confidence'>conf: low</span></li><li id='p3'><span class='badge explicit'>explicit</span>The most important skill in augmented development might be knowing when to step back.<span class='tag conf' title='author-stated confidence'>conf: low</span></li></ul><h2>Narratives</h2><ul class='plain'><li>Amelia Wattenberger resisted becoming a developer because both her parents were developers and it looked boring from the outside, but then she accidentally built a website and everything changed.<br><span class='muted'>→ Origin-story hook to establish Wattenberger&#x27;s credibility and frame the episode&#x27;s theme of accidental discovery and play</span></li></ul><h2>Questions addressed</h2><ul class='plain'><li>⭕ Why does play matter more than productivity in the current moment of software development?<br><span class=muted>Posed but not answered in this text — the answer presumably lives in the podcast audio.</span></li><li>⭕ What do we lose when every project has a KPI attached?<br><span class=muted>Posed but not answered in this text.</span></li><li>⭕ When should a developer step back in augmented development, and why is that the key skill?<br><span class=muted>Posed but not answered in this text.</span></li></ul><h2>Gaps</h2><ul class='plain'><li id='g1'><span class='badge gap'>incomplete</span>The entire intellectual substance of this episode is behind the paywall / in the audio. The email provides only marketing copy. All three propositions are teasers without supporting argument.<br><span class='muted'>Read next: Listen to the actual podcast episode (Still Burning S1E03) or obtain a transcript to extract the real content. Consider using the podcast-transcript skill if the episode becomes available.</span></li></ul></main></body></html>

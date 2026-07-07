@@ -1,0 +1,71 @@
+<!doctype html><html><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>Why Effective Leaders Get Branded as Problems</title><style>
+:root { --bg:#ffffff; --fg:#1a1a1a; --muted:#6b6b6b; --line:#e3e3e0;
+  --card:#f7f7f5; --accent:#4a6fa5; --accent2:#8a6fae; --warn:#b3593a;
+  --ok:#4a7a55; --chip:#eceff4; }
+@media (prefers-color-scheme: dark) {
+  :root { --bg:#191917; --fg:#e8e6e3; --muted:#9a9892; --line:#33322f;
+    --card:#22211f; --accent:#8fb0dd; --accent2:#b6a2d8; --warn:#d98a68;
+    --ok:#84b591; --chip:#2c2b28; }
+}
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:var(--fg);
+  font:16px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+main { max-width:960px; margin:0 auto; padding:1.5rem 1.25rem 4rem; }
+nav.top { display:flex; flex-wrap:wrap; gap:.35rem 1.1rem; padding:.8rem 1.25rem;
+  border-bottom:1px solid var(--line); font-size:.92rem; }
+nav.top a { color:var(--muted); text-decoration:none; }
+nav.top a:hover, nav.top a.here { color:var(--accent); }
+h1 { font-size:1.55rem; line-height:1.25; margin:.8rem 0 .3rem; }
+h2 { font-size:1.15rem; margin:2rem 0 .6rem; border-bottom:1px solid var(--line);
+  padding-bottom:.3rem; }
+h3 { font-size:1rem; margin:1.2rem 0 .4rem; }
+a { color:var(--accent); }
+.muted { color:var(--muted); font-size:.9rem; }
+.unity { border-left:3px solid var(--accent); background:var(--card);
+  padding:.7rem 1rem; margin:1rem 0; font-style:italic; }
+.chips { display:flex; flex-wrap:wrap; gap:.35rem; margin:.5rem 0; }
+.chip { background:var(--chip); border-radius:999px; padding:.1rem .7rem;
+  font-size:.82rem; text-decoration:none; color:var(--fg); }
+.chip:hover { outline:1px solid var(--accent); }
+.chip.count { color:var(--muted); }
+.card { background:var(--card); border:1px solid var(--line); border-radius:8px;
+  padding: .8rem 1rem; margin:.6rem 0; }
+.badge { font-size:.72rem; border-radius:4px; padding:.05rem .4rem;
+  vertical-align:middle; margin-right:.4rem; white-space:nowrap; }
+.badge.explicit { background:var(--ok); color:var(--bg); }
+.badge.implicit { background:var(--accent2); color:var(--bg); }
+.badge.gap { background:var(--warn); color:var(--bg); }
+.badge.closed { background:var(--ok); color:var(--bg); }
+.badge.rel { background:var(--accent); color:var(--bg); }
+.badge.contested { background:var(--warn); color:var(--bg); }
+.badge.established, .badge.corroborated { background:var(--ok); color:var(--bg); }
+.badge.developed { background:var(--accent2); color:var(--bg); }
+.tag.conf { font-size:.72rem; color:var(--muted); border:1px solid var(--line);
+  border-radius:4px; padding:.05rem .4rem; margin-left:.3rem; }
+ul.plain { list-style:none; padding-left:0; }
+ul.plain > li { margin:.55rem 0; }
+table { border-collapse:collapse; width:100%; font-size:.92rem; }
+th, td { text-align:left; padding:.4rem .6rem; border-bottom:1px solid var(--line);
+  vertical-align:top; }
+.tablewrap { overflow-x:auto; }
+.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:.7rem; }
+.stat { font-size:1.7rem; font-weight:600; color:var(--accent); }
+.rel-line { font-size:.86rem; color:var(--muted); margin:.15rem 0 .15rem 1rem; }
+.searchbox { width:100%; padding:.5rem .8rem; border:1px solid var(--line);
+  border-radius:6px; background:var(--card); color:var(--fg); font-size:1rem; }
+.issue-card h3 { margin:.1rem 0 .5rem; }
+.issue-cols { display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin:.6rem 0; }
+@media (max-width:640px) { .issue-cols { grid-template-columns:1fr; } }
+.issue-side h4 { margin:0 0 .4rem; font-size:.85rem; text-transform:uppercase;
+  letter-spacing:.03em; color:var(--muted); }
+.issue-side li { margin:.6rem 0; }
+.supported-by { margin:.15rem 0 .15rem 1rem; }
+.issue-edges { margin-top:.6rem; font-size:.9rem; }
+.verdict-box { margin-top:.7rem; padding:.6rem .8rem; border-radius:6px; font-size:.92rem; }
+.verdict-box.verdict-set { background:var(--card); border-left:3px solid var(--ok); }
+.verdict-box.verdict-empty { background:var(--card); border-left:3px solid var(--line);
+  color:var(--muted); }
+.verdict-box code { font-size:.85em; }
+.issue-key { margin-top:.4rem; }
+</style></head><body><nav class='top'><a href="../index.html">Overview</a><a href="../graph.html">Graph</a><a href="../concepts.html">Concepts</a><a href="../tensions.html">Tensions</a><a href="../issues.html">Issues</a><a href="../claims.html">Claims</a><a href="../threads.html">Threads</a><a href="../gaps.html">Gaps</a><a href="../timeline.html">Timeline</a></nav><main><h1>Why Effective Leaders Get Branded as Problems</h1><p class='muted'>Luis Velasquez · article · 2026-05-07 <a href="https://read.readwise.io/read/01kr1dyd05168dq18azt0ba6tn">source</a> <a href="wiseread://read/01kr1dyd05168dq18azt0ba6tn" title="Open in Reader app">🖥️</a></p><div class='unity'>Organizations systematically misdiagnose leadership friction by defaulting to behavioral explanations — the &#x27;evaluation trap&#x27; — when the actual source is more often historical reputation, strength overextension, or systemic constraints, and this misdiagnosis causes them to neutralize their most effective leaders.</div><p class='muted'>practical · diagnostic-prescriptive — An executive coaching practitioner&#x27;s diagnostic framework for leadership friction. Structured as problem identification (the evaluation trap), a four-part taxonomy of friction sources, and a prescriptive diagnostic protocol. Draws on coaching case studies and references psychology research on attribution bias.</p><h2>Structure</h2><div class='tablewrap'><table><tr><th>Part</th><th>Role</th></tr><tr><td>Opening case: Anna the decisive executive</td><td>Concrete narrative that anchors the central claim — her decisiveness was not the problem, over-consensus culture was</td></tr><tr><td>The Evaluation Trap as strategic risk</td><td>Names the pattern and grounds it in attribution bias research — organizations over-attribute outcomes to individuals</td></tr><tr><td>Consequences of misdiagnosis (leader and organization)</td><td>Stakes-raising — shows damage flows both ways: leader suppresses strengths, organization selects for comfort over capability</td></tr><tr><td>Four sources of leadership friction (taxonomy)</td><td>Core intellectual contribution — distinguishes skill deficit, historical reputation, identity overextension, and system-as-blocker</td></tr><tr><td>Diagnostic protocol (four steps)</td><td>Prescriptive action framework — specific examples, recency validation, gap-vs-overextension distinction, conversation reset</td></tr></table></div><h2>Key terms</h2><ul class='plain'><li><b>evaluation trap</b><br><span class='muted'>The systematic organizational tendency to default to behavioral explanations for leadership friction, misdiagnosing context-driven problems as individual deficits</span></li><li><b>organizational drift</b><br><span class='muted'>When an organization relies on outdated narratives and historical reputation rather than current evidence to evaluate a leader</span></li><li><b>overextension of identity</b><br><span class='muted'>A leader&#x27;s core strength becomes a constraint when used beyond its appropriate context — the capability that worked at Level N becomes insufficient or counterproductive at Level N+1</span></li><li><b>system as blocker</b><br><span class='muted'>When organizational culture, incentives, structures, or resources actively prevent a leader from executing what is asked of them, making the leader appear problematic</span></li></ul><h2>Propositions</h2><ul class='plain'><li id='p1'><span class='badge explicit'>explicit</span>Organizations default to behavioral explanations for leadership friction because behavior is the most visible signal and competency models reinforce behavioral framing.</li><li id='p2'><span class='badge explicit'>explicit</span>At the senior level, true skill deficits are the minority cause of leadership friction, yet they are the cause organizations default to most often.</li><li id='p3'><span class='badge explicit'>explicit</span>Once a leader is incorrectly labeled, every subsequent organizational decision reinforces that label, creating a self-fulfilling cycle.</li><li id='p4'><span class='badge explicit'>explicit</span>Misdiagnosis causes organizations to select for comfortable alignment over uncomfortable friction, systematically weakening leadership quality.</li><li id='p5'><span class='badge explicit'>explicit</span>Subjective leadership assessments are more vulnerable to bias than objective performance measures, yet organizations rely heavily on subjective assessments for leadership evaluation.</li><li id='p6'><span class='badge implicit'>implicit</span>The same observable behavior can signal four fundamentally different underlying problems, making surface-level behavioral diagnosis unreliable.</li><li id='p7'><span class='badge implicit'>implicit</span>Leaders who create productive friction are disproportionately valuable and disproportionately at risk of being misdiagnosed.</li></ul><h2>Arguments</h2><div class='card'><b>The evaluation trap is a strategic risk, not merely an HR process flaw.</b> </div><div class='card'><b>Behavior change alone cannot fix historical reputation problems.</b> </div><div class='card'><b>Overextension of identity requires expanding range, not suppressing strengths.</b> </div><h2>Narratives</h2><ul class='plain'><li><br><span class='muted'>→ </span></li><li><br><span class='muted'>→ </span></li></ul><h2>Questions addressed</h2><ul class='plain'><li>✅ Why do effective leaders get branded as problems?<br><span class=muted>Because organizations default to behavioral explanations (the evaluation trap), over-attributing friction to individuals while underweighting context.</span></li><li>✅ What are the distinct sources of leadership friction beyond individual behavior?<br><span class=muted>Four sources: true skill deficit, historical reputation (organizational drift), overextension of identity, and system as blocker.</span></li><li>✅ How can organizations distinguish between a true skill gap, outdated reputation, strength overextension, and systemic constraints?<br><span class=muted>A four-step diagnostic protocol: ground in specific examples, validate recency, distinguish gap from overextension, and reset the conversation with the leader.</span></li><li>✅ What diagnostic steps can prevent misdiagnosis of leadership friction?<br><span class=muted>Focus on specific recent examples, validate recency of feedback data, distinguish skill gaps from strength overuse, and explicitly frame the conversation around which source is primary.</span></li></ul><h2>Gaps</h2><ul class='plain'><li id='g1'><span class='badge gap'>incomplete</span>The four-source taxonomy is presented as exhaustive but no argument is made for completeness. Interpersonal dynamics (e.g., genuine personality clashes, political conflicts, or power struggles) are not addressed as a distinct category and do not fit neatly into the four sources.</li><li id='g2'><span class='badge gap'>incomplete</span>The article provides no guidance for the common case where multiple friction sources are simultaneously primary. The diagnostic protocol treats them as distinguishable, but the simple heuristic at the end (consistent/recent = skill gap, outdated = drift, strong performance + friction = overextension, environment blocks change = system) does not address compound cases.</li><li id='g3'><span class='badge gap'>uninformed</span>The claim that true skill deficits are the &#x27;minority of situations at the senior level&#x27; rests entirely on the author&#x27;s coaching experience. No data, frequency estimates, or external research is cited to support this base-rate claim, which is load-bearing for the entire argument.</li><li id='g4'><span class='badge gap'>illogical</span>There is a circularity risk in the diagnostic protocol: the article argues that organizations default to blaming the individual, then provides a framework where three of four sources exonerate the individual. The framework may encode the author&#x27;s coaching bias (clients are usually right, systems are usually wrong) as a structural feature rather than testing it.</li></ul></main></body></html>

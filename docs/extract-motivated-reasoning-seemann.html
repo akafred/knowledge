@@ -1,0 +1,71 @@
+<!doctype html><html><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>Motivated reasoning</title><style>
+:root { --bg:#ffffff; --fg:#1a1a1a; --muted:#6b6b6b; --line:#e3e3e0;
+  --card:#f7f7f5; --accent:#4a6fa5; --accent2:#8a6fae; --warn:#b3593a;
+  --ok:#4a7a55; --chip:#eceff4; }
+@media (prefers-color-scheme: dark) {
+  :root { --bg:#191917; --fg:#e8e6e3; --muted:#9a9892; --line:#33322f;
+    --card:#22211f; --accent:#8fb0dd; --accent2:#b6a2d8; --warn:#d98a68;
+    --ok:#84b591; --chip:#2c2b28; }
+}
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:var(--fg);
+  font:16px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+main { max-width:960px; margin:0 auto; padding:1.5rem 1.25rem 4rem; }
+nav.top { display:flex; flex-wrap:wrap; gap:.35rem 1.1rem; padding:.8rem 1.25rem;
+  border-bottom:1px solid var(--line); font-size:.92rem; }
+nav.top a { color:var(--muted); text-decoration:none; }
+nav.top a:hover, nav.top a.here { color:var(--accent); }
+h1 { font-size:1.55rem; line-height:1.25; margin:.8rem 0 .3rem; }
+h2 { font-size:1.15rem; margin:2rem 0 .6rem; border-bottom:1px solid var(--line);
+  padding-bottom:.3rem; }
+h3 { font-size:1rem; margin:1.2rem 0 .4rem; }
+a { color:var(--accent); }
+.muted { color:var(--muted); font-size:.9rem; }
+.unity { border-left:3px solid var(--accent); background:var(--card);
+  padding:.7rem 1rem; margin:1rem 0; font-style:italic; }
+.chips { display:flex; flex-wrap:wrap; gap:.35rem; margin:.5rem 0; }
+.chip { background:var(--chip); border-radius:999px; padding:.1rem .7rem;
+  font-size:.82rem; text-decoration:none; color:var(--fg); }
+.chip:hover { outline:1px solid var(--accent); }
+.chip.count { color:var(--muted); }
+.card { background:var(--card); border:1px solid var(--line); border-radius:8px;
+  padding: .8rem 1rem; margin:.6rem 0; }
+.badge { font-size:.72rem; border-radius:4px; padding:.05rem .4rem;
+  vertical-align:middle; margin-right:.4rem; white-space:nowrap; }
+.badge.explicit { background:var(--ok); color:var(--bg); }
+.badge.implicit { background:var(--accent2); color:var(--bg); }
+.badge.gap { background:var(--warn); color:var(--bg); }
+.badge.closed { background:var(--ok); color:var(--bg); }
+.badge.rel { background:var(--accent); color:var(--bg); }
+.badge.contested { background:var(--warn); color:var(--bg); }
+.badge.established, .badge.corroborated { background:var(--ok); color:var(--bg); }
+.badge.developed { background:var(--accent2); color:var(--bg); }
+.tag.conf { font-size:.72rem; color:var(--muted); border:1px solid var(--line);
+  border-radius:4px; padding:.05rem .4rem; margin-left:.3rem; }
+ul.plain { list-style:none; padding-left:0; }
+ul.plain > li { margin:.55rem 0; }
+table { border-collapse:collapse; width:100%; font-size:.92rem; }
+th, td { text-align:left; padding:.4rem .6rem; border-bottom:1px solid var(--line);
+  vertical-align:top; }
+.tablewrap { overflow-x:auto; }
+.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:.7rem; }
+.stat { font-size:1.7rem; font-weight:600; color:var(--accent); }
+.rel-line { font-size:.86rem; color:var(--muted); margin:.15rem 0 .15rem 1rem; }
+.searchbox { width:100%; padding:.5rem .8rem; border:1px solid var(--line);
+  border-radius:6px; background:var(--card); color:var(--fg); font-size:1rem; }
+.issue-card h3 { margin:.1rem 0 .5rem; }
+.issue-cols { display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin:.6rem 0; }
+@media (max-width:640px) { .issue-cols { grid-template-columns:1fr; } }
+.issue-side h4 { margin:0 0 .4rem; font-size:.85rem; text-transform:uppercase;
+  letter-spacing:.03em; color:var(--muted); }
+.issue-side li { margin:.6rem 0; }
+.supported-by { margin:.15rem 0 .15rem 1rem; }
+.issue-edges { margin-top:.6rem; font-size:.9rem; }
+.verdict-box { margin-top:.7rem; padding:.6rem .8rem; border-radius:6px; font-size:.92rem; }
+.verdict-box.verdict-set { background:var(--card); border-left:3px solid var(--ok); }
+.verdict-box.verdict-empty { background:var(--card); border-left:3px solid var(--line);
+  color:var(--muted); }
+.verdict-box code { font-size:.85em; }
+.issue-key { margin-top:.4rem; }
+</style></head><body><nav class='top'><a href="../index.html">Overview</a><a href="../graph.html">Graph</a><a href="../concepts.html">Concepts</a><a href="../tensions.html">Tensions</a><a href="../issues.html">Issues</a><a href="../claims.html">Claims</a><a href="../threads.html">Threads</a><a href="../gaps.html">Gaps</a><a href="../timeline.html">Timeline</a></nav><main><h1>Motivated reasoning</h1><p class='muted'>Mark Seemann · article · 2026-05-04 <a href="https://read.readwise.io/read/01kqrr5s0qxkq5g7x6ev84z7w0">source</a> <a href="wiseread://read/01kqrr5s0qxkq5g7x6ev84z7w0" title="Open in Reader app">🖥️</a></p><div class='chips'><a class="chip" href="../concepts/ai-backlash.html">AI Backlash</a><a class="chip" href="../concepts/human-as-orchestrator.html">Human as Orchestrator of Agents</a><a class="chip" href="../concepts/intrinsic-motivation.html">Intrinsic Motivation &amp; Making</a><a class="chip" href="../concepts/professional-identity.html">Professional Identity</a></div><div class='unity'>The author&#x27;s recent criticisms of AI in software development are likely shaped by motivated reasoning — love of craft and economic self-interest — yet even if ninety percent of his concerns prove irrelevant, the remaining ones may still matter, and raising counterpoints to techno-optimism has value regardless.</div><p class='muted'>theoretical · reflective essay — A metacognitive essay that applies the concept of motivated reasoning to the author&#x27;s own recent series of AI-critical articles. More confessional than argumentative — the primary move is epistemic self-audit rather than persuasion.</p><h2>Structure</h2><div class='tablewrap'><table><tr><th>Part</th><th>Role</th></tr><tr><td>Definition of motivated reasoning</td><td>Establishes the cognitive-bias framework the essay will turn on itself</td></tr><tr><td>Application to AI writings</td><td>Confesses that his recent AI-critical series is likely influenced by this bias</td></tr><tr><td>Love of the craft</td><td>Names the first motivational root — intrinsic love of programming-as-puzzle-solving, which AI threatens to eliminate</td></tr><tr><td>Incentives / economics</td><td>Names and partially defuses the second motivational root — economic self-interest — by noting he is near retirement and not primarily motivated by money</td></tr><tr><td>Conclusion: counterpoints still valuable</td><td>Argues that even biased concerns may contain one or two real problems, and dissenting voices serve an epistemic function</td></tr></table></div><h2>Key terms</h2><ul class='plain'><li><b>motivated reasoning</b><br><span class='muted'>The tendency to arrive at desired conclusions through reasoning processes heavily influenced by personal motivations, often subconsciously; smarter people are more susceptible because they can construct more convincing rationalizations</span></li><li><b>love of the craft</b> <a class="chip" href="../concepts/intrinsic-motivation.html">Intrinsic Motivation &amp; Making</a><br><span class='muted'>Intrinsic attraction to programming as puzzle-solving that made decades of otherwise uninteresting business domains engaging</span></li><li><b>counterpoints to techno-optimism</b> <a class="chip" href="../concepts/ai-backlash.html">AI Backlash</a><br><span class='muted'>Dissenting perspectives that question AI&#x27;s net benefits, serving an epistemic balancing function even if most specific concerns prove wrong</span></li></ul><h2>Propositions</h2><ul class='plain'><li id='p1'><span class='badge definitional'>definitional</span>Motivated reasoning is a cognitive bias in which personal motivations unconsciously steer reasoning toward desired conclusions.</li><li id='p2'><span class='badge empirical'>empirical</span>More intelligent people are more susceptible to motivated reasoning because their superior mental resources allow them to construct more convincing rationalizations.</li><li id='p3'><span class='badge self-assessment'>self-assessment</span>The author&#x27;s recent AI-critical articles are likely influenced by motivated reasoning.</li><li id='p4'><span class='badge self-assessment'>self-assessment</span>The primary non-economic motivation biasing the author is love of programming as craft — solving puzzles, not managing entities that solve puzzles.</li><li id='p5'><span class='badge evaluative'>evaluative</span>Being told to become a &#x27;manager of agentic LLMs&#x27; is functionally equivalent to becoming a manager, which the author explicitly rejected decades ago.</li><li id='p6'><span class='badge probabilistic'>probabilistic</span>Even if ninety percent of the author&#x27;s AI concerns are irrelevant, the remaining ten percent could contain real problems.</li><li id='p7'><span class='badge normative'>normative</span>Posting dissenting opinions has epistemic value as counterpoints to techno-optimism, even when some concerns are wrong.</li><li id='p8'><span class='badge evaluative'>evaluative</span>The last few decades of the software development job market — where enjoyable work was also well-paid — are most likely abnormal.</li></ul><h2>Arguments</h2><div class='card'><b>The author&#x27;s AI criticisms should not be dismissed simply because they may be motivated by personal interest</b> <span class='tag conf' title='argument strength (author-stated): moderate'>strength: medium</span></div><div class='card'><b>The prospect of becoming an &#x27;LLM manager&#x27; is not an adequate replacement for programming as craft</b> <span class='tag conf' title='argument strength (author-stated): strong for the author&#x27;s personal case; does not generalize'>strength: high</span></div><h2>Narratives</h2><ul class='plain'><li><br><span class='muted'>→ </span></li></ul><h2>Questions addressed</h2><ul class='plain'><li>⭕ Is the author&#x27;s criticism of AI in software development just motivated reasoning?</li><li>⭕ What motivates the author&#x27;s AI skepticism?</li><li>⭕ Should the author stop writing AI-critical articles given the acknowledged bias?</li></ul><h2>Gaps</h2><ul class='plain'><li id='g1'><span class='badge gap'>analytical</span>The essay never identifies which specific AI concerns the author believes are most likely to survive the motivated-reasoning filter. The &#x27;10% that might be real&#x27; is left entirely unspecified.</li><li id='g2'><span class='badge gap'>evidential</span>The claim that smarter people are more susceptible to motivated reasoning is stated without citation or nuance. The underlying research (Kahan et al.) shows this primarily for identity-protective cognition on politically charged topics, not necessarily for professional self-interest.</li><li id='g3'><span class='badge gap'>omission</span>The essay treats &#x27;love of craft&#x27; and &#x27;economic incentive&#x27; as the only two motivational roots, but does not consider identity/status — being a recognized expert in a field that AI might devalue — as a distinct and potentially stronger bias source.</li></ul></main></body></html>

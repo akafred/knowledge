@@ -1,0 +1,71 @@
+<!doctype html><html><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>Sjefen lyttet til de ansatte – og ga cellekontor til alle</title><style>
+:root { --bg:#ffffff; --fg:#1a1a1a; --muted:#6b6b6b; --line:#e3e3e0;
+  --card:#f7f7f5; --accent:#4a6fa5; --accent2:#8a6fae; --warn:#b3593a;
+  --ok:#4a7a55; --chip:#eceff4; }
+@media (prefers-color-scheme: dark) {
+  :root { --bg:#191917; --fg:#e8e6e3; --muted:#9a9892; --line:#33322f;
+    --card:#22211f; --accent:#8fb0dd; --accent2:#b6a2d8; --warn:#d98a68;
+    --ok:#84b591; --chip:#2c2b28; }
+}
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:var(--fg);
+  font:16px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+main { max-width:960px; margin:0 auto; padding:1.5rem 1.25rem 4rem; }
+nav.top { display:flex; flex-wrap:wrap; gap:.35rem 1.1rem; padding:.8rem 1.25rem;
+  border-bottom:1px solid var(--line); font-size:.92rem; }
+nav.top a { color:var(--muted); text-decoration:none; }
+nav.top a:hover, nav.top a.here { color:var(--accent); }
+h1 { font-size:1.55rem; line-height:1.25; margin:.8rem 0 .3rem; }
+h2 { font-size:1.15rem; margin:2rem 0 .6rem; border-bottom:1px solid var(--line);
+  padding-bottom:.3rem; }
+h3 { font-size:1rem; margin:1.2rem 0 .4rem; }
+a { color:var(--accent); }
+.muted { color:var(--muted); font-size:.9rem; }
+.unity { border-left:3px solid var(--accent); background:var(--card);
+  padding:.7rem 1rem; margin:1rem 0; font-style:italic; }
+.chips { display:flex; flex-wrap:wrap; gap:.35rem; margin:.5rem 0; }
+.chip { background:var(--chip); border-radius:999px; padding:.1rem .7rem;
+  font-size:.82rem; text-decoration:none; color:var(--fg); }
+.chip:hover { outline:1px solid var(--accent); }
+.chip.count { color:var(--muted); }
+.card { background:var(--card); border:1px solid var(--line); border-radius:8px;
+  padding: .8rem 1rem; margin:.6rem 0; }
+.badge { font-size:.72rem; border-radius:4px; padding:.05rem .4rem;
+  vertical-align:middle; margin-right:.4rem; white-space:nowrap; }
+.badge.explicit { background:var(--ok); color:var(--bg); }
+.badge.implicit { background:var(--accent2); color:var(--bg); }
+.badge.gap { background:var(--warn); color:var(--bg); }
+.badge.closed { background:var(--ok); color:var(--bg); }
+.badge.rel { background:var(--accent); color:var(--bg); }
+.badge.contested { background:var(--warn); color:var(--bg); }
+.badge.established, .badge.corroborated { background:var(--ok); color:var(--bg); }
+.badge.developed { background:var(--accent2); color:var(--bg); }
+.tag.conf { font-size:.72rem; color:var(--muted); border:1px solid var(--line);
+  border-radius:4px; padding:.05rem .4rem; margin-left:.3rem; }
+ul.plain { list-style:none; padding-left:0; }
+ul.plain > li { margin:.55rem 0; }
+table { border-collapse:collapse; width:100%; font-size:.92rem; }
+th, td { text-align:left; padding:.4rem .6rem; border-bottom:1px solid var(--line);
+  vertical-align:top; }
+.tablewrap { overflow-x:auto; }
+.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:.7rem; }
+.stat { font-size:1.7rem; font-weight:600; color:var(--accent); }
+.rel-line { font-size:.86rem; color:var(--muted); margin:.15rem 0 .15rem 1rem; }
+.searchbox { width:100%; padding:.5rem .8rem; border:1px solid var(--line);
+  border-radius:6px; background:var(--card); color:var(--fg); font-size:1rem; }
+.issue-card h3 { margin:.1rem 0 .5rem; }
+.issue-cols { display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin:.6rem 0; }
+@media (max-width:640px) { .issue-cols { grid-template-columns:1fr; } }
+.issue-side h4 { margin:0 0 .4rem; font-size:.85rem; text-transform:uppercase;
+  letter-spacing:.03em; color:var(--muted); }
+.issue-side li { margin:.6rem 0; }
+.supported-by { margin:.15rem 0 .15rem 1rem; }
+.issue-edges { margin-top:.6rem; font-size:.9rem; }
+.verdict-box { margin-top:.7rem; padding:.6rem .8rem; border-radius:6px; font-size:.92rem; }
+.verdict-box.verdict-set { background:var(--card); border-left:3px solid var(--ok); }
+.verdict-box.verdict-empty { background:var(--card); border-left:3px solid var(--line);
+  color:var(--muted); }
+.verdict-box code { font-size:.85em; }
+.issue-key { margin-top:.4rem; }
+</style></head><body><nav class='top'><a href="../index.html">Overview</a><a href="../graph.html">Graph</a><a href="../concepts.html">Concepts</a><a href="../tensions.html">Tensions</a><a href="../issues.html">Issues</a><a href="../claims.html">Claims</a><a href="../threads.html">Threads</a><a href="../gaps.html">Gaps</a><a href="../timeline.html">Timeline</a></nav><main><h1>Sjefen lyttet til de ansatte – og ga cellekontor til alle</h1><p class='muted'>Elin Stueland · article · 2026-04-14 <a href="https://read.readwise.io/read/01kwpmv8rp7tb6d2we0qbsq00c">source</a> <a href="wiseread://read/01kwpmv8rp7tb6d2we0qbsq00c" title="Open in Reader app">🖥️</a></p><div class='chips'><a class="chip" href="../concepts/burnout.html">Burnout &amp; Recovery</a></div><div class='unity'>The teaser&#x27;s advertised claim: a leader at Oceaneering, having listened to employees, gave everyone a private office (&quot;cellekontor&quot;) rather than open-plan (&quot;åpent landskap&quot;) for the sake of the work environment (&quot;arbeidsmiljøet&quot;). No supporting data, reasoning, or outcomes are visible.</div><p class='muted'>practical · narrative / journalistic case example — Only a truncated teaser is visible (headline, one-sentence lede, and one photo caption); the Aftenposten article body is behind a paywall. Classification is inferred from that stub: a practical case about a workplace decision, not an argued theory. Everything below is scaled to the ~19 visible words and marked low-confidence accordingly.</p><h2>Propositions</h2><ul class='plain'><li id='p1'><span class='badge implicit'>implicit</span>Giving employees private offices (&quot;cellekontor&quot;) instead of open-plan (&quot;åpent landskap&quot;) improves the work environment (&quot;arbeidsmiljøet&quot;).<span class='tag conf' title='author-stated confidence'>conf: low</span><div class='rel-line'><span class='badge rel'>supports</span><a href="../docs/extract-kontorlosninger-trivsel.html#p1">Slik påvirker de ulike kontorløsningene ansattes trivsel og «emosjonelle utmattelse» · p1</a> — Anecdotal alignment, not evidence: a single real-world decision (Oceaneering giving cellekontor for arbeidsmiljøet) is consistent with the claim that office type materially affects the work environment, but a headline anecdote provides no empirical support.</div></li><li id='p2'><span class='badge explicit'>explicit</span>At Oceaneering the decision was driven by listening to employees, with open-plan explicitly off the table.<span class='tag conf' title='author-stated confidence'>conf: low</span></li></ul><h2>Narratives</h2><ul class='plain'><li>At the offshore-services company Oceaneering, the boss gave every employee a private office (&quot;cellekontor&quot;) instead of open-plan, saying it was done for the work environment. The visible photo caption offers one concrete detail: Marcella Delconte has her name on the door and &quot;konsentrasjonsro&quot; (quiet for concentration) on her seven square metres of own office.<br><span class='muted'>→ Illustrates that a leader can and does reject the open-plan default on work-environment grounds — a single concrete decision offered as the case, not as evidence.</span></li></ul><h2>Questions addressed</h2><ul class='plain'><li>⭕ Should organizations default to open-plan offices, or can a leader justify private offices on work-environment grounds?<br><span class=muted>The teaser asserts one leader&#x27;s stance (private offices chosen for &quot;arbeidsmiljøet&quot;) but the visible text provides no evidence, outcomes, costs, or reasoning that would resolve the question.</span></li></ul><h2>Gaps</h2><ul class='plain'><li id='g1'><span class='badge gap'>incomplete</span>The source is a truncated teaser: only the headline, a one-sentence lede, and one photo caption are visible; the full Aftenposten article sits behind a paywall. There is no data on outcomes, costs, headcount, the decision process, or the reasoning behind the choice — only the leader&#x27;s stated rationale.<br><span class='muted'>Read next: For peer-reviewed behavioral evidence on open-plan costs, see extract-open-workspace-collaboration (Bernstein &amp; Turban — open offices cut face-to-face interaction ~70%). For the fuller wellbeing/emotional-exhaustion coverage, see extract-kontorlosninger-trivsel (Danielsson &amp; Theorell via Aftenposten). To recover Oceaneering&#x27;s actual reasoning and any outcomes, read the full Aftenposten article behind the paywall.</span></li></ul><h2>Related documents</h2><ul class='plain'><li><a href="../docs/extract-kontorlosninger-trivsel.html">Slik påvirker de ulike kontorløsningene ansattes trivsel og «emosjonelle utmattelse»</a><div class='chips'></div></li></ul></main></body></html>
