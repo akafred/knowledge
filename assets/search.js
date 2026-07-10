@@ -61,7 +61,12 @@
     d.textContent = s == null ? '' : s;
     return d.innerHTML;
   }
-  function resolve(u) { return SITE + String(u).replace(/^\/+/, ''); }
+  // Pagefind returns urls root-absolute INCLUDING its base path (on the live
+  // site: "/knowledge/docs/x.html"; served from root: "/docs/x.html"), and
+  // titles.json pins are site-relative ("docs/x.html"). URL resolution
+  // handles all three shapes; naive SITE + strip-slash concatenation broke
+  // under the /knowledge/ subpath (SITE + "knowledge/docs/…" → 404).
+  function resolve(u) { return new URL(u, SITE).href; }
   function rtype(d) {
     return (d.meta && d.meta.type) ||
       (d.filters && d.filters.type && d.filters.type[0]) || 'document';
