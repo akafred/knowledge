@@ -1,0 +1,104 @@
+<!doctype html><html><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>Technical Leadership Track (IC / Staff-Plus Ladder)</title><style>
+:root { --bg:#ffffff; --fg:#1a1a1a; --muted:#6b6b6b; --line:#e3e3e0;
+  --card:#f7f7f5; --accent:#4a6fa5; --accent2:#8a6fae; --warn:#b3593a;
+  --ok:#4a7a55; --chip:#eceff4; }
+@media (prefers-color-scheme: dark) {
+  :root { --bg:#191917; --fg:#e8e6e3; --muted:#9a9892; --line:#33322f;
+    --card:#22211f; --accent:#8fb0dd; --accent2:#b6a2d8; --warn:#d98a68;
+    --ok:#84b591; --chip:#2c2b28; }
+}
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:var(--fg);
+  font:16px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+main { max-width:960px; margin:0 auto; padding:1.5rem 1.25rem 4rem; }
+nav.top { display:flex; flex-wrap:wrap; gap:.35rem 1.1rem; padding:.8rem 1.25rem;
+  border-bottom:1px solid var(--line); font-size:.92rem; }
+nav.top a { color:var(--muted); text-decoration:none; }
+nav.top a:hover, nav.top a.here { color:var(--accent); }
+h1 { font-size:1.55rem; line-height:1.25; margin:.8rem 0 .3rem; }
+h2 { font-size:1.15rem; margin:2rem 0 .6rem; border-bottom:1px solid var(--line);
+  padding-bottom:.3rem; }
+h3 { font-size:1rem; margin:1.2rem 0 .4rem; }
+a { color:var(--accent); }
+.muted { color:var(--muted); font-size:.9rem; }
+.unity { border-left:3px solid var(--accent); background:var(--card);
+  padding:.7rem 1rem; margin:1rem 0; font-style:italic; }
+.chips { display:flex; flex-wrap:wrap; gap:.35rem; margin:.5rem 0; }
+.chip { background:var(--chip); border-radius:999px; padding:.1rem .7rem;
+  font-size:.82rem; text-decoration:none; color:var(--fg); }
+.chip:hover { outline:1px solid var(--accent); }
+.chip.count { color:var(--muted); }
+.card { background:var(--card); border:1px solid var(--line); border-radius:8px;
+  padding: .8rem 1rem; margin:.6rem 0; }
+.badge { font-size:.72rem; border-radius:4px; padding:.05rem .4rem;
+  vertical-align:middle; margin-right:.4rem; white-space:nowrap; }
+.badge.explicit { background:var(--ok); color:var(--bg); }
+.badge.implicit { background:var(--accent2); color:var(--bg); }
+.badge.gap { background:var(--warn); color:var(--bg); }
+.badge.closed { background:var(--ok); color:var(--bg); }
+.badge.rel { background:var(--accent); color:var(--bg); }
+.badge.contested { background:var(--warn); color:var(--bg); }
+.badge.established, .badge.corroborated { background:var(--ok); color:var(--bg); }
+.badge.developed { background:var(--accent2); color:var(--bg); }
+.tag.conf { font-size:.72rem; color:var(--muted); border:1px solid var(--line);
+  border-radius:4px; padding:.05rem .4rem; margin-left:.3rem; }
+ul.plain { list-style:none; padding-left:0; }
+ul.plain > li { margin:.55rem 0; }
+table { border-collapse:collapse; width:100%; font-size:.92rem; }
+th, td { text-align:left; padding:.4rem .6rem; border-bottom:1px solid var(--line);
+  vertical-align:top; }
+.tablewrap { overflow-x:auto; }
+.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:.7rem; }
+.stat { font-size:1.7rem; font-weight:600; color:var(--accent); }
+.rel-line { font-size:.86rem; color:var(--muted); margin:.15rem 0 .15rem 1rem; }
+.searchbox { width:100%; padding:.5rem .8rem; border:1px solid var(--line);
+  border-radius:6px; background:var(--card); color:var(--fg); font-size:1rem; }
+.issue-card h3 { margin:.1rem 0 .5rem; }
+.issue-cols { display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin:.6rem 0; }
+@media (max-width:640px) { .issue-cols { grid-template-columns:1fr; } }
+.issue-side h4 { margin:0 0 .4rem; font-size:.85rem; text-transform:uppercase;
+  letter-spacing:.03em; color:var(--muted); }
+.issue-side li { margin:.6rem 0; }
+.supported-by { margin:.15rem 0 .15rem 1rem; }
+.issue-edges { margin-top:.6rem; font-size:.9rem; }
+.verdict-box { margin-top:.7rem; padding:.6rem .8rem; border-radius:6px; font-size:.92rem; }
+.verdict-box.verdict-set { background:var(--card); border-left:3px solid var(--ok); }
+.verdict-box.verdict-empty { background:var(--card); border-left:3px solid var(--line);
+  color:var(--muted); }
+.verdict-box code { font-size:.85em; }
+.issue-key { margin-top:.4rem; }
+nav.top { align-items:center; }
+.navsearch { margin-left:auto; position:relative; flex:0 1 240px; min-width:150px; }
+.navsearch input { width:100%; padding:.3rem .7rem; border:1px solid var(--line);
+  border-radius:6px; background:var(--card); color:var(--fg); font:inherit; font-size:.88rem; }
+.navsearch input:focus { outline:1px solid var(--accent); }
+.sdrop { position:absolute; right:0; top:calc(100% + 6px); width:min(460px,92vw);
+  max-height:70vh; overflow-y:auto; background:var(--bg); border:1px solid var(--line);
+  border-radius:8px; box-shadow:0 8px 28px rgba(0,0,0,.18); z-index:60; }
+.sres { display:block; padding:.5rem .7rem; border-bottom:1px solid var(--line);
+  text-decoration:none; color:var(--fg); font-size:.88rem; }
+.sres:last-child { border-bottom:none; }
+.sres.active, .sres:hover { background:var(--card); }
+.sres .sline { display:flex; align-items:baseline; gap:.4rem; min-width:0; }
+.sres .st { flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.sres .sdoc { display:block; font-size:.78rem; overflow:hidden; text-overflow:ellipsis;
+  white-space:nowrap; }
+.sres.sall { color:var(--accent); text-align:center; }
+.badge.t-document { background:var(--accent); color:var(--bg); }
+.badge.t-claim { background:var(--ok); color:var(--bg); }
+.badge.t-gap { background:var(--warn); color:var(--bg); }
+.badge.t-term { background:var(--accent2); color:var(--bg); }
+.badge.t-concept { background:var(--chip); color:var(--fg); }
+.scard .sx { font-size:.9rem; margin:.3rem 0; }
+.sx mark { background:transparent; color:var(--accent); font-weight:600; }
+.sfilters button, #smore { font:inherit; font-size:.85rem; padding:.25rem .8rem;
+  border-radius:999px; border:1px solid var(--line); background:var(--card);
+  color:var(--fg); cursor:pointer; }
+.sfilters button.active { border-color:var(--accent); color:var(--accent); }
+li:target { box-shadow:inset 3px 0 0 var(--accent); background:var(--card);
+  padding:.4rem .6rem; margin-left:-.6rem; border-radius:0 6px 6px 0; }
+a.alink { color:inherit; text-decoration:underline;
+  text-decoration-color:var(--line); text-underline-offset:2px; }
+a.alink:hover { color:var(--accent); text-decoration-color:var(--accent); }
+</style></head><body><nav class='top'><a href="../index.html">Overview</a><a href="../graph.html">Graph</a><a href="../concepts.html" class=here>Concepts</a><a href="../tensions.html">Tensions</a><a href="../issues.html">Issues</a><a href="../claims.html">Claims</a><a href="../threads.html">Threads</a><a href="../gaps.html">Gaps</a><a href="../timeline.html">Timeline</a><div class='navsearch'><input id='navq' type='search' placeholder='Search&hellip;  /  &#8984;K' autocomplete='off' spellcheck='false'><div id='navdrop' class='sdrop' hidden></div></div></nav><main><h1>Technical Leadership Track (IC / Staff-Plus Ladder)</h1><p>The staff to principal to distinguished-engineer / architect career ladder where one leads through technical judgment, design authority and influence rather than personnel management — parallel to the management ladder, with no direct reports.</p><p class='muted'>Also known as: staff engineer, principal engineer, IC leadership ladder, technical track, individual-contributor track, staff-plus, dual ladder, leadership not management, title-less technical leadership</p><p class='muted'>Part of: <a class="chip" href="../concepts/technology-leadership.html">Technology Leadership (Heis)</a></p><h2>Documents (2)</h2><ul class='plain'><li><a href="../docs/extract-engineer-career-advice-age-of-coding-agents.html">Addy Osmani’s Post</a> <span class='muted'><a class="alink" href="../search.html?q=Addy+Osmani">Addy Osmani</a> · 2026-07-11</span> <a href="https://www.linkedin.com/posts/addyosmani_the-ungradeable-career-ugcPost-7481551326431113216-1IJ-/" title="Original source" target="_blank" rel="noopener">source&nbsp;↗</a> <a href="https://read.readwise.io/read/01kx7y036phjwwk8ynfb9dycwz">Reader</a> <a href="wiseread://read/01kx7y036phjwwk8ynfb9dycwz" title="Open in Reader app">🖥️</a><br><span class='muted'>As coding agents make solving cheap and abundant, an engineer&#x27;s durable career value shifts from being the fastest problem-solver to the &#x27;ungradeable&#x27; meta-skills that have no answer key — selecting which problems matter, judging quality through earned taste, directing agents rather than doing the work, sprinting the hard last mile, and owning the outcome.</span></li><li><a href="../docs/extract-engineering-manager-role-splitting-in-two.html">The engineering manager role is splitting in two</a> <span class='muted'><a class="alink" href="../search.html?q=Stephane+Moreau">Stephane Moreau</a> · 2026-06-09</span> <a href="https://leaddev.com/career-development/the-engineering-manager-role-is-splitting-in-two" title="Original source" target="_blank" rel="noopener">source&nbsp;↗</a> <a href="https://read.readwise.io/read/01kx41yky6182adfayh2kt3ecv">Reader</a> <a href="wiseread://read/01kx41yky6182adfayh2kt3ecv" title="Open in Reader app">🖥️</a><br><span class='muted'>The engineering-manager role is fracturing into two divergent futures — the code-adjacent tech lead manager and the non-technical multi-team EM — and because AI-shrunk teams are driving the split as an unplanned byproduct of flattening, engineers on the management path must diagnose which future their company is building and prepare accordingly rather than aiming at a single &#x27;EM&#x27; destination.</span></li></ul><h2>Propositions touching this concept (2)</h2><p class='muted'>By publication month, oldest first (extraction month when no publication date is known).</p><h3>2026-03</h3><ul class='plain'><li><span class='badge explicit'>explicit</span>Without personnel authority (e.g. as a principal engineer with 40 architects to orchestrate), one is forced to develop a non-coercive leadership style that transfers well into formal roles later.<div class='rel-line'><a href="../docs/extract-heis-12-greger-teigre-wedel-naar-sjefen-har-svaret.html#p6">12) Greger Teigre Wedel: Når sjefen har svaret, tier resten · p6</a></div></li></ul><h3>2026-04</h3><ul class='plain'><li><span class='badge explicit'>explicit</span>Becoming a principal engineer requires influence, communication, and strategy — not just technical skill<div class='rel-line'><a href="../docs/extract-leadership-skills-principal-engineering.html#p1">Developing Your Leadership Skills toward Principal Engineering · p1</a></div></li></ul><h2>Open gaps (6)</h2><ul class='plain'><li><span class='badge gap'>incomplete</span>Eikeland&#x27;s developer-to-leader sorgprosess prescription is rich on the loss side but thin on the gain side. The transition presumably brings new sources of meaning (impact through others, system-level effect, mentoring, organisational design), but the conversation barely names them. The risk for the listener is to internalise the loss-frame and miss the path through.<div class='rel-line'><a href='../docs/extract-heis-04-morten-eikeland-det-finnes-alltid-et-hierarki.html#g4'>4) Morten Eikeland: Det finnes alltid et hierarki</a> — read next: Camille Fournier&#x27;s Manager&#x27;s Path; Will Larson&#x27;s Staff Engineer/An Elegant Puzzle on the IC-vs-manager fork; Lara Hogan on growing engineering leaders. Pair with Olga Khazan or Lori Gottlieb on the psychology of mid-career identity transitions.</div></li><li><span class='badge gap'>incomplete</span>Bredde/dybde sounds clean but is operationally underspecified. How does a sjefsarkitekt choose which initiatives to take as &#x27;mine&#x27;? Ulseth nods that they should be &#x27;both important and interesting&#x27; and that the two usually overlap — but the harder cases (important-but-boring, interesting-but-marginal) are not discussed. This is the place where pendling-by-design either works or quietly collapses into one side.<div class='rel-line'><a href='../docs/extract-heis-14-oystein-ulseth-pendler-lede-levere.html#g4'>14) Øystein Ulseth pendler mellom å lede og levere</a> — read next: Cutler on how leaders allocate attention; deep-dive into &#x27;staff-plus&#x27; patterns where senior ICs balance technical and political work.</div></li><li><span class='badge gap'>incomplete</span>No data on whether pendling actually produces better outcomes. The argument is largely &#x27;I felt better and have heard I do better.&#x27; The episode lacks any reference to organisational research on whether engineer-manager pendulum careers correlate with better team or product outcomes — and whether the benefits go to the individual, the team, or the organisation.<div class='rel-line'><a href='../docs/extract-heis-14-oystein-ulseth-pendler-lede-levere.html#g6'>14) Øystein Ulseth pendler mellom å lede og levere</a> — read next: Pragmatic Engineer / Newcomer on staff-plus role outcomes; LeadDev surveys on engineer-manager transitions; academic work on bidirectional career mobility in knowledge work.</div></li><li><span class='badge gap'>incomplete</span>The article never addresses the tension between breadth (community, speaking, diverse skills) and depth (deep technical mastery). Principal engineers are typically expected to have both, but the article focuses entirely on the breadth side. An engineer following this advice exclusively might develop excellent leadership skills while falling behind technically — which would undermine their credibility in the role.<div class='rel-line'><a href='../docs/extract-leadership-skills-principal-engineering.html#g1'>Developing Your Leadership Skills toward Principal Engineering</a> — read next: Will Larson&#x27;s &#x27;Staff Engineer&#x27; or Tanya Reilly&#x27;s &#x27;The Staff Engineer&#x27;s Path&#x27; for the technical depth dimension; also the original talk video for potential coverage of this balance</div></li><li><span class='badge gap'>incomplete</span>The article is a journalistic summary of Weston&#x27;s talk, not an independent analysis. The real intellectual content is in the original QCon presentation, which likely contains more nuance, caveats, and audience interaction than this compressed version captures.<div class='rel-line'><a href='../docs/extract-leadership-skills-principal-engineering.html#g4'>Developing Your Leadership Skills toward Principal Engineering</a> — read next: Watch the original talk: &#x27;The Principal Engineer&#x27;s Path&#x27; by Sophie Weston, QCon London</div></li><li><span class='badge gap'>incomplete</span>The apprenticeship transition is named but unanswered<div class='rel-line'><a href='../docs/extract-still-burning-grinich-beck-ai-enterprise-developer-tools.html#g3'>Itchy Brain (Still Burning: Michael Grinich &amp; Kent Beck on AI adoption, enterprise developer tools)</a> — read next: John Cutler on overload, accountability, and DRI dynamics; Tanya Reilly &#x27;The Staff Engineer&#x27;s Path&#x27;; Will Larson on engineering organization growth. The persona-relevant cross-connection: the &#x27;fragility of ideas&#x27; layer of Kjetil&#x27;s reading — Fearless Change, Time to Think — applies directly. If mentorship is the institutional adoption channel for craft, its evaporation is the kind of organizational failure-to-receive-ideas Kjetil already reads for.</div></li></ul></main><script src='../assets/search.js' defer></script></body></html>

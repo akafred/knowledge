@@ -1,0 +1,104 @@
+<!doctype html><html><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>Change Management &amp; Adoption</title><style>
+:root { --bg:#ffffff; --fg:#1a1a1a; --muted:#6b6b6b; --line:#e3e3e0;
+  --card:#f7f7f5; --accent:#4a6fa5; --accent2:#8a6fae; --warn:#b3593a;
+  --ok:#4a7a55; --chip:#eceff4; }
+@media (prefers-color-scheme: dark) {
+  :root { --bg:#191917; --fg:#e8e6e3; --muted:#9a9892; --line:#33322f;
+    --card:#22211f; --accent:#8fb0dd; --accent2:#b6a2d8; --warn:#d98a68;
+    --ok:#84b591; --chip:#2c2b28; }
+}
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:var(--fg);
+  font:16px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+main { max-width:960px; margin:0 auto; padding:1.5rem 1.25rem 4rem; }
+nav.top { display:flex; flex-wrap:wrap; gap:.35rem 1.1rem; padding:.8rem 1.25rem;
+  border-bottom:1px solid var(--line); font-size:.92rem; }
+nav.top a { color:var(--muted); text-decoration:none; }
+nav.top a:hover, nav.top a.here { color:var(--accent); }
+h1 { font-size:1.55rem; line-height:1.25; margin:.8rem 0 .3rem; }
+h2 { font-size:1.15rem; margin:2rem 0 .6rem; border-bottom:1px solid var(--line);
+  padding-bottom:.3rem; }
+h3 { font-size:1rem; margin:1.2rem 0 .4rem; }
+a { color:var(--accent); }
+.muted { color:var(--muted); font-size:.9rem; }
+.unity { border-left:3px solid var(--accent); background:var(--card);
+  padding:.7rem 1rem; margin:1rem 0; font-style:italic; }
+.chips { display:flex; flex-wrap:wrap; gap:.35rem; margin:.5rem 0; }
+.chip { background:var(--chip); border-radius:999px; padding:.1rem .7rem;
+  font-size:.82rem; text-decoration:none; color:var(--fg); }
+.chip:hover { outline:1px solid var(--accent); }
+.chip.count { color:var(--muted); }
+.card { background:var(--card); border:1px solid var(--line); border-radius:8px;
+  padding: .8rem 1rem; margin:.6rem 0; }
+.badge { font-size:.72rem; border-radius:4px; padding:.05rem .4rem;
+  vertical-align:middle; margin-right:.4rem; white-space:nowrap; }
+.badge.explicit { background:var(--ok); color:var(--bg); }
+.badge.implicit { background:var(--accent2); color:var(--bg); }
+.badge.gap { background:var(--warn); color:var(--bg); }
+.badge.closed { background:var(--ok); color:var(--bg); }
+.badge.rel { background:var(--accent); color:var(--bg); }
+.badge.contested { background:var(--warn); color:var(--bg); }
+.badge.established, .badge.corroborated { background:var(--ok); color:var(--bg); }
+.badge.developed { background:var(--accent2); color:var(--bg); }
+.tag.conf { font-size:.72rem; color:var(--muted); border:1px solid var(--line);
+  border-radius:4px; padding:.05rem .4rem; margin-left:.3rem; }
+ul.plain { list-style:none; padding-left:0; }
+ul.plain > li { margin:.55rem 0; }
+table { border-collapse:collapse; width:100%; font-size:.92rem; }
+th, td { text-align:left; padding:.4rem .6rem; border-bottom:1px solid var(--line);
+  vertical-align:top; }
+.tablewrap { overflow-x:auto; }
+.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:.7rem; }
+.stat { font-size:1.7rem; font-weight:600; color:var(--accent); }
+.rel-line { font-size:.86rem; color:var(--muted); margin:.15rem 0 .15rem 1rem; }
+.searchbox { width:100%; padding:.5rem .8rem; border:1px solid var(--line);
+  border-radius:6px; background:var(--card); color:var(--fg); font-size:1rem; }
+.issue-card h3 { margin:.1rem 0 .5rem; }
+.issue-cols { display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin:.6rem 0; }
+@media (max-width:640px) { .issue-cols { grid-template-columns:1fr; } }
+.issue-side h4 { margin:0 0 .4rem; font-size:.85rem; text-transform:uppercase;
+  letter-spacing:.03em; color:var(--muted); }
+.issue-side li { margin:.6rem 0; }
+.supported-by { margin:.15rem 0 .15rem 1rem; }
+.issue-edges { margin-top:.6rem; font-size:.9rem; }
+.verdict-box { margin-top:.7rem; padding:.6rem .8rem; border-radius:6px; font-size:.92rem; }
+.verdict-box.verdict-set { background:var(--card); border-left:3px solid var(--ok); }
+.verdict-box.verdict-empty { background:var(--card); border-left:3px solid var(--line);
+  color:var(--muted); }
+.verdict-box code { font-size:.85em; }
+.issue-key { margin-top:.4rem; }
+nav.top { align-items:center; }
+.navsearch { margin-left:auto; position:relative; flex:0 1 240px; min-width:150px; }
+.navsearch input { width:100%; padding:.3rem .7rem; border:1px solid var(--line);
+  border-radius:6px; background:var(--card); color:var(--fg); font:inherit; font-size:.88rem; }
+.navsearch input:focus { outline:1px solid var(--accent); }
+.sdrop { position:absolute; right:0; top:calc(100% + 6px); width:min(460px,92vw);
+  max-height:70vh; overflow-y:auto; background:var(--bg); border:1px solid var(--line);
+  border-radius:8px; box-shadow:0 8px 28px rgba(0,0,0,.18); z-index:60; }
+.sres { display:block; padding:.5rem .7rem; border-bottom:1px solid var(--line);
+  text-decoration:none; color:var(--fg); font-size:.88rem; }
+.sres:last-child { border-bottom:none; }
+.sres.active, .sres:hover { background:var(--card); }
+.sres .sline { display:flex; align-items:baseline; gap:.4rem; min-width:0; }
+.sres .st { flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.sres .sdoc { display:block; font-size:.78rem; overflow:hidden; text-overflow:ellipsis;
+  white-space:nowrap; }
+.sres.sall { color:var(--accent); text-align:center; }
+.badge.t-document { background:var(--accent); color:var(--bg); }
+.badge.t-claim { background:var(--ok); color:var(--bg); }
+.badge.t-gap { background:var(--warn); color:var(--bg); }
+.badge.t-term { background:var(--accent2); color:var(--bg); }
+.badge.t-concept { background:var(--chip); color:var(--fg); }
+.scard .sx { font-size:.9rem; margin:.3rem 0; }
+.sx mark { background:transparent; color:var(--accent); font-weight:600; }
+.sfilters button, #smore { font:inherit; font-size:.85rem; padding:.25rem .8rem;
+  border-radius:999px; border:1px solid var(--line); background:var(--card);
+  color:var(--fg); cursor:pointer; }
+.sfilters button.active { border-color:var(--accent); color:var(--accent); }
+li:target { box-shadow:inset 3px 0 0 var(--accent); background:var(--card);
+  padding:.4rem .6rem; margin-left:-.6rem; border-radius:0 6px 6px 0; }
+a.alink { color:inherit; text-decoration:underline;
+  text-decoration-color:var(--line); text-underline-offset:2px; }
+a.alink:hover { color:var(--accent); text-decoration-color:var(--accent); }
+</style></head><body><nav class='top'><a href="../index.html">Overview</a><a href="../graph.html">Graph</a><a href="../concepts.html" class=here>Concepts</a><a href="../tensions.html">Tensions</a><a href="../issues.html">Issues</a><a href="../claims.html">Claims</a><a href="../threads.html">Threads</a><a href="../gaps.html">Gaps</a><a href="../timeline.html">Timeline</a><div class='navsearch'><input id='navq' type='search' placeholder='Search&hellip;  /  &#8984;K' autocomplete='off' spellcheck='false'><div id='navdrop' class='sdrop' hidden></div></div></nav><main><h1>Change Management &amp; Adoption</h1><p>The discipline of institutionalizing organizational change so it becomes durable — urgency, coalition, vision, communication, quick wins, and structural anchoring (Kotter, Fearless Change, ADKAR, Lewin) — the org-wide arc distinct from the tactical upward influence of managing-up.</p><p class='muted'>Also known as: change management, change adoption, Kotter&#x27;s 8 steps, Kotter, Fearless Change, ADKAR, Lewin, make it stick, organizational change adoption, institutionalizing change</p><h2>Documents (1)</h2><ul class='plain'><li><a href="../docs/extract-operationalizing-dora-large-organization.html">DORA Community Discussion - Operationalizing DORA within a large organization</a> <span class='muted'><a class="alink" href="../search.html?q=DORA+%28speaker%3A+Julia+Jakubiec%2C+ABN+AMRO%3B+host%3A+Nathan+Harvey%29">DORA (speaker: Julia Jakubiec, ABN AMRO; host: Nathan Harvey)</a> · 2026-06-26</span> <a href="https://www.youtube.com/watch?v=z9BsrIoNlno" title="Original source" target="_blank" rel="noopener">source&nbsp;↗</a> <a href="https://read.readwise.io/read/01kx2mme5a9vqmvt8v2m2ak6pn">Reader</a> <a href="wiseread://read/01kx2mme5a9vqmvt8v2m2ak6pn" title="Open in Reader app">🖥️</a><br><span class='muted'>Operationalizing DORA at enterprise scale is fundamentally a change-management problem — solved by running Kotter&#x27;s 8 steps to institutionalize a durable continuous-improvement culture — not by the metrics themselves, which serve only as a recognizable survey instrument, authority brand, and benchmarking catalyst.</span></li></ul><h2>Propositions touching this concept (2)</h2><p class='muted'>By publication month, oldest first (extraction month when no publication date is known).</p><h3>2026-05</h3><ul class='plain'><li><span class='badge explicit'>explicit</span>A single control plane managing a million chips creates significant blast radius and change management risk<div class='rel-line'><a href="../docs/extract-gke-agent-sandbox-hypercluster.html#p4">Google Announces GKE Agent Sandbox and Hypercluster at Next &#x27;26 · p4</a></div></li><li><span class='badge explicit'>explicit</span>Traditional change management is actually a form of control, not change, because it assumes one group directs others rather than deciding together.<div class='rel-line'><a href="../docs/extract-new-skills-continuous-change.html#p1">New Skills to Navigate Continuous Change · p1</a></div></li></ul><h2>Open gaps (8)</h2><ul class='plain'><li><span class='badge gap'>incomplete</span>Team adoption is treated as an exercise for the reader. Pocock&#x27;s answer to &#x27;how does this work in a team?&#x27; is essentially: &#x27;the upstream becomes team-shared, the downstream is one or two devs managing the pipeline.&#x27; He gives no story for: review queue scaling, distribution of PRD-authoring authority, who owns skills/coding-standards as a shared asset, code-review burden as a team-wide labour question, or how juniors learn craft in a workflow where most code is agent-written.<div class='rel-line'><a href='../docs/extract-ai-coding-for-real-engineers-pocock-workshop.html#g3'>[FULL WORKSHOP] AI Coding For Real Engineers - Matt Pocock, AI Hero</a> — read next: Cutler on overload and accountability culture; Beck on socio-technical change; Fearless Change for the adoption-of-practices angle in the user&#x27;s hidden-layer interests.</div></li><li><span class='badge gap'>illogical</span>There is a tension between &#x27;don&#x27;t mandate AI&#x27; and &#x27;the fastest learners will win.&#x27; If organizational learning speed is the competitive differentiator, laissez-faire adoption may be too slow. The panelists don&#x27;t reconcile this.<div class='rel-line'><a href='../docs/extract-ai-native-engineering-org.html#g5'>Designing the AI-native engineering organization</a> — read next: Change management literature on balancing autonomy with urgency in technology adoption</div></li><li><span class='badge gap'>incomplete</span>No treatment of the social-and-organisational fate of the artefacts themselves. Dependency-cruiser configs, custom coupling-analyser CLIs, and imported Modularity Skill packs are all new load-bearing artefacts. Who owns them? Who updates them when the architecture should change? In the absence of an owner, the rules outlive the intent behind them and become either silently violated or silently obsolete — the classic linter-suppression-debt pathology, scaled to architecture.<div class='rel-line'><a href='../docs/extract-fowler-bockeler-static-sensors-iii.html#g1'>Three more static code analysis sensors</a> — read next: Cutler on institutionalised overload and waste; Fearless Change (Manns &amp; Rising) on what it takes for organisational invariants to survive; Tornhill&#x27;s Software Design X-Rays on attaching social/ownership data to code-quality signals; Vlad Khononov&#x27;s modularity work directly (since his Skills are now part of the harness).</div></li><li><span class='badge gap'>incomplete</span>The article assumes the seller possesses time, network, political cover, and emotional regulation as preconditions. It does not address how to do issue selling when one or more of those is unavailable — i.e., the typical condition of overloaded mid-level managers.<div class='rel-line'><a href='../docs/extract-hbr-buy-in-for-big-idea.html#g4'>Getting Buy-In for Your Next Big Idea</a> — read next: Time to Think (Kline) on the conditions ideas need; Stolen Focus on attention as precondition; Fearless Change patterns for resource-poor change agents.</div></li><li><span class='badge gap'>incomplete</span>Adler&#x27;s mode of incompleteness: the article reduces idea transmission to tactics and scripts (&#x27;three questions,&#x27; &#x27;map the stakeholders,&#x27; &#x27;aim for worth exploring&#x27;). The structural conditions under which those tactics actually work — slack in the executive agenda, trust between layers, a culture that distinguishes loyalty to leaders from loyalty to ideas — are presupposed and never named. The advice is therefore most useful exactly where it is least needed (healthy organizations) and least useful where it is most needed (organizations whose pathology is what makes upward selling necessary in the first place).<div class='rel-line'><a href='../docs/extract-hbr-buy-in-for-big-idea.html#g5'>Getting Buy-In for Your Next Big Idea</a> — read next: Fearless Change (Manns &amp; Rising) — patterns for getting ideas through resistant organizations; Time to Think (Nancy Kline); Cutler&#x27;s &#x27;institutionalized overload&#x27; essays; Donella Meadows on leverage points (rule-changes, paradigms) vs. parameter-changes.</div></li><li><span class='badge gap'>incomplete</span>The apprenticeship transition is named but unanswered<div class='rel-line'><a href='../docs/extract-still-burning-grinich-beck-ai-enterprise-developer-tools.html#g3'>Itchy Brain (Still Burning: Michael Grinich &amp; Kent Beck on AI adoption, enterprise developer tools)</a> — read next: John Cutler on overload, accountability, and DRI dynamics; Tanya Reilly &#x27;The Staff Engineer&#x27;s Path&#x27;; Will Larson on engineering organization growth. The persona-relevant cross-connection: the &#x27;fragility of ideas&#x27; layer of Kjetil&#x27;s reading — Fearless Change, Time to Think — applies directly. If mentorship is the institutional adoption channel for craft, its evaporation is the kind of organizational failure-to-receive-ideas Kjetil already reads for.</div></li><li><span class='badge gap'>incomplete</span>Cutler&#x27;s prescription (&#x27;surf the tension&#x27;, &#x27;find pockets&#x27;) leaves the change agent without a diagnostic for distinguishing a real pocket of opportunity from a temporary opening that will close, or from a trap that consumes effort without producing change. The post advises a posture but not a method.<div class='rel-line'><a href='../docs/extract-tbm-423-why-defining-teams-is-so-hard.html#g1'>TBM 423: Why Defining Teams Is So Hard</a> — read next: Donella Meadows&#x27; &#x27;Places to Intervene in a System&#x27; (leverage points hierarchy) supplies the missing taxonomy of where intervention has high leverage. Fearless Change (Manns &amp; Rising) — which Kjetil&#x27;s persona shows he highlights heavily — supplies pattern-level guidance for what to do once a pocket is identified.</div></li><li><span class='badge gap'>incomplete</span>Willison identifies that the SDLC must restructure but does not address the downstream bottlenecks — if you produce 10x more code, testing, review, deployment, monitoring, and incident response must also scale, and it is unclear whether they can. The essay focuses on code production and design but says nothing about ops, security review, or organizational change management.<div class='rel-line'><a href='../docs/extract-willison-vibe-coding-agentic-engineering.html#g1'>Vibe coding and agentic engineering are getting closer than I&#x27;d like</a> — read next: Charity Majors on observability-driven development; Google&#x27;s DORA research on deployment frequency vs. stability; Will Larson on engineering org design under scaling pressure.</div></li></ul></main><script src='../assets/search.js' defer></script></body></html>
