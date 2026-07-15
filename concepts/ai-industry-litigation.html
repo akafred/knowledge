@@ -1,0 +1,104 @@
+<!doctype html><html><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>AI Industry Litigation</title><style>
+:root { --bg:#ffffff; --fg:#1a1a1a; --muted:#6b6b6b; --line:#e3e3e0;
+  --card:#f7f7f5; --accent:#4a6fa5; --accent2:#8a6fae; --warn:#b3593a;
+  --ok:#4a7a55; --chip:#eceff4; }
+@media (prefers-color-scheme: dark) {
+  :root { --bg:#191917; --fg:#e8e6e3; --muted:#9a9892; --line:#33322f;
+    --card:#22211f; --accent:#8fb0dd; --accent2:#b6a2d8; --warn:#d98a68;
+    --ok:#84b591; --chip:#2c2b28; }
+}
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:var(--fg);
+  font:16px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+main { max-width:960px; margin:0 auto; padding:1.5rem 1.25rem 4rem; }
+nav.top { display:flex; flex-wrap:wrap; gap:.35rem 1.1rem; padding:.8rem 1.25rem;
+  border-bottom:1px solid var(--line); font-size:.92rem; }
+nav.top a { color:var(--muted); text-decoration:none; }
+nav.top a:hover, nav.top a.here { color:var(--accent); }
+h1 { font-size:1.55rem; line-height:1.25; margin:.8rem 0 .3rem; }
+h2 { font-size:1.15rem; margin:2rem 0 .6rem; border-bottom:1px solid var(--line);
+  padding-bottom:.3rem; }
+h3 { font-size:1rem; margin:1.2rem 0 .4rem; }
+a { color:var(--accent); }
+.muted { color:var(--muted); font-size:.9rem; }
+.unity { border-left:3px solid var(--accent); background:var(--card);
+  padding:.7rem 1rem; margin:1rem 0; font-style:italic; }
+.chips { display:flex; flex-wrap:wrap; gap:.35rem; margin:.5rem 0; }
+.chip { background:var(--chip); border-radius:999px; padding:.1rem .7rem;
+  font-size:.82rem; text-decoration:none; color:var(--fg); }
+.chip:hover { outline:1px solid var(--accent); }
+.chip.count { color:var(--muted); }
+.card { background:var(--card); border:1px solid var(--line); border-radius:8px;
+  padding: .8rem 1rem; margin:.6rem 0; }
+.badge { font-size:.72rem; border-radius:4px; padding:.05rem .4rem;
+  vertical-align:middle; margin-right:.4rem; white-space:nowrap; }
+.badge.explicit { background:var(--ok); color:var(--bg); }
+.badge.implicit { background:var(--accent2); color:var(--bg); }
+.badge.gap { background:var(--warn); color:var(--bg); }
+.badge.closed { background:var(--ok); color:var(--bg); }
+.badge.rel { background:var(--accent); color:var(--bg); }
+.badge.contested { background:var(--warn); color:var(--bg); }
+.badge.established, .badge.corroborated { background:var(--ok); color:var(--bg); }
+.badge.developed { background:var(--accent2); color:var(--bg); }
+.tag.conf { font-size:.72rem; color:var(--muted); border:1px solid var(--line);
+  border-radius:4px; padding:.05rem .4rem; margin-left:.3rem; }
+ul.plain { list-style:none; padding-left:0; }
+ul.plain > li { margin:.55rem 0; }
+table { border-collapse:collapse; width:100%; font-size:.92rem; }
+th, td { text-align:left; padding:.4rem .6rem; border-bottom:1px solid var(--line);
+  vertical-align:top; }
+.tablewrap { overflow-x:auto; }
+.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:.7rem; }
+.stat { font-size:1.7rem; font-weight:600; color:var(--accent); }
+.rel-line { font-size:.86rem; color:var(--muted); margin:.15rem 0 .15rem 1rem; }
+.searchbox { width:100%; padding:.5rem .8rem; border:1px solid var(--line);
+  border-radius:6px; background:var(--card); color:var(--fg); font-size:1rem; }
+.issue-card h3 { margin:.1rem 0 .5rem; }
+.issue-cols { display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin:.6rem 0; }
+@media (max-width:640px) { .issue-cols { grid-template-columns:1fr; } }
+.issue-side h4 { margin:0 0 .4rem; font-size:.85rem; text-transform:uppercase;
+  letter-spacing:.03em; color:var(--muted); }
+.issue-side li { margin:.6rem 0; }
+.supported-by { margin:.15rem 0 .15rem 1rem; }
+.issue-edges { margin-top:.6rem; font-size:.9rem; }
+.verdict-box { margin-top:.7rem; padding:.6rem .8rem; border-radius:6px; font-size:.92rem; }
+.verdict-box.verdict-set { background:var(--card); border-left:3px solid var(--ok); }
+.verdict-box.verdict-empty { background:var(--card); border-left:3px solid var(--line);
+  color:var(--muted); }
+.verdict-box code { font-size:.85em; }
+.issue-key { margin-top:.4rem; }
+nav.top { align-items:center; }
+.navsearch { margin-left:auto; position:relative; flex:0 1 240px; min-width:150px; }
+.navsearch input { width:100%; padding:.3rem .7rem; border:1px solid var(--line);
+  border-radius:6px; background:var(--card); color:var(--fg); font:inherit; font-size:.88rem; }
+.navsearch input:focus { outline:1px solid var(--accent); }
+.sdrop { position:absolute; right:0; top:calc(100% + 6px); width:min(460px,92vw);
+  max-height:70vh; overflow-y:auto; background:var(--bg); border:1px solid var(--line);
+  border-radius:8px; box-shadow:0 8px 28px rgba(0,0,0,.18); z-index:60; }
+.sres { display:block; padding:.5rem .7rem; border-bottom:1px solid var(--line);
+  text-decoration:none; color:var(--fg); font-size:.88rem; }
+.sres:last-child { border-bottom:none; }
+.sres.active, .sres:hover { background:var(--card); }
+.sres .sline { display:flex; align-items:baseline; gap:.4rem; min-width:0; }
+.sres .st { flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.sres .sdoc { display:block; font-size:.78rem; overflow:hidden; text-overflow:ellipsis;
+  white-space:nowrap; }
+.sres.sall { color:var(--accent); text-align:center; }
+.badge.t-document { background:var(--accent); color:var(--bg); }
+.badge.t-claim { background:var(--ok); color:var(--bg); }
+.badge.t-gap { background:var(--warn); color:var(--bg); }
+.badge.t-term { background:var(--accent2); color:var(--bg); }
+.badge.t-concept { background:var(--chip); color:var(--fg); }
+.scard .sx { font-size:.9rem; margin:.3rem 0; }
+.sx mark { background:transparent; color:var(--accent); font-weight:600; }
+.sfilters button, #smore { font:inherit; font-size:.85rem; padding:.25rem .8rem;
+  border-radius:999px; border:1px solid var(--line); background:var(--card);
+  color:var(--fg); cursor:pointer; }
+.sfilters button.active { border-color:var(--accent); color:var(--accent); }
+li:target { box-shadow:inset 3px 0 0 var(--accent); background:var(--card);
+  padding:.4rem .6rem; margin-left:-.6rem; border-radius:0 6px 6px 0; }
+a.alink { color:inherit; text-decoration:underline;
+  text-decoration-color:var(--line); text-underline-offset:2px; }
+a.alink:hover { color:var(--accent); text-decoration-color:var(--accent); }
+</style></head><body><nav class='top'><a href="../index.html">Overview</a><a href="../graph.html">Graph</a><a href="../concepts.html" class=here>Concepts</a><a href="../tensions.html">Tensions</a><a href="../issues.html">Issues</a><a href="../claims.html">Claims</a><a href="../threads.html">Threads</a><a href="../gaps.html">Gaps</a><a href="../timeline.html">Timeline</a><div class='navsearch'><input id='navq' type='search' placeholder='Search&hellip;  /  &#8984;K' autocomplete='off' spellcheck='false'><div id='navdrop' class='sdrop' hidden></div></div></nav><main><h1>AI Industry Litigation</h1><p>Lawsuits and legal threats between AI labs/companies (trade secrets, copyright, antitrust, contract) used as competitive weapons and as a record of the industry&#x27;s growing pains.</p><p class='muted'>Also known as: AI lawsuits, trade secret lawsuit, IP litigation (AI), talent poaching lawsuit</p><h2>Documents (3)</h2><ul class='plain'><li><a href="../docs/extract-escalating-ai-wars-benefit-you.html">How the Escalating AI Wars Benefit You</a> <span class='muted'><a class="alink" href="../search.html?q=AI+Daily+Brief">AI Daily Brief</a> · 2026-07-14</span> <a href="https://read.readwise.io/read/01kxf0apgzksr3sxbdpdv3sn5b">Reader</a> <a href="wiseread://read/01kxf0apgzksr3sxbdpdv3sn5b" title="Open in Reader app">🖥️</a><br><span class='muted'>The disparate AI-industry stories of the week — Apple&#x27;s trade-secret suit against OpenAI, the Musk-Altman feud, competing usage-limit/pricing wars between OpenAI and Anthropic, Zhipu&#x27;s open-model manifesto, Nadella&#x27;s &#x27;pay twice&#x27; argument, and the bigger-vs-cheaper-models debate — are all facets of one underlying shift: AI competition has moved beyond who has the best frontier model to a simultaneous fight over hardware, data, pricing, and ecosystem control, and (per the title) this escalating multi-front rivalry nets out to benefiting the end user.</span></li><li><a href="../docs/extract-musk-openai-trial-marcus.html">What matters (or should matter), at the Musk-OpenAI trial</a> <span class='muted'><a class="alink" href="../search.html?q=Gary+Marcus+from+Marcus+on+AI">Gary Marcus from Marcus on AI</a> · 2026-05-05</span> <a href="https://garymarcus.substack.com/p/what-matters-or-should-matter-at" title="Original source" target="_blank" rel="noopener">source&nbsp;↗</a> <a href="https://read.readwise.io/read/01kqwyxhktx960ajnatqnb3965">Reader</a> <a href="wiseread://read/01kqwyxhktx960ajnatqnb3965" title="Open in Reader app">🖥️</a><br><span class='muted'>The Musk-OpenAI trial has surfaced damaging evidence — especially from Greg Brockman&#x27;s diary — that OpenAI leadership deliberately deceived Musk about their commitment to the nonprofit mission, and regardless of who prevails legally, the revealed pattern of institutional deception is what should matter most to the public.</span></li><li><a href="../docs/extract-claude-code-source-leak-megathread.html">Claude Code Source Leak Megathread</a> <span class='muted'><a class="alink" href="../search.html?q=sixbillionthsheep+%28Reddit%29">sixbillionthsheep (Reddit)</a> · 2026-04-01</span> <a href="https://www.reddit.com/r/ClaudeAI/" title="Original source" target="_blank" rel="noopener">source&nbsp;↗</a> <a href="https://read.readwise.io/read/01knp7x6va95w91fv893fzfmxp">Reader</a> <a href="wiseread://read/01knp7x6va95w91fv893fzfmxp" title="Open in Reader app">🖥️</a><br><span class='muted'>The Claude Code source leak revealed that the competitive advantage in AI coding tools lies not in model capability but in the orchestration layer -- memory, multi-agent coordination, web search pipelines, session management, and autonomous background agents -- and the community&#x27;s response exposed collective assumptions about code quality, IP ownership of AI-generated code, and the governance gap in agentic systems.</span></li></ul><h2>Open gaps (11)</h2><ul class='plain'><li><span class='badge gap'>incomplete</span>The thread extensively discusses Claude Code&#x27;s web search pipeline but never addresses how claude.ai&#x27;s web search differs, despite ai-software noting they use the same search index but &#x27;completely different content pipelines.&#x27; The implications for the much larger claude.ai user base are unexplored.<div class='rel-line'><a href='../docs/extract-claude-code-source-leak-megathread.html#g1'>Claude Code Source Leak Megathread</a> — read next: ai-software&#x27;s own blog posts and any Anthropic documentation on the claude.ai search pipeline</div></li><li><span class='badge gap'>uninformed</span>The conspiracy theory about intentional leaking ignores the simplest explanation: organizational silos. The team building anti-distillation defenses is likely not the team managing the npm build pipeline. Large organizations routinely have sophisticated capabilities in one area and elementary failures in another.<div class='rel-line'><a href='../docs/extract-claude-code-source-leak-megathread.html#g2'>Claude Code Source Leak Megathread</a> — read next: Literature on organizational failures in complex systems (e.g., Perrow&#x27;s &#x27;Normal Accidents&#x27;, Vaughan&#x27;s &#x27;The Challenger Launch Decision&#x27;)</div></li><li><span class='badge gap'>illogical</span>The &#x27;user delight &gt; code quality&#x27; argument commits a temporal fallacy. Current user satisfaction says nothing about the long-term sustainability of the codebase. a0flj0 correctly identifies this but is dismissed by the majority. The argument conflates a snapshot metric with a trajectory.<div class='rel-line'><a href='../docs/extract-claude-code-source-leak-megathread.html#g3'>Claude Code Source Leak Megathread</a> — read next: Ward Cunningham on technical debt; Lehman&#x27;s Laws of Software Evolution</div></li><li><span class='badge gap'>incomplete</span>Nobody in the thread addresses the ethical implications of KAIROS/Dream Mode from a data privacy perspective. An agent that autonomously processes user data while the user is away raises consent and data processing questions, especially under GDPR.<div class='rel-line'><a href='../docs/extract-claude-code-source-leak-megathread.html#g4'>Claude Code Source Leak Megathread</a> — read next: GDPR Article 22 on automated decision-making; any Anthropic privacy policy or DPA covering background processing</div></li><li><span class='badge gap'>misinformed</span>Several commenters conflate the leaked source code (the CLI orchestration layer) with Claude&#x27;s model weights or training data. JulioMcLaughlin2 correctly notes this is &#x27;the wrapper sent to Anthropic&#x27;s servers&#x27; but this distinction is lost on many participants who ask if this enables a &#x27;free Claude.&#x27;<div class='rel-line'><a href='../docs/extract-claude-code-source-leak-megathread.html#g5'>Claude Code Source Leak Megathread</a> — read next: Basic architecture of LLM applications: the distinction between inference server, API, and client-side orchestration</div></li><li><span class='badge gap'>incomplete</span>The Undercover Mode discussion lacks any serious ethical analysis. A feature designed to let AI contribute to public repos without disclosure has implications for open-source trust, code review practices, and the integrity of contribution records. The thread treats it as either &#x27;cool&#x27; or briefly &#x27;an ethical landmine&#x27; without following up.<div class='rel-line'><a href='../docs/extract-claude-code-source-leak-megathread.html#g6'>Claude Code Source Leak Megathread</a> — read next: Open source governance literature; existing policies on AI-generated contributions (e.g., Linux kernel policy)</div></li><li><span class='badge gap'>uninformed</span>The thread assumes that Anthropic&#x27;s session limit A/B testing is unusual or nefarious. In reality, nearly all SaaS products use feature flags and A/B testing for resource allocation. The finding is significant for transparency reasons but the conspiratorial framing (&#x27;tricking you&#x27;) is unwarranted without evidence of deceptive intent.<div class='rel-line'><a href='../docs/extract-claude-code-source-leak-megathread.html#g7'>Claude Code Source Leak Megathread</a> — read next: Standard practices in SaaS product management; Anthropic&#x27;s Terms of Service on usage limits</div></li><li><span class='badge gap'>paywall truncation</span>Marcus&#x27;s concluding argument — &#x27;what it boils down to&#x27; — is behind the Substack paywall. The most important analytical content is inaccessible in this extraction.<div class='rel-line'><a href='../docs/extract-musk-openai-trial-marcus.html#g1'>What matters (or should matter), at the Musk-OpenAI trial</a></div></li><li><span class='badge gap'>one-sided sourcing</span>Marcus cites the Fortune newsletter as the &#x27;weak case&#x27; counterpoint but does not engage with any specific legal analysis supporting that view. The &#x27;foil&#x27; is presented thinly.<div class='rel-line'><a href='../docs/extract-musk-openai-trial-marcus.html#g2'>What matters (or should matter), at the Musk-OpenAI trial</a></div></li><li><span class='badge gap'>missing context on diary authenticity/completeness</span>No discussion of whether the diary entries are taken in full context, whether Brockman has offered an alternative interpretation, or how the court treated their admissibility.<div class='rel-line'><a href='../docs/extract-musk-openai-trial-marcus.html#g3'>What matters (or should matter), at the Musk-OpenAI trial</a></div></li><li><span class='badge gap'>normative framing without institutional analysis</span>Marcus says institutional deception should matter most but (at least in the free preview) does not analyze what structural or governance reforms would follow from that framing.<div class='rel-line'><a href='../docs/extract-musk-openai-trial-marcus.html#g4'>What matters (or should matter), at the Musk-OpenAI trial</a></div></li></ul></main><script src='../assets/search.js' defer></script></body></html>

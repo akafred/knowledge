@@ -1,0 +1,104 @@
+<!doctype html><html><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>Vendor Self-Reported Metrics</title><style>
+:root { --bg:#ffffff; --fg:#1a1a1a; --muted:#6b6b6b; --line:#e3e3e0;
+  --card:#f7f7f5; --accent:#4a6fa5; --accent2:#8a6fae; --warn:#b3593a;
+  --ok:#4a7a55; --chip:#eceff4; }
+@media (prefers-color-scheme: dark) {
+  :root { --bg:#191917; --fg:#e8e6e3; --muted:#9a9892; --line:#33322f;
+    --card:#22211f; --accent:#8fb0dd; --accent2:#b6a2d8; --warn:#d98a68;
+    --ok:#84b591; --chip:#2c2b28; }
+}
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:var(--fg);
+  font:16px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+main { max-width:960px; margin:0 auto; padding:1.5rem 1.25rem 4rem; }
+nav.top { display:flex; flex-wrap:wrap; gap:.35rem 1.1rem; padding:.8rem 1.25rem;
+  border-bottom:1px solid var(--line); font-size:.92rem; }
+nav.top a { color:var(--muted); text-decoration:none; }
+nav.top a:hover, nav.top a.here { color:var(--accent); }
+h1 { font-size:1.55rem; line-height:1.25; margin:.8rem 0 .3rem; }
+h2 { font-size:1.15rem; margin:2rem 0 .6rem; border-bottom:1px solid var(--line);
+  padding-bottom:.3rem; }
+h3 { font-size:1rem; margin:1.2rem 0 .4rem; }
+a { color:var(--accent); }
+.muted { color:var(--muted); font-size:.9rem; }
+.unity { border-left:3px solid var(--accent); background:var(--card);
+  padding:.7rem 1rem; margin:1rem 0; font-style:italic; }
+.chips { display:flex; flex-wrap:wrap; gap:.35rem; margin:.5rem 0; }
+.chip { background:var(--chip); border-radius:999px; padding:.1rem .7rem;
+  font-size:.82rem; text-decoration:none; color:var(--fg); }
+.chip:hover { outline:1px solid var(--accent); }
+.chip.count { color:var(--muted); }
+.card { background:var(--card); border:1px solid var(--line); border-radius:8px;
+  padding: .8rem 1rem; margin:.6rem 0; }
+.badge { font-size:.72rem; border-radius:4px; padding:.05rem .4rem;
+  vertical-align:middle; margin-right:.4rem; white-space:nowrap; }
+.badge.explicit { background:var(--ok); color:var(--bg); }
+.badge.implicit { background:var(--accent2); color:var(--bg); }
+.badge.gap { background:var(--warn); color:var(--bg); }
+.badge.closed { background:var(--ok); color:var(--bg); }
+.badge.rel { background:var(--accent); color:var(--bg); }
+.badge.contested { background:var(--warn); color:var(--bg); }
+.badge.established, .badge.corroborated { background:var(--ok); color:var(--bg); }
+.badge.developed { background:var(--accent2); color:var(--bg); }
+.tag.conf { font-size:.72rem; color:var(--muted); border:1px solid var(--line);
+  border-radius:4px; padding:.05rem .4rem; margin-left:.3rem; }
+ul.plain { list-style:none; padding-left:0; }
+ul.plain > li { margin:.55rem 0; }
+table { border-collapse:collapse; width:100%; font-size:.92rem; }
+th, td { text-align:left; padding:.4rem .6rem; border-bottom:1px solid var(--line);
+  vertical-align:top; }
+.tablewrap { overflow-x:auto; }
+.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:.7rem; }
+.stat { font-size:1.7rem; font-weight:600; color:var(--accent); }
+.rel-line { font-size:.86rem; color:var(--muted); margin:.15rem 0 .15rem 1rem; }
+.searchbox { width:100%; padding:.5rem .8rem; border:1px solid var(--line);
+  border-radius:6px; background:var(--card); color:var(--fg); font-size:1rem; }
+.issue-card h3 { margin:.1rem 0 .5rem; }
+.issue-cols { display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin:.6rem 0; }
+@media (max-width:640px) { .issue-cols { grid-template-columns:1fr; } }
+.issue-side h4 { margin:0 0 .4rem; font-size:.85rem; text-transform:uppercase;
+  letter-spacing:.03em; color:var(--muted); }
+.issue-side li { margin:.6rem 0; }
+.supported-by { margin:.15rem 0 .15rem 1rem; }
+.issue-edges { margin-top:.6rem; font-size:.9rem; }
+.verdict-box { margin-top:.7rem; padding:.6rem .8rem; border-radius:6px; font-size:.92rem; }
+.verdict-box.verdict-set { background:var(--card); border-left:3px solid var(--ok); }
+.verdict-box.verdict-empty { background:var(--card); border-left:3px solid var(--line);
+  color:var(--muted); }
+.verdict-box code { font-size:.85em; }
+.issue-key { margin-top:.4rem; }
+nav.top { align-items:center; }
+.navsearch { margin-left:auto; position:relative; flex:0 1 240px; min-width:150px; }
+.navsearch input { width:100%; padding:.3rem .7rem; border:1px solid var(--line);
+  border-radius:6px; background:var(--card); color:var(--fg); font:inherit; font-size:.88rem; }
+.navsearch input:focus { outline:1px solid var(--accent); }
+.sdrop { position:absolute; right:0; top:calc(100% + 6px); width:min(460px,92vw);
+  max-height:70vh; overflow-y:auto; background:var(--bg); border:1px solid var(--line);
+  border-radius:8px; box-shadow:0 8px 28px rgba(0,0,0,.18); z-index:60; }
+.sres { display:block; padding:.5rem .7rem; border-bottom:1px solid var(--line);
+  text-decoration:none; color:var(--fg); font-size:.88rem; }
+.sres:last-child { border-bottom:none; }
+.sres.active, .sres:hover { background:var(--card); }
+.sres .sline { display:flex; align-items:baseline; gap:.4rem; min-width:0; }
+.sres .st { flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.sres .sdoc { display:block; font-size:.78rem; overflow:hidden; text-overflow:ellipsis;
+  white-space:nowrap; }
+.sres.sall { color:var(--accent); text-align:center; }
+.badge.t-document { background:var(--accent); color:var(--bg); }
+.badge.t-claim { background:var(--ok); color:var(--bg); }
+.badge.t-gap { background:var(--warn); color:var(--bg); }
+.badge.t-term { background:var(--accent2); color:var(--bg); }
+.badge.t-concept { background:var(--chip); color:var(--fg); }
+.scard .sx { font-size:.9rem; margin:.3rem 0; }
+.sx mark { background:transparent; color:var(--accent); font-weight:600; }
+.sfilters button, #smore { font:inherit; font-size:.85rem; padding:.25rem .8rem;
+  border-radius:999px; border:1px solid var(--line); background:var(--card);
+  color:var(--fg); cursor:pointer; }
+.sfilters button.active { border-color:var(--accent); color:var(--accent); }
+li:target { box-shadow:inset 3px 0 0 var(--accent); background:var(--card);
+  padding:.4rem .6rem; margin-left:-.6rem; border-radius:0 6px 6px 0; }
+a.alink { color:inherit; text-decoration:underline;
+  text-decoration-color:var(--line); text-underline-offset:2px; }
+a.alink:hover { color:var(--accent); text-decoration-color:var(--accent); }
+</style></head><body><nav class='top'><a href="../index.html">Overview</a><a href="../graph.html">Graph</a><a href="../concepts.html" class=here>Concepts</a><a href="../tensions.html">Tensions</a><a href="../issues.html">Issues</a><a href="../claims.html">Claims</a><a href="../threads.html">Threads</a><a href="../gaps.html">Gaps</a><a href="../timeline.html">Timeline</a><div class='navsearch'><input id='navq' type='search' placeholder='Search&hellip;  /  &#8984;K' autocomplete='off' spellcheck='false'><div id='navdrop' class='sdrop' hidden></div></div></nav><main><h1>Vendor Self-Reported Metrics</h1><p>Vendor blog posts presenting product adoption/impact via self-reported, methodology-free metrics as if they were independently verified proof — a recurring PR genre across product domains (not limited to social-good/humanitarian framing).</p><p class='muted'>Also known as: self-reported metrics, unverified vendor claims, vendor telemetry</p><h2>Documents (3)</h2><ul class='plain'><li><a href="../docs/extract-gemini-southeast-asia.html">How Gemini is speaking the language of Southeast Asia</a> <span class='muted'><a class="alink" href="../search.html?q=Samuele+Saini">Samuele Saini</a> · 2026-07-14</span> <a href="https://blog.google/innovation-and-ai/products/gemini-app/gemini-southeast-asia-report-2026/" title="Original source" target="_blank" rel="noopener">source&nbsp;↗</a> <a href="https://read.readwise.io/read/01kxfk071xya1esn7phhfd8ajw">Reader</a> <a href="wiseread://read/01kxfk071xya1esn7phhfd8ajw" title="Open in Reader app">🖥️</a><br><span class='muted'>Southeast Asia&#x27;s rapid, self-reported adoption of the Gemini app -- driven by a young population and Gemini&#x27;s local-language performance -- validates Google&#x27;s universal-assistant strategy, and Google is now extending that momentum into autonomous agentic territory by rolling out Gemini Spark in the region&#x27;s local languages.</span></li><li><a href="../docs/extract-google-gemini-coffee-shop-case-study.html">3 ways this coffee shop is growing with Gemini</a> <span class='muted'><a class="alink" href="../search.html?q=Sarah+Armstrong">Sarah Armstrong</a> · 2026-07-08</span> <a href="https://blog.google/products-and-platforms/products/gemini/coffee-shop-gemini-features/" title="Original source" target="_blank" rel="noopener">source&nbsp;↗</a> <a href="https://read.readwise.io/read/01kx1fzrpbcw1qz3r3kzse82ba">Reader</a> <a href="wiseread://read/01kx1fzrpbcw1qz3r3kzse82ba" title="Open in Reader app">🖥️</a><br><span class='muted'>A small-business owner can reclaim time and grow his business by using Gemini as a flexible, no-code assistant for data tracking, creative/design work, and marketing content, because growth comes from better tools rather than more hours worked.</span></li><li><a href="../docs/extract-google-ai-crisis-resilience.html">How governments and organizations are leveraging Google&#x27;s AI breakthroughs for crisis resilience</a> <span class='muted'><a class="alink" href="../search.html?q=Yossi+Matias">Yossi Matias</a> · 2026-07-07</span> <a href="https://blog.google/innovation-and-ai/technology/research/technology-global-crisis-resilience/" title="Original source" target="_blank" rel="noopener">source&nbsp;↗</a> <a href="https://read.readwise.io/read/01kwz1841t7ts3ag5xx0pryqyp">Reader</a> <a href="wiseread://read/01kwz1841t7ts3ag5xx0pryqyp" title="Open in Reader app">🖥️</a><br><span class='muted'>Google&#x27;s decade of AI investment in forecasting, alerting, and satellite-imagery analysis is now translating, through partnerships with the UN, national governments, and humanitarian organizations, into measurable improvements across the full disaster life-cycle — and Google intends to keep expanding this role.</span></li></ul><h2>Propositions touching this concept (1)</h2><p class='muted'>By publication month, oldest first (extraction month when no publication date is known).</p><h3>2026-07</h3><ul class='plain'><li><span class='badge explicit'>explicit</span>Optimism and worry are now both backed by data, but asymmetrically: the optimism rests on uncontrolled, single-team, self-reported metrics while the worry leans on outside studies and surveys, so the doubt is currently better evidenced than the hope.<div class='rel-line'><a href="../docs/extract-what-survived-contact.html#p6">What Survived Contact · p6</a></div></li></ul><h2>Open gaps (11)</h2><ul class='plain'><li><span class='badge gap'>incomplete</span>No independent verification, disclosed methodology, sample size, or comparison baseline is given for any headline statistic (user growth, prompt-language share, image/song generation counts). All figures come from a report Google itself commissioned, wrote and is using to promote its own product, published on Google&#x27;s own blog.<div class='rel-line'><a href='../docs/extract-gemini-southeast-asia.html#g1'>How Gemini is speaking the language of Southeast Asia</a> — read next: Independent, third-party surveys of AI-assistant usage and satisfaction in Southeast Asia -- regional telecom/app-analytics firms, academic digital-literacy studies -- rather than vendor-published reports.</div></li><li><span class='badge gap'>incomplete</span>The piece attributes Gemini&#x27;s growth entirely to demographic tailwinds and language quality, without considering obvious confounds: Gemini&#x27;s free pricing tier, default placement/bundling on Android devices, reduced availability of comparably fluent local-language competitors, or marketing/notification spend in the region.<div class='rel-line'><a href='../docs/extract-gemini-southeast-asia.html#g2'>How Gemini is speaking the language of Southeast Asia</a> — read next: Competitive-landscape analysis of AI assistant apps in Southeast Asian app stores; research on default-effect and pre-installation impact on adoption metrics.</div></li><li><span class='badge gap'>incomplete</span>No discussion of data-handling, privacy, or regulatory context for Gemini Spark -- a 24/7 background agent with deep access to Gmail, Docs and Slides -- operating in Southeast Asian markets with varying and evolving data-protection regimes (e.g. Indonesia&#x27;s PDP Law, Vietnam&#x27;s Personal Data Protection Decree). The piece frames always-on account access purely as a convenience upgrade.<div class='rel-line'><a href='../docs/extract-gemini-southeast-asia.html#g3'>How Gemini is speaking the language of Southeast Asia</a> — read next: Southeast Asian data-protection regulatory frameworks; comparative research on consumer trust in AI agents granted standing access to personal accounts.</div></li><li><span class='badge gap'>incomplete</span>The post treats &#x27;reach&#x27; (alerts appearing in Search, Maps, Android notifications) as equivalent to protection, without acknowledging that Public Alerts, Android Earthquake Alerts, and smartphone-based forecasting all assume Android/smartphone penetration and reliable internet or cellular connectivity — both of which vary enormously across the governments and communities the piece claims to serve.<div class='rel-line'><a href='../docs/extract-google-ai-crisis-resilience.html#g2'>How governments and organizations are leveraging Google&#x27;s AI breakthroughs for crisis resilience</a> — read next: Read on disaster-alert equity gaps and the digital divide in low-connectivity or low-smartphone-penetration regions, especially in the same countries named here (Nigeria, Venezuela).</div></li><li><span class='badge gap'>incomplete</span>The piece names only successes. It presents no false positives, no missed events, no cost figures, and no account of what happens when a forecast is wrong or an alert fails to arrive in time — a familiar pattern across other Google-authored posts in this corpus (see extract-google-educators-ai-learning, which similarly reports only positive outcomes for a Google AI program).<div class='rel-line'><a href='../docs/extract-google-ai-crisis-resilience.html#g3'>How governments and organizations are leveraging Google&#x27;s AI breakthroughs for crisis resilience</a> — read next: Seek failure-case studies or post-mortems of AI-based early-warning systems, and independent error-rate analyses of hurricane/flood AI forecasting versus traditional numerical weather prediction.</div></li><li><span class='badge gap'>illogical</span>The post cites the WMO/national-agency local-data pilot study&#x27;s finding (&#x27;local data significantly improves forecasts&#x27;) as an established result, while explicitly noting in the same paragraph that the results are &#x27;to be published in the coming weeks&#x27; — i.e., not yet peer-reviewed or public at the time of writing.<div class='rel-line'><a href='../docs/extract-google-ai-crisis-resilience.html#g4'>How governments and organizations are leveraging Google&#x27;s AI breakthroughs for crisis resilience</a> — read next: Check whether the study was subsequently published and whether its published findings match the pre-announced framing.</div></li><li><span class='badge gap'>incomplete</span>The headline &#x27;95% faster&#x27; asset-creation statistic is asserted with no disclosed methodology, sample size, or baseline definition of the prior process it&#x27;s being compared against.<div class='rel-line'><a href='../docs/extract-google-gemini-coffee-shop-case-study.html#g1'>3 ways this coffee shop is growing with Gemini</a> — read next: Look for independently conducted (non-vendor) studies or benchmarks comparing AI-assisted design workflows to baseline design-tool workflows, with disclosed methodology.</div></li><li><span class='badge gap'>uninformed</span>No discussion of failure modes or verification: the article never describes how Hrag checks whether the sales forecaster&#x27;s numbers are correct, or whether Gemini&#x27;s synthesized newsletter content accurately represents its source articles. For a rigorous adopter, the interesting engineering question — how do you validate output from a system you didn&#x27;t build and can&#x27;t fully inspect — goes unaddressed.<div class='rel-line'><a href='../docs/extract-google-gemini-coffee-shop-case-study.html#g2'>3 ways this coffee shop is growing with Gemini</a> — read next: Seek practitioner (non-vendor) accounts of validating LLM-generated code, data pipelines, or summaries in small-business or non-expert-user contexts.</div></li><li><span class='badge gap'>incomplete</span>Cost is essentially absent from a story framed as nearly effortless (&#x27;an hour&#x27;, &#x27;20 minutes&#x27;): no mention of Gemini&#x27;s subscription price for the described use cases (only the news-digest feature notes it needs &#x27;Pro and Ultra&#x27;), nor of the time investment required to become effective at prompting and iterating.<div class='rel-line'><a href='../docs/extract-google-gemini-coffee-shop-case-study.html#g3'>3 ways this coffee shop is growing with Gemini</a> — read next: Compare against Google&#x27;s published Gemini pricing tiers and independent small-business cost/ROI reporting on AI-tool adoption.</div></li><li><span class='badge gap'>incomplete</span>This is a single-business testimonial published on Google&#x27;s own blog by a Google-affiliated author, with no independent journalism, corroborating sources, or disclosed selection process (why this business, out of presumably many Gemini-using small businesses) — the leap from &#x27;one coffee shop&#x27; to the closing claim about &#x27;small business owners&#x27; generally is asserted, not demonstrated.<div class='rel-line'><a href='../docs/extract-google-gemini-coffee-shop-case-study.html#g4'>3 ways this coffee shop is growing with Gemini</a> — read next: Look for third-party surveys or independently reported case studies of AI-tool adoption outcomes across a sample of small businesses, to weigh against this single anecdote.</div></li><li><span class='badge gap'>uninformed</span>No mention of data-handling or privacy implications of uploading business financials (via screenshots), internal documents, and proprietary product instructions to a cloud AI assistant — a small operation may not have considered what happens to that data.<div class='rel-line'><a href='../docs/extract-google-gemini-coffee-shop-case-study.html#g5'>3 ways this coffee shop is growing with Gemini</a> — read next: Check Gemini&#x27;s terms of service / data-handling policy for the consumer and business tiers regarding uploaded documents and prompts, and compare against general small-business guidance on handling sensitive operational data with cloud AI tools.</div></li></ul></main><script src='../assets/search.js' defer></script></body></html>

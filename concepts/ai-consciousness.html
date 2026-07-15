@@ -1,0 +1,104 @@
+<!doctype html><html><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>AI Consciousness / Access vs. Phenomenal Consciousness</title><style>
+:root { --bg:#ffffff; --fg:#1a1a1a; --muted:#6b6b6b; --line:#e3e3e0;
+  --card:#f7f7f5; --accent:#4a6fa5; --accent2:#8a6fae; --warn:#b3593a;
+  --ok:#4a7a55; --chip:#eceff4; }
+@media (prefers-color-scheme: dark) {
+  :root { --bg:#191917; --fg:#e8e6e3; --muted:#9a9892; --line:#33322f;
+    --card:#22211f; --accent:#8fb0dd; --accent2:#b6a2d8; --warn:#d98a68;
+    --ok:#84b591; --chip:#2c2b28; }
+}
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:var(--fg);
+  font:16px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+main { max-width:960px; margin:0 auto; padding:1.5rem 1.25rem 4rem; }
+nav.top { display:flex; flex-wrap:wrap; gap:.35rem 1.1rem; padding:.8rem 1.25rem;
+  border-bottom:1px solid var(--line); font-size:.92rem; }
+nav.top a { color:var(--muted); text-decoration:none; }
+nav.top a:hover, nav.top a.here { color:var(--accent); }
+h1 { font-size:1.55rem; line-height:1.25; margin:.8rem 0 .3rem; }
+h2 { font-size:1.15rem; margin:2rem 0 .6rem; border-bottom:1px solid var(--line);
+  padding-bottom:.3rem; }
+h3 { font-size:1rem; margin:1.2rem 0 .4rem; }
+a { color:var(--accent); }
+.muted { color:var(--muted); font-size:.9rem; }
+.unity { border-left:3px solid var(--accent); background:var(--card);
+  padding:.7rem 1rem; margin:1rem 0; font-style:italic; }
+.chips { display:flex; flex-wrap:wrap; gap:.35rem; margin:.5rem 0; }
+.chip { background:var(--chip); border-radius:999px; padding:.1rem .7rem;
+  font-size:.82rem; text-decoration:none; color:var(--fg); }
+.chip:hover { outline:1px solid var(--accent); }
+.chip.count { color:var(--muted); }
+.card { background:var(--card); border:1px solid var(--line); border-radius:8px;
+  padding: .8rem 1rem; margin:.6rem 0; }
+.badge { font-size:.72rem; border-radius:4px; padding:.05rem .4rem;
+  vertical-align:middle; margin-right:.4rem; white-space:nowrap; }
+.badge.explicit { background:var(--ok); color:var(--bg); }
+.badge.implicit { background:var(--accent2); color:var(--bg); }
+.badge.gap { background:var(--warn); color:var(--bg); }
+.badge.closed { background:var(--ok); color:var(--bg); }
+.badge.rel { background:var(--accent); color:var(--bg); }
+.badge.contested { background:var(--warn); color:var(--bg); }
+.badge.established, .badge.corroborated { background:var(--ok); color:var(--bg); }
+.badge.developed { background:var(--accent2); color:var(--bg); }
+.tag.conf { font-size:.72rem; color:var(--muted); border:1px solid var(--line);
+  border-radius:4px; padding:.05rem .4rem; margin-left:.3rem; }
+ul.plain { list-style:none; padding-left:0; }
+ul.plain > li { margin:.55rem 0; }
+table { border-collapse:collapse; width:100%; font-size:.92rem; }
+th, td { text-align:left; padding:.4rem .6rem; border-bottom:1px solid var(--line);
+  vertical-align:top; }
+.tablewrap { overflow-x:auto; }
+.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:.7rem; }
+.stat { font-size:1.7rem; font-weight:600; color:var(--accent); }
+.rel-line { font-size:.86rem; color:var(--muted); margin:.15rem 0 .15rem 1rem; }
+.searchbox { width:100%; padding:.5rem .8rem; border:1px solid var(--line);
+  border-radius:6px; background:var(--card); color:var(--fg); font-size:1rem; }
+.issue-card h3 { margin:.1rem 0 .5rem; }
+.issue-cols { display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin:.6rem 0; }
+@media (max-width:640px) { .issue-cols { grid-template-columns:1fr; } }
+.issue-side h4 { margin:0 0 .4rem; font-size:.85rem; text-transform:uppercase;
+  letter-spacing:.03em; color:var(--muted); }
+.issue-side li { margin:.6rem 0; }
+.supported-by { margin:.15rem 0 .15rem 1rem; }
+.issue-edges { margin-top:.6rem; font-size:.9rem; }
+.verdict-box { margin-top:.7rem; padding:.6rem .8rem; border-radius:6px; font-size:.92rem; }
+.verdict-box.verdict-set { background:var(--card); border-left:3px solid var(--ok); }
+.verdict-box.verdict-empty { background:var(--card); border-left:3px solid var(--line);
+  color:var(--muted); }
+.verdict-box code { font-size:.85em; }
+.issue-key { margin-top:.4rem; }
+nav.top { align-items:center; }
+.navsearch { margin-left:auto; position:relative; flex:0 1 240px; min-width:150px; }
+.navsearch input { width:100%; padding:.3rem .7rem; border:1px solid var(--line);
+  border-radius:6px; background:var(--card); color:var(--fg); font:inherit; font-size:.88rem; }
+.navsearch input:focus { outline:1px solid var(--accent); }
+.sdrop { position:absolute; right:0; top:calc(100% + 6px); width:min(460px,92vw);
+  max-height:70vh; overflow-y:auto; background:var(--bg); border:1px solid var(--line);
+  border-radius:8px; box-shadow:0 8px 28px rgba(0,0,0,.18); z-index:60; }
+.sres { display:block; padding:.5rem .7rem; border-bottom:1px solid var(--line);
+  text-decoration:none; color:var(--fg); font-size:.88rem; }
+.sres:last-child { border-bottom:none; }
+.sres.active, .sres:hover { background:var(--card); }
+.sres .sline { display:flex; align-items:baseline; gap:.4rem; min-width:0; }
+.sres .st { flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.sres .sdoc { display:block; font-size:.78rem; overflow:hidden; text-overflow:ellipsis;
+  white-space:nowrap; }
+.sres.sall { color:var(--accent); text-align:center; }
+.badge.t-document { background:var(--accent); color:var(--bg); }
+.badge.t-claim { background:var(--ok); color:var(--bg); }
+.badge.t-gap { background:var(--warn); color:var(--bg); }
+.badge.t-term { background:var(--accent2); color:var(--bg); }
+.badge.t-concept { background:var(--chip); color:var(--fg); }
+.scard .sx { font-size:.9rem; margin:.3rem 0; }
+.sx mark { background:transparent; color:var(--accent); font-weight:600; }
+.sfilters button, #smore { font:inherit; font-size:.85rem; padding:.25rem .8rem;
+  border-radius:999px; border:1px solid var(--line); background:var(--card);
+  color:var(--fg); cursor:pointer; }
+.sfilters button.active { border-color:var(--accent); color:var(--accent); }
+li:target { box-shadow:inset 3px 0 0 var(--accent); background:var(--card);
+  padding:.4rem .6rem; margin-left:-.6rem; border-radius:0 6px 6px 0; }
+a.alink { color:inherit; text-decoration:underline;
+  text-decoration-color:var(--line); text-underline-offset:2px; }
+a.alink:hover { color:var(--accent); text-decoration-color:var(--accent); }
+</style></head><body><nav class='top'><a href="../index.html">Overview</a><a href="../graph.html">Graph</a><a href="../concepts.html" class=here>Concepts</a><a href="../tensions.html">Tensions</a><a href="../issues.html">Issues</a><a href="../claims.html">Claims</a><a href="../threads.html">Threads</a><a href="../gaps.html">Gaps</a><a href="../timeline.html">Timeline</a><div class='navsearch'><input id='navq' type='search' placeholder='Search&hellip;  /  &#8984;K' autocomplete='off' spellcheck='false'><div id='navdrop' class='sdrop' hidden></div></div></nav><main><h1>AI Consciousness / Access vs. Phenomenal Consciousness</h1><p>Whether AI systems have anything like conscious access or subjective experience — the functional/phenomenal distinction, evidence standards for machine consciousness, and the ethical stakes of getting it wrong.</p><p class='muted'>Also known as: consciousness, machine consciousness, sentience, access consciousness, phenomenal consciousness, consciously accessible, conscious access, global workspace theory, felt experience, moral status of AI</p><h2>How authors use it</h2><p class='muted'>Oldest first (extraction date when no publication date is known).</p><div class='tablewrap'><table><tr><th>Author</th><th>Their term</th><th>Their meaning</th></tr><tr><td><a href="../docs/extract-anthropic-can-read-claudes-mind.html">Anthropic Can Now Read Claude&#x27;s Mind</a><br><span class='muted'><a class="alink" href="../search.html?q=AI+Daily+Brief">AI Daily Brief</a> · 2026-07-08</span></td><td><a href='../docs/extract-anthropic-can-read-claudes-mind.html#term-global-workspace-theory'><b>Global Workspace Theory</b></a></td><td>Borrowed from cognitive science: the idea that the brain is a crowd of specialist processes whose outputs become consciously accessible only when broadcast to a shared hub; used here as the theoretical template J-space is claimed to functionally match.</td></tr></table></div><h2>Documents (2)</h2><ul class='plain'><li><a href="../docs/extract-anthropic-can-read-claudes-mind.html">Anthropic Can Now Read Claude&#x27;s Mind</a> <span class='muted'><a class="alink" href="../search.html?q=AI+Daily+Brief">AI Daily Brief</a> · 2026-07-08</span> <a href="https://read.readwise.io/read/01kwzhycpaesh2yh1x1y5s08gj">Reader</a> <a href="wiseread://read/01kwzhycpaesh2yh1x1y5s08gj" title="Open in Reader app">🖥️</a><br><span class='muted'>There is no single thesis unifying this issue — it is a multi-item news roundup — but its implicit throughline is that AI systems are becoming simultaneously more legible and accountable (Anthropic&#x27;s J-Lens can now read a model&#x27;s private &#x27;thoughts&#x27; in real time, and a third US state just mandated independent safety audits) at the same moment their capability, compute base, and geopolitical control are becoming more contested and fragmented (chip-supply delays, a US-China dispute over export blacklists, China restricting AI companion agents, a booming training-data economy) — oversight and capability are advancing on parallel tracks that this issue never explicitly connects.</span></li><li><a href="../docs/extract-anthropic-global-workspace-language-models.html">A global workspace in language models</a> <span class='muted'><a class="alink" href="../search.html?q=anthropic.com">anthropic.com</a> · 2026-07-06</span> <a href="https://read.readwise.io/read/01kx1nk8frp4hxnpgjxzttqjjf">Reader</a> <a href="wiseread://read/01kx1nk8frp4hxnpgjxzttqjjf" title="Open in Reader app">🖥️</a><br><span class='muted'>Anthropic presents causal (swap/ablation, not just correlational) evidence that Claude has developed an emergent, undesigned &#x27;J-space&#x27; of reportable, voluntarily-modulated, flexibly-reusable internal representations that functionally match several core predictions of Baars/Dehaene&#x27;s Global Workspace Theory and are selectively necessary for higher-order reasoning rather than general fluency — a structure the authors argue supports &#x27;access consciousness&#x27; in language models (while explicitly declining to claim anything about subjective/phenomenal experience) and that doubles as a safety-relevant window into thoughts Claude doesn&#x27;t say out loud.</span></li></ul><h2>Propositions touching this concept (7)</h2><p class='muted'>By publication month, oldest first (extraction month when no publication date is known).</p><h3>2026-05</h3><ul class='plain'><li><span class='badge explicit'>explicit</span><span class='badge corroborated' title='epistemic status: corroborated'>corroborated</span>Consciousness is about felt experience (how something feels), not about what a system says.<div class='rel-line'><a href="../docs/extract-dawkins-claude-delusion.html#p3">Richard Dawkins and The Claude Delusion · p3</a></div></li><li><span class='badge explicit'>explicit</span>The human tendency to attribute sentience to fluent language producers (the Gullibility Gap) is a well-documented cognitive bias, not evidence of machine consciousness.<div class='rel-line'><a href="../docs/extract-dawkins-claude-delusion.html#p8">Richard Dawkins and The Claude Delusion · p8</a></div></li></ul><h3>2026-07</h3><ul class='plain'><li><span class='badge explicit'>explicit</span>The J-space satisfies five workspace-like properties — accurate reportability, private holding without verbalizing, causal driving of reasoning, flexible reuse of a single representation across downstream questions, and staying small (a few dozen active concepts) — which Anthropic treats as functional support for applying Global Workspace Theory to language models.<div class='rel-line'><a href="../docs/extract-anthropic-can-read-claudes-mind.html#p2">Anthropic Can Now Read Claude&#x27;s Mind · p2</a></div></li><li><span class='badge explicit'>explicit</span>Global Workspace Theory&#x27;s originators, Dehaene and Naccache, endorsed the J-space research as a mechanistic, testable version of their hypothesis, while identifying genuine disanalogies to human consciousness — no discrete &#x27;click&#x27; into awareness, a workspace that holds far more items than human working memory, and no persistent background cognition when the model isn&#x27;t being prompted.<div class='rel-line'><a href="../docs/extract-anthropic-can-read-claudes-mind.html#p6">Anthropic Can Now Read Claude&#x27;s Mind · p6</a></div></li><li><span class='badge explicit'>explicit</span><span class='badge corroborated' title='epistemic status: corroborated'>corroborated</span>The J-space exhibits five functional properties predicted by Global Workspace Theory — reportability, voluntary modulation, causal use in multi-step reasoning, flexible reuse across many downstream tasks, and unusually dense &#x27;broadcast&#x27; connectivity to the rest of the network — while accounting for under a tenth of the model&#x27;s overall internal activity.<div class='rel-line'><a href="../docs/extract-anthropic-global-workspace-language-models.html#p2">A global workspace in language models · p2</a></div></li><li><span class='badge explicit'>explicit</span><span class='badge corroborated' title='epistemic status: corroborated'>corroborated</span>The authors explicitly claim their findings support &#x27;access consciousness&#x27; in Claude (the functional capacity to report, reason with, and use a thought) while explicitly declining to claim anything about &#x27;phenomenal consciousness&#x27; (subjective felt experience), treating these as separable questions and stating it is unclear whether any experiment could resolve the latter.<div class='rel-line'><a href="../docs/extract-anthropic-global-workspace-language-models.html#p9">A global workspace in language models · p9</a></div></li><li><span class='badge implicit'>implicit</span>The composure a leader projects is a deliberate performance decoupled from felt experience — calm is manufactured internally and then displayed, not experienced.<div class='rel-line'><a href="../docs/extract-why-product-feels-so-hard-right-now.html#p9">Why product feels so hard right now - Charity Ibhadon (WPP) · p9</a></div></li></ul><h2>Open gaps (5)</h2><ul class='plain'><li><span class='badge gap'>incomplete</span>The write-up reports the J-space finding as settled without the generalization caveats present in the underlying research — e.g. whether the finding holds across model families/scales or is partly an artifact of Anthropic&#x27;s own post-training recipe (Constitutional AI/RLHF), and without any quantitative detail on the counterfactual reflection training result.<div class='rel-line'><a href='../docs/extract-anthropic-can-read-claudes-mind.html#g2'>Anthropic Can Now Read Claude&#x27;s Mind</a> — read next: Compare against Anthropic&#x27;s original paper, which reports these findings drawn mainly from Claude models plus one independent Neuronpedia replication, and describes the reflection-training result only qualitatively.</div></li><li><span class='badge gap'>incomplete</span>No systematic false-positive/false-negative rate is reported for the J-lens as a safety-monitoring tool. The three deception/misalignment case studies (blackmail scenario, benchmark fabrication, sabotage model organism) are existence proofs on curated examples, not a validated detector with a measured base rate of J-space &#x27;suspicious&#x27; signatures in ordinary benign use, nor a measured miss rate against genuinely deceptive behavior the method fails to catch.<div class='rel-line'><a href='../docs/extract-anthropic-global-workspace-language-models.html#g1'>A global workspace in language models</a> — read next: Check the full paper (transformer-circuits.pub) or Neel Nanda&#x27;s invited commentary/independent replication for any quantitative detection statistics.</div></li><li><span class='badge gap'>incomplete</span>The mechanism that determines what content is selected into the J-space in the first place is explicitly unknown even to the authors — this is not a gap in the summary post specifically, but an acknowledged open question in the underlying research program itself, meaning the causal story (&#x27;training produces a workspace because it&#x27;s a useful way to organize computation&#x27;) is currently an inference from the existence of the structure, not a demonstrated training dynamic.<div class='rel-line'><a href='../docs/extract-anthropic-global-workspace-language-models.html#g2'>A global workspace in language models</a> — read next: Watch for follow-up Anthropic interpretability work specifically targeting the training dynamics that give rise to J-space, referenced as future work in the closing section.</div></li><li><span class='badge gap'>incomplete</span>Generalization across model scale, architecture, and training recipe is largely untested in this summary post. Findings are drawn from specific Claude models (Sonnet 4.5, Opus 4.6) plus one independent replication on an open-weights model via Neuronpedia (credited to Neel Nanda&#x27;s commentary) — leaving open whether J-space-like structure is a general property of transformer LLMs at scale or partly an artifact of Anthropic&#x27;s own post-training recipe (e.g. Constitutional AI / RLHF choices), especially given the post&#x27;s own finding that post-training substantially reshapes what enters the J-space.<div class='rel-line'><a href='../docs/extract-anthropic-global-workspace-language-models.html#g3'>A global workspace in language models</a> — read next: Read Neel Nanda&#x27;s commentary (linked in the piece) for the specifics and limits of the open-weights replication.</div></li><li><span class='badge gap'>incomplete</span>The counterfactual reflection training result (training only on hypothetical self-reflection reduced dishonest behavior) is reported with purely qualitative framing (&#x27;went down&#x27;) — no effect size, no comparison against standard alignment/safety-training baselines, and no discussion of side effects — so its practical significance relative to existing training techniques is unclear from this post.<div class='rel-line'><a href='../docs/extract-anthropic-global-workspace-language-models.html#g5'>A global workspace in language models</a> — read next: Check the full paper for the quantitative evaluation of counterfactual reflection training against baseline safety-training methods.</div></li></ul></main><script src='../assets/search.js' defer></script></body></html>

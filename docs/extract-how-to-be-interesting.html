@@ -1,0 +1,104 @@
+<!doctype html><html><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>How to be interesting as F*ck</title><style>
+:root { --bg:#ffffff; --fg:#1a1a1a; --muted:#6b6b6b; --line:#e3e3e0;
+  --card:#f7f7f5; --accent:#4a6fa5; --accent2:#8a6fae; --warn:#b3593a;
+  --ok:#4a7a55; --chip:#eceff4; }
+@media (prefers-color-scheme: dark) {
+  :root { --bg:#191917; --fg:#e8e6e3; --muted:#9a9892; --line:#33322f;
+    --card:#22211f; --accent:#8fb0dd; --accent2:#b6a2d8; --warn:#d98a68;
+    --ok:#84b591; --chip:#2c2b28; }
+}
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:var(--fg);
+  font:16px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+main { max-width:960px; margin:0 auto; padding:1.5rem 1.25rem 4rem; }
+nav.top { display:flex; flex-wrap:wrap; gap:.35rem 1.1rem; padding:.8rem 1.25rem;
+  border-bottom:1px solid var(--line); font-size:.92rem; }
+nav.top a { color:var(--muted); text-decoration:none; }
+nav.top a:hover, nav.top a.here { color:var(--accent); }
+h1 { font-size:1.55rem; line-height:1.25; margin:.8rem 0 .3rem; }
+h2 { font-size:1.15rem; margin:2rem 0 .6rem; border-bottom:1px solid var(--line);
+  padding-bottom:.3rem; }
+h3 { font-size:1rem; margin:1.2rem 0 .4rem; }
+a { color:var(--accent); }
+.muted { color:var(--muted); font-size:.9rem; }
+.unity { border-left:3px solid var(--accent); background:var(--card);
+  padding:.7rem 1rem; margin:1rem 0; font-style:italic; }
+.chips { display:flex; flex-wrap:wrap; gap:.35rem; margin:.5rem 0; }
+.chip { background:var(--chip); border-radius:999px; padding:.1rem .7rem;
+  font-size:.82rem; text-decoration:none; color:var(--fg); }
+.chip:hover { outline:1px solid var(--accent); }
+.chip.count { color:var(--muted); }
+.card { background:var(--card); border:1px solid var(--line); border-radius:8px;
+  padding: .8rem 1rem; margin:.6rem 0; }
+.badge { font-size:.72rem; border-radius:4px; padding:.05rem .4rem;
+  vertical-align:middle; margin-right:.4rem; white-space:nowrap; }
+.badge.explicit { background:var(--ok); color:var(--bg); }
+.badge.implicit { background:var(--accent2); color:var(--bg); }
+.badge.gap { background:var(--warn); color:var(--bg); }
+.badge.closed { background:var(--ok); color:var(--bg); }
+.badge.rel { background:var(--accent); color:var(--bg); }
+.badge.contested { background:var(--warn); color:var(--bg); }
+.badge.established, .badge.corroborated { background:var(--ok); color:var(--bg); }
+.badge.developed { background:var(--accent2); color:var(--bg); }
+.tag.conf { font-size:.72rem; color:var(--muted); border:1px solid var(--line);
+  border-radius:4px; padding:.05rem .4rem; margin-left:.3rem; }
+ul.plain { list-style:none; padding-left:0; }
+ul.plain > li { margin:.55rem 0; }
+table { border-collapse:collapse; width:100%; font-size:.92rem; }
+th, td { text-align:left; padding:.4rem .6rem; border-bottom:1px solid var(--line);
+  vertical-align:top; }
+.tablewrap { overflow-x:auto; }
+.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:.7rem; }
+.stat { font-size:1.7rem; font-weight:600; color:var(--accent); }
+.rel-line { font-size:.86rem; color:var(--muted); margin:.15rem 0 .15rem 1rem; }
+.searchbox { width:100%; padding:.5rem .8rem; border:1px solid var(--line);
+  border-radius:6px; background:var(--card); color:var(--fg); font-size:1rem; }
+.issue-card h3 { margin:.1rem 0 .5rem; }
+.issue-cols { display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin:.6rem 0; }
+@media (max-width:640px) { .issue-cols { grid-template-columns:1fr; } }
+.issue-side h4 { margin:0 0 .4rem; font-size:.85rem; text-transform:uppercase;
+  letter-spacing:.03em; color:var(--muted); }
+.issue-side li { margin:.6rem 0; }
+.supported-by { margin:.15rem 0 .15rem 1rem; }
+.issue-edges { margin-top:.6rem; font-size:.9rem; }
+.verdict-box { margin-top:.7rem; padding:.6rem .8rem; border-radius:6px; font-size:.92rem; }
+.verdict-box.verdict-set { background:var(--card); border-left:3px solid var(--ok); }
+.verdict-box.verdict-empty { background:var(--card); border-left:3px solid var(--line);
+  color:var(--muted); }
+.verdict-box code { font-size:.85em; }
+.issue-key { margin-top:.4rem; }
+nav.top { align-items:center; }
+.navsearch { margin-left:auto; position:relative; flex:0 1 240px; min-width:150px; }
+.navsearch input { width:100%; padding:.3rem .7rem; border:1px solid var(--line);
+  border-radius:6px; background:var(--card); color:var(--fg); font:inherit; font-size:.88rem; }
+.navsearch input:focus { outline:1px solid var(--accent); }
+.sdrop { position:absolute; right:0; top:calc(100% + 6px); width:min(460px,92vw);
+  max-height:70vh; overflow-y:auto; background:var(--bg); border:1px solid var(--line);
+  border-radius:8px; box-shadow:0 8px 28px rgba(0,0,0,.18); z-index:60; }
+.sres { display:block; padding:.5rem .7rem; border-bottom:1px solid var(--line);
+  text-decoration:none; color:var(--fg); font-size:.88rem; }
+.sres:last-child { border-bottom:none; }
+.sres.active, .sres:hover { background:var(--card); }
+.sres .sline { display:flex; align-items:baseline; gap:.4rem; min-width:0; }
+.sres .st { flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.sres .sdoc { display:block; font-size:.78rem; overflow:hidden; text-overflow:ellipsis;
+  white-space:nowrap; }
+.sres.sall { color:var(--accent); text-align:center; }
+.badge.t-document { background:var(--accent); color:var(--bg); }
+.badge.t-claim { background:var(--ok); color:var(--bg); }
+.badge.t-gap { background:var(--warn); color:var(--bg); }
+.badge.t-term { background:var(--accent2); color:var(--bg); }
+.badge.t-concept { background:var(--chip); color:var(--fg); }
+.scard .sx { font-size:.9rem; margin:.3rem 0; }
+.sx mark { background:transparent; color:var(--accent); font-weight:600; }
+.sfilters button, #smore { font:inherit; font-size:.85rem; padding:.25rem .8rem;
+  border-radius:999px; border:1px solid var(--line); background:var(--card);
+  color:var(--fg); cursor:pointer; }
+.sfilters button.active { border-color:var(--accent); color:var(--accent); }
+li:target { box-shadow:inset 3px 0 0 var(--accent); background:var(--card);
+  padding:.4rem .6rem; margin-left:-.6rem; border-radius:0 6px 6px 0; }
+a.alink { color:inherit; text-decoration:underline;
+  text-decoration-color:var(--line); text-underline-offset:2px; }
+a.alink:hover { color:var(--accent); text-decoration-color:var(--accent); }
+</style></head><body><nav class='top'><a href="../index.html">Overview</a><a href="../graph.html">Graph</a><a href="../concepts.html">Concepts</a><a href="../tensions.html">Tensions</a><a href="../issues.html">Issues</a><a href="../claims.html">Claims</a><a href="../threads.html">Threads</a><a href="../gaps.html">Gaps</a><a href="../timeline.html">Timeline</a><div class='navsearch'><input id='navq' type='search' placeholder='Search&hellip;  /  &#8984;K' autocomplete='off' spellcheck='false'><div id='navdrop' class='sdrop' hidden></div></div></nav><main><h1>How to be interesting as F*ck</h1><p class='muted'><a class="alink" href="../search.html?q=Success+Notes">Success Notes</a> · article · 2026-05-19 <a href="https://read.readwise.io/read/01kx1mq77cwjr1762g6qk63hme">Reader</a> <a href="wiseread://read/01kx1mq77cwjr1762g6qk63hme" title="Open in Reader app">🖥️</a></p><div class='unity'>Being &#x27;interesting&#x27; is not an innate trait (charisma, dramatic backstory, trivia) but a learnable set of behaviors that run against the social conditioning toward safety and agreeability: dropping performance for authenticity, holding real (non-tribal) opinions and updating them in public, going deep on something idiosyncratic, actually listening (the follow-up question), building cross-domain range, actively noticing rather than passively consuming, and being fully present without self-monitoring — with unguarded attention to others as the trait underlying all the rest.</div><p class='muted'>practical · persuasive essay / numbered listicle with a prescriptive &#x27;practical move&#x27; after each item — Substack self-help piece. Each of 7 points follows the same template: assertion, one celebrated-person anecdote as illustration, a quote from a historical/literary figure, and a one-line behavioral prescription. No data, study, or argument beyond authority-by-anecdote.</p><h2>Structure</h2><div class='tablewrap'><table><tr><th>Part</th><th>Role</th></tr><tr><td>Opening hook (the failed &#x27;test&#x27;)</td><td>diagnosis</td></tr><tr><td>1. Stop performing. Start being.</td><td>prescription + authority example (Feynman)</td></tr><tr><td>2. Have a point of view others don&#x27;t</td><td>prescription + authority example (Tuchman&#x27;s &#x27;officialdom&#x27;)</td></tr><tr><td>3. Go deep on something weird</td><td>prescription + authority example (da Vinci)</td></tr><tr><td>4. Ask the second question</td><td>prescription + authority example (Saunders)</td></tr><tr><td>5. Build range. Then let the connections show.</td><td>prescription + authority example (Michael Lewis)</td></tr><tr><td>6. Actually notice things</td><td>prescription + authority example (Marilynne Robinson)</td></tr><tr><td>7. Show up without armor</td><td>capstone prescription + authority example (Simone Weil)</td></tr><tr><td>Closing coda (&#x27;They&#x27;re showing up.&#x27;)</td><td>restatement of thesis</td></tr></table></div><h2>Key terms</h2><ul class='plain'><li id='term-performing-vs-being'><a class="alink" href="../search.html?q=performing+vs.+being"><b>performing vs. being</b></a><br><span class='muted'>The habitual social posture of monitoring how one comes across and optimizing for inoffensiveness/appropriateness, contrasted with speaking and acting from one&#x27;s actual, unfiltered reaction.</span></li><li id='term-range-as-used-here'><a class="alink" href="../search.html?q=range+%28as+used+here%29"><b>range (as used here)</b></a><br><span class='muted'>Accumulated breadth across unrelated domains, valued specifically for producing cross-domain analogies (&#x27;this is exactly the same problem the Venetian Republic had&#x27;) rather than for its own sake.</span></li></ul><h2>Propositions</h2><ul class='plain'><li id='p1'><span class='badge explicit'>explicit</span>Being interesting is not a personality type, charisma, a dramatic backstory, or trivia — it is a set of specific, learnable behaviors that run counter to normal social conditioning.</li><li id='p2'><span class='badge explicit'>explicit</span>Most people are boring because they have trained themselves to be inoffensive, safe, and agreeable, which makes them invisible.</li><li id='p3'><span class='badge explicit'>explicit</span>Saying what you actually think, rather than what lands well, gives a person &#x27;texture&#x27; and makes them memorable (illustrated via Feynman&#x27;s bongo-playing, safecracking, and refusal to fake understanding).<span class='tag conf' title='author-stated confidence'>conf: medium</span></li><li id='p4'><span class='badge explicit'>explicit</span>Most people&#x27;s opinions are tribal affiliations rather than independently reasoned positions, and the willingness to publicly update a belief (&#x27;I used to believe X, now I&#x27;m not sure because of Y&#x27;) is rare and magnetic.<span class='tag conf' title='author-stated confidence'>conf: medium</span></li><li id='p5'><span class='badge explicit'>explicit</span>Deep, obsessive knowledge of one narrow and unusual subject teaches transferable careful thinking, giving a person&#x27;s speech on unrelated topics more &#x27;weight&#x27; and &#x27;friction.&#x27;<span class='tag conf' title='author-stated confidence'>conf: low</span></li><li id='p6'><span class='badge explicit'>explicit</span>Most people, while listening, are already composing their reply rather than actually attending to what was said; asking a genuine follow-up question is a rare signal of having actually heard someone.<span class='tag conf' title='author-stated confidence'>conf: medium</span></li><li id='p7'><span class='badge explicit'>explicit</span>Cross-domain breadth (&#x27;range&#x27;) produces novel analogies and connections that people confined to one world cannot make, and saying things nobody else is saying is close to the simplest definition of &#x27;interesting.&#x27;<span class='tag conf' title='author-stated confidence'>conf: medium</span></li><li id='p8'><span class='badge explicit'>explicit</span>Interesting people actively notice their surroundings — register, feel friction, let things mean something to them — rather than passively consuming and outsourcing &#x27;noticing&#x27; to other people while calling it staying informed.<span class='tag conf' title='author-stated confidence'>conf: medium</span></li><li id='p9'><span class='badge explicit'>explicit</span>Underneath all the other behaviors, the necessary condition for being interesting is full, unguarded presence — not managing one&#x27;s impression, not half-elsewhere — and this is fundamentally an act of generosity toward the other person, not a performance technique.<span class='tag conf' title='author-stated confidence'>conf: medium</span></li><li id='p10'><span class='badge implicit'>implicit</span>Being interesting is a matter of individual choice and effort (&#x27;the practical move&#x27;) rather than being significantly constrained by temperament, social position, or context.<span class='tag conf' title='author-stated confidence'>conf: low</span></li></ul><h2>Arguments</h2><div class='card'><b>Adopting these seven behaviors (authenticity, real opinions, depth, real listening, range, active noticing, unguarded presence) will make a person interesting/memorable rather than forgettable.</b> <span class='tag conf' title='argument strength (author-stated): weak — the essay is argument-by-anecdote throughout: one admired, already-successful person per point, no comparison group, no consideration of people who exhibit the same behavior and remain forgettable (or of forgettable people who are self-effacing rather than &#x27;performing&#x27;), and no acknowledgment that fame/talent could be the actual common cause rather than the behavior itself. Typical of the genre — persuasive by pattern repetition and authority citation, not by evidence.'>strength: low</span><div class='muted'>Explicit premises:</div><ul><li>Each behavior is exhibited by at least one widely admired, memorable historical or public figure (Feynman, Tuchman&#x27;s research subjects by analogy, da Vinci, Saunders, Lewis, Robinson, Weil).</li><li>The behaviors described are the opposite of default socialized behavior (performing safety, tribal opinion, passive consumption, half-attention).</li></ul><div class='muted'>Implicit premises:</div><ul><li>The behavior itself, not the exemplar&#x27;s independent talent, fame, or historical circumstance, is the operative cause of their being remembered.</li><li>What made Feynman/da Vinci/Lewis/Robinson memorable to a broad public is the same mechanism that would make an ordinary person memorable to their dinner-party or workplace circle.</li><li>There is no meaningful selection effect in choosing already-famous people as illustrations of an everyday interpersonal claim.</li></ul><div class='muted'>Inferences:</div><ul><li>single-exemplar generalization repeated seven times</li><li>analogy from historical/institutional cases (Tuchman) to interpersonal conversation</li></ul></div><h2>Narratives</h2><ul class='plain'><li>Richard Feynman&#x27;s bongo-playing, safecracking hobby, and refusal to fake understanding of physics he hadn&#x27;t truly grasped.<br><span class='muted'>→ illustrates &#x27;stop performing, start being&#x27; — texture from unfiltered authenticity</span></li><li>Barbara Tuchman&#x27;s historical finding that governments persist in catastrophic decisions because of &#x27;officialdom&#x27; — the need to preserve credibility by not updating publicly.<br><span class='muted'>→ supplies a borrowed vocabulary term (&#x27;officialdom&#x27;) and analogical support for the claim that most people&#x27;s opinions calcify rather than update</span></li><li>Leonardo da Vinci&#x27;s notebooks mixing anatomy, river maps, grocery lists and architecture on the same pages.<br><span class='muted'>→ illustrates depth/range compounding into a distinctive mind</span></li><li>George Saunders&#x27;s observation that writers place the interesting thing at the end of a sentence and immediately move on instead of dwelling on it.<br><span class='muted'>→ analogy for failing to ask the follow-up question in conversation</span></li><li>Michael Lewis&#x27;s years as a bond trader before becoming a journalist, which produced Liar&#x27;s Poker, The Big Short, and Moneyball.<br><span class='muted'>→ illustrates how cross-domain range produces a distinctive frame and &#x27;stories nobody else is telling&#x27;</span></li><li>Marilynne Robinson&#x27;s explanation that her Iowa-set novels are slow and quiet because she actually looked at small towns and found them inexhaustible, while most people drive through and see nothing.<br><span class='muted'>→ illustrates active noticing vs. passive consumption</span></li><li>Simone Weil&#x27;s claim that attention is the rarest and purest form of generosity.<br><span class='muted'>→ supplies the capstone framing that unguarded presence, not technique, is what people ultimately remember</span></li></ul><h2>Questions addressed</h2><ul class='plain'><li>✅ Why are most people forgettable?<br><span class=muted>Because they have been socialized into safe, agreeable, non-committal performance rather than genuine self-expression, opinion, depth, attention, and presence.</span></li><li>✅ What, concretely, do memorably &#x27;interesting&#x27; people do differently?<br><span class=muted>Seven behaviors: authentic self-expression, held (and updatable) opinions, idiosyncratic depth, real follow-up questions, cross-domain range, active noticing, and full presence.</span></li><li>⭕ Is the causal direction actually behavior-to-outcome, or could the underlying talent/status of the cited exemplars be the real driver of both the behavior and the fame?</li><li>⭕ What are the social/professional risks or costs of adopting these behaviors (e.g. voicing unpopular opinions, publicly updating beliefs) for someone without an exemplar&#x27;s pre-existing credibility buffer?</li><li>⭕ Does &#x27;interesting&#x27; mean the same thing across audiences and cultures, or is the essay&#x27;s frame implicitly that of a Western, intellectual, individualist milieu?</li></ul><h2>Gaps</h2><ul class='plain'><li id='g1'><span class='badge gap'>illogical</span>The central argumentative move — one admired, already-famous exemplar per behavior, therefore the behavior causes &#x27;interestingness&#x27; — is a textbook survivorship-bias fallacy. It never considers people who exhibit the same behaviors (bluntness, obsessive niche depth, cross-domain range) and remain forgettable, nor interesting people who lack these specific traits, nor whether fame/talent is the actual common cause of both the behavior being tolerated and the person being remembered.<br><span class='muted'>Read next: Compare against literature on survivorship bias / halo effect in trait-based success narratives (e.g. Mlodinow&#x27;s or Taleb&#x27;s critiques of retrospective success attribution) for a rigorous treatment of the same fallacy.</span></li><li id='g2'><span class='badge gap'>incomplete</span>The essay offers zero data, studies, or even informal polling — every claim is supported by a single celebrated person&#x27;s anecdote plus an aphoristic quote. This is standard for the listicle/self-help genre but leaves every mechanism (why does &#x27;texture&#x27; make someone memorable? how much depth is &#x27;enough&#x27;?) entirely unspecified and untestable.</li><li id='g3'><span class='badge gap'>incomplete</span>No engagement with the real social and professional risk of the prescriptions — voicing an actual disagreement, saying &#x27;the thing you actually think,&#x27; or publicly updating a belief can carry real reputational cost, especially for people without Feynman- or da Vinci-level status insulation. The essay treats these as free, universally low-cost swaps.</li><li id='g4'><span class='badge gap'>incomplete</span>The seven behaviors are presented as an unweighted checklist with no account of how they interact, which are necessary vs. sufficient, or whether they trade off against each other (e.g. deep niche obsession vs. broad range could compete for the same limited attention).</li></ul></main><script src='../assets/search.js' defer></script></body></html>

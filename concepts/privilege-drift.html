@@ -1,0 +1,104 @@
+<!doctype html><html><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>Privilege Drift / Scope Sprawl</title><style>
+:root { --bg:#ffffff; --fg:#1a1a1a; --muted:#6b6b6b; --line:#e3e3e0;
+  --card:#f7f7f5; --accent:#4a6fa5; --accent2:#8a6fae; --warn:#b3593a;
+  --ok:#4a7a55; --chip:#eceff4; }
+@media (prefers-color-scheme: dark) {
+  :root { --bg:#191917; --fg:#e8e6e3; --muted:#9a9892; --line:#33322f;
+    --card:#22211f; --accent:#8fb0dd; --accent2:#b6a2d8; --warn:#d98a68;
+    --ok:#84b591; --chip:#2c2b28; }
+}
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:var(--fg);
+  font:16px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+main { max-width:960px; margin:0 auto; padding:1.5rem 1.25rem 4rem; }
+nav.top { display:flex; flex-wrap:wrap; gap:.35rem 1.1rem; padding:.8rem 1.25rem;
+  border-bottom:1px solid var(--line); font-size:.92rem; }
+nav.top a { color:var(--muted); text-decoration:none; }
+nav.top a:hover, nav.top a.here { color:var(--accent); }
+h1 { font-size:1.55rem; line-height:1.25; margin:.8rem 0 .3rem; }
+h2 { font-size:1.15rem; margin:2rem 0 .6rem; border-bottom:1px solid var(--line);
+  padding-bottom:.3rem; }
+h3 { font-size:1rem; margin:1.2rem 0 .4rem; }
+a { color:var(--accent); }
+.muted { color:var(--muted); font-size:.9rem; }
+.unity { border-left:3px solid var(--accent); background:var(--card);
+  padding:.7rem 1rem; margin:1rem 0; font-style:italic; }
+.chips { display:flex; flex-wrap:wrap; gap:.35rem; margin:.5rem 0; }
+.chip { background:var(--chip); border-radius:999px; padding:.1rem .7rem;
+  font-size:.82rem; text-decoration:none; color:var(--fg); }
+.chip:hover { outline:1px solid var(--accent); }
+.chip.count { color:var(--muted); }
+.card { background:var(--card); border:1px solid var(--line); border-radius:8px;
+  padding: .8rem 1rem; margin:.6rem 0; }
+.badge { font-size:.72rem; border-radius:4px; padding:.05rem .4rem;
+  vertical-align:middle; margin-right:.4rem; white-space:nowrap; }
+.badge.explicit { background:var(--ok); color:var(--bg); }
+.badge.implicit { background:var(--accent2); color:var(--bg); }
+.badge.gap { background:var(--warn); color:var(--bg); }
+.badge.closed { background:var(--ok); color:var(--bg); }
+.badge.rel { background:var(--accent); color:var(--bg); }
+.badge.contested { background:var(--warn); color:var(--bg); }
+.badge.established, .badge.corroborated { background:var(--ok); color:var(--bg); }
+.badge.developed { background:var(--accent2); color:var(--bg); }
+.tag.conf { font-size:.72rem; color:var(--muted); border:1px solid var(--line);
+  border-radius:4px; padding:.05rem .4rem; margin-left:.3rem; }
+ul.plain { list-style:none; padding-left:0; }
+ul.plain > li { margin:.55rem 0; }
+table { border-collapse:collapse; width:100%; font-size:.92rem; }
+th, td { text-align:left; padding:.4rem .6rem; border-bottom:1px solid var(--line);
+  vertical-align:top; }
+.tablewrap { overflow-x:auto; }
+.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:.7rem; }
+.stat { font-size:1.7rem; font-weight:600; color:var(--accent); }
+.rel-line { font-size:.86rem; color:var(--muted); margin:.15rem 0 .15rem 1rem; }
+.searchbox { width:100%; padding:.5rem .8rem; border:1px solid var(--line);
+  border-radius:6px; background:var(--card); color:var(--fg); font-size:1rem; }
+.issue-card h3 { margin:.1rem 0 .5rem; }
+.issue-cols { display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin:.6rem 0; }
+@media (max-width:640px) { .issue-cols { grid-template-columns:1fr; } }
+.issue-side h4 { margin:0 0 .4rem; font-size:.85rem; text-transform:uppercase;
+  letter-spacing:.03em; color:var(--muted); }
+.issue-side li { margin:.6rem 0; }
+.supported-by { margin:.15rem 0 .15rem 1rem; }
+.issue-edges { margin-top:.6rem; font-size:.9rem; }
+.verdict-box { margin-top:.7rem; padding:.6rem .8rem; border-radius:6px; font-size:.92rem; }
+.verdict-box.verdict-set { background:var(--card); border-left:3px solid var(--ok); }
+.verdict-box.verdict-empty { background:var(--card); border-left:3px solid var(--line);
+  color:var(--muted); }
+.verdict-box code { font-size:.85em; }
+.issue-key { margin-top:.4rem; }
+nav.top { align-items:center; }
+.navsearch { margin-left:auto; position:relative; flex:0 1 240px; min-width:150px; }
+.navsearch input { width:100%; padding:.3rem .7rem; border:1px solid var(--line);
+  border-radius:6px; background:var(--card); color:var(--fg); font:inherit; font-size:.88rem; }
+.navsearch input:focus { outline:1px solid var(--accent); }
+.sdrop { position:absolute; right:0; top:calc(100% + 6px); width:min(460px,92vw);
+  max-height:70vh; overflow-y:auto; background:var(--bg); border:1px solid var(--line);
+  border-radius:8px; box-shadow:0 8px 28px rgba(0,0,0,.18); z-index:60; }
+.sres { display:block; padding:.5rem .7rem; border-bottom:1px solid var(--line);
+  text-decoration:none; color:var(--fg); font-size:.88rem; }
+.sres:last-child { border-bottom:none; }
+.sres.active, .sres:hover { background:var(--card); }
+.sres .sline { display:flex; align-items:baseline; gap:.4rem; min-width:0; }
+.sres .st { flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.sres .sdoc { display:block; font-size:.78rem; overflow:hidden; text-overflow:ellipsis;
+  white-space:nowrap; }
+.sres.sall { color:var(--accent); text-align:center; }
+.badge.t-document { background:var(--accent); color:var(--bg); }
+.badge.t-claim { background:var(--ok); color:var(--bg); }
+.badge.t-gap { background:var(--warn); color:var(--bg); }
+.badge.t-term { background:var(--accent2); color:var(--bg); }
+.badge.t-concept { background:var(--chip); color:var(--fg); }
+.scard .sx { font-size:.9rem; margin:.3rem 0; }
+.sx mark { background:transparent; color:var(--accent); font-weight:600; }
+.sfilters button, #smore { font:inherit; font-size:.85rem; padding:.25rem .8rem;
+  border-radius:999px; border:1px solid var(--line); background:var(--card);
+  color:var(--fg); cursor:pointer; }
+.sfilters button.active { border-color:var(--accent); color:var(--accent); }
+li:target { box-shadow:inset 3px 0 0 var(--accent); background:var(--card);
+  padding:.4rem .6rem; margin-left:-.6rem; border-radius:0 6px 6px 0; }
+a.alink { color:inherit; text-decoration:underline;
+  text-decoration-color:var(--line); text-underline-offset:2px; }
+a.alink:hover { color:var(--accent); text-decoration-color:var(--accent); }
+</style></head><body><nav class='top'><a href="../index.html">Overview</a><a href="../graph.html">Graph</a><a href="../concepts.html" class=here>Concepts</a><a href="../tensions.html">Tensions</a><a href="../issues.html">Issues</a><a href="../claims.html">Claims</a><a href="../threads.html">Threads</a><a href="../gaps.html">Gaps</a><a href="../timeline.html">Timeline</a><div class='navsearch'><input id='navq' type='search' placeholder='Search&hellip;  /  &#8984;K' autocomplete='off' spellcheck='false'><div id='navdrop' class='sdrop' hidden></div></div></nav><main><h1>Privilege Drift / Scope Sprawl</h1><p>The gradual, seemingly-reasonable accumulation of an AI agent&#x27;s permissions beyond its original scope and purpose over time — each individual grant justified in isolation, but the aggregate expanding the attack surface and violating least privilege; amplified when multiple agents share resources in a multi-agent system.</p><p class='muted'>Also known as: privilege drift, scope sprawl, permission accumulation, over-permissioning, permission creep</p><p class='muted'>Part of: <a class="chip" href="../concepts/agent-governance.html">Agent Governance (Internal)</a></p><h2>How authors use it</h2><p class='muted'>Oldest first (extraction date when no publication date is known).</p><div class='tablewrap'><table><tr><th>Author</th><th>Their term</th><th>Their meaning</th></tr><tr><td><a href="../docs/extract-privilege-drift-multi-agent-systems.html">How to Manage Privilege Drift in Multi-Agent Systems</a><br><span class='muted'><a class="alink" href="../search.html?q=Janet+Wagner">Janet Wagner</a> · 2026-07-14</span></td><td><a href='../docs/extract-privilege-drift-multi-agent-systems.html#term-privilege-drift'><b>Privilege drift</b></a></td><td>Permissions accumulating over time beyond what was originally granted, disconnected from the agent&#x27;s original purpose — the result of a series of individually-justified extensions, not a single bad decision or an attack.</td></tr><tr><td><a href="../docs/extract-privilege-drift-multi-agent-systems.html">How to Manage Privilege Drift in Multi-Agent Systems</a><br><span class='muted'><a class="alink" href="../search.html?q=Janet+Wagner">Janet Wagner</a> · 2026-07-14</span></td><td><a href='../docs/extract-privilege-drift-multi-agent-systems.html#term-scope-sprawl'><b>Scope sprawl</b></a></td><td>Used as a near-synonym for privilege drift in the opening paragraph (linked to a companion NordicAPIs article) but never re-defined or distinguished from it afterward.</td></tr></table></div><h2>Documents (1)</h2><ul class='plain'><li><a href="../docs/extract-privilege-drift-multi-agent-systems.html">How to Manage Privilege Drift in Multi-Agent Systems</a> <span class='muted'><a class="alink" href="../search.html?q=Janet+Wagner">Janet Wagner</a> · 2026-07-14</span> <a href="https://nordicapis.com/how-to-manage-privilege-drift-in-multi-agent-systems/" title="Original source" target="_blank" rel="noopener">source&nbsp;↗</a> <a href="https://read.readwise.io/read/01kxfqzhb2cxpsgnjsjnh5ewd2">Reader</a> <a href="wiseread://read/01kxfqzhb2cxpsgnjsjnh5ewd2" title="Open in Reader app">🖥️</a><br><span class='muted'>Privilege drift — the incremental, individually-reasonable accumulation of an AI agent&#x27;s permissions beyond its original purpose — multiplies across the agents, shared resources, and communication channels of a multi-agent system into an attack surface no single decision ever consciously approved, and it can only be managed (never eliminated) through continuous cross-agent inventory, runtime-enforced least privilege, just-in-time access, and behavioral monitoring.</span></li></ul><h2>Propositions touching this concept (3)</h2><p class='muted'>By publication month, oldest first (extraction month when no publication date is known).</p><h3>2026-07</h3><ul class='plain'><li><span class='badge explicit'>explicit</span>Privilege drift is the accumulation of an agent&#x27;s permissions over time beyond what was originally granted and without reference to the agent&#x27;s original purpose.<div class='rel-line'><a href="../docs/extract-privilege-drift-multi-agent-systems.html#p1">How to Manage Privilege Drift in Multi-Agent Systems · p1</a></div></li><li><span class='badge explicit'>explicit</span>Multi-agent systems amplify privilege drift far beyond a single agent&#x27;s exposure because permissions multiply across agents, shared resources, and inter-agent communication.<div class='rel-line'><a href="../docs/extract-privilege-drift-multi-agent-systems.html#p2">How to Manage Privilege Drift in Multi-Agent Systems · p2</a></div></li><li><span class='badge explicit'>explicit</span>Service accounts are over-privileged by default at startup and their permissions are rarely reduced afterward, so privilege drift compounds a pre-existing structural over-permissioning.<div class='rel-line'><a href="../docs/extract-privilege-drift-multi-agent-systems.html#p4">How to Manage Privilege Drift in Multi-Agent Systems · p4</a></div></li></ul></main><script src='../assets/search.js' defer></script></body></html>
