@@ -1,0 +1,6 @@
+# Machine-local / editor cruft — this repo is a generated static site,
+# everything else here is meant to be tracked.
+.DS_Store
+*.swp
+*.swo
+*~
