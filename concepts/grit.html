@@ -1,0 +1,104 @@
+<!doctype html><html><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>Grit (Passion &amp; Perseverance)</title><style>
+:root { --bg:#ffffff; --fg:#1a1a1a; --muted:#6b6b6b; --line:#e3e3e0;
+  --card:#f7f7f5; --accent:#4a6fa5; --accent2:#8a6fae; --warn:#b3593a;
+  --ok:#4a7a55; --chip:#eceff4; }
+@media (prefers-color-scheme: dark) {
+  :root { --bg:#191917; --fg:#e8e6e3; --muted:#9a9892; --line:#33322f;
+    --card:#22211f; --accent:#8fb0dd; --accent2:#b6a2d8; --warn:#d98a68;
+    --ok:#84b591; --chip:#2c2b28; }
+}
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:var(--fg);
+  font:16px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+main { max-width:960px; margin:0 auto; padding:1.5rem 1.25rem 4rem; }
+nav.top { display:flex; flex-wrap:wrap; gap:.35rem 1.1rem; padding:.8rem 1.25rem;
+  border-bottom:1px solid var(--line); font-size:.92rem; }
+nav.top a { color:var(--muted); text-decoration:none; }
+nav.top a:hover, nav.top a.here { color:var(--accent); }
+h1 { font-size:1.55rem; line-height:1.25; margin:.8rem 0 .3rem; }
+h2 { font-size:1.15rem; margin:2rem 0 .6rem; border-bottom:1px solid var(--line);
+  padding-bottom:.3rem; }
+h3 { font-size:1rem; margin:1.2rem 0 .4rem; }
+a { color:var(--accent); }
+.muted { color:var(--muted); font-size:.9rem; }
+.unity { border-left:3px solid var(--accent); background:var(--card);
+  padding:.7rem 1rem; margin:1rem 0; font-style:italic; }
+.chips { display:flex; flex-wrap:wrap; gap:.35rem; margin:.5rem 0; }
+.chip { background:var(--chip); border-radius:999px; padding:.1rem .7rem;
+  font-size:.82rem; text-decoration:none; color:var(--fg); }
+.chip:hover { outline:1px solid var(--accent); }
+.chip.count { color:var(--muted); }
+.card { background:var(--card); border:1px solid var(--line); border-radius:8px;
+  padding: .8rem 1rem; margin:.6rem 0; }
+.badge { font-size:.72rem; border-radius:4px; padding:.05rem .4rem;
+  vertical-align:middle; margin-right:.4rem; white-space:nowrap; }
+.badge.explicit { background:var(--ok); color:var(--bg); }
+.badge.implicit { background:var(--accent2); color:var(--bg); }
+.badge.gap { background:var(--warn); color:var(--bg); }
+.badge.closed { background:var(--ok); color:var(--bg); }
+.badge.rel { background:var(--accent); color:var(--bg); }
+.badge.contested { background:var(--warn); color:var(--bg); }
+.badge.established, .badge.corroborated { background:var(--ok); color:var(--bg); }
+.badge.developed { background:var(--accent2); color:var(--bg); }
+.tag.conf { font-size:.72rem; color:var(--muted); border:1px solid var(--line);
+  border-radius:4px; padding:.05rem .4rem; margin-left:.3rem; }
+ul.plain { list-style:none; padding-left:0; }
+ul.plain > li { margin:.55rem 0; }
+table { border-collapse:collapse; width:100%; font-size:.92rem; }
+th, td { text-align:left; padding:.4rem .6rem; border-bottom:1px solid var(--line);
+  vertical-align:top; }
+.tablewrap { overflow-x:auto; }
+.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:.7rem; }
+.stat { font-size:1.7rem; font-weight:600; color:var(--accent); }
+.rel-line { font-size:.86rem; color:var(--muted); margin:.15rem 0 .15rem 1rem; }
+.searchbox { width:100%; padding:.5rem .8rem; border:1px solid var(--line);
+  border-radius:6px; background:var(--card); color:var(--fg); font-size:1rem; }
+.issue-card h3 { margin:.1rem 0 .5rem; }
+.issue-cols { display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin:.6rem 0; }
+@media (max-width:640px) { .issue-cols { grid-template-columns:1fr; } }
+.issue-side h4 { margin:0 0 .4rem; font-size:.85rem; text-transform:uppercase;
+  letter-spacing:.03em; color:var(--muted); }
+.issue-side li { margin:.6rem 0; }
+.supported-by { margin:.15rem 0 .15rem 1rem; }
+.issue-edges { margin-top:.6rem; font-size:.9rem; }
+.verdict-box { margin-top:.7rem; padding:.6rem .8rem; border-radius:6px; font-size:.92rem; }
+.verdict-box.verdict-set { background:var(--card); border-left:3px solid var(--ok); }
+.verdict-box.verdict-empty { background:var(--card); border-left:3px solid var(--line);
+  color:var(--muted); }
+.verdict-box code { font-size:.85em; }
+.issue-key { margin-top:.4rem; }
+nav.top { align-items:center; }
+.navsearch { margin-left:auto; position:relative; flex:0 1 240px; min-width:150px; }
+.navsearch input { width:100%; padding:.3rem .7rem; border:1px solid var(--line);
+  border-radius:6px; background:var(--card); color:var(--fg); font:inherit; font-size:.88rem; }
+.navsearch input:focus { outline:1px solid var(--accent); }
+.sdrop { position:absolute; right:0; top:calc(100% + 6px); width:min(460px,92vw);
+  max-height:70vh; overflow-y:auto; background:var(--bg); border:1px solid var(--line);
+  border-radius:8px; box-shadow:0 8px 28px rgba(0,0,0,.18); z-index:60; }
+.sres { display:block; padding:.5rem .7rem; border-bottom:1px solid var(--line);
+  text-decoration:none; color:var(--fg); font-size:.88rem; }
+.sres:last-child { border-bottom:none; }
+.sres.active, .sres:hover { background:var(--card); }
+.sres .sline { display:flex; align-items:baseline; gap:.4rem; min-width:0; }
+.sres .st { flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.sres .sdoc { display:block; font-size:.78rem; overflow:hidden; text-overflow:ellipsis;
+  white-space:nowrap; }
+.sres.sall { color:var(--accent); text-align:center; }
+.badge.t-document { background:var(--accent); color:var(--bg); }
+.badge.t-claim { background:var(--ok); color:var(--bg); }
+.badge.t-gap { background:var(--warn); color:var(--bg); }
+.badge.t-term { background:var(--accent2); color:var(--bg); }
+.badge.t-concept { background:var(--chip); color:var(--fg); }
+.scard .sx { font-size:.9rem; margin:.3rem 0; }
+.sx mark { background:transparent; color:var(--accent); font-weight:600; }
+.sfilters button, #smore { font:inherit; font-size:.85rem; padding:.25rem .8rem;
+  border-radius:999px; border:1px solid var(--line); background:var(--card);
+  color:var(--fg); cursor:pointer; }
+.sfilters button.active { border-color:var(--accent); color:var(--accent); }
+li:target { box-shadow:inset 3px 0 0 var(--accent); background:var(--card);
+  padding:.4rem .6rem; margin-left:-.6rem; border-radius:0 6px 6px 0; }
+a.alink { color:inherit; text-decoration:underline;
+  text-decoration-color:var(--line); text-underline-offset:2px; }
+a.alink:hover { color:var(--accent); text-decoration-color:var(--accent); }
+</style></head><body><nav class='top'><a href="../index.html">Overview</a><a href="../graph.html">Graph</a><a href="../concepts.html" class=here>Concepts</a><a href="../tensions.html">Tensions</a><a href="../issues.html">Issues</a><a href="../claims.html">Claims</a><a href="../threads.html">Threads</a><a href="../gaps.html">Gaps</a><a href="../timeline.html">Timeline</a><div class='navsearch'><input id='navq' type='search' placeholder='Search&hellip;  /  &#8984;K' autocomplete='off' spellcheck='false'><div id='navdrop' class='sdrop' hidden></div></div></nav><main><h1>Grit (Passion &amp; Perseverance)</h1><p>Duckworth&#x27;s trait construct — passion and perseverance sustained toward long-term goals over months to decades (consistency, not intensity) — necessary but not sufficient for excellence.</p><p class='muted'>Also known as: grit, grit scale, passion and perseverance for long-term goals</p><h2>How authors use it</h2><p class='muted'>Oldest first (extraction date when no publication date is known).</p><div class='tablewrap'><table><tr><th>Author</th><th>Their term</th><th>Their meaning</th></tr><tr><td><a href="../docs/extract-brain-food-answers-without-effort.html">Brain Food: Answers Without Effort</a><br><span class='muted'><a class="alink" href="../search.html?q=Shane+Parrish+%28FS%29">Shane Parrish (FS)</a> · 2026-06-14</span></td><td><a href='../docs/extract-brain-food-answers-without-effort.html#term-grit-waitzkin-s-sense'><b>grit (Waitzkin&#x27;s sense)</b></a></td><td>Specifically &#x27;learning to be your best when you&#x27;re at your worst&#x27; — a distinct, separately trainable skill that unlocks power you didn&#x27;t know you had; the real differentiator of elite performers.</td></tr><tr><td><a href="../docs/extract-leadership-summit-2026-grit-and-growth.html">Leadership Summit 2026: Inspiring Grit and Growth Amid Unprecedented Change</a><br><span class='muted'><a class="alink" href="../search.html?q=HBR.org">HBR.org</a> · 2026-07-23</span></td><td><a href='../docs/extract-leadership-summit-2026-grit-and-growth.html#term-grit'><b>Grit</b></a></td><td>Passion and perseverance specifically for long-term goals — not intensity, excitement, or extroversion, but consistency and loyalty to a top-level goal sustained over weeks to decades. Measured by a four-item subset of Duckworth&#x27;s grit scale (two perseverance items, two reverse-scored passion items).</td></tr></table></div><h2>Documents (3)</h2><ul class='plain'><li><a href="../docs/extract-leadership-summit-2026-grit-and-growth.html">Leadership Summit 2026: Inspiring Grit and Growth Amid Unprecedented Change</a> <span class='muted'><a class="alink" href="../search.html?q=HBR.org">HBR.org</a> · 2026-07-23</span> <a href="https://read.readwise.io/read/01ky7gk9xhyzykeyfhgemmymnz">Reader</a> <a href="wiseread://read/01ky7gk9xhyzykeyfhgemmymnz" title="Open in Reader app">🖥️</a><br><span class='muted'>AI&#x27;s effect on human skill and grit is not fixed by the technology itself but by whether people treat it as a coach to learn from (attending to and imitating its superior output) rather than a crutch to passively accept, and by whether they also deliberately design their surrounding situation — mentors, teams, culture — since grit (steadfast top-level goals, agile tactics) is necessary but not sufficient for excellence.</span></li><li><a href="../docs/extract-brain-food-answers-without-effort.html">Brain Food: Answers Without Effort</a> <span class='muted'><a class="alink" href="../search.html?q=Shane+Parrish+%28FS%29">Shane Parrish (FS)</a> · 2026-06-14</span> <a href="https://fs.blog/brain-food/june-14-2026/" title="Original source" target="_blank" rel="noopener">source&nbsp;↗</a> <a href="https://read.readwise.io/read/01kv2r4qhf4b0xqrvr7hpxy4sd">Reader</a> <a href="wiseread://read/01kv2r4qhf4b0xqrvr7hpxy4sd" title="Open in Reader app">🖥️</a><br><span class='muted'>Understanding — and the confidence, success and clutch performance that stand alongside it — cannot be borrowed or shortcut; all are earned only through whole-hearted, sustained effort, so an answer you obtain without effort is hollow because it never becomes understanding you actually own.</span></li><li><a href="../docs/extract-tiny-experiments-le-cunff.html">Tiny Experiments</a> <span class='muted'><a class="alink" href="../search.html?q=Anne-Laure+Le+Cunff">Anne-Laure Le Cunff</a> · 2025-01-29</span> <a href="https://read.readwise.io/read/01kyh5vz7jny60ajx1g2kh8tv1">Reader</a> <a href="wiseread://read/01kyh5vz7jny60ajx1g2kh8tv1" title="Open in Reader app">🖥️</a><br><span class='muted'>As reconstructed from the subtitle (&#x27;How to Live Freely in a Goal-Obsessed World&#x27;) and the glossary&#x27;s evaluative terms, Le Cunff&#x27;s claim is that fixed, linear goals and a single overarching &#x27;purpose&#x27; constrain rather than serve people navigating an uncertain world, and that small, time-bound, curiosity-driven &#x27;personal experiments&#x27; (Pacts), evaluated by what was learned rather than by whether a predetermined outcome was hit, are the better vehicle for growth — but this document itself only supplies the vocabulary and self-reflection prompts for that thesis, not the argument or evidence for it.</span></li></ul><h2>Propositions touching this concept (10)</h2><p class='muted'>By publication month, oldest first (extraction month when no publication date is known).</p><h3>1979</h3><ul class='plain'><li><span class='badge explicit'>explicit</span>The writer&#x27;s own eloquence and cleverness must be sacrificed to clarity: a phrase&#x27;s beauty is no defense if it detracts from being understood (&#x27;grit your teeth and cut the frills&#x27;).<div class='rel-line'><a href="../docs/extract-how-to-write-clearly.html#p9">How to write clearly · p9</a></div></li></ul><h3>2026-06</h3><ul class='plain'><li><span class='badge explicit'>explicit</span>The grit that matters most is learning to be your best when you&#x27;re at your worst — this is the real difference between elite-level performers and everyone else, and it must be trained on its own as a separate skill.<div class='rel-line'><a href="../docs/extract-brain-food-answers-without-effort.html#p6">Brain Food: Answers Without Effort · p6</a></div></li></ul><h3>2026-07</h3><ul class='plain'><li><span class='badge explicit'>explicit</span><span class='badge contested' title='epistemic status: contested'>contested</span>Grit is passion and perseverance for long-term goals — consistency and loyalty to a top-level goal sustained over months, years, or decades — not intensity, excitement, or emotional energy.<div class='rel-line'><a href="../docs/extract-leadership-summit-2026-grit-and-growth.html#p1">Leadership Summit 2026: Inspiring Grit and Growth Amid Unprecedented Change · p1</a></div></li><li><span class='badge explicit'>explicit</span>Grit is necessary but not sufficient for excellence; high achievers are also embedded in superior coaching, teams, and environments.<div class='rel-line'><a href="../docs/extract-leadership-summit-2026-grit-and-growth.html#p2">Leadership Summit 2026: Inspiring Grit and Growth Amid Unprecedented Change · p2</a></div></li><li><span class='badge explicit'>explicit</span>A gritty person&#x27;s goal structure should be stable at the top (mission/values don&#x27;t change) but agile at the bottom (day-to-day tactics adapt, including adopting new tools like AI), and this agility is what lets grit and AI adoption coexist.<div class='rel-line'><a href="../docs/extract-leadership-summit-2026-grit-and-growth.html#p3">Leadership Summit 2026: Inspiring Grit and Growth Amid Unprecedented Change · p3</a></div></li><li><span class='badge explicit'>explicit</span>The human brain and body are adaptive/plastic in both directions — capable of atrophy as well as growth — so cognitive offloading to AI carries a genuine, not merely hypothetical, risk of skill and grit loss.<div class='rel-line'><a href="../docs/extract-leadership-summit-2026-grit-and-growth.html#p11">Leadership Summit 2026: Inspiring Grit and Growth Amid Unprecedented Change · p11</a></div></li><li><span class='badge explicit'>explicit</span>Young workers&#x27; ambivalence and hesitation about adopting AI is often a rational response to genuine risks — occasional AI errors/hallucinations and real accountability gaps — not simply a personal deficit of grit or resistance to change.<div class='rel-line'><a href="../docs/extract-leadership-summit-2026-grit-and-growth.html#p12">Leadership Summit 2026: Inspiring Grit and Growth Amid Unprecedented Change · p12</a></div></li><li><span class='badge explicit'>explicit</span>Sustained individual excellence depends on &#x27;situational agency&#x27; — deliberately curating one&#x27;s coach, teammates, physical environment, and culture — not on willpower or personal grit alone.<div class='rel-line'><a href="../docs/extract-leadership-summit-2026-grit-and-growth.html#p14">Leadership Summit 2026: Inspiring Grit and Growth Amid Unprecedented Change · p14</a></div></li><li><span class='badge explicit'>explicit</span>Grit is not fixed; it changes across the lifespan, and on average people become grittier with age and experience, meaning grit can be deliberately built once its underlying goal-hierarchy structure is understood.<div class='rel-line'><a href="../docs/extract-leadership-summit-2026-grit-and-growth.html#p15">Leadership Summit 2026: Inspiring Grit and Growth Amid Unprecedented Change · p15</a></div></li><li><span class='badge explicit'>explicit</span>The durable hiring baseline is three traits — grit/drive, being a quick learner, and self-awareness (able to take feedback) — because with those three a person &#x27;can kind of get good at anything eventually&#x27;.<div class='rel-line'><a href="../docs/extract-mosseri-ai-tailwind-authenticity.html#p9">Adam Mosseri: AI is a tailwind for authenticity · p9</a></div></li></ul><h2>Open gaps (3)</h2><ul class='plain'><li><span class='badge gap'>illogical</span>The Phelps anecdote is offered as evidence that environment (not just personal trait) shapes outcomes, but Phelps&#x27;s own choices — following coach Bob Bowman when he relocated, &#x27;navigating to be around the best teammates&#x27; — are themselves described as gritty acts of agency. This blurs the very trait/situation distinction the argument is meant to establish: any environmental advantage can be re-described as a product of the individual&#x27;s own grit in seeking it out, risking an unfalsifiable model.<div class='rel-line'><a href='../docs/extract-leadership-summit-2026-grit-and-growth.html#g3'>Leadership Summit 2026: Inspiring Grit and Growth Amid Unprecedented Change</a> — read next: Look for research that operationalizes situational agency independently of grit — e.g., through random or exogenous assignment to environments (coach changes, team reassignments) rather than a single retrospective case study, which cannot disentangle the two.</div></li><li><span class='badge gap'>incomplete</span>Adler&#x27;s four gap forms (uninformed/misinformed/illogical/incomplete) presuppose an argument to evaluate, but this excerpt supplies none — it is a toolkit table, a set of reflection prompts, a glossary, and acknowledgments. The evidence, worked examples, and inferential support for claims like &#x27;quality of experience beats efficiency&#x27; or &#x27;intentional imperfection produces better long-term outcomes&#x27; live in the book&#x27;s main chapters, which were not captured in this Reader save. Nothing here can be assessed as backed by real mechanism or research versus inspirational framing, because no mechanism or research is presented at all — only vocabulary and prompts.<div class='rel-line'><a href='../docs/extract-tiny-experiments-le-cunff.html#g1'>Tiny Experiments</a> — read next: Read the book&#x27;s actual chapters (not this back-matter excerpt) to evaluate whether the experimental-mindset thesis is supported by cited research or worked case studies, or is asserted by authority and narrative alone.</div></li><li><span class='badge gap'>uninformed</span>Nowhere in the toolkit, reflection prompts, or glossary is there engagement with when fixed goals or rigid plans genuinely outperform iterative experimentation — e.g. irreversible &#x27;one-way-door&#x27; decisions where the cost of a failed &#x27;tiny experiment&#x27; is not recoverable, regulated or high-stakes domains requiring upfront compliance, situations where credible pre-commitment itself is the valuable thing (a fixed goal as a costly signal or coordination device), or Duckworth&#x27;s own evidence that sustained loyalty to one long-term goal (grit) predicts achievement better than nonlinear pivoting in many domains (see extract-leadership-summit-2026-grit-and-growth#p1). The &#x27;Response 1 / Response 2&#x27; dichotomy risks pathologizing proportionate caution or risk-aversion as a mere automatic fear response rather than sound judgment about irreversibility or stakes.<div class='rel-line'><a href='../docs/extract-tiny-experiments-le-cunff.html#g2'>Tiny Experiments</a> — read next: Read Annie Duke on distinguishing decisions that warrant maximal upfront information-gathering (one-way doors) from those that reward fast iteration (two-way doors); read Angela Duckworth&#x27;s Grit for the counter-evidence on sustained single-goal commitment; read on precommitment devices as a rational response to time-inconsistency, not merely a limiting &#x27;linear goal.&#x27;</div></li></ul></main><script src='../assets/search.js' defer></script></body></html>
