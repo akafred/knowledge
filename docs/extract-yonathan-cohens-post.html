@@ -1,0 +1,104 @@
+<!doctype html><html><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>Yonathan Cohen&#x27;s Post</title><style>
+:root { --bg:#ffffff; --fg:#1a1a1a; --muted:#6b6b6b; --line:#e3e3e0;
+  --card:#f7f7f5; --accent:#4a6fa5; --accent2:#8a6fae; --warn:#b3593a;
+  --ok:#4a7a55; --chip:#eceff4; }
+@media (prefers-color-scheme: dark) {
+  :root { --bg:#191917; --fg:#e8e6e3; --muted:#9a9892; --line:#33322f;
+    --card:#22211f; --accent:#8fb0dd; --accent2:#b6a2d8; --warn:#d98a68;
+    --ok:#84b591; --chip:#2c2b28; }
+}
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:var(--fg);
+  font:16px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+main { max-width:960px; margin:0 auto; padding:1.5rem 1.25rem 4rem; }
+nav.top { display:flex; flex-wrap:wrap; gap:.35rem 1.1rem; padding:.8rem 1.25rem;
+  border-bottom:1px solid var(--line); font-size:.92rem; }
+nav.top a { color:var(--muted); text-decoration:none; }
+nav.top a:hover, nav.top a.here { color:var(--accent); }
+h1 { font-size:1.55rem; line-height:1.25; margin:.8rem 0 .3rem; }
+h2 { font-size:1.15rem; margin:2rem 0 .6rem; border-bottom:1px solid var(--line);
+  padding-bottom:.3rem; }
+h3 { font-size:1rem; margin:1.2rem 0 .4rem; }
+a { color:var(--accent); }
+.muted { color:var(--muted); font-size:.9rem; }
+.unity { border-left:3px solid var(--accent); background:var(--card);
+  padding:.7rem 1rem; margin:1rem 0; font-style:italic; }
+.chips { display:flex; flex-wrap:wrap; gap:.35rem; margin:.5rem 0; }
+.chip { background:var(--chip); border-radius:999px; padding:.1rem .7rem;
+  font-size:.82rem; text-decoration:none; color:var(--fg); }
+.chip:hover { outline:1px solid var(--accent); }
+.chip.count { color:var(--muted); }
+.card { background:var(--card); border:1px solid var(--line); border-radius:8px;
+  padding: .8rem 1rem; margin:.6rem 0; }
+.badge { font-size:.72rem; border-radius:4px; padding:.05rem .4rem;
+  vertical-align:middle; margin-right:.4rem; white-space:nowrap; }
+.badge.explicit { background:var(--ok); color:var(--bg); }
+.badge.implicit { background:var(--accent2); color:var(--bg); }
+.badge.gap { background:var(--warn); color:var(--bg); }
+.badge.closed { background:var(--ok); color:var(--bg); }
+.badge.rel { background:var(--accent); color:var(--bg); }
+.badge.contested { background:var(--warn); color:var(--bg); }
+.badge.established, .badge.corroborated { background:var(--ok); color:var(--bg); }
+.badge.developed { background:var(--accent2); color:var(--bg); }
+.tag.conf { font-size:.72rem; color:var(--muted); border:1px solid var(--line);
+  border-radius:4px; padding:.05rem .4rem; margin-left:.3rem; }
+ul.plain { list-style:none; padding-left:0; }
+ul.plain > li { margin:.55rem 0; }
+table { border-collapse:collapse; width:100%; font-size:.92rem; }
+th, td { text-align:left; padding:.4rem .6rem; border-bottom:1px solid var(--line);
+  vertical-align:top; }
+.tablewrap { overflow-x:auto; }
+.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:.7rem; }
+.stat { font-size:1.7rem; font-weight:600; color:var(--accent); }
+.rel-line { font-size:.86rem; color:var(--muted); margin:.15rem 0 .15rem 1rem; }
+.searchbox { width:100%; padding:.5rem .8rem; border:1px solid var(--line);
+  border-radius:6px; background:var(--card); color:var(--fg); font-size:1rem; }
+.issue-card h3 { margin:.1rem 0 .5rem; }
+.issue-cols { display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin:.6rem 0; }
+@media (max-width:640px) { .issue-cols { grid-template-columns:1fr; } }
+.issue-side h4 { margin:0 0 .4rem; font-size:.85rem; text-transform:uppercase;
+  letter-spacing:.03em; color:var(--muted); }
+.issue-side li { margin:.6rem 0; }
+.supported-by { margin:.15rem 0 .15rem 1rem; }
+.issue-edges { margin-top:.6rem; font-size:.9rem; }
+.verdict-box { margin-top:.7rem; padding:.6rem .8rem; border-radius:6px; font-size:.92rem; }
+.verdict-box.verdict-set { background:var(--card); border-left:3px solid var(--ok); }
+.verdict-box.verdict-empty { background:var(--card); border-left:3px solid var(--line);
+  color:var(--muted); }
+.verdict-box code { font-size:.85em; }
+.issue-key { margin-top:.4rem; }
+nav.top { align-items:center; }
+.navsearch { margin-left:auto; position:relative; flex:0 1 240px; min-width:150px; }
+.navsearch input { width:100%; padding:.3rem .7rem; border:1px solid var(--line);
+  border-radius:6px; background:var(--card); color:var(--fg); font:inherit; font-size:.88rem; }
+.navsearch input:focus { outline:1px solid var(--accent); }
+.sdrop { position:absolute; right:0; top:calc(100% + 6px); width:min(460px,92vw);
+  max-height:70vh; overflow-y:auto; background:var(--bg); border:1px solid var(--line);
+  border-radius:8px; box-shadow:0 8px 28px rgba(0,0,0,.18); z-index:60; }
+.sres { display:block; padding:.5rem .7rem; border-bottom:1px solid var(--line);
+  text-decoration:none; color:var(--fg); font-size:.88rem; }
+.sres:last-child { border-bottom:none; }
+.sres.active, .sres:hover { background:var(--card); }
+.sres .sline { display:flex; align-items:baseline; gap:.4rem; min-width:0; }
+.sres .st { flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.sres .sdoc { display:block; font-size:.78rem; overflow:hidden; text-overflow:ellipsis;
+  white-space:nowrap; }
+.sres.sall { color:var(--accent); text-align:center; }
+.badge.t-document { background:var(--accent); color:var(--bg); }
+.badge.t-claim { background:var(--ok); color:var(--bg); }
+.badge.t-gap { background:var(--warn); color:var(--bg); }
+.badge.t-term { background:var(--accent2); color:var(--bg); }
+.badge.t-concept { background:var(--chip); color:var(--fg); }
+.scard .sx { font-size:.9rem; margin:.3rem 0; }
+.sx mark { background:transparent; color:var(--accent); font-weight:600; }
+.sfilters button, #smore { font:inherit; font-size:.85rem; padding:.25rem .8rem;
+  border-radius:999px; border:1px solid var(--line); background:var(--card);
+  color:var(--fg); cursor:pointer; }
+.sfilters button.active { border-color:var(--accent); color:var(--accent); }
+li:target { box-shadow:inset 3px 0 0 var(--accent); background:var(--card);
+  padding:.4rem .6rem; margin-left:-.6rem; border-radius:0 6px 6px 0; }
+a.alink { color:inherit; text-decoration:underline;
+  text-decoration-color:var(--line); text-underline-offset:2px; }
+a.alink:hover { color:var(--accent); text-decoration-color:var(--accent); }
+</style></head><body><nav class='top'><a href="../index.html">Overview</a><a href="../graph.html">Graph</a><a href="../concepts.html">Concepts</a><a href="../tensions.html">Tensions</a><a href="../issues.html">Issues</a><a href="../claims.html">Claims</a><a href="../threads.html">Threads</a><a href="../gaps.html">Gaps</a><a href="../timeline.html">Timeline</a><div class='navsearch'><input id='navq' type='search' placeholder='Search&hellip;  /  &#8984;K' autocomplete='off' spellcheck='false'><div id='navdrop' class='sdrop' hidden></div></div></nav><main><h1>Yonathan Cohen&#x27;s Post</h1><p class='muted'><a class="alink" href="../search.html?q=Yonathan+Cohen">Yonathan Cohen</a> · article · 2026-07-31 <a href="https://read.readwise.io/read/01kyd61ey8f5mrwfs0ex7x7wdr">Reader</a> <a href="wiseread://read/01kyd61ey8f5mrwfs0ex7x7wdr" title="Open in Reader app">🖥️</a></p><div class='chips'><a class="chip" href="../concepts/agent-skills.html">Agent Skills</a><a class="chip" href="../concepts/claude-code.html">Claude Code</a><a class="chip" href="../concepts/context-rot.html">Context Rot &amp; Context Limits</a></div><div class='unity'>A structured &#x27;handoff&#x27; file — capturing every decision made, the verbatim work-in-progress, rejected alternatives, the user&#x27;s style rules, and a single next instruction — lets work continue coherently across a session cutoff or even a different AI model, because it transfers state that a fresh conversation cannot otherwise recover.</div><p class='muted'>practical · expository — A first-person promotional LinkedIn post pitching a Claude Code Skill the author built. It&#x27;s a how-to/sales pitch (buy/try this Skill) dressed as a personal anecdote, not an argument that builds toward a general truth. Structure is a checklist (5 bullet items) framed by a mid-task-limit anecdote, closing with a download link.</p><h2>Structure</h2><div class='tablewrap'><table><tr><th>Part</th><th>Role</th></tr><tr><td>Opening anecdote: hitting the Claude session limit mid-task, and the observation that a different AI (ChatGPT/Gemini) would in principle take over but knows nothing of the prior work</td><td>context / motivation</td></tr><tr><td>Five-item checklist of what the &#x27;handoff&#x27; Skill writes into its state file (decisions made, verbatim draft, rejected paths, tone/format rules, next instruction)</td><td>evidence / concrete specification</td></tr><tr><td>Claim that the file is portable across AI products because Skills follow an open standard, and that it runs identically in ChatGPT</td><td>elaboration / generalization beyond Claude</td></tr><tr><td>Claude-Code-specific enhancement: auto-triggers at 90% context usage, delivers the handoff to desktop and clipboard automatically</td><td>product differentiator / call-to-action setup</td></tr><tr><td>Link to a third-party download page (tally.so) for the Skill</td><td>conclusion / call to action</td></tr></table></div><h2>Key terms</h2><ul class='plain'><li id='term-handoff-file'><a class="alink" href="../search.html?q=handoff+%28file%29"><b>handoff (file)</b></a><br><span class='muted'>A state-capture artifact a Skill writes just before a session ends, containing decisions made, the full in-progress draft text (not a summary), rejected paths, the user&#x27;s working preferences, and a single next instruction — designed to be pasted into any AI so a new session or different model can resume without re-litigating prior work.</span></li><li id='term-skill'><a class="alink" href="../search.html?q=Skill"><b>Skill</b></a> <a class="chip" href="../concepts/agent-skills.html">Agent Skills</a><br><span class='muted'>A packaged, portable capability (implicitly SKILL.md-style) that can run inside Claude Code or be pasted as a file into other AI products, per an &#x27;open standard&#x27; the author claims multiple AI vendors share.</span></li></ul><h2>Propositions</h2><ul class='plain'><li id='p1'><span class='badge explicit'>explicit</span>A structured handoff artifact — capturing decisions made, the verbatim work-in-progress (not a summary), rejected alternatives, the user&#x27;s tone/format preferences, and one concrete next instruction — allows a new AI session, and even a different AI model, to continue a task without re-litigating decisions already made.<span class='tag conf' title='author-stated confidence'>conf: high</span><div class='rel-line'><span class='badge rel'>extends</span><a href="../docs/extract-anthropics-three-agent-harness.html#p3">Anthropic&#x27;s Designs Three-Agent Harness Supports Long-Running Full-Stack AI Development · p3</a> — Gives a concrete, independently-built example of the general claim that structured handoff artifacts enable coherent continuation after a context/session reset.</div><div class='rel-line'><span class='badge rel'>supports</span><a href="../docs/extract-anthropics-three-agent-harness.html#p7">Anthropic&#x27;s Designs Three-Agent Harness Supports Long-Running Full-Stack AI Development · p7</a> — The five-item checklist (decisions, verbatim draft, rejected paths, tone rules, next instruction) is a concrete answer to &#x27;what state information is captured&#x27; — the design variable that source names as critical.</div></li><li id='p2'><span class='badge explicit'>explicit</span>Preserving the full verbatim draft text, rather than a summary of it, is necessary for a new AI session to continue writing in the same voice/content rather than reconstructing it from memory.<span class='tag conf' title='author-stated confidence'>conf: high</span></li><li id='p3'><span class='badge explicit'>explicit</span>Recording rejected alternatives/paths in the handoff prevents a new AI session from re-proposing ideas that were already considered and discarded.<span class='tag conf' title='author-stated confidence'>conf: high</span></li><li id='p4'><span class='badge explicit'>explicit</span>Agent Skills (as a format) follow an open standard, such that the same Skill/handoff file works identically across different AI products (Claude, ChatGPT, Gemini).<span class='tag conf' title='author-stated confidence'>conf: low</span></li><li id='p5'><span class='badge implicit'>implicit</span>Automatically triggering the handoff write at a fixed context-usage threshold (90%) is preferable to a manual or end-of-session trigger, because it removes the risk of the user noticing the limit too late.<span class='tag conf' title='author-stated confidence'>conf: medium</span></li><li id='p6'><span class='badge implicit'>implicit</span>A hard session-message limit, not context-window exhaustion, is the operative constraint that ends a Claude session mid-task for this author.<span class='tag conf' title='author-stated confidence'>conf: medium</span></li></ul><h2>Arguments</h2><div class='card'><b>You should install/use this handoff Skill.</b> <span class='tag conf' title='argument strength (author-stated): Weak as an argument for adoption: no evidence is offered (no before/after example, no sample handoff file, no failure case where it didn&#x27;t work) — it is an anecdote plus a feature list, not a demonstrated case.'>strength: low</span><div class='muted'>Explicit premises:</div><ul><li>Session/message limits interrupt work unpredictably, mid-task.</li><li>A different AI could technically continue the work but lacks the necessary state (decisions, draft, rejected ideas, preferences).</li><li>The handoff Skill captures exactly that missing state and transfers it in a portable, pasteable file.</li><li>For Claude Code specifically, the transfer is automated at 90% usage with no manual step.</li></ul><div class='muted'>Implicit premises:</div><ul><li>The reader&#x27;s main obstacle to continuing work across a session break is lack of transferred context, not e.g. cost, trust in a second AI&#x27;s judgment, or willingness to re-explain.</li><li>A single generated state file can adequately substitute for the discarded conversation, without loss the author considers material.</li></ul><div class='muted'>Inferences:</div><ul><li>If Skills genuinely are cross-vendor portable, this pitch is also implicitly an argument for reducing single-vendor lock-in in agentic AI workflows — a claim the post doesn&#x27;t make explicitly but that follows from the &#x27;open standard&#x27; claim.</li></ul></div><h2>Narratives</h2><ul class='plain'><li>The author&#x27;s own mid-task session-limit interruption, and the moment of realizing another AI would take over but arrive with zero context.<br><span class='muted'>→ Supports the unity by making the felt need for a handoff artifact concrete before the feature list is presented — establishes the pain point the product solves.</span></li></ul><h2>Questions addressed</h2><ul class='plain'><li>✅ How can work continue coherently when an AI session ends mid-task (due to a hard limit) without losing prior decisions or requiring the next session to re-derive context from scratch?<br><span class=muted>By auto-generating (or manually triggering via one word) a structured handoff file with five specific content categories, which can be pasted into a new session or a different AI model.</span></li><li>⭕ Does a handoff file actually preserve enough fidelity that the new session&#x27;s continuation is indistinguishable from (or acceptable relative to) uninterrupted work by the same model?</li></ul><h2>Gaps</h2><ul class='plain'><li id='g1'><span class='badge gap'>incomplete</span>No evidence is given that the handoff file actually works cross-model — no example output, no side-by-side of a ChatGPT/Gemini continuation versus the original Claude session, no discussion of failure modes (e.g. a different model interpreting &#x27;tone rules&#x27; differently, or silently dropping information under its own context limits).<br><span class='muted'>Read next: extract-agent-skills-osmani (which raises the identical unverified-portability question for Agent Skills generally) and extract-anthropics-three-agent-harness (which specifies what a production handoff artifact needs and how quality is graded) for a more rigorous treatment of what a handoff artifact must contain and how portability claims should be tested.</span></li><li id='g2'><span class='badge gap'>incomplete</span>The post is a promotional pitch for a product distributed via a third-party download link (tally.so), with no independent verification, no source code shown, and no discussion of what data the Skill collects or where the handoff file (containing potentially sensitive draft work and decisions) is sent or stored.<br><span class='muted'>Read next: Treat as anecdotal marketing rather than a vetted engineering pattern; cross-check the underlying mechanism against Anthropic&#x27;s own documented approach to context resets and handoff artifacts before adopting.</span></li><li id='g3'><span class='badge gap'>uninformed</span>The post conflates a Claude.ai message-limit (&#x27;You&#x27;re out of messages for a few hours&#x27;) with Claude Code&#x27;s context-usage percentage (90% trigger) as though they were the same mechanism, without acknowledging they are different products with different constraints.<br><span class='muted'>Read next: No specific reading direction beyond noting the terminology looseness typical of promotional posts.</span></li></ul><h2>Closes gaps elsewhere</h2><ul class='plain'><li><a href="../docs/extract-anthropics-three-agent-harness.html#g1">Anthropic&#x27;s Designs Three-Agent Harness Supports Long-Running Full-Stack AI Development · g1</a> — Offers a concrete, if anecdotal and third-party (not Anthropic&#x27;s own), specification of what a handoff artifact must contain — partially answering the gap&#x27;s &#x27;what handoff artifacts must contain&#x27; question, though without the grading/evaluator detail the gap also names.</li></ul><h2>Related documents</h2><ul class='plain'><li><a href="../docs/extract-anthropics-three-agent-harness.html">Anthropic&#x27;s Designs Three-Agent Harness Supports Long-Running Full-Stack AI Development</a><div class='chips'></div></li><li><a href="../docs/extract-charlie-hills-32-things-claude-code.html">Charlie Hills 🦩&#x27;s Post</a><div class='chips'><a class="chip" href="../concepts/agent-skills.html">Agent Skills</a> <a class="chip" href="../concepts/claude-code.html">Claude Code</a> <a class="chip" href="../concepts/context-rot.html">Context Rot &amp; Context Limits</a></div></li><li><a href="../docs/extract-alex-wang-claude-code-habits.html">Alex Wang&#x27;s Post</a><div class='chips'><a class="chip" href="../concepts/agent-skills.html">Agent Skills</a> <a class="chip" href="../concepts/claude-code.html">Claude Code</a></div></li><li><a href="../docs/extract-claude-code-how-we-use-skills.html">Lessons from building Claude Code: How we use skills</a><div class='chips'><a class="chip" href="../concepts/agent-skills.html">Agent Skills</a> <a class="chip" href="../concepts/claude-code.html">Claude Code</a></div></li><li><a href="../docs/extract-mattpocock-skills-v1-1-wayfinder.html">mattpocock/skills v1.1: does /wayfinder beat grill-with-docs?</a><div class='chips'><a class="chip" href="../concepts/agent-skills.html">Agent Skills</a> <a class="chip" href="../concepts/claude-code.html">Claude Code</a></div></li><li><a href="../docs/extract-skills-v1-1-wayfinder-flow-skills.html">New Skills! v1.1 brings /wayfinder, /research, /implement, /to-spec, /to-tickets</a><div class='chips'><a class="chip" href="../concepts/agent-skills.html">Agent Skills</a> <a class="chip" href="../concepts/context-rot.html">Context Rot &amp; Context Limits</a></div></li></ul></main><script src='../assets/search.js' defer></script></body></html>
