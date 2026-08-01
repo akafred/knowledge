@@ -1,0 +1,104 @@
+<!doctype html><html><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>Alexander Haneng&#x27;s Post</title><style>
+:root { --bg:#ffffff; --fg:#1a1a1a; --muted:#6b6b6b; --line:#e3e3e0;
+  --card:#f7f7f5; --accent:#4a6fa5; --accent2:#8a6fae; --warn:#b3593a;
+  --ok:#4a7a55; --chip:#eceff4; }
+@media (prefers-color-scheme: dark) {
+  :root { --bg:#191917; --fg:#e8e6e3; --muted:#9a9892; --line:#33322f;
+    --card:#22211f; --accent:#8fb0dd; --accent2:#b6a2d8; --warn:#d98a68;
+    --ok:#84b591; --chip:#2c2b28; }
+}
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:var(--fg);
+  font:16px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+main { max-width:960px; margin:0 auto; padding:1.5rem 1.25rem 4rem; }
+nav.top { display:flex; flex-wrap:wrap; gap:.35rem 1.1rem; padding:.8rem 1.25rem;
+  border-bottom:1px solid var(--line); font-size:.92rem; }
+nav.top a { color:var(--muted); text-decoration:none; }
+nav.top a:hover, nav.top a.here { color:var(--accent); }
+h1 { font-size:1.55rem; line-height:1.25; margin:.8rem 0 .3rem; }
+h2 { font-size:1.15rem; margin:2rem 0 .6rem; border-bottom:1px solid var(--line);
+  padding-bottom:.3rem; }
+h3 { font-size:1rem; margin:1.2rem 0 .4rem; }
+a { color:var(--accent); }
+.muted { color:var(--muted); font-size:.9rem; }
+.unity { border-left:3px solid var(--accent); background:var(--card);
+  padding:.7rem 1rem; margin:1rem 0; font-style:italic; }
+.chips { display:flex; flex-wrap:wrap; gap:.35rem; margin:.5rem 0; }
+.chip { background:var(--chip); border-radius:999px; padding:.1rem .7rem;
+  font-size:.82rem; text-decoration:none; color:var(--fg); }
+.chip:hover { outline:1px solid var(--accent); }
+.chip.count { color:var(--muted); }
+.card { background:var(--card); border:1px solid var(--line); border-radius:8px;
+  padding: .8rem 1rem; margin:.6rem 0; }
+.badge { font-size:.72rem; border-radius:4px; padding:.05rem .4rem;
+  vertical-align:middle; margin-right:.4rem; white-space:nowrap; }
+.badge.explicit { background:var(--ok); color:var(--bg); }
+.badge.implicit { background:var(--accent2); color:var(--bg); }
+.badge.gap { background:var(--warn); color:var(--bg); }
+.badge.closed { background:var(--ok); color:var(--bg); }
+.badge.rel { background:var(--accent); color:var(--bg); }
+.badge.contested { background:var(--warn); color:var(--bg); }
+.badge.established, .badge.corroborated { background:var(--ok); color:var(--bg); }
+.badge.developed { background:var(--accent2); color:var(--bg); }
+.tag.conf { font-size:.72rem; color:var(--muted); border:1px solid var(--line);
+  border-radius:4px; padding:.05rem .4rem; margin-left:.3rem; }
+ul.plain { list-style:none; padding-left:0; }
+ul.plain > li { margin:.55rem 0; }
+table { border-collapse:collapse; width:100%; font-size:.92rem; }
+th, td { text-align:left; padding:.4rem .6rem; border-bottom:1px solid var(--line);
+  vertical-align:top; }
+.tablewrap { overflow-x:auto; }
+.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:.7rem; }
+.stat { font-size:1.7rem; font-weight:600; color:var(--accent); }
+.rel-line { font-size:.86rem; color:var(--muted); margin:.15rem 0 .15rem 1rem; }
+.searchbox { width:100%; padding:.5rem .8rem; border:1px solid var(--line);
+  border-radius:6px; background:var(--card); color:var(--fg); font-size:1rem; }
+.issue-card h3 { margin:.1rem 0 .5rem; }
+.issue-cols { display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin:.6rem 0; }
+@media (max-width:640px) { .issue-cols { grid-template-columns:1fr; } }
+.issue-side h4 { margin:0 0 .4rem; font-size:.85rem; text-transform:uppercase;
+  letter-spacing:.03em; color:var(--muted); }
+.issue-side li { margin:.6rem 0; }
+.supported-by { margin:.15rem 0 .15rem 1rem; }
+.issue-edges { margin-top:.6rem; font-size:.9rem; }
+.verdict-box { margin-top:.7rem; padding:.6rem .8rem; border-radius:6px; font-size:.92rem; }
+.verdict-box.verdict-set { background:var(--card); border-left:3px solid var(--ok); }
+.verdict-box.verdict-empty { background:var(--card); border-left:3px solid var(--line);
+  color:var(--muted); }
+.verdict-box code { font-size:.85em; }
+.issue-key { margin-top:.4rem; }
+nav.top { align-items:center; }
+.navsearch { margin-left:auto; position:relative; flex:0 1 240px; min-width:150px; }
+.navsearch input { width:100%; padding:.3rem .7rem; border:1px solid var(--line);
+  border-radius:6px; background:var(--card); color:var(--fg); font:inherit; font-size:.88rem; }
+.navsearch input:focus { outline:1px solid var(--accent); }
+.sdrop { position:absolute; right:0; top:calc(100% + 6px); width:min(460px,92vw);
+  max-height:70vh; overflow-y:auto; background:var(--bg); border:1px solid var(--line);
+  border-radius:8px; box-shadow:0 8px 28px rgba(0,0,0,.18); z-index:60; }
+.sres { display:block; padding:.5rem .7rem; border-bottom:1px solid var(--line);
+  text-decoration:none; color:var(--fg); font-size:.88rem; }
+.sres:last-child { border-bottom:none; }
+.sres.active, .sres:hover { background:var(--card); }
+.sres .sline { display:flex; align-items:baseline; gap:.4rem; min-width:0; }
+.sres .st { flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.sres .sdoc { display:block; font-size:.78rem; overflow:hidden; text-overflow:ellipsis;
+  white-space:nowrap; }
+.sres.sall { color:var(--accent); text-align:center; }
+.badge.t-document { background:var(--accent); color:var(--bg); }
+.badge.t-claim { background:var(--ok); color:var(--bg); }
+.badge.t-gap { background:var(--warn); color:var(--bg); }
+.badge.t-term { background:var(--accent2); color:var(--bg); }
+.badge.t-concept { background:var(--chip); color:var(--fg); }
+.scard .sx { font-size:.9rem; margin:.3rem 0; }
+.sx mark { background:transparent; color:var(--accent); font-weight:600; }
+.sfilters button, #smore { font:inherit; font-size:.85rem; padding:.25rem .8rem;
+  border-radius:999px; border:1px solid var(--line); background:var(--card);
+  color:var(--fg); cursor:pointer; }
+.sfilters button.active { border-color:var(--accent); color:var(--accent); }
+li:target { box-shadow:inset 3px 0 0 var(--accent); background:var(--card);
+  padding:.4rem .6rem; margin-left:-.6rem; border-radius:0 6px 6px 0; }
+a.alink { color:inherit; text-decoration:underline;
+  text-decoration-color:var(--line); text-underline-offset:2px; }
+a.alink:hover { color:var(--accent); text-decoration-color:var(--accent); }
+</style></head><body><nav class='top'><a href="../index.html">Overview</a><a href="../graph.html">Graph</a><a href="../concepts.html">Concepts</a><a href="../tensions.html">Tensions</a><a href="../issues.html">Issues</a><a href="../claims.html">Claims</a><a href="../threads.html">Threads</a><a href="../gaps.html">Gaps</a><a href="../timeline.html">Timeline</a><div class='navsearch'><input id='navq' type='search' placeholder='Search&hellip;  /  &#8984;K' autocomplete='off' spellcheck='false'><div id='navdrop' class='sdrop' hidden></div></div></nav><main><h1>Alexander Haneng&#x27;s Post</h1><p class='muted'><a class="alink" href="../search.html?q=Alexander+Haneng">Alexander Haneng</a> · article · 2026-08-01 <a href="https://read.readwise.io/read/01kxznmgsqj6g8y22rhq1hygne">Reader</a> <a href="wiseread://read/01kxznmgsqj6g8y22rhq1hygne" title="Open in Reader app">🖥️</a></p><div class='chips'><a class="chip" href="../concepts/local-ai.html">Local AI</a><a class="chip" href="../concepts/open-weight-models.html">Open-Weight Models</a></div><div class='unity'>You can replace (or supplement) a paid AI assistant like ChatGPT with a free, fully local, offline-capable setup — Google DeepMind&#x27;s open-source Gemma 4 12B run through free LM Studio on ordinary consumer hardware like a MacBook M4 with 16GB RAM — at no real cost in quality, privacy, or convenience.</div><p class='muted'>practical · mixed — A short Norwegian LinkedIn promo post, structured as a how-to &#x27;recipe&#x27; (expository) in service of an implicit argumentative claim: run this local setup instead of / alongside paid cloud AI. There is no theoretical content — no explanation of how or why the model works, only a claimed outcome and a list of selling points.</p><h2>Structure</h2><div class='tablewrap'><table><tr><th>Part</th><th>Role</th></tr><tr><td>Social-proof opener (281 people requested the guide)</td><td>credibility hook</td></tr><tr><td>Framing: this is a free, 100% private alternative to ChatGPT</td><td>thesis statement</td></tr><tr><td>Recipe: Gemma 4 12B (open-source, free) + LM Studio (free, cross-platform)</td><td>the how-to / method</td></tr><tr><td>Performance claim: on par with ChatGPT-4o-mini on a MacBook M4 (16GB)</td><td>evidence (asserted, not demonstrated)</td></tr><tr><td>Benefits list: free, private*, low power, offline-capable</td><td>supporting reasons / call to action</td></tr><tr><td>Asterisked caveat: data doesn&#x27;t leave the PC &#x27;unless you ask it to&#x27;</td><td>unexamined qualification undercutting the privacy claim</td></tr></table></div><h2>Key terms</h2><ul class='plain'><li id='term-oppskriften-the-recipe'><a class="alink" href="../search.html?q=oppskriften+%28the+recipe%29"><b>oppskriften (the recipe)</b></a><br><span class='muted'>A simple, replicable step-by-step formula for getting a ChatGPT-equivalent experience for free and privately.</span></li><li id='term-100-privat'><a class="alink" href="../search.html?q=100%25+privat"><b>100% privat</b></a><br><span class='muted'>No data leaves the PC — but immediately qualified in the same post by an asterisk: &#x27;unless you ask it to&#x27; (mechanism unspecified).</span></li><li id='term-p-h-yde-med-chatgpt-4o-mini-on-par-with-chatgpt-4o-mini'><a class="alink" href="../search.html?q=p%C3%A5+h%C3%B8yde+med+ChatGPT+4o+mini+%28on+par+with+ChatGPT-4o-mini%29"><b>på høyde med ChatGPT 4o mini (on par with ChatGPT-4o-mini)</b></a><br><span class='muted'>The author&#x27;s own experience running Gemma 4 12B on a MacBook M4 (16GB) felt comparable in quality to ChatGPT-4o-mini, though no task, metric, or methodology is given.</span></li></ul><h2>Propositions</h2><ul class='plain'><li id='p1'><span class='badge explicit'>explicit</span><span class='badge contested' title='epistemic status: contested'>contested</span>Running Gemma 4 12B via LM Studio on a MacBook M4 with 16GB RAM produces output on par with ChatGPT-4o-mini.<span class='tag conf' title='author-stated confidence'>conf: high</span><div class='rel-line'><span class='badge rel'>contradicts</span><a href="../docs/extract-experiences-with-local-models-for-coding.html#p17">Experiences with local models for coding · p17</a> — This post treats an unbenchmarked, task-unspecified &#x27;on par with ChatGPT-4o-mini&#x27; claim as meaningful and shareable, directly at odds with this corpus&#x27;s own finding that such claims are close to meaningless without task and methodology.</div><div class='rel-line'><span class='badge rel'>contradicts</span><a href="../docs/extract-local-ai-loukides.html#p9">Local AI · p9</a> — Loukides&#x27;s proposition that published benchmarks are an unreliable basis for model selection cuts directly against this post presenting an unsourced performance-parity claim as a settled fact.</div><div class='rel-line'><span class='badge rel'>supports</span><a href="../docs/extract-jannik-william-frederiksen-post.html#p14">95% cheaper and sovereign AI: Why we dropped Copilot at Coop Bank — LinkedIn post by Jannik William Frederiksen · p14</a> — Both posts assert that Gemma-family open-weight models are &#x27;good enough&#x27; for real use — Frederiksen for enterprise knowledge-work at a bank, Haneng for a personal ChatGPT substitute — though neither provides benchmark evidence.</div></li><li id='p2'><span class='badge explicit'>explicit</span>Running an AI language model locally is much easier than most people think, and has a range of advantages.<span class='tag conf' title='author-stated confidence'>conf: high</span></li><li id='p3'><span class='badge explicit'>explicit</span>This local setup is free, keeps data on the device (unless the model is explicitly asked to send it out), requires no internet connection, and draws low power (only the local machine, no data center).<span class='tag conf' title='author-stated confidence'>conf: high</span></li><li id='p4'><span class='badge implicit'>implicit</span>Ordinary consumer hardware (a MacBook M4 with 16GB RAM) is now sufficient to match commercial cloud-model quality for the reader&#x27;s purposes, without qualification by task type.<span class='tag conf' title='author-stated confidence'>conf: medium</span><div class='rel-line'><span class='badge rel'>supports</span><a href="../docs/extract-google-gemma-4-qat-mobile.html#p8">Gemma 4 QAT models: Optimizing model compression for mobile and laptop efficiency · p8</a> — Both documents assert, from different angles, that on-device/local LLM inference on consumer hardware has become a practical default rather than a niche or research pursuit.</div></li><li id='p5'><span class='badge implicit'>implicit</span>A capability claim asserted without benchmark data, task specification, or methodology is credible enough to act on and share as a &#x27;recipe&#x27; others should follow.<span class='tag conf' title='author-stated confidence'>conf: medium</span></li></ul><h2>Arguments</h2><div class='card'><b>You should run Gemma 4 12B locally via LM Studio on your own machine instead of, or alongside, a paid cloud AI assistant like ChatGPT.</b> <span class='tag conf' title='argument strength (author-stated): Weak as evidence, though plausible as an anecdote. The central premise — performance parity — is asserted, not demonstrated, and other documents in this corpus on the exact same topic (small/local model viability, Gemma quantization) explicitly warn that benchmark-style claims without task specification and methodology are close to meaningless for judging small local models.'>strength: low</span><div class='muted'>Explicit premises:</div><ul><li>Both LM Studio and Gemma 4 12B are free and open-source.</li><li>The setup is private — no data leaves the PC (with a footnoted exception).</li><li>Performance on a MacBook M4 (16GB) is on par with ChatGPT-4o-mini.</li><li>It works without an internet connection.</li><li>Power consumption is low (only the local machine).</li></ul><div class='muted'>Implicit premises:</div><ul><li>The reader has access to hardware roughly equivalent to a MacBook M4 with 16GB RAM.</li><li>&#x27;On par with ChatGPT-4o-mini&#x27; is a meaningful, task-independent measure that generalizes to the reader&#x27;s own use cases.</li><li>An unbenchmarked, single-anecdote capability claim from a promotional LinkedIn post is a sufficient basis for an adoption decision.</li><li>The privacy guarantee holds by default, and the mechanism by which data could otherwise leave (the asterisked exception) doesn&#x27;t need explaining for the claim to count as &#x27;100% private.&#x27;</li></ul><div class='muted'>Inferences:</div><ul><li>If performance really is on par with 4o-mini and the setup is free, private, and offline-capable, then a paid cloud AI subscription becomes largely redundant for many everyday uses — an implication the post gestures at (with the &#x27;vibe coding on the plane&#x27; aside) but never states outright.</li></ul></div><h2>Narratives</h2><ul class='plain'><li>281 people reportedly asked to have this guide sent to them (opening social-proof line).<br><span class='muted'>→ Substitutes popularity/virality for evidence, implicitly supporting the post&#x27;s credibility (the implicit premise that an unbenchmarked claim is trustworthy) without adding any data about the claim itself.</span></li></ul><h2>Questions addressed</h2><ul class='plain'><li>✅ How can someone get a ChatGPT-like AI experience for free and with full privacy?<br><span class=muted>Run Gemma 4 12B through LM Studio locally on consumer hardware such as a MacBook M4 with 16GB RAM.</span></li><li>⭕ Does the claimed performance parity with ChatGPT-4o-mini actually hold — across which tasks, measured how?</li></ul><h2>Gaps</h2><ul class='plain'><li id='g1'><span class='badge gap'>incomplete</span>The post&#x27;s central claim — Gemma 4 12B on a MacBook M4 (16GB) via LM Studio is &#x27;på høyde med&#x27; (on par with) ChatGPT-4o-mini — carries no benchmark, no named task or use case, and no methodology. This is exactly the pattern this corpus has already flagged elsewhere as epistemically empty: benchmark-style claims without task specification and methodology are close to meaningless for small/local models, and published benchmarks are an unreliable basis for model selection without domain-specific evaluation.<br><span class='muted'>Read next: extract-experiences-with-local-models-for-coding (a rigorous, task-by-task account of the same class of claim) and extract-local-ai-loukides (explicit critique of benchmark-based model selection).</span></li><li id='g2'><span class='badge gap'>incomplete</span>&#x27;100% privat&#x27; is asserted, then immediately undercut by a footnote (&#x27;*Om du ikke ber den om det da&#x27; — unless you ask it to) with no explanation of the mechanism: does LM Studio&#x27;s default configuration ever give Gemma network or tool access? Is the caveat about explicit web-search plugins, MCP-style tool use, or something else? Without that, the reader can&#x27;t assess what the actual privacy guarantee is.<br><span class='muted'>Read next: None in this corpus directly explains LM Studio&#x27;s tool/network-access model; would need vendor documentation.</span></li><li id='g3'><span class='badge gap'>incomplete</span>The post treats a single, unspecified use case (implicitly &#x27;chatting&#x27;) as representative, when this corpus&#x27;s own hands-on local-model accounts show viability is highly task- and hardware-dependent — the same model and settings can produce meaningfully different quality on different machines, and small local models handle simple tasks acceptably but fall apart on complex ones.<br><span class='muted'>Read next: extract-viability-of-local-models-for-coding and extract-experiences-with-local-models-for-coding.</span></li></ul><h2>Related documents</h2><ul class='plain'><li><a href="../docs/extract-experiences-with-local-models-for-coding.html">Experiences with local models for coding</a><div class='chips'></div></li><li><a href="../docs/extract-claude-code-router.html">GitHub - musistudio/claude-code-router: Use Claude Code as the foundation for coding infrastructure, allowing you to decide how to interact with the model while enjoying updates from Anthropic.</a><div class='chips'><a class="chip" href="../concepts/local-ai.html">Local AI</a> <a class="chip" href="../concepts/open-weight-models.html">Open-Weight Models</a></div></li><li><a href="../docs/extract-clem-delangue-engines-vs-cars.html">Hugging Face&#x27;s Clem Delangue: Stop Comparing Engines to Cars</a><div class='chips'><a class="chip" href="../concepts/local-ai.html">Local AI</a> <a class="chip" href="../concepts/open-weight-models.html">Open-Weight Models</a></div></li><li><a href="../docs/extract-cybersecurity-gap-between-skill-and-ability.html">Cybersecurity and the Gap Between Skill and Ability</a><div class='chips'><a class="chip" href="../concepts/local-ai.html">Local AI</a> <a class="chip" href="../concepts/open-weight-models.html">Open-Weight Models</a></div></li><li><a href="../docs/extract-google-gemma-4-qat-mobile.html">Gemma 4 QAT models: Optimizing model compression for mobile and laptop efficiency</a><div class='chips'><a class="chip" href="../concepts/local-ai.html">Local AI</a> <a class="chip" href="../concepts/open-weight-models.html">Open-Weight Models</a></div></li><li><a href="../docs/extract-jannik-william-frederiksen-post.html">95% cheaper and sovereign AI: Why we dropped Copilot at Coop Bank — LinkedIn post by Jannik William Frederiksen</a><div class='chips'><a class="chip" href="../concepts/local-ai.html">Local AI</a> <a class="chip" href="../concepts/open-weight-models.html">Open-Weight Models</a></div></li><li><a href="../docs/extract-local-ai-loukides.html">Local AI</a><div class='chips'><a class="chip" href="../concepts/local-ai.html">Local AI</a> <a class="chip" href="../concepts/open-weight-models.html">Open-Weight Models</a></div></li></ul></main><script src='../assets/search.js' defer></script></body></html>

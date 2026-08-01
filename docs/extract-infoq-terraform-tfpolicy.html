@@ -1,0 +1,104 @@
+<!doctype html><html><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>Terraform Introduces tfpolicy, an HCL-based Policy-as-Code Framework</title><style>
+:root { --bg:#ffffff; --fg:#1a1a1a; --muted:#6b6b6b; --line:#e3e3e0;
+  --card:#f7f7f5; --accent:#4a6fa5; --accent2:#8a6fae; --warn:#b3593a;
+  --ok:#4a7a55; --chip:#eceff4; }
+@media (prefers-color-scheme: dark) {
+  :root { --bg:#191917; --fg:#e8e6e3; --muted:#9a9892; --line:#33322f;
+    --card:#22211f; --accent:#8fb0dd; --accent2:#b6a2d8; --warn:#d98a68;
+    --ok:#84b591; --chip:#2c2b28; }
+}
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:var(--fg);
+  font:16px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+main { max-width:960px; margin:0 auto; padding:1.5rem 1.25rem 4rem; }
+nav.top { display:flex; flex-wrap:wrap; gap:.35rem 1.1rem; padding:.8rem 1.25rem;
+  border-bottom:1px solid var(--line); font-size:.92rem; }
+nav.top a { color:var(--muted); text-decoration:none; }
+nav.top a:hover, nav.top a.here { color:var(--accent); }
+h1 { font-size:1.55rem; line-height:1.25; margin:.8rem 0 .3rem; }
+h2 { font-size:1.15rem; margin:2rem 0 .6rem; border-bottom:1px solid var(--line);
+  padding-bottom:.3rem; }
+h3 { font-size:1rem; margin:1.2rem 0 .4rem; }
+a { color:var(--accent); }
+.muted { color:var(--muted); font-size:.9rem; }
+.unity { border-left:3px solid var(--accent); background:var(--card);
+  padding:.7rem 1rem; margin:1rem 0; font-style:italic; }
+.chips { display:flex; flex-wrap:wrap; gap:.35rem; margin:.5rem 0; }
+.chip { background:var(--chip); border-radius:999px; padding:.1rem .7rem;
+  font-size:.82rem; text-decoration:none; color:var(--fg); }
+.chip:hover { outline:1px solid var(--accent); }
+.chip.count { color:var(--muted); }
+.card { background:var(--card); border:1px solid var(--line); border-radius:8px;
+  padding: .8rem 1rem; margin:.6rem 0; }
+.badge { font-size:.72rem; border-radius:4px; padding:.05rem .4rem;
+  vertical-align:middle; margin-right:.4rem; white-space:nowrap; }
+.badge.explicit { background:var(--ok); color:var(--bg); }
+.badge.implicit { background:var(--accent2); color:var(--bg); }
+.badge.gap { background:var(--warn); color:var(--bg); }
+.badge.closed { background:var(--ok); color:var(--bg); }
+.badge.rel { background:var(--accent); color:var(--bg); }
+.badge.contested { background:var(--warn); color:var(--bg); }
+.badge.established, .badge.corroborated { background:var(--ok); color:var(--bg); }
+.badge.developed { background:var(--accent2); color:var(--bg); }
+.tag.conf { font-size:.72rem; color:var(--muted); border:1px solid var(--line);
+  border-radius:4px; padding:.05rem .4rem; margin-left:.3rem; }
+ul.plain { list-style:none; padding-left:0; }
+ul.plain > li { margin:.55rem 0; }
+table { border-collapse:collapse; width:100%; font-size:.92rem; }
+th, td { text-align:left; padding:.4rem .6rem; border-bottom:1px solid var(--line);
+  vertical-align:top; }
+.tablewrap { overflow-x:auto; }
+.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:.7rem; }
+.stat { font-size:1.7rem; font-weight:600; color:var(--accent); }
+.rel-line { font-size:.86rem; color:var(--muted); margin:.15rem 0 .15rem 1rem; }
+.searchbox { width:100%; padding:.5rem .8rem; border:1px solid var(--line);
+  border-radius:6px; background:var(--card); color:var(--fg); font-size:1rem; }
+.issue-card h3 { margin:.1rem 0 .5rem; }
+.issue-cols { display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin:.6rem 0; }
+@media (max-width:640px) { .issue-cols { grid-template-columns:1fr; } }
+.issue-side h4 { margin:0 0 .4rem; font-size:.85rem; text-transform:uppercase;
+  letter-spacing:.03em; color:var(--muted); }
+.issue-side li { margin:.6rem 0; }
+.supported-by { margin:.15rem 0 .15rem 1rem; }
+.issue-edges { margin-top:.6rem; font-size:.9rem; }
+.verdict-box { margin-top:.7rem; padding:.6rem .8rem; border-radius:6px; font-size:.92rem; }
+.verdict-box.verdict-set { background:var(--card); border-left:3px solid var(--ok); }
+.verdict-box.verdict-empty { background:var(--card); border-left:3px solid var(--line);
+  color:var(--muted); }
+.verdict-box code { font-size:.85em; }
+.issue-key { margin-top:.4rem; }
+nav.top { align-items:center; }
+.navsearch { margin-left:auto; position:relative; flex:0 1 240px; min-width:150px; }
+.navsearch input { width:100%; padding:.3rem .7rem; border:1px solid var(--line);
+  border-radius:6px; background:var(--card); color:var(--fg); font:inherit; font-size:.88rem; }
+.navsearch input:focus { outline:1px solid var(--accent); }
+.sdrop { position:absolute; right:0; top:calc(100% + 6px); width:min(460px,92vw);
+  max-height:70vh; overflow-y:auto; background:var(--bg); border:1px solid var(--line);
+  border-radius:8px; box-shadow:0 8px 28px rgba(0,0,0,.18); z-index:60; }
+.sres { display:block; padding:.5rem .7rem; border-bottom:1px solid var(--line);
+  text-decoration:none; color:var(--fg); font-size:.88rem; }
+.sres:last-child { border-bottom:none; }
+.sres.active, .sres:hover { background:var(--card); }
+.sres .sline { display:flex; align-items:baseline; gap:.4rem; min-width:0; }
+.sres .st { flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.sres .sdoc { display:block; font-size:.78rem; overflow:hidden; text-overflow:ellipsis;
+  white-space:nowrap; }
+.sres.sall { color:var(--accent); text-align:center; }
+.badge.t-document { background:var(--accent); color:var(--bg); }
+.badge.t-claim { background:var(--ok); color:var(--bg); }
+.badge.t-gap { background:var(--warn); color:var(--bg); }
+.badge.t-term { background:var(--accent2); color:var(--bg); }
+.badge.t-concept { background:var(--chip); color:var(--fg); }
+.scard .sx { font-size:.9rem; margin:.3rem 0; }
+.sx mark { background:transparent; color:var(--accent); font-weight:600; }
+.sfilters button, #smore { font:inherit; font-size:.85rem; padding:.25rem .8rem;
+  border-radius:999px; border:1px solid var(--line); background:var(--card);
+  color:var(--fg); cursor:pointer; }
+.sfilters button.active { border-color:var(--accent); color:var(--accent); }
+li:target { box-shadow:inset 3px 0 0 var(--accent); background:var(--card);
+  padding:.4rem .6rem; margin-left:-.6rem; border-radius:0 6px 6px 0; }
+a.alink { color:inherit; text-decoration:underline;
+  text-decoration-color:var(--line); text-underline-offset:2px; }
+a.alink:hover { color:var(--accent); text-decoration-color:var(--accent); }
+</style></head><body><nav class='top'><a href="../index.html">Overview</a><a href="../graph.html">Graph</a><a href="../concepts.html">Concepts</a><a href="../tensions.html">Tensions</a><a href="../issues.html">Issues</a><a href="../claims.html">Claims</a><a href="../threads.html">Threads</a><a href="../gaps.html">Gaps</a><a href="../timeline.html">Timeline</a><div class='navsearch'><input id='navq' type='search' placeholder='Search&hellip;  /  &#8984;K' autocomplete='off' spellcheck='false'><div id='navdrop' class='sdrop' hidden></div></div></nav><main><h1>Terraform Introduces tfpolicy, an HCL-based Policy-as-Code Framework</h1><p class='muted'><a class="alink" href="../search.html?q=Sergio+De+Simone">Sergio De Simone</a> · rss · 2026-07-29 <a href="https://www.infoq.com/news/2026/07/terraform-tfpolicy/" title="Original source" target="_blank" rel="noopener">source&nbsp;↗</a> <a href="https://read.readwise.io/read/01kywr7brz0yww71e1r77d8gag">Reader</a> <a href="wiseread://read/01kywr7brz0yww71e1r77d8gag" title="Open in Reader app">🖥️</a></p><div class='chips'><a class="chip" href="../concepts/policy-as-code.html">Policy-as-Code</a><a class="chip" href="../concepts/supply-chain-security.html">Software Supply-Chain Security</a></div><div class='unity'>HashiCorp&#x27;s tfpolicy replaces the separate policy-as-code layer (Sentinel, OPA) with an HCL-native framework embedded directly in Terraform&#x27;s own workflow, enabling relationship-aware, pre- and post-deployment governance without a second policy language or tool.</div><p class='muted'>practical · expository — A short news report relaying HashiCorp&#x27;s own framing of a new product (tfpolicy); it argues implicitly for adopting the tool by contrasting it favorably with existing policy-as-code approaches, but does so mostly by quoting HashiCorp rather than building an independent case.</p><h2>Structure</h2><div class='tablewrap'><table><tr><th>Part</th><th>Role</th></tr><tr><td>Announcement: tfpolicy is a new HCL-based policy-as-code framework, in public beta within HCP Terraform.</td><td>context</td></tr><tr><td>Critique of existing policy-as-code layers (Sentinel, OPA) as separate validation layers that miss context like resource relationships.</td><td>evidence/motivation</td></tr><tr><td>Deep integration mechanism: same HCL language as Terraform, evaluation before and after deployment, relationship-aware rules, data-source lookups for external context.</td><td>elaboration</td></tr><tr><td>Supply-chain angle: control over provider/module downloads to prevent unapproved dependencies.</td><td>elaboration</td></tr><tr><td>Scope caveat: full capability only inside managed HCP Terraform; standalone CLI limited to local validation/testing.</td><td>limitation</td></tr><tr><td>Comparison context: Sentinel (native, custom DSL, continues to be supported) and OPA (open-source, vendor-agnostic, 100+ integrations) as the incumbents tfpolicy is positioned against.</td><td>context</td></tr></table></div><h2>Key terms</h2><ul class='plain'><li id='term-tfpolicy'><a class="alink" href="../search.html?q=tfpolicy"><b>tfpolicy</b></a><br><span class='muted'>HashiCorp&#x27;s specific new HCL-based, declarative policy-as-code framework built directly into Terraform&#x27;s own workflow, distinct from the generic category &#x27;policy as code&#x27; and from HashiCorp&#x27;s older Sentinel product.</span></li><li id='term-relationship-aware-contextual-policy-evaluation'><a class="alink" href="../search.html?q=relationship-aware+%2F+contextual+policy+evaluation"><b>relationship-aware / contextual policy evaluation</b></a><br><span class='muted'>Evaluating policy rules against how resources relate to each other and against external data-source lookups, rather than validating each resource&#x27;s attributes in isolation at plan time.</span></li><li id='term-post-deployment-evaluation'><a class="alink" href="../search.html?q=post-deployment+evaluation"><b>post-deployment evaluation</b></a><br><span class='muted'>Checking policy compliance against the actual, already-provisioned infrastructure state, not just the planned change set — catching violations only visible after resources exist.</span></li></ul><h2>Propositions</h2><ul class='plain'><li id='p1'><span class='badge explicit'>explicit</span>tfpolicy integrates policy creation and enforcement directly into Terraform&#x27;s native HCL workflow, eliminating the need for a separate policy language or tool.<span class='tag conf' title='author-stated confidence'>conf: high</span></li><li id='p2'><span class='badge explicit'>explicit</span>Existing policy-as-code solutions such as Sentinel and OPA operate as separate validation layers that fail to incorporate contextual information — such as relationships between resources that change over the infrastructure lifecycle.<span class='tag conf' title='author-stated confidence'>conf: high</span><div class='rel-line'><span class='badge rel'>refines</span><a href="../docs/extract-governing-ai-in-the-cloud.html#p9">Governing AI in the Cloud: A Practical Guide for Architects · p9</a> — p9 credits policy-as-code engines like OPA/Rego and Sentinel with evaluating contextual rules (data age, environment, approvals) at runtime; this document narrows the claim by pointing out a specific context type — relationships between resources across the infrastructure lifecycle — that HashiCorp says those same engines structurally miss, which is exactly what tfpolicy is built to add.</div></li><li id='p3'><span class='badge explicit'>explicit</span>tfpolicy evaluates policies both before and after deployment, against actual provisioned infrastructure state rather than only planned changes, catching violations that only become visible once resources exist.<span class='tag conf' title='author-stated confidence'>conf: high</span><div class='rel-line'><span class='badge rel'>extends</span><a href="../docs/extract-compliance-platform-engineering-team.html#p3">Achieving Compliance as a Platform Engineering Team by Helping Developers · p3</a> — tfpolicy&#x27;s before-and-after-deployment evaluation is a concrete product realization of the generic prevention-then-detection governance sequencing pattern, extended so &#x27;detection&#x27; can catch violations from actual provisioned state rather than only pre-existing drift.</div></li><li id='p4'><span class='badge explicit'>explicit</span>tfpolicy extends policy enforcement to the software supply chain by controlling which providers and modules can be downloaded, preventing accidental use of unapproved dependencies.<span class='tag conf' title='author-stated confidence'>conf: high</span></li><li id='p5'><span class='badge explicit'>explicit</span>tfpolicy&#x27;s full capability set (relationship-aware evaluation, post-deployment checks, supply-chain controls) is available only within the managed HCP Terraform product; the standalone open-source Terraform CLI supports only local policy validation and testing.<span class='tag conf' title='author-stated confidence'>conf: high</span></li><li id='p6'><span class='badge implicit'>implicit</span>By continuing to support Sentinel while positioning tfpolicy as the preferred framework, and by gating tfpolicy&#x27;s full functionality behind the managed HCP Terraform product, HashiCorp is steering governance-conscious customers toward its paid platform rather than toward vendor-neutral alternatives like OPA.<span class='tag conf' title='author-stated confidence'>conf: medium</span></li></ul><h2>Arguments</h2><div class='card'><b>Organizations governing Terraform-managed infrastructure should adopt tfpolicy over external policy-as-code layers like Sentinel or OPA.</b> <span class='tag conf' title='argument strength (author-stated): moderate — the argument rests almost entirely on HashiCorp&#x27;s own quotes and framing; the article presents no independent benchmark, security audit, or user account of tfpolicy in practice.'>strength: medium</span><div class='muted'>Explicit premises:</div><ul><li>Existing policy-as-code layers can&#x27;t express rules dependent on relationships between resources or on external context that changes across the infrastructure lifecycle.</li><li>tfpolicy uses the same language (HCL) already used to define Terraform infrastructure, reducing the number of tools and languages teams must maintain.</li><li>tfpolicy can evaluate policy after deployment against real infrastructure state, not only against the plan.</li></ul><div class='muted'>Implicit premises:</div><ul><li>Consolidating the policy language with the infrastructure language is more valuable than the separation-of-concerns benefit of an independent policy tool usable across systems beyond Terraform (as OPA is).</li><li>A policy framework built and controlled by the same vendor that builds Terraform is adequate for governance workloads that might otherwise call for a vendor-neutral engine.</li></ul><div class='muted'>Inferences:</div><ul><li>Because full capability requires HCP Terraform (the paid managed product), organizations running open-source Terraform without HCP Terraform must either upgrade or continue relying on Sentinel/OPA to get comparable governance — a lock-in dynamic the article does not flag.</li></ul></div><h2>Questions addressed</h2><ul class='plain'><li>✅ How can platform teams enforce infrastructure governance without maintaining a separate policy language and toolchain alongside Terraform?<br><span class=muted>By embedding policy directly in Terraform&#x27;s own HCL workflow (tfpolicy) instead of a separate DSL (Sentinel) or external engine (OPA).</span></li><li>✅ How can policy evaluation account for context that changes across the infrastructure lifecycle — e.g. relationships between resources — rather than validating resources in isolation at plan time?<br><span class=muted>Via relationship-aware policy rules and data-source lookups, plus post-deployment evaluation against actual provisioned state.</span></li><li>⭕ Does concentrating both infrastructure definition and policy enforcement in the same HCL/HCP Terraform product create a governance vendor-lock-in risk, given that full tfpolicy capability requires the managed HCP Terraform service?</li></ul><h2>Gaps</h2><ul class='plain'><li id='g1'><span class='badge gap'>incomplete</span>The article reports no independent benchmarking, security audit, or production case study of tfpolicy; every functional claim traces back to HashiCorp&#x27;s own announcement and quotes, with no outside verification that relationship-aware or post-deployment evaluation performs as described.<br><span class='muted'>Read next: Look for independent write-ups, HashiCorp&#x27;s own tfpolicy documentation/examples, or user reports once tfpolicy exits public beta.</span></li><li id='g2'><span class='badge gap'>incomplete</span>No detail is given on migration cost or fidelity for organizations with substantial existing Sentinel policy libraries, beyond noting that HashiCorp is introducing an AI agent that can &#x27;convert&#x27; Sentinel policies — with no discussion of what such conversion misses or gets wrong.<br><span class='muted'>Read next: HashiCorp&#x27;s tfpolicy/Sentinel migration guide and the linked agent-skills repository (github.com/hashicorp/agent-skills) for what the conversion agent actually handles.</span></li></ul><h2>Related documents</h2><ul class='plain'><li><a href="../docs/extract-compliance-platform-engineering-team.html">Achieving Compliance as a Platform Engineering Team by Helping Developers</a><div class='chips'></div></li><li><a href="../docs/extract-governing-ai-in-the-cloud.html">Governing AI in the Cloud: A Practical Guide for Architects</a><div class='chips'></div></li></ul></main><script src='../assets/search.js' defer></script></body></html>
