@@ -1,0 +1,104 @@
+<!doctype html><html><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>Automatic Speech Recognition (ASR)</title><style>
+:root { --bg:#ffffff; --fg:#1a1a1a; --muted:#6b6b6b; --line:#e3e3e0;
+  --card:#f7f7f5; --accent:#4a6fa5; --accent2:#8a6fae; --warn:#b3593a;
+  --ok:#4a7a55; --chip:#eceff4; }
+@media (prefers-color-scheme: dark) {
+  :root { --bg:#191917; --fg:#e8e6e3; --muted:#9a9892; --line:#33322f;
+    --card:#22211f; --accent:#8fb0dd; --accent2:#b6a2d8; --warn:#d98a68;
+    --ok:#84b591; --chip:#2c2b28; }
+}
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:var(--fg);
+  font:16px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+main { max-width:960px; margin:0 auto; padding:1.5rem 1.25rem 4rem; }
+nav.top { display:flex; flex-wrap:wrap; gap:.35rem 1.1rem; padding:.8rem 1.25rem;
+  border-bottom:1px solid var(--line); font-size:.92rem; }
+nav.top a { color:var(--muted); text-decoration:none; }
+nav.top a:hover, nav.top a.here { color:var(--accent); }
+h1 { font-size:1.55rem; line-height:1.25; margin:.8rem 0 .3rem; }
+h2 { font-size:1.15rem; margin:2rem 0 .6rem; border-bottom:1px solid var(--line);
+  padding-bottom:.3rem; }
+h3 { font-size:1rem; margin:1.2rem 0 .4rem; }
+a { color:var(--accent); }
+.muted { color:var(--muted); font-size:.9rem; }
+.unity { border-left:3px solid var(--accent); background:var(--card);
+  padding:.7rem 1rem; margin:1rem 0; font-style:italic; }
+.chips { display:flex; flex-wrap:wrap; gap:.35rem; margin:.5rem 0; }
+.chip { background:var(--chip); border-radius:999px; padding:.1rem .7rem;
+  font-size:.82rem; text-decoration:none; color:var(--fg); }
+.chip:hover { outline:1px solid var(--accent); }
+.chip.count { color:var(--muted); }
+.card { background:var(--card); border:1px solid var(--line); border-radius:8px;
+  padding: .8rem 1rem; margin:.6rem 0; }
+.badge { font-size:.72rem; border-radius:4px; padding:.05rem .4rem;
+  vertical-align:middle; margin-right:.4rem; white-space:nowrap; }
+.badge.explicit { background:var(--ok); color:var(--bg); }
+.badge.implicit { background:var(--accent2); color:var(--bg); }
+.badge.gap { background:var(--warn); color:var(--bg); }
+.badge.closed { background:var(--ok); color:var(--bg); }
+.badge.rel { background:var(--accent); color:var(--bg); }
+.badge.contested { background:var(--warn); color:var(--bg); }
+.badge.established, .badge.corroborated { background:var(--ok); color:var(--bg); }
+.badge.developed { background:var(--accent2); color:var(--bg); }
+.tag.conf { font-size:.72rem; color:var(--muted); border:1px solid var(--line);
+  border-radius:4px; padding:.05rem .4rem; margin-left:.3rem; }
+ul.plain { list-style:none; padding-left:0; }
+ul.plain > li { margin:.55rem 0; }
+table { border-collapse:collapse; width:100%; font-size:.92rem; }
+th, td { text-align:left; padding:.4rem .6rem; border-bottom:1px solid var(--line);
+  vertical-align:top; }
+.tablewrap { overflow-x:auto; }
+.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:.7rem; }
+.stat { font-size:1.7rem; font-weight:600; color:var(--accent); }
+.rel-line { font-size:.86rem; color:var(--muted); margin:.15rem 0 .15rem 1rem; }
+.searchbox { width:100%; padding:.5rem .8rem; border:1px solid var(--line);
+  border-radius:6px; background:var(--card); color:var(--fg); font-size:1rem; }
+.issue-card h3 { margin:.1rem 0 .5rem; }
+.issue-cols { display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin:.6rem 0; }
+@media (max-width:640px) { .issue-cols { grid-template-columns:1fr; } }
+.issue-side h4 { margin:0 0 .4rem; font-size:.85rem; text-transform:uppercase;
+  letter-spacing:.03em; color:var(--muted); }
+.issue-side li { margin:.6rem 0; }
+.supported-by { margin:.15rem 0 .15rem 1rem; }
+.issue-edges { margin-top:.6rem; font-size:.9rem; }
+.verdict-box { margin-top:.7rem; padding:.6rem .8rem; border-radius:6px; font-size:.92rem; }
+.verdict-box.verdict-set { background:var(--card); border-left:3px solid var(--ok); }
+.verdict-box.verdict-empty { background:var(--card); border-left:3px solid var(--line);
+  color:var(--muted); }
+.verdict-box code { font-size:.85em; }
+.issue-key { margin-top:.4rem; }
+nav.top { align-items:center; }
+.navsearch { margin-left:auto; position:relative; flex:0 1 240px; min-width:150px; }
+.navsearch input { width:100%; padding:.3rem .7rem; border:1px solid var(--line);
+  border-radius:6px; background:var(--card); color:var(--fg); font:inherit; font-size:.88rem; }
+.navsearch input:focus { outline:1px solid var(--accent); }
+.sdrop { position:absolute; right:0; top:calc(100% + 6px); width:min(460px,92vw);
+  max-height:70vh; overflow-y:auto; background:var(--bg); border:1px solid var(--line);
+  border-radius:8px; box-shadow:0 8px 28px rgba(0,0,0,.18); z-index:60; }
+.sres { display:block; padding:.5rem .7rem; border-bottom:1px solid var(--line);
+  text-decoration:none; color:var(--fg); font-size:.88rem; }
+.sres:last-child { border-bottom:none; }
+.sres.active, .sres:hover { background:var(--card); }
+.sres .sline { display:flex; align-items:baseline; gap:.4rem; min-width:0; }
+.sres .st { flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.sres .sdoc { display:block; font-size:.78rem; overflow:hidden; text-overflow:ellipsis;
+  white-space:nowrap; }
+.sres.sall { color:var(--accent); text-align:center; }
+.badge.t-document { background:var(--accent); color:var(--bg); }
+.badge.t-claim { background:var(--ok); color:var(--bg); }
+.badge.t-gap { background:var(--warn); color:var(--bg); }
+.badge.t-term { background:var(--accent2); color:var(--bg); }
+.badge.t-concept { background:var(--chip); color:var(--fg); }
+.scard .sx { font-size:.9rem; margin:.3rem 0; }
+.sx mark { background:transparent; color:var(--accent); font-weight:600; }
+.sfilters button, #smore { font:inherit; font-size:.85rem; padding:.25rem .8rem;
+  border-radius:999px; border:1px solid var(--line); background:var(--card);
+  color:var(--fg); cursor:pointer; }
+.sfilters button.active { border-color:var(--accent); color:var(--accent); }
+li:target { box-shadow:inset 3px 0 0 var(--accent); background:var(--card);
+  padding:.4rem .6rem; margin-left:-.6rem; border-radius:0 6px 6px 0; }
+a.alink { color:inherit; text-decoration:underline;
+  text-decoration-color:var(--line); text-underline-offset:2px; }
+a.alink:hover { color:var(--accent); text-decoration-color:var(--accent); }
+</style></head><body><nav class='top'><a href="../index.html">Overview</a><a href="../graph.html">Graph</a><a href="../concepts.html" class=here>Concepts</a><a href="../tensions.html">Tensions</a><a href="../issues.html">Issues</a><a href="../claims.html">Claims</a><a href="../threads.html">Threads</a><a href="../gaps.html">Gaps</a><a href="../timeline.html">Timeline</a><div class='navsearch'><input id='navq' type='search' placeholder='Search&hellip;  /  &#8984;K' autocomplete='off' spellcheck='false'><div id='navdrop' class='sdrop' hidden></div></div></nav><main><h1>Automatic Speech Recognition (ASR)</h1><p>The task and technology of converting spoken audio to written text, including foundation ASR models like Whisper and their evaluation via word-error-rate benchmarks.</p><p class='muted'>Also known as: ASR, speech recognition, speech-to-text, Whisper, OpenAI Whisper, NB-Whisper, word error rate, WER, transcription accuracy, speech-to-text models</p><h2>How authors use it</h2><p class='muted'>Oldest first (extraction date when no publication date is known).</p><div class='tablewrap'><table><tr><th>Author</th><th>Their term</th><th>Their meaning</th></tr><tr><td><a href="../docs/extract-whispering-in-norwegian-navigating-orthographic-and-dialectic-challenges.html">Whispering in Norwegian: Navigating Orthographic and Dialectic Challenges</a><br><span class='muted'><a class="alink" href="../search.html?q=Per+E+Kummervold%2C+Javier+de+la+Rosa%2C+Freddy+Wetjen%2C+Rolv-Arild+Braaten%2C+Per+Erik+Solberg">Per E Kummervold, Javier de la Rosa, Freddy Wetjen, Rolv-Arild Braaten, Per Erik Solberg</a> · 2024-02-02</span></td><td><a href='../docs/extract-whispering-in-norwegian-navigating-orthographic-and-dialectic-challenges.html#term-word-error-rate-wer'><b>Word Error Rate (WER)</b></a></td><td>The paper&#x27;s central metric, computed with the JiWER package after lowercasing and stripping punctuation, deliberately reported non-normalized so scores are directly comparable across the three test datasets; the authors note that a stronger normalization (e.g. spelling out numbers, as in a companion Wav2Vec2 paper) would have produced lower, but less comparable, scores.</td></tr></table></div><h2>Documents (1)</h2><ul class='plain'><li><a href="../docs/extract-whispering-in-norwegian-navigating-orthographic-and-dialectic-challenges.html">Whispering in Norwegian: Navigating Orthographic and Dialectic Challenges</a> <span class='muted'><a class="alink" href="../search.html?q=Per+E+Kummervold%2C+Javier+de+la+Rosa%2C+Freddy+Wetjen%2C+Rolv-Arild+Braaten%2C+Per+Erik+Solberg">Per E Kummervold, Javier de la Rosa, Freddy Wetjen, Rolv-Arild Braaten, Per Erik Solberg</a> · 2024-02-02</span> <a href="https://read.readwise.io/read/01kz5xg0fg09xn4q6e1yc5f2ec">Reader</a> <a href="wiseread://read/01kz5xg0fg09xn4q6e1yc5f2ec" title="Open in Reader app">🖥️</a><br><span class='muted'>NB-Whisper — OpenAI&#x27;s Whisper fine-tuned by the National Library of Norway on roughly 28,000 hours of curated, iteratively-cleaned Norwegian audio-text data from four sources (NRK subtitles, audiobooks, the NST corpus, and the Stortinget speech corpus) — substantially reduces word-error-rate on Norwegian Bokmål and Nynorsk transcription (e.g. 10.4→6.6 on Fleurs, 6.8→2.2 on NST, 30.0→12.6 on Common Voice Nynorsk) by explicitly targeting the dual written standards and pervasive dialectal/orthographic variation that generic Whisper handles poorly, though an inherent ~1-2% WER floor from legitimate Norwegian spelling variation and unresolved hallucination/streaming limitations mean the problem is substantially advanced rather than solved.</span></li></ul><h2>Propositions touching this concept (6)</h2><p class='muted'>By publication month, oldest first (extraction month when no publication date is known).</p><h3>2024-02</h3><ul class='plain'><li><span class='badge explicit'>explicit</span>NB-Whisper Large reduces Norwegian Bokmål WER on the Fleurs dataset from 10.4 (OpenAI Whisper Large v3) to 6.6.<div class='rel-line'><a href="../docs/extract-whispering-in-norwegian-navigating-orthographic-and-dialectic-challenges.html#p1">Whispering in Norwegian: Navigating Orthographic and Dialectic Challenges · p1</a></div></li><li><span class='badge explicit'>explicit</span>NB-Whisper Large reduces Norwegian Bokmål WER on the NST dataset from 6.8 (OpenAI Whisper Large v3) to 2.2.<div class='rel-line'><a href="../docs/extract-whispering-in-norwegian-navigating-orthographic-and-dialectic-challenges.html#p2">Whispering in Norwegian: Navigating Orthographic and Dialectic Challenges · p2</a></div></li><li><span class='badge explicit'>explicit</span>On Common Voice Nynorsk, NB-Whisper Large achieves 12.6% WER versus 30.0% for OpenAI Whisper Large v3 — a proportionally larger improvement than on Bokmål datasets.<div class='rel-line'><a href="../docs/extract-whispering-in-norwegian-navigating-orthographic-and-dialectic-challenges.html#p3">Whispering in Norwegian: Navigating Orthographic and Dialectic Challenges · p3</a></div></li><li><span class='badge explicit'>explicit</span>At the Tiny model size, NB-Whisper achieves 28.0% WER on Common Voice Nynorsk while OpenAI Whisper Tiny exceeds 100% WER (more insertions/errors than reference words) — i.e., stock small Whisper models are close to unusable for Nynorsk.<div class='rel-line'><a href="../docs/extract-whispering-in-norwegian-navigating-orthographic-and-dialectic-challenges.html#p4">Whispering in Norwegian: Navigating Orthographic and Dialectic Challenges · p4</a></div></li><li><span class='badge explicit'>explicit</span>ASR performance scales strongly and roughly monotonically with model size for Norwegian (Tiny through Large), for both OpenAI Whisper and NB-Whisper, but the absolute and relative gap between the two narrows as size increases.<div class='rel-line'><a href="../docs/extract-whispering-in-norwegian-navigating-orthographic-and-dialectic-challenges.html#p8">Whispering in Norwegian: Navigating Orthographic and Dialectic Challenges · p8</a></div></li><li><span class='badge explicit'>explicit</span>NB-Whisper&#x27;s architecture (autoregressive decoder, 30-second audio chunks) is not well-suited to real-time/live transcription, and would benefit from an alternative architecture for that use case.<div class='rel-line'><a href="../docs/extract-whispering-in-norwegian-navigating-orthographic-and-dialectic-challenges.html#p10">Whispering in Norwegian: Navigating Orthographic and Dialectic Challenges · p10</a></div></li></ul><h2>Open gaps (5)</h2><ul class='plain'><li><span class='badge gap'>incomplete</span>Despite framing dialectal diversity as the central Norwegian ASR challenge (with the 38-pronunciation &#x27;hvem&#x27; example), the paper never reports WER broken down by dialect group — only by dataset and written standard (Bokmål/Nynorsk). It is impossible to tell from this paper whether remaining errors concentrate on non-Oslo or minority dialects, which would be the direct empirical test of the paper&#x27;s own motivating claim.<div class='rel-line'><a href='../docs/extract-whispering-in-norwegian-navigating-orthographic-and-dialectic-challenges.html#g1'>Whispering in Norwegian: Navigating Orthographic and Dialectic Challenges</a> — read next: Look for NB-Whisper follow-up work or model-card updates using the Nordic Dialect Corpus (or NST&#x27;s dialect metadata) as a stratified evaluation set.</div></li><li><span class='badge gap'>incomplete</span>No comparison against any Norwegian ASR system besides the authors&#x27; own prior NB-Wav2Vec2 1B model — no commercial cloud ASR (Google, Azure, Amazon) and no other multilingual open models (e.g. Meta&#x27;s MMS or SeamlessM4T) are benchmarked, so NB-Whisper&#x27;s standing relative to the broader Norwegian ASR market is unknown from this paper alone.<div class='rel-line'><a href='../docs/extract-whispering-in-norwegian-navigating-orthographic-and-dialectic-challenges.html#g2'>Whispering in Norwegian: Navigating Orthographic and Dialectic Challenges</a> — read next: Search for independent third-party benchmarks comparing NB-Whisper against commercial cloud ASR APIs for Norwegian.</div></li><li><span class='badge gap'>incomplete</span>No ablation studies isolate which of the four data sources, or which of the four cleaning criteria (fuzzy matching, insertion detection, omission detection, NER filtering), actually drove the WER improvement. The recipe is reported in full but never decomposed, so a reader cannot tell which ingredient mattered most or whether some contributed little or even hurt.<div class='rel-line'><a href='../docs/extract-whispering-in-norwegian-navigating-orthographic-and-dialectic-challenges.html#g3'>Whispering in Norwegian: Navigating Orthographic and Dialectic Challenges</a> — read next: Check whether the NB-Whisper GitHub repo (nostram) or any successor NB AI Lab paper includes ablations over data sources or cleaning filters.</div></li><li><span class='badge gap'>illogical</span>The &#x27;clear trend&#x27; language used to describe model-size scaling (Section 6) treats single-run WER point estimates — with no reported variance, confidence intervals, or repeated-seed training — as sufficient evidence of a definitive, generalizable relationship between model size and accuracy for Norwegian specifically.<div class='rel-line'><a href='../docs/extract-whispering-in-norwegian-navigating-orthographic-and-dialectic-challenges.html#g4'>Whispering in Norwegian: Navigating Orthographic and Dialectic Challenges</a> — read next: Compare against papers that report WER variance across training seeds or use statistical significance testing (e.g. bootstrap resampling over test-set WER) for ASR scaling claims.</div></li><li><span class='badge gap'>incomplete</span>The real-time/streaming transcription limitation is named but not engaged with relative to existing community workarounds (e.g. sliding-window/VAD-based chunked streaming used by tools like whisper.cpp or faster-whisper) that already mitigate this for the base Whisper architecture the paper builds on.<div class='rel-line'><a href='../docs/extract-whispering-in-norwegian-navigating-orthographic-and-dialectic-challenges.html#g5'>Whispering in Norwegian: Navigating Orthographic and Dialectic Challenges</a> — read next: Look at whisper-streaming / faster-whisper VAD-chunking implementations to see how the wider Whisper ecosystem addresses real-time use without an architecture change.</div></li></ul></main><script src='../assets/search.js' defer></script></body></html>
