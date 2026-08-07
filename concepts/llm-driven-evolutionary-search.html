@@ -1,0 +1,104 @@
+<!doctype html><html><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>LLM-Driven Evolutionary Search</title><style>
+:root { --bg:#ffffff; --fg:#1a1a1a; --muted:#6b6b6b; --line:#e3e3e0;
+  --card:#f7f7f5; --accent:#4a6fa5; --accent2:#8a6fae; --warn:#b3593a;
+  --ok:#4a7a55; --chip:#eceff4; }
+@media (prefers-color-scheme: dark) {
+  :root { --bg:#191917; --fg:#e8e6e3; --muted:#9a9892; --line:#33322f;
+    --card:#22211f; --accent:#8fb0dd; --accent2:#b6a2d8; --warn:#d98a68;
+    --ok:#84b591; --chip:#2c2b28; }
+}
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:var(--fg);
+  font:16px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+main { max-width:960px; margin:0 auto; padding:1.5rem 1.25rem 4rem; }
+nav.top { display:flex; flex-wrap:wrap; gap:.35rem 1.1rem; padding:.8rem 1.25rem;
+  border-bottom:1px solid var(--line); font-size:.92rem; }
+nav.top a { color:var(--muted); text-decoration:none; }
+nav.top a:hover, nav.top a.here { color:var(--accent); }
+h1 { font-size:1.55rem; line-height:1.25; margin:.8rem 0 .3rem; }
+h2 { font-size:1.15rem; margin:2rem 0 .6rem; border-bottom:1px solid var(--line);
+  padding-bottom:.3rem; }
+h3 { font-size:1rem; margin:1.2rem 0 .4rem; }
+a { color:var(--accent); }
+.muted { color:var(--muted); font-size:.9rem; }
+.unity { border-left:3px solid var(--accent); background:var(--card);
+  padding:.7rem 1rem; margin:1rem 0; font-style:italic; }
+.chips { display:flex; flex-wrap:wrap; gap:.35rem; margin:.5rem 0; }
+.chip { background:var(--chip); border-radius:999px; padding:.1rem .7rem;
+  font-size:.82rem; text-decoration:none; color:var(--fg); }
+.chip:hover { outline:1px solid var(--accent); }
+.chip.count { color:var(--muted); }
+.card { background:var(--card); border:1px solid var(--line); border-radius:8px;
+  padding: .8rem 1rem; margin:.6rem 0; }
+.badge { font-size:.72rem; border-radius:4px; padding:.05rem .4rem;
+  vertical-align:middle; margin-right:.4rem; white-space:nowrap; }
+.badge.explicit { background:var(--ok); color:var(--bg); }
+.badge.implicit { background:var(--accent2); color:var(--bg); }
+.badge.gap { background:var(--warn); color:var(--bg); }
+.badge.closed { background:var(--ok); color:var(--bg); }
+.badge.rel { background:var(--accent); color:var(--bg); }
+.badge.contested { background:var(--warn); color:var(--bg); }
+.badge.established, .badge.corroborated { background:var(--ok); color:var(--bg); }
+.badge.developed { background:var(--accent2); color:var(--bg); }
+.tag.conf { font-size:.72rem; color:var(--muted); border:1px solid var(--line);
+  border-radius:4px; padding:.05rem .4rem; margin-left:.3rem; }
+ul.plain { list-style:none; padding-left:0; }
+ul.plain > li { margin:.55rem 0; }
+table { border-collapse:collapse; width:100%; font-size:.92rem; }
+th, td { text-align:left; padding:.4rem .6rem; border-bottom:1px solid var(--line);
+  vertical-align:top; }
+.tablewrap { overflow-x:auto; }
+.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:.7rem; }
+.stat { font-size:1.7rem; font-weight:600; color:var(--accent); }
+.rel-line { font-size:.86rem; color:var(--muted); margin:.15rem 0 .15rem 1rem; }
+.searchbox { width:100%; padding:.5rem .8rem; border:1px solid var(--line);
+  border-radius:6px; background:var(--card); color:var(--fg); font-size:1rem; }
+.issue-card h3 { margin:.1rem 0 .5rem; }
+.issue-cols { display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin:.6rem 0; }
+@media (max-width:640px) { .issue-cols { grid-template-columns:1fr; } }
+.issue-side h4 { margin:0 0 .4rem; font-size:.85rem; text-transform:uppercase;
+  letter-spacing:.03em; color:var(--muted); }
+.issue-side li { margin:.6rem 0; }
+.supported-by { margin:.15rem 0 .15rem 1rem; }
+.issue-edges { margin-top:.6rem; font-size:.9rem; }
+.verdict-box { margin-top:.7rem; padding:.6rem .8rem; border-radius:6px; font-size:.92rem; }
+.verdict-box.verdict-set { background:var(--card); border-left:3px solid var(--ok); }
+.verdict-box.verdict-empty { background:var(--card); border-left:3px solid var(--line);
+  color:var(--muted); }
+.verdict-box code { font-size:.85em; }
+.issue-key { margin-top:.4rem; }
+nav.top { align-items:center; }
+.navsearch { margin-left:auto; position:relative; flex:0 1 240px; min-width:150px; }
+.navsearch input { width:100%; padding:.3rem .7rem; border:1px solid var(--line);
+  border-radius:6px; background:var(--card); color:var(--fg); font:inherit; font-size:.88rem; }
+.navsearch input:focus { outline:1px solid var(--accent); }
+.sdrop { position:absolute; right:0; top:calc(100% + 6px); width:min(460px,92vw);
+  max-height:70vh; overflow-y:auto; background:var(--bg); border:1px solid var(--line);
+  border-radius:8px; box-shadow:0 8px 28px rgba(0,0,0,.18); z-index:60; }
+.sres { display:block; padding:.5rem .7rem; border-bottom:1px solid var(--line);
+  text-decoration:none; color:var(--fg); font-size:.88rem; }
+.sres:last-child { border-bottom:none; }
+.sres.active, .sres:hover { background:var(--card); }
+.sres .sline { display:flex; align-items:baseline; gap:.4rem; min-width:0; }
+.sres .st { flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.sres .sdoc { display:block; font-size:.78rem; overflow:hidden; text-overflow:ellipsis;
+  white-space:nowrap; }
+.sres.sall { color:var(--accent); text-align:center; }
+.badge.t-document { background:var(--accent); color:var(--bg); }
+.badge.t-claim { background:var(--ok); color:var(--bg); }
+.badge.t-gap { background:var(--warn); color:var(--bg); }
+.badge.t-term { background:var(--accent2); color:var(--bg); }
+.badge.t-concept { background:var(--chip); color:var(--fg); }
+.scard .sx { font-size:.9rem; margin:.3rem 0; }
+.sx mark { background:transparent; color:var(--accent); font-weight:600; }
+.sfilters button, #smore { font:inherit; font-size:.85rem; padding:.25rem .8rem;
+  border-radius:999px; border:1px solid var(--line); background:var(--card);
+  color:var(--fg); cursor:pointer; }
+.sfilters button.active { border-color:var(--accent); color:var(--accent); }
+li:target { box-shadow:inset 3px 0 0 var(--accent); background:var(--card);
+  padding:.4rem .6rem; margin-left:-.6rem; border-radius:0 6px 6px 0; }
+a.alink { color:inherit; text-decoration:underline;
+  text-decoration-color:var(--line); text-underline-offset:2px; }
+a.alink:hover { color:var(--accent); text-decoration-color:var(--accent); }
+</style></head><body><nav class='top'><a href="../index.html">Overview</a><a href="../graph.html">Graph</a><a href="../concepts.html" class=here>Concepts</a><a href="../tensions.html">Tensions</a><a href="../issues.html">Issues</a><a href="../claims.html">Claims</a><a href="../threads.html">Threads</a><a href="../gaps.html">Gaps</a><a href="../timeline.html">Timeline</a><div class='navsearch'><input id='navq' type='search' placeholder='Search&hellip;  /  &#8984;K' autocomplete='off' spellcheck='false'><div id='navdrop' class='sdrop' hidden></div></div></nav><main><h1>LLM-Driven Evolutionary Search</h1><p>Using an LLM as a mutation/generation operator inside a classic evolutionary-search loop — generate candidates, score against a measurable fitness/eval function, iterate — applied to code, algorithms, or prompts rather than to the model itself.</p><p class='muted'>Also known as: AlphaEvolve, evolutionary code optimization, genetic programming with LLMs, LLM mutation operator, program search, GEPA, prompt evolution</p><h2>How authors use it</h2><p class='muted'>Oldest first (extraction date when no publication date is known).</p><div class='tablewrap'><table><tr><th>Author</th><th>Their term</th><th>Their meaning</th></tr><tr><td><a href="../docs/extract-alphaevolve-general-availability.html">Google&#x27;s AlphaEvolve Reaches General Availability with Evolutionary Code Optimization as a Service</a><br><span class='muted'><a class="alink" href="../search.html?q=Steef-Jan+Wiggers">Steef-Jan Wiggers</a> · 2026-07-19</span></td><td><a href='../docs/extract-alphaevolve-general-availability.html#term-alphaevolve'><b>AlphaEvolve</b></a></td><td>A specific evolutionary code-optimization agent/product: starting from a baseline algorithm, it uses Gemini models to generate mutated candidate programs, scores each against a user-defined evaluation function, and iterates until the search converges on optimized, human-readable code. Not a general code-writing assistant -- an optimizer that refines existing algorithms toward a scored objective.</td></tr></table></div><h2>Documents (1)</h2><ul class='plain'><li><a href="../docs/extract-alphaevolve-general-availability.html">Google&#x27;s AlphaEvolve Reaches General Availability with Evolutionary Code Optimization as a Service</a> <span class='muted'><a class="alink" href="../search.html?q=Steef-Jan+Wiggers">Steef-Jan Wiggers</a> · 2026-07-19</span> <a href="https://read.readwise.io/read/01kxwykdv8fzf36f5h632xc1ff">Reader</a> <a href="wiseread://read/01kxwykdv8fzf36f5h632xc1ff" title="Open in Reader app">🖥️</a><br><span class='muted'>AlphaEvolve&#x27;s move from DeepMind research project to generally-available Google Cloud product proves that LLM-driven evolutionary code optimization delivers real, substantial engineering gains, but only inside the narrow band of problems that already have (or can be given) a precise, automatable evaluation function -- outside that band, in the &#x27;messy&#x27; business logic that makes up most production software, the approach currently has no demonstrated purchase, and the announcement&#x27;s vendor-only evidence means even the in-band gains should be read as directional, not verified.</span></li></ul><h2>Propositions touching this concept (16)</h2><p class='muted'>By publication month, oldest first (extraction month when no publication date is known).</p><h3>2026-04</h3><ul class='plain'><li><span class='badge explicit'>explicit</span>The success of neurosymbolic approaches (Claude Code, AlphaFold, AlphaEvolve, etc.) means the pure-scaling paradigm has ended.<div class='rel-line'><a href="../docs/extract-marcus-biggest-advance-since-llm.html#p5">The biggest advance in AI since the LLM · p5</a></div></li></ul><h3>2026-05</h3><ul class='plain'><li><span class='badge implicit'>implicit</span>Frontier AI for science (AlphaEvolve, REPLIQA, DeepMind Accelerator) justifies Google&#x27;s broader AI program against critics.<div class='rel-line'><a href="../docs/extract-google-may-2026-ai-recap.html#p8">The latest AI news we announced in May 2026 · p8</a></div></li></ul><h3>2026-07</h3><ul class='plain'><li><span class='badge explicit'>explicit</span>Google announced general availability of AlphaEvolve on the Gemini Enterprise Agent Platform, turning the DeepMind research project into a product any Google Cloud customer can run against their own code.<div class='rel-line'><a href="../docs/extract-alphaevolve-general-availability.html#p1">Google&#x27;s AlphaEvolve Reaches General Availability with Evolutionary Code Optimization as a Service · p1</a></div></li><li><span class='badge explicit'>explicit</span>AlphaEvolve is an evolutionary code optimization agent: starting from a baseline algorithm, it uses Gemini models to generate mutated candidate programs, scores each against a user-defined evaluation function, and iterates until the search converges on optimized, human-readable code.<div class='rel-line'><a href="../docs/extract-alphaevolve-general-availability.html#p2">Google&#x27;s AlphaEvolve Reaches General Availability with Evolutionary Code Optimization as a Service · p2</a></div></li><li><span class='badge explicit'>explicit</span>The user&#x27;s evaluator runs client-side on the customer&#x27;s own infrastructure; AlphaEvolve&#x27;s API only generates candidate programs, while the user&#x27;s environment scores them locally and submits results back -- a split designed for enterprises with code they cannot share.<div class='rel-line'><a href="../docs/extract-alphaevolve-general-availability.html#p3">Google&#x27;s AlphaEvolve Reaches General Availability with Evolutionary Code Optimization as a Service · p3</a></div></li><li><span class='badge explicit'>explicit</span>The AlphaEvolve workflow follows four steps: define a baseline seed algorithm and problem context, establish a scoring function for the metrics that matter, run the agentic optimization harness, and deploy the resulting algorithm into production.<div class='rel-line'><a href="../docs/extract-alphaevolve-general-availability.html#p4">Google&#x27;s AlphaEvolve Reaches General Availability with Evolutionary Code Optimization as a Service · p4</a></div></li><li><span class='badge explicit'>explicit</span>Klarna doubled its ML training throughput using AlphaEvolve, exploring roughly 6,000 candidate programs over three weeks while maintaining the bit-exact reproducibility that financial services regulation requires.<div class='rel-line'><a href="../docs/extract-alphaevolve-general-availability.html#p5">Google&#x27;s AlphaEvolve Reaches General Availability with Evolutionary Code Optimization as a Service · p5</a></div></li><li><span class='badge explicit'>explicit</span>JetBrains saw IDE code-completion latency improve by 15 to 20 percent using AlphaEvolve.<div class='rel-line'><a href="../docs/extract-alphaevolve-general-availability.html#p6">Google&#x27;s AlphaEvolve Reaches General Availability with Evolutionary Code Optimization as a Service · p6</a></div></li><li><span class='badge explicit'>explicit</span>FM Logistic cut warehouse picking routes by 10.4 percent using AlphaEvolve, on a baseline that had already been through production optimization.<div class='rel-line'><a href="../docs/extract-alphaevolve-general-availability.html#p7">Google&#x27;s AlphaEvolve Reaches General Availability with Evolutionary Code Optimization as a Service · p7</a></div></li><li><span class='badge explicit'>explicit</span>At Kinaxis, AlphaEvolve raised forecasting accuracy by 22 percent while cutting runtime by 90 percent.<div class='rel-line'><a href="../docs/extract-alphaevolve-general-availability.html#p8">Google&#x27;s AlphaEvolve Reaches General Availability with Evolutionary Code Optimization as a Service · p8</a></div></li><li><span class='badge explicit'>explicit</span>Oak Ridge National Laboratory runs AlphaEvolve on Frontier, its exascale system, to generate optimized GPU kernels for scientific computing workloads.<div class='rel-line'><a href="../docs/extract-alphaevolve-general-availability.html#p9">Google&#x27;s AlphaEvolve Reaches General Availability with Evolutionary Code Optimization as a Service · p9</a></div></li><li><span class='badge explicit'>explicit</span>Google&#x27;s own internal use of AlphaEvolve predates the GA product: it has optimized silicon design for next-generation TPUs, reduced write amplification in Spanner&#x27;s LSM-tree compaction by 20 percent, and cut storage footprint by 9 percent.<div class='rel-line'><a href="../docs/extract-alphaevolve-general-availability.html#p10">Google&#x27;s AlphaEvolve Reaches General Availability with Evolutionary Code Optimization as a Service · p10</a></div></li><li><span class='badge explicit'>explicit</span>AlphaEvolve works only where a problem has a measurable, automatable evaluation function; code whose quality depends on human judgment is not optimizable by it.<div class='rel-line'><a href="../docs/extract-alphaevolve-general-availability.html#p11">Google&#x27;s AlphaEvolve Reaches General Availability with Evolutionary Code Optimization as a Service · p11</a></div></li><li><span class='badge implicit'>implicit</span>Because the evolutionary search will exploit anything the evaluator fails to measure -- e.g. producing code that is fast but subtly wrong in ways the tests don&#x27;t catch -- the completeness and rigor of the human-designed evaluation harness, not the model&#x27;s raw capability, is the actual safety-critical bottleneck for deploying AlphaEvolve.<div class='rel-line'><a href="../docs/extract-alphaevolve-general-availability.html#p14">Google&#x27;s AlphaEvolve Reaches General Availability with Evolutionary Code Optimization as a Service · p14</a></div></li><li><span class='badge implicit'>implicit</span>Human engineers retain full accountability for defining the benchmark, reviewing candidates, and approving release even as AlphaEvolve narrows the space of implementations they must manually search -- the tool automates candidate generation, not judgment or verification.<div class='rel-line'><a href="../docs/extract-alphaevolve-general-availability.html#p15">Google&#x27;s AlphaEvolve Reaches General Availability with Evolutionary Code Optimization as a Service · p15</a></div></li><li><span class='badge explicit'>explicit</span><span class='badge developed' title='epistemic status: developed'>developed</span>The second principle is to stop hand-writing prompts altogether: once behavior is defined by measurable evals, the prompt itself becomes something to search for — via systems like DSPy or GEPA — rather than something to craft by hand, because the space of possible wordings is too vast for productive human effort and is exactly the kind of search problem LLMs are suited to.<div class='rel-line'><a href="../docs/extract-breunig-the-problem-is-prompt-debt.html#p11">The Problem Is Prompt Debt · p11</a></div></li></ul><h2>Open gaps (1)</h2><ul class='plain'><li><span class='badge gap'>incomplete</span>Enterprise / Cloud is barely present. One mention of Cloud in the provenance tools paragraph; AlphaEvolve gets a &#x27;Google Cloud&#x27; tag in URL but no enterprise framing. For a recap of May 2026, the absence of Vertex / Workspace / enterprise agent messaging is notable — suggesting this piece is targeted at consumer / general press, not the CIO audience.<div class='rel-line'><a href='../docs/extract-google-may-2026-ai-recap.html#g5'>The latest AI news we announced in May 2026</a> — read next: Google Cloud Next 2026 announcements; enterprise-AI analyst coverage (Gartner, Forrester) on Google&#x27;s enterprise agent posture.</div></li></ul></main><script src='../assets/search.js' defer></script></body></html>
