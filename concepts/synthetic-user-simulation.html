@@ -1,0 +1,104 @@
+<!doctype html><html><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>Synthetic User Simulation</title><style>
+:root { --bg:#ffffff; --fg:#1a1a1a; --muted:#6b6b6b; --line:#e3e3e0;
+  --card:#f7f7f5; --accent:#4a6fa5; --accent2:#8a6fae; --warn:#b3593a;
+  --ok:#4a7a55; --chip:#eceff4; }
+@media (prefers-color-scheme: dark) {
+  :root { --bg:#191917; --fg:#e8e6e3; --muted:#9a9892; --line:#33322f;
+    --card:#22211f; --accent:#8fb0dd; --accent2:#b6a2d8; --warn:#d98a68;
+    --ok:#84b591; --chip:#2c2b28; }
+}
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:var(--fg);
+  font:16px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+main { max-width:960px; margin:0 auto; padding:1.5rem 1.25rem 4rem; }
+nav.top { display:flex; flex-wrap:wrap; gap:.35rem 1.1rem; padding:.8rem 1.25rem;
+  border-bottom:1px solid var(--line); font-size:.92rem; }
+nav.top a { color:var(--muted); text-decoration:none; }
+nav.top a:hover, nav.top a.here { color:var(--accent); }
+h1 { font-size:1.55rem; line-height:1.25; margin:.8rem 0 .3rem; }
+h2 { font-size:1.15rem; margin:2rem 0 .6rem; border-bottom:1px solid var(--line);
+  padding-bottom:.3rem; }
+h3 { font-size:1rem; margin:1.2rem 0 .4rem; }
+a { color:var(--accent); }
+.muted { color:var(--muted); font-size:.9rem; }
+.unity { border-left:3px solid var(--accent); background:var(--card);
+  padding:.7rem 1rem; margin:1rem 0; font-style:italic; }
+.chips { display:flex; flex-wrap:wrap; gap:.35rem; margin:.5rem 0; }
+.chip { background:var(--chip); border-radius:999px; padding:.1rem .7rem;
+  font-size:.82rem; text-decoration:none; color:var(--fg); }
+.chip:hover { outline:1px solid var(--accent); }
+.chip.count { color:var(--muted); }
+.card { background:var(--card); border:1px solid var(--line); border-radius:8px;
+  padding: .8rem 1rem; margin:.6rem 0; }
+.badge { font-size:.72rem; border-radius:4px; padding:.05rem .4rem;
+  vertical-align:middle; margin-right:.4rem; white-space:nowrap; }
+.badge.explicit { background:var(--ok); color:var(--bg); }
+.badge.implicit { background:var(--accent2); color:var(--bg); }
+.badge.gap { background:var(--warn); color:var(--bg); }
+.badge.closed { background:var(--ok); color:var(--bg); }
+.badge.rel { background:var(--accent); color:var(--bg); }
+.badge.contested { background:var(--warn); color:var(--bg); }
+.badge.established, .badge.corroborated { background:var(--ok); color:var(--bg); }
+.badge.developed { background:var(--accent2); color:var(--bg); }
+.tag.conf { font-size:.72rem; color:var(--muted); border:1px solid var(--line);
+  border-radius:4px; padding:.05rem .4rem; margin-left:.3rem; }
+ul.plain { list-style:none; padding-left:0; }
+ul.plain > li { margin:.55rem 0; }
+table { border-collapse:collapse; width:100%; font-size:.92rem; }
+th, td { text-align:left; padding:.4rem .6rem; border-bottom:1px solid var(--line);
+  vertical-align:top; }
+.tablewrap { overflow-x:auto; }
+.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:.7rem; }
+.stat { font-size:1.7rem; font-weight:600; color:var(--accent); }
+.rel-line { font-size:.86rem; color:var(--muted); margin:.15rem 0 .15rem 1rem; }
+.searchbox { width:100%; padding:.5rem .8rem; border:1px solid var(--line);
+  border-radius:6px; background:var(--card); color:var(--fg); font-size:1rem; }
+.issue-card h3 { margin:.1rem 0 .5rem; }
+.issue-cols { display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin:.6rem 0; }
+@media (max-width:640px) { .issue-cols { grid-template-columns:1fr; } }
+.issue-side h4 { margin:0 0 .4rem; font-size:.85rem; text-transform:uppercase;
+  letter-spacing:.03em; color:var(--muted); }
+.issue-side li { margin:.6rem 0; }
+.supported-by { margin:.15rem 0 .15rem 1rem; }
+.issue-edges { margin-top:.6rem; font-size:.9rem; }
+.verdict-box { margin-top:.7rem; padding:.6rem .8rem; border-radius:6px; font-size:.92rem; }
+.verdict-box.verdict-set { background:var(--card); border-left:3px solid var(--ok); }
+.verdict-box.verdict-empty { background:var(--card); border-left:3px solid var(--line);
+  color:var(--muted); }
+.verdict-box code { font-size:.85em; }
+.issue-key { margin-top:.4rem; }
+nav.top { align-items:center; }
+.navsearch { margin-left:auto; position:relative; flex:0 1 240px; min-width:150px; }
+.navsearch input { width:100%; padding:.3rem .7rem; border:1px solid var(--line);
+  border-radius:6px; background:var(--card); color:var(--fg); font:inherit; font-size:.88rem; }
+.navsearch input:focus { outline:1px solid var(--accent); }
+.sdrop { position:absolute; right:0; top:calc(100% + 6px); width:min(460px,92vw);
+  max-height:70vh; overflow-y:auto; background:var(--bg); border:1px solid var(--line);
+  border-radius:8px; box-shadow:0 8px 28px rgba(0,0,0,.18); z-index:60; }
+.sres { display:block; padding:.5rem .7rem; border-bottom:1px solid var(--line);
+  text-decoration:none; color:var(--fg); font-size:.88rem; }
+.sres:last-child { border-bottom:none; }
+.sres.active, .sres:hover { background:var(--card); }
+.sres .sline { display:flex; align-items:baseline; gap:.4rem; min-width:0; }
+.sres .st { flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.sres .sdoc { display:block; font-size:.78rem; overflow:hidden; text-overflow:ellipsis;
+  white-space:nowrap; }
+.sres.sall { color:var(--accent); text-align:center; }
+.badge.t-document { background:var(--accent); color:var(--bg); }
+.badge.t-claim { background:var(--ok); color:var(--bg); }
+.badge.t-gap { background:var(--warn); color:var(--bg); }
+.badge.t-term { background:var(--accent2); color:var(--bg); }
+.badge.t-concept { background:var(--chip); color:var(--fg); }
+.scard .sx { font-size:.9rem; margin:.3rem 0; }
+.sx mark { background:transparent; color:var(--accent); font-weight:600; }
+.sfilters button, #smore { font:inherit; font-size:.85rem; padding:.25rem .8rem;
+  border-radius:999px; border:1px solid var(--line); background:var(--card);
+  color:var(--fg); cursor:pointer; }
+.sfilters button.active { border-color:var(--accent); color:var(--accent); }
+li:target { box-shadow:inset 3px 0 0 var(--accent); background:var(--card);
+  padding:.4rem .6rem; margin-left:-.6rem; border-radius:0 6px 6px 0; }
+a.alink { color:inherit; text-decoration:underline;
+  text-decoration-color:var(--line); text-underline-offset:2px; }
+a.alink:hover { color:var(--accent); text-decoration-color:var(--accent); }
+</style></head><body><nav class='top'><a href="../index.html">Overview</a><a href="../graph.html">Graph</a><a href="../concepts.html" class=here>Concepts</a><a href="../tensions.html">Tensions</a><a href="../issues.html">Issues</a><a href="../claims.html">Claims</a><a href="../threads.html">Threads</a><a href="../gaps.html">Gaps</a><a href="../timeline.html">Timeline</a><div class='navsearch'><input id='navq' type='search' placeholder='Search&hellip;  /  &#8984;K' autocomplete='off' spellcheck='false'><div id='navdrop' class='sdrop' hidden></div></div></nav><main><h1>Synthetic User Simulation</h1><p>Using AI agents to simulate diverse end-user personas — with goals seeded from a target agent&#x27;s own capabilities — that converse with a product agent to generate realistic multi-turn trajectories, used to test, evaluate, and (in privacy-restricted domains) train other agents before real users interact with them.</p><p class='muted'>Also known as: synthetic users, simulated users, user simulation, trajectory entropy, tool call distribution entropy, tool call transition entropy, arksim, golden scenario set</p><h2>How authors use it</h2><p class='muted'>Oldest first (extraction date when no publication date is known).</p><div class='tablewrap'><table><tr><th>Author</th><th>Their term</th><th>Their meaning</th></tr><tr><td><a href="../docs/extract-ai-agent-demo-to-production-testing-evaluation.html">Presentation: From AI Agent Demo to Production: Automated Testing and Evaluation</a><br><span class='muted'><a class="alink" href="../search.html?q=Zhou+Yu">Zhou Yu</a> · 2026-09-07</span></td><td><a href='../docs/extract-ai-agent-demo-to-production-testing-evaluation.html#term-trajectory-entropy-tool-call-distribution-entropy-tool-call-transition-entropy-trajectory-distance'><b>Trajectory entropy (tool call distribution entropy / tool call transition entropy / trajectory distance)</b></a></td><td>A family of quantitative diversity metrics for the *simulator*, not the product agent: how spread out the set of tools a synthetic user invokes is (distribution entropy), how varied the sequence in which it moves between tools is (transition entropy), and how far apart different simulated conversations are from each other (trajectory distance) — together used to detect and penalize a simulator that keeps generating near-identical, low-coverage test conversations.</td></tr><tr><td><a href="../docs/extract-ai-agent-demo-to-production-testing-evaluation.html">Presentation: From AI Agent Demo to Production: Automated Testing and Evaluation</a><br><span class='muted'><a class="alink" href="../search.html?q=Zhou+Yu">Zhou Yu</a> · 2026-09-07</span></td><td><a href='../docs/extract-ai-agent-demo-to-production-testing-evaluation.html#term-golden-scenario-set-as-ever-evolving'><b>Golden scenario set (as &#x27;ever-evolving&#x27;)</b></a></td><td>A curated, versioned collection of (profile, goal, context) test scenarios treated as a living CI/CD regression suite that is deliberately and continuously revised — new scenarios are synthesized whenever production logs reveal a gap between real and simulated user distributions.</td></tr></table></div><h2>Documents (1)</h2><ul class='plain'><li><a href="../docs/extract-ai-agent-demo-to-production-testing-evaluation.html">Presentation: From AI Agent Demo to Production: Automated Testing and Evaluation</a> <span class='muted'><a class="alink" href="../search.html?q=Zhou+Yu">Zhou Yu</a> · 2026-09-07</span> <a href="https://www.infoq.com/presentations/ai-agent-testing-evaluation/" title="Original source" target="_blank" rel="noopener">source&nbsp;↗</a> <a href="https://read.readwise.io/read/01m1xrxpgkmnmcmnpcy55p7ksp">Reader</a> <a href="wiseread://read/01m1xrxpgkmnmcmnpcy55p7ksp" title="Open in Reader app">🖥️</a><br><span class='muted'>Because static, single-turn benchmarks with fixed golden answers cannot evaluate multi-turn, tool-using agents whose correctness depends on live backend state and conversational history, teams must replace ad hoc manual testing with AI-simulated user personas that generate realistic, coverage-optimized conversation trajectories against which scenario-grounded, automated evaluation can run inside CI/CD — turning agent testing from the manual bottleneck that keeps roughly 95% of agents stuck in demo into a scalable, continuously-refreshed, self-improving production pipeline.</span></li></ul><h2>Propositions touching this concept (1)</h2><p class='muted'>By publication month, oldest first (extraction month when no publication date is known).</p><h3>2026-09</h3><ul class='plain'><li><span class='badge implicit'>implicit</span>Synthetic user simulation is valuable not only for testing but as a training-data-generation mechanism for domains where real data either doesn&#x27;t exist yet (a brand-new agent, cold start) or is legally unusable (PII-restricted domains like mortgage underwriting).<div class='rel-line'><a href="../docs/extract-ai-agent-demo-to-production-testing-evaluation.html#p12">Presentation: From AI Agent Demo to Production: Automated Testing and Evaluation · p12</a></div></li></ul><h2>Open gaps (2)</h2><ul class='plain'><li><span class='badge gap'>incomplete</span>The talk never explains how to validate that AI-simulated personas actually approximate real user intent/behavior distributions. Beyond appealing to domain-expert &#x27;interviews&#x27; for cold start and matching production data for warm start, there is no calibration metric, statistical test, or audit process offered to confirm the synthetic distribution isn&#x27;t itself biased — e.g., toward whatever a small number of experts (or the generating LLM) finds salient, which is exactly the caricature concern Participant 3 raised and that the speaker sidesteps rather than answers.<div class='rel-line'><a href='../docs/extract-ai-agent-demo-to-production-testing-evaluation.html#g1'>Presentation: From AI Agent Demo to Production: Automated Testing and Evaluation</a> — read next: Sim-to-real transfer / distributional-fidelity literature (as used in robotics simulation), and work on eliciting representative rather than merely plausible personas from a small number of domain experts.</div></li><li><span class='badge gap'>incomplete</span>No cost/ROI accounting is given for building and running the simulation infrastructure itself. The talk names running cost as a design constraint (avoiding, e.g., 10,000-conversation batches every CI run) but never quantifies the engineering cost of building personas/scenarios, judge-calibration labor, or how the total cost compares to the manual-tester process it replaces — beyond the qualitative, unquantified two-year Pearson relationship.<div class='rel-line'><a href='../docs/extract-ai-agent-demo-to-production-testing-evaluation.html#g4'>Presentation: From AI Agent Demo to Production: Automated Testing and Evaluation</a> — read next: Corpus material on eval/observability infrastructure cost and token/infra economics, for a fuller before/after ROI picture of adopting simulation-driven testing.</div></li></ul></main><script src='../assets/search.js' defer></script></body></html>
