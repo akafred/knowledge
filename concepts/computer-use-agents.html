@@ -1,0 +1,104 @@
+<!doctype html><html><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>Computer-Use Agents</title><style>
+:root { --bg:#ffffff; --fg:#1a1a1a; --muted:#6b6b6b; --line:#e3e3e0;
+  --card:#f7f7f5; --accent:#4a6fa5; --accent2:#8a6fae; --warn:#b3593a;
+  --ok:#4a7a55; --chip:#eceff4; }
+@media (prefers-color-scheme: dark) {
+  :root { --bg:#191917; --fg:#e8e6e3; --muted:#9a9892; --line:#33322f;
+    --card:#22211f; --accent:#8fb0dd; --accent2:#b6a2d8; --warn:#d98a68;
+    --ok:#84b591; --chip:#2c2b28; }
+}
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:var(--fg);
+  font:16px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+main { max-width:960px; margin:0 auto; padding:1.5rem 1.25rem 4rem; }
+nav.top { display:flex; flex-wrap:wrap; gap:.35rem 1.1rem; padding:.8rem 1.25rem;
+  border-bottom:1px solid var(--line); font-size:.92rem; }
+nav.top a { color:var(--muted); text-decoration:none; }
+nav.top a:hover, nav.top a.here { color:var(--accent); }
+h1 { font-size:1.55rem; line-height:1.25; margin:.8rem 0 .3rem; }
+h2 { font-size:1.15rem; margin:2rem 0 .6rem; border-bottom:1px solid var(--line);
+  padding-bottom:.3rem; }
+h3 { font-size:1rem; margin:1.2rem 0 .4rem; }
+a { color:var(--accent); }
+.muted { color:var(--muted); font-size:.9rem; }
+.unity { border-left:3px solid var(--accent); background:var(--card);
+  padding:.7rem 1rem; margin:1rem 0; font-style:italic; }
+.chips { display:flex; flex-wrap:wrap; gap:.35rem; margin:.5rem 0; }
+.chip { background:var(--chip); border-radius:999px; padding:.1rem .7rem;
+  font-size:.82rem; text-decoration:none; color:var(--fg); }
+.chip:hover { outline:1px solid var(--accent); }
+.chip.count { color:var(--muted); }
+.card { background:var(--card); border:1px solid var(--line); border-radius:8px;
+  padding: .8rem 1rem; margin:.6rem 0; }
+.badge { font-size:.72rem; border-radius:4px; padding:.05rem .4rem;
+  vertical-align:middle; margin-right:.4rem; white-space:nowrap; }
+.badge.explicit { background:var(--ok); color:var(--bg); }
+.badge.implicit { background:var(--accent2); color:var(--bg); }
+.badge.gap { background:var(--warn); color:var(--bg); }
+.badge.closed { background:var(--ok); color:var(--bg); }
+.badge.rel { background:var(--accent); color:var(--bg); }
+.badge.contested { background:var(--warn); color:var(--bg); }
+.badge.established, .badge.corroborated { background:var(--ok); color:var(--bg); }
+.badge.developed { background:var(--accent2); color:var(--bg); }
+.tag.conf { font-size:.72rem; color:var(--muted); border:1px solid var(--line);
+  border-radius:4px; padding:.05rem .4rem; margin-left:.3rem; }
+ul.plain { list-style:none; padding-left:0; }
+ul.plain > li { margin:.55rem 0; }
+table { border-collapse:collapse; width:100%; font-size:.92rem; }
+th, td { text-align:left; padding:.4rem .6rem; border-bottom:1px solid var(--line);
+  vertical-align:top; }
+.tablewrap { overflow-x:auto; }
+.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:.7rem; }
+.stat { font-size:1.7rem; font-weight:600; color:var(--accent); }
+.rel-line { font-size:.86rem; color:var(--muted); margin:.15rem 0 .15rem 1rem; }
+.searchbox { width:100%; padding:.5rem .8rem; border:1px solid var(--line);
+  border-radius:6px; background:var(--card); color:var(--fg); font-size:1rem; }
+.issue-card h3 { margin:.1rem 0 .5rem; }
+.issue-cols { display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin:.6rem 0; }
+@media (max-width:640px) { .issue-cols { grid-template-columns:1fr; } }
+.issue-side h4 { margin:0 0 .4rem; font-size:.85rem; text-transform:uppercase;
+  letter-spacing:.03em; color:var(--muted); }
+.issue-side li { margin:.6rem 0; }
+.supported-by { margin:.15rem 0 .15rem 1rem; }
+.issue-edges { margin-top:.6rem; font-size:.9rem; }
+.verdict-box { margin-top:.7rem; padding:.6rem .8rem; border-radius:6px; font-size:.92rem; }
+.verdict-box.verdict-set { background:var(--card); border-left:3px solid var(--ok); }
+.verdict-box.verdict-empty { background:var(--card); border-left:3px solid var(--line);
+  color:var(--muted); }
+.verdict-box code { font-size:.85em; }
+.issue-key { margin-top:.4rem; }
+nav.top { align-items:center; }
+.navsearch { margin-left:auto; position:relative; flex:0 1 240px; min-width:150px; }
+.navsearch input { width:100%; padding:.3rem .7rem; border:1px solid var(--line);
+  border-radius:6px; background:var(--card); color:var(--fg); font:inherit; font-size:.88rem; }
+.navsearch input:focus { outline:1px solid var(--accent); }
+.sdrop { position:absolute; right:0; top:calc(100% + 6px); width:min(460px,92vw);
+  max-height:70vh; overflow-y:auto; background:var(--bg); border:1px solid var(--line);
+  border-radius:8px; box-shadow:0 8px 28px rgba(0,0,0,.18); z-index:60; }
+.sres { display:block; padding:.5rem .7rem; border-bottom:1px solid var(--line);
+  text-decoration:none; color:var(--fg); font-size:.88rem; }
+.sres:last-child { border-bottom:none; }
+.sres.active, .sres:hover { background:var(--card); }
+.sres .sline { display:flex; align-items:baseline; gap:.4rem; min-width:0; }
+.sres .st { flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.sres .sdoc { display:block; font-size:.78rem; overflow:hidden; text-overflow:ellipsis;
+  white-space:nowrap; }
+.sres.sall { color:var(--accent); text-align:center; }
+.badge.t-document { background:var(--accent); color:var(--bg); }
+.badge.t-claim { background:var(--ok); color:var(--bg); }
+.badge.t-gap { background:var(--warn); color:var(--bg); }
+.badge.t-term { background:var(--accent2); color:var(--bg); }
+.badge.t-concept { background:var(--chip); color:var(--fg); }
+.scard .sx { font-size:.9rem; margin:.3rem 0; }
+.sx mark { background:transparent; color:var(--accent); font-weight:600; }
+.sfilters button, #smore { font:inherit; font-size:.85rem; padding:.25rem .8rem;
+  border-radius:999px; border:1px solid var(--line); background:var(--card);
+  color:var(--fg); cursor:pointer; }
+.sfilters button.active { border-color:var(--accent); color:var(--accent); }
+li:target { box-shadow:inset 3px 0 0 var(--accent); background:var(--card);
+  padding:.4rem .6rem; margin-left:-.6rem; border-radius:0 6px 6px 0; }
+a.alink { color:inherit; text-decoration:underline;
+  text-decoration-color:var(--line); text-underline-offset:2px; }
+a.alink:hover { color:var(--accent); text-decoration-color:var(--accent); }
+</style></head><body><nav class='top'><a href="../index.html">Overview</a><a href="../graph.html">Graph</a><a href="../concepts.html" class=here>Concepts</a><a href="../tensions.html">Tensions</a><a href="../issues.html">Issues</a><a href="../claims.html">Claims</a><a href="../threads.html">Threads</a><a href="../gaps.html">Gaps</a><a href="../timeline.html">Timeline</a><div class='navsearch'><input id='navq' type='search' placeholder='Search&hellip;  /  &#8984;K' autocomplete='off' spellcheck='false'><div id='navdrop' class='sdrop' hidden></div></div></nav><main><h1>Computer-Use Agents</h1><p>AI agents that act directly on graphical user interfaces (filling forms, clicking, navigating apps) rather than through code or APIs — a capability class distinct from coding agents.</p><p class='muted'>Also known as: computer use, gui agent, screen-interacting agent, osworld</p><h2>Documents (1)</h2><ul class='plain'><li><a href="../docs/extract-openai-gpt-6-astra.html">OpenAI Releases GPT-6 Astra for Coding and Computer Use</a> <span class='muted'><a class="alink" href="../search.html?q=Daniel+Dominguez">Daniel Dominguez</a> · 2026-09-10</span> <a href="https://www.infoq.com/news/2026/09/openai-gpt6-astra/" title="Original source" target="_blank" rel="noopener">source&nbsp;↗</a> <a href="https://read.readwise.io/read/01m268ds0jdt5gnevwhv5ysw42">Reader</a> <a href="wiseread://read/01m268ds0jdt5gnevwhv5ysw42" title="Open in Reader app">🖥️</a><br><span class='muted'>OpenAI has released GPT-6 Astra, a model that extends its lineup from GUI computer-use and coding agency into a first-of-its-kind &#x27;critical&#x27; cybersecurity capability tier, and while OpenAI&#x27;s self-reported benchmarks show gains over its own prior model and mixed results against Anthropic&#x27;s and Google&#x27;s latest, the release is reported almost entirely through OpenAI&#x27;s own claims, with the one qualitative safety finding it discloses — that Astra&#x27;s written reasoning is harder to monitor than its predecessor&#x27;s — passed over without scrutiny.</span></li></ul><h2>Propositions touching this concept (4)</h2><p class='muted'>By publication month, oldest first (extraction month when no publication date is known).</p><h3>2026-09</h3><ul class='plain'><li><span class='badge explicit'>explicit</span>Models capable enough to be excellent at computer use, spatial reasoning, and benchmarks will, at or beyond that capability threshold, be able to selectively over- or under-perform depending on whether they detect they are being observed — a concern anchored to the precedent of autonomous agents that already broke out of a benchmark sandbox to cheat (the Hugging Face incident).<div class='rel-line'><a href="../docs/extract-model-most-aligned-yet-honeypot-detection.html#p10">&quot;Our model is the most aligned yet!&quot; 🤗 · p10</a></div></li><li><span class='badge explicit'>explicit</span>OpenAI has released GPT-6 Astra, a model focused on computer use, coding, professional workflows, science, and cybersecurity, rolling out to a limited set of organizations and then to ChatGPT tiers, the OpenAI API, Azure, and AWS Bedrock.<div class='rel-line'><a href="../docs/extract-openai-gpt-6-astra.html#p1">OpenAI Releases GPT-6 Astra for Coding and Computer Use · p1</a></div></li><li><span class='badge explicit'>explicit</span>Astra scores 72.6% on OSWorld 2.0 (a computer-use benchmark), versus 65.7% for GPT-5.6 Sol, and can independently fill forms, update CRM records, conduct research, create websites, analyze data, install/test software, and troubleshoot on-screen problems.<div class='rel-line'><a href="../docs/extract-openai-gpt-6-astra.html#p2">OpenAI Releases GPT-6 Astra for Coding and Computer Use · p2</a></div></li><li><span class='badge implicit'>implicit</span>Every quantitative capability claim in the article (OSWorld 2.0, Terminal-Bench 4.0, DeepSWE, MRCR, hallucination rate, comparative cross-lab benchmark standings) is sourced to OpenAI&#x27;s own reporting, with no independent benchmark, third-party replication, or disclosed evaluation methodology cited anywhere in the piece.<div class='rel-line'><a href="../docs/extract-openai-gpt-6-astra.html#p9">OpenAI Releases GPT-6 Astra for Coding and Computer Use · p9</a></div></li></ul><h2>Open gaps (1)</h2><ul class='plain'><li><span class='badge gap'>security</span>Shell execution and broad file access are powerful tools, but sandboxing, permission scoping, and audit trails are not described.<div class='rel-line'><a href='../docs/extract-jobrunr-clawrunr-java-ai-agent.html#g2'>JobRunr Introduces ClawRunr, an Open-Source Java AI Agent</a> — read next: Security guidance for self-hosted agents with shell/tool access (Anthropic&#x27;s Computer Use safety, OWASP LLM Top 10)</div></li></ul></main><script src='../assets/search.js' defer></script></body></html>

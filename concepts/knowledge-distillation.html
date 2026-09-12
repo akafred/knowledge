@@ -1,0 +1,104 @@
+<!doctype html><html><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>Knowledge Distillation (Teacher-Student Compression)</title><style>
+:root { --bg:#ffffff; --fg:#1a1a1a; --muted:#6b6b6b; --line:#e3e3e0;
+  --card:#f7f7f5; --accent:#4a6fa5; --accent2:#8a6fae; --warn:#b3593a;
+  --ok:#4a7a55; --chip:#eceff4; }
+@media (prefers-color-scheme: dark) {
+  :root { --bg:#191917; --fg:#e8e6e3; --muted:#9a9892; --line:#33322f;
+    --card:#22211f; --accent:#8fb0dd; --accent2:#b6a2d8; --warn:#d98a68;
+    --ok:#84b591; --chip:#2c2b28; }
+}
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:var(--fg);
+  font:16px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+main { max-width:960px; margin:0 auto; padding:1.5rem 1.25rem 4rem; }
+nav.top { display:flex; flex-wrap:wrap; gap:.35rem 1.1rem; padding:.8rem 1.25rem;
+  border-bottom:1px solid var(--line); font-size:.92rem; }
+nav.top a { color:var(--muted); text-decoration:none; }
+nav.top a:hover, nav.top a.here { color:var(--accent); }
+h1 { font-size:1.55rem; line-height:1.25; margin:.8rem 0 .3rem; }
+h2 { font-size:1.15rem; margin:2rem 0 .6rem; border-bottom:1px solid var(--line);
+  padding-bottom:.3rem; }
+h3 { font-size:1rem; margin:1.2rem 0 .4rem; }
+a { color:var(--accent); }
+.muted { color:var(--muted); font-size:.9rem; }
+.unity { border-left:3px solid var(--accent); background:var(--card);
+  padding:.7rem 1rem; margin:1rem 0; font-style:italic; }
+.chips { display:flex; flex-wrap:wrap; gap:.35rem; margin:.5rem 0; }
+.chip { background:var(--chip); border-radius:999px; padding:.1rem .7rem;
+  font-size:.82rem; text-decoration:none; color:var(--fg); }
+.chip:hover { outline:1px solid var(--accent); }
+.chip.count { color:var(--muted); }
+.card { background:var(--card); border:1px solid var(--line); border-radius:8px;
+  padding: .8rem 1rem; margin:.6rem 0; }
+.badge { font-size:.72rem; border-radius:4px; padding:.05rem .4rem;
+  vertical-align:middle; margin-right:.4rem; white-space:nowrap; }
+.badge.explicit { background:var(--ok); color:var(--bg); }
+.badge.implicit { background:var(--accent2); color:var(--bg); }
+.badge.gap { background:var(--warn); color:var(--bg); }
+.badge.closed { background:var(--ok); color:var(--bg); }
+.badge.rel { background:var(--accent); color:var(--bg); }
+.badge.contested { background:var(--warn); color:var(--bg); }
+.badge.established, .badge.corroborated { background:var(--ok); color:var(--bg); }
+.badge.developed { background:var(--accent2); color:var(--bg); }
+.tag.conf { font-size:.72rem; color:var(--muted); border:1px solid var(--line);
+  border-radius:4px; padding:.05rem .4rem; margin-left:.3rem; }
+ul.plain { list-style:none; padding-left:0; }
+ul.plain > li { margin:.55rem 0; }
+table { border-collapse:collapse; width:100%; font-size:.92rem; }
+th, td { text-align:left; padding:.4rem .6rem; border-bottom:1px solid var(--line);
+  vertical-align:top; }
+.tablewrap { overflow-x:auto; }
+.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:.7rem; }
+.stat { font-size:1.7rem; font-weight:600; color:var(--accent); }
+.rel-line { font-size:.86rem; color:var(--muted); margin:.15rem 0 .15rem 1rem; }
+.searchbox { width:100%; padding:.5rem .8rem; border:1px solid var(--line);
+  border-radius:6px; background:var(--card); color:var(--fg); font-size:1rem; }
+.issue-card h3 { margin:.1rem 0 .5rem; }
+.issue-cols { display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin:.6rem 0; }
+@media (max-width:640px) { .issue-cols { grid-template-columns:1fr; } }
+.issue-side h4 { margin:0 0 .4rem; font-size:.85rem; text-transform:uppercase;
+  letter-spacing:.03em; color:var(--muted); }
+.issue-side li { margin:.6rem 0; }
+.supported-by { margin:.15rem 0 .15rem 1rem; }
+.issue-edges { margin-top:.6rem; font-size:.9rem; }
+.verdict-box { margin-top:.7rem; padding:.6rem .8rem; border-radius:6px; font-size:.92rem; }
+.verdict-box.verdict-set { background:var(--card); border-left:3px solid var(--ok); }
+.verdict-box.verdict-empty { background:var(--card); border-left:3px solid var(--line);
+  color:var(--muted); }
+.verdict-box code { font-size:.85em; }
+.issue-key { margin-top:.4rem; }
+nav.top { align-items:center; }
+.navsearch { margin-left:auto; position:relative; flex:0 1 240px; min-width:150px; }
+.navsearch input { width:100%; padding:.3rem .7rem; border:1px solid var(--line);
+  border-radius:6px; background:var(--card); color:var(--fg); font:inherit; font-size:.88rem; }
+.navsearch input:focus { outline:1px solid var(--accent); }
+.sdrop { position:absolute; right:0; top:calc(100% + 6px); width:min(460px,92vw);
+  max-height:70vh; overflow-y:auto; background:var(--bg); border:1px solid var(--line);
+  border-radius:8px; box-shadow:0 8px 28px rgba(0,0,0,.18); z-index:60; }
+.sres { display:block; padding:.5rem .7rem; border-bottom:1px solid var(--line);
+  text-decoration:none; color:var(--fg); font-size:.88rem; }
+.sres:last-child { border-bottom:none; }
+.sres.active, .sres:hover { background:var(--card); }
+.sres .sline { display:flex; align-items:baseline; gap:.4rem; min-width:0; }
+.sres .st { flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.sres .sdoc { display:block; font-size:.78rem; overflow:hidden; text-overflow:ellipsis;
+  white-space:nowrap; }
+.sres.sall { color:var(--accent); text-align:center; }
+.badge.t-document { background:var(--accent); color:var(--bg); }
+.badge.t-claim { background:var(--ok); color:var(--bg); }
+.badge.t-gap { background:var(--warn); color:var(--bg); }
+.badge.t-term { background:var(--accent2); color:var(--bg); }
+.badge.t-concept { background:var(--chip); color:var(--fg); }
+.scard .sx { font-size:.9rem; margin:.3rem 0; }
+.sx mark { background:transparent; color:var(--accent); font-weight:600; }
+.sfilters button, #smore { font:inherit; font-size:.85rem; padding:.25rem .8rem;
+  border-radius:999px; border:1px solid var(--line); background:var(--card);
+  color:var(--fg); cursor:pointer; }
+.sfilters button.active { border-color:var(--accent); color:var(--accent); }
+li:target { box-shadow:inset 3px 0 0 var(--accent); background:var(--card);
+  padding:.4rem .6rem; margin-left:-.6rem; border-radius:0 6px 6px 0; }
+a.alink { color:inherit; text-decoration:underline;
+  text-decoration-color:var(--line); text-underline-offset:2px; }
+a.alink:hover { color:var(--accent); text-decoration-color:var(--accent); }
+</style></head><body><nav class='top'><a href="../index.html">Overview</a><a href="../graph.html">Graph</a><a href="../concepts.html" class=here>Concepts</a><a href="../tensions.html">Tensions</a><a href="../issues.html">Issues</a><a href="../claims.html">Claims</a><a href="../threads.html">Threads</a><a href="../gaps.html">Gaps</a><a href="../timeline.html">Timeline</a><div class='navsearch'><input id='navq' type='search' placeholder='Search&hellip;  /  &#8984;K' autocomplete='off' spellcheck='false'><div id='navdrop' class='sdrop' hidden></div></div></nav><main><h1>Knowledge Distillation (Teacher-Student Compression)</h1><p>Training a smaller, cheaper-to-serve &quot;student&quot; model to approximate the quality of one or more larger &quot;teacher&quot; models — the standard production technique for getting near-frontier ranking/relevance quality within real-time latency and cost budgets.</p><p class='muted'>Also known as: knowledge distillation, distillation, teacher-student, teacher-student distillation, multi-teacher distillation, student model, teacher model, online distillation, offline distillation, distillation loss, model compression</p><p class='muted'>Part of: <a class="chip" href="../concepts/inference-optimization.html">Inference Optimization</a></p><h2>How authors use it</h2><p class='muted'>Oldest first (extraction date when no publication date is known).</p><div class='tablewrap'><table><tr><th>Author</th><th>Their term</th><th>Their meaning</th></tr><tr><td><a href="../docs/extract-hbr-ai-sherlocking-training-competition.html">Is Your AI Training the Competition?</a><br><span class='muted'><a class="alink" href="../search.html?q=William+Marks">William Marks</a> · 2026-09-08</span></td><td><a href='../docs/extract-hbr-ai-sherlocking-training-competition.html#term-distillation'><b>distillation</b></a></td><td>Using a stronger model&#x27;s outputs to train a weaker one to imitate it — illustrated by the Anthropic disclosure, where three Chinese labs allegedly used fraudulent accounts to harvest Claude&#x27;s answers at scale for this purpose.</td></tr></table></div><h2>Documents (2)</h2><ul class='plain'><li><a href="../docs/extract-linkedin-ai-job-search-multi-teacher-distillation.html">How LinkedIn Trains AI Job Search 8x Faster with Multi-Teacher Distillation</a> <span class='muted'><a class="alink" href="../search.html?q=Claudio+Masolo">Claudio Masolo</a> · 2026-09-11</span> <a href="https://www.infoq.com/news/2026/09/linkedin-ai-multi-teacher/" title="Original source" target="_blank" rel="noopener">source&nbsp;↗</a> <a href="https://read.readwise.io/read/01m280ezy4wbw6ndx3z6228eha">Reader</a> <a href="wiseread://read/01m280ezy4wbw6ndx3z6228eha" title="Open in Reader app">🖥️</a><br><span class='muted'>LinkedIn made multi-teacher knowledge distillation practical for its production job-search ranking system not through a distillation-algorithm breakthrough but through training-infrastructure engineering — a custom SGLang-based framework that serves teacher models directly inside the training loop (an online mode for fast iteration, an offline precomputed-and-cached mode once teachers stabilize) plus a stack of largely independent training-speed optimizations — collectively yielding a roughly eightfold training speedup that lets a compact 0.6B student model approach cross-encoder-quality ranking while avoiding the cost and latency of calling a frontier LLM on every search request.</span></li><li><a href="../docs/extract-hbr-ai-sherlocking-training-competition.html">Is Your AI Training the Competition?</a> <span class='muted'><a class="alink" href="../search.html?q=William+Marks">William Marks</a> · 2026-09-08</span> <a href="https://hbr.org/2026/09/is-your-ai-training-the-competition" title="Original source" target="_blank" rel="noopener">source&nbsp;↗</a> <a href="https://read.readwise.io/read/01m20tpmb4s7tgpecmy4x0xjhn">Reader</a> <a href="wiseread://read/01m20tpmb4s7tgpecmy4x0xjhn" title="Open in Reader app">🖥️</a><br><span class='muted'>Beyond protecting raw data, companies must actively defend &#x27;logic sovereignty&#x27; — ownership of the specific expertise and reasoning their employees apply through AI tools — because AI providers absorb that expertise through feedback-clause carve-outs, synthetic-training pipelines, and the structural flywheel of heavy use, in ways standard &#x27;no training on our prompts&#x27; contracts do not prevent.</span></li></ul><h2>Propositions touching this concept (9)</h2><p class='muted'>By publication month, oldest first (extraction month when no publication date is known).</p><h3>2024-02</h3><ul class='plain'><li><span class='badge implicit'>implicit</span>The own-model-filtering, two-stage training approach used here (predictions used only to filter/delete bad snippets, never as new training targets) is implied to be preferable to a teacher-student pseudo-labeling approach for reducing hallucinations, though no direct ablation against teacher-student retraining is reported within the paper.<div class='rel-line'><a href="../docs/extract-whispering-in-norwegian-navigating-orthographic-and-dialectic-challenges.html#p9">Whispering in Norwegian: Navigating Orthographic and Dialectic Challenges · p9</a></div></li></ul><h3>2026-07</h3><ul class='plain'><li><span class='badge implicit'>implicit</span>The proxy model is task-specific knowledge distillation relocated into the database and triggered at query time — using a frontier model as teacher to train a cheaper student for a single predicate — rather than a general inference-serving optimization on the same model.<div class='rel-line'><a href="../docs/extract-alloydb-proxy-models-local-inference.html#p10">AlloyDB Ships Proxy Models That Replace LLM Calls with Local Inference Inside the Database · p10</a></div></li></ul><h3>2026-09</h3><ul class='plain'><li><span class='badge explicit'>explicit</span>Anthropic&#x27;s February 2026 disclosure that DeepSeek, Moonshot AI, and MiniMax ran more than 16 million distillation queries against Claude through roughly 24,000 fraudulent accounts demonstrates, in adversarial form, the same flywheel dynamic that every major provider runs legally and continuously across its paying customer base.<div class='rel-line'><a href="../docs/extract-hbr-ai-sherlocking-training-competition.html#p5">Is Your AI Training the Competition? · p5</a></div></li><li><span class='badge explicit'>explicit</span>LinkedIn built a custom multi-teacher distillation framework on SGLang that serves teacher models directly inside the training loop, compressing knowledge from large teacher models into a compact 0.6B-parameter ranking model for AI-powered job search.<div class='rel-line'><a href="../docs/extract-linkedin-ai-job-search-multi-teacher-distillation.html#p1">How LinkedIn Trains AI Job Search 8x Faster with Multi-Teacher Distillation · p1</a></div></li><li><span class='badge explicit'>explicit</span>The main contribution of this work is not the distillation technique itself but the systems engineering that makes distillation fast enough for rapid iteration.<div class='rel-line'><a href="../docs/extract-linkedin-ai-job-search-multi-teacher-distillation.html#p2">How LinkedIn Trains AI Job Search 8x Faster with Multi-Teacher Distillation · p2</a></div></li><li><span class='badge explicit'>explicit</span>Serving teacher models for supervision during training becomes a bottleneck for a ranking system handling hundreds of thousands of queries per second, which motivates splitting the approach into online (live-query) and offline (precomputed/cached) multi-teacher distillation modes.<div class='rel-line'><a href="../docs/extract-linkedin-ai-job-search-multi-teacher-distillation.html#p3">How LinkedIn Trains AI Job Search 8x Faster with Multi-Teacher Distillation · p3</a></div></li><li><span class='badge explicit'>explicit</span>Scaling Online Multi-teacher Distillation across multiple nodes with local teacher replicas accelerated the distillation process by 3x while keeping latency low enough for quick iterations.<div class='rel-line'><a href="../docs/extract-linkedin-ai-job-search-multi-teacher-distillation.html#p4">How LinkedIn Trains AI Job Search 8x Faster with Multi-Teacher Distillation · p4</a></div></li><li><span class='badge explicit'>explicit</span>Offline Multi-teacher Distillation — precomputing teacher outputs and storing them on HDFS or NFS instead of querying teachers live — reduces serving overhead and prevents repeated computation.<div class='rel-line'><a href="../docs/extract-linkedin-ai-job-search-multi-teacher-distillation.html#p5">How LinkedIn Trains AI Job Search 8x Faster with Multi-Teacher Distillation · p5</a></div></li><li><span class='badge explicit'>explicit</span>The 0.6B student model, distilled from an 8B relevance oracle and a 1.7B engagement teacher, raised NDCG@10 for job search results by 24.48% (from 0.7583 to 0.9432).<div class='rel-line'><a href="../docs/extract-linkedin-ai-job-search-multi-teacher-distillation.html#p8">How LinkedIn Trains AI Job Search 8x Faster with Multi-Teacher Distillation · p8</a></div></li></ul><h2>Open gaps (4)</h2><ul class='plain'><li><span class='badge gap'>incomplete</span>The article&#x27;s proposed defenses — splitting a task apart and keeping only the &#x27;stitching together&#x27; step in-house, or using a public model for rough ideas and fine-tuning a smaller in-house model on the real work — are never evaluated for practicality: how much of the value of frontier-model reasoning is lost when the integrating step is withheld, and whether a smaller in-house model can absorb frontier-quality reasoning without becoming a materially weaker substitute.<div class='rel-line'><a href='../docs/extract-hbr-ai-sherlocking-training-competition.html#g3'>Is Your AI Training the Competition?</a> — read next: Research on task-decomposition costs in AI-assisted workflows; small-model fine-tuning/distillation-from-a-public-model literature and its quality gap versus frontier models.</div></li><li><span class='badge gap'>illogical</span>The &#x27;roughly eightfold&#x27; training speedup headline cannot be reconstructed from the individually cited multipliers (3x from the multi-node online-distillation architecture, 2x batch size from LiGer, up to 3.5x from multi-node training, +20% from FSDP2, up to 30% from H200 clusters) — naively multiplying them yields a number well above 8x, and the piece never shows which multipliers overlap, are additive rather than multiplicative, or apply to different, non-cumulative pipeline stages.<div class='rel-line'><a href='../docs/extract-linkedin-ai-job-search-multi-teacher-distillation.html#g1'>How LinkedIn Trains AI Job Search 8x Faster with Multi-Teacher Distillation</a> — read next: Read LinkedIn&#x27;s original engineering blog post directly for the actual before/after wall-clock benchmark and the ablation methodology isolating each optimization&#x27;s contribution.</div></li><li><span class='badge gap'>incomplete</span>The NDCG@10 improvement (0.7583 → 0.9432) and the throughput improvement (290 → 2,000+ items/sec/GPU) are attributed to a separate, only loosely specified piece of LinkedIn research (structured pruning and context compression), and it is unclear whether both figures come from the same deployed 0.6B student model, the same evaluation set, or the same production conditions.<div class='rel-line'><a href='../docs/extract-linkedin-ai-job-search-multi-teacher-distillation.html#g3'>How LinkedIn Trains AI Job Search 8x Faster with Multi-Teacher Distillation</a> — read next: The linked LinkedIn &#x27;Reimagining LinkedIn&#x27;s Search Stack&#x27; post for the full evaluation methodology and whether the quality and throughput figures share the same underlying system.</div></li><li><span class='badge gap'>incomplete</span>No discussion of model/quality drift or ongoing maintenance cost: as the teacher models themselves get updated or replaced, how much of the distillation pipeline (especially the offline cached-outputs mode) needs to be re-run, and what the day-to-day operational/on-call cost of running a live multi-teacher training system looks like.<div class='rel-line'><a href='../docs/extract-linkedin-ai-job-search-multi-teacher-distillation.html#g5'>How LinkedIn Trains AI Job Search 8x Faster with Multi-Teacher Distillation</a> — read next: extract-netflix-genpage-llm-homepage#g1 raises the identical missing on-call/operational-cost question for a different production ML-ranking system migration — read the two together as a cross-corpus pattern of infra pieces omitting operational cost.</div></li></ul></main><script src='../assets/search.js' defer></script></body></html>

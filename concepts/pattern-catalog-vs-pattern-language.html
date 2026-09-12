@@ -1,0 +1,104 @@
+<!doctype html><html><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>Taxonomy Without a Decision Procedure (Pattern Catalog vs. Pattern Language)</title><style>
+:root { --bg:#ffffff; --fg:#1a1a1a; --muted:#6b6b6b; --line:#e3e3e0;
+  --card:#f7f7f5; --accent:#4a6fa5; --accent2:#8a6fae; --warn:#b3593a;
+  --ok:#4a7a55; --chip:#eceff4; }
+@media (prefers-color-scheme: dark) {
+  :root { --bg:#191917; --fg:#e8e6e3; --muted:#9a9892; --line:#33322f;
+    --card:#22211f; --accent:#8fb0dd; --accent2:#b6a2d8; --warn:#d98a68;
+    --ok:#84b591; --chip:#2c2b28; }
+}
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:var(--fg);
+  font:16px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+main { max-width:960px; margin:0 auto; padding:1.5rem 1.25rem 4rem; }
+nav.top { display:flex; flex-wrap:wrap; gap:.35rem 1.1rem; padding:.8rem 1.25rem;
+  border-bottom:1px solid var(--line); font-size:.92rem; }
+nav.top a { color:var(--muted); text-decoration:none; }
+nav.top a:hover, nav.top a.here { color:var(--accent); }
+h1 { font-size:1.55rem; line-height:1.25; margin:.8rem 0 .3rem; }
+h2 { font-size:1.15rem; margin:2rem 0 .6rem; border-bottom:1px solid var(--line);
+  padding-bottom:.3rem; }
+h3 { font-size:1rem; margin:1.2rem 0 .4rem; }
+a { color:var(--accent); }
+.muted { color:var(--muted); font-size:.9rem; }
+.unity { border-left:3px solid var(--accent); background:var(--card);
+  padding:.7rem 1rem; margin:1rem 0; font-style:italic; }
+.chips { display:flex; flex-wrap:wrap; gap:.35rem; margin:.5rem 0; }
+.chip { background:var(--chip); border-radius:999px; padding:.1rem .7rem;
+  font-size:.82rem; text-decoration:none; color:var(--fg); }
+.chip:hover { outline:1px solid var(--accent); }
+.chip.count { color:var(--muted); }
+.card { background:var(--card); border:1px solid var(--line); border-radius:8px;
+  padding: .8rem 1rem; margin:.6rem 0; }
+.badge { font-size:.72rem; border-radius:4px; padding:.05rem .4rem;
+  vertical-align:middle; margin-right:.4rem; white-space:nowrap; }
+.badge.explicit { background:var(--ok); color:var(--bg); }
+.badge.implicit { background:var(--accent2); color:var(--bg); }
+.badge.gap { background:var(--warn); color:var(--bg); }
+.badge.closed { background:var(--ok); color:var(--bg); }
+.badge.rel { background:var(--accent); color:var(--bg); }
+.badge.contested { background:var(--warn); color:var(--bg); }
+.badge.established, .badge.corroborated { background:var(--ok); color:var(--bg); }
+.badge.developed { background:var(--accent2); color:var(--bg); }
+.tag.conf { font-size:.72rem; color:var(--muted); border:1px solid var(--line);
+  border-radius:4px; padding:.05rem .4rem; margin-left:.3rem; }
+ul.plain { list-style:none; padding-left:0; }
+ul.plain > li { margin:.55rem 0; }
+table { border-collapse:collapse; width:100%; font-size:.92rem; }
+th, td { text-align:left; padding:.4rem .6rem; border-bottom:1px solid var(--line);
+  vertical-align:top; }
+.tablewrap { overflow-x:auto; }
+.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:.7rem; }
+.stat { font-size:1.7rem; font-weight:600; color:var(--accent); }
+.rel-line { font-size:.86rem; color:var(--muted); margin:.15rem 0 .15rem 1rem; }
+.searchbox { width:100%; padding:.5rem .8rem; border:1px solid var(--line);
+  border-radius:6px; background:var(--card); color:var(--fg); font-size:1rem; }
+.issue-card h3 { margin:.1rem 0 .5rem; }
+.issue-cols { display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin:.6rem 0; }
+@media (max-width:640px) { .issue-cols { grid-template-columns:1fr; } }
+.issue-side h4 { margin:0 0 .4rem; font-size:.85rem; text-transform:uppercase;
+  letter-spacing:.03em; color:var(--muted); }
+.issue-side li { margin:.6rem 0; }
+.supported-by { margin:.15rem 0 .15rem 1rem; }
+.issue-edges { margin-top:.6rem; font-size:.9rem; }
+.verdict-box { margin-top:.7rem; padding:.6rem .8rem; border-radius:6px; font-size:.92rem; }
+.verdict-box.verdict-set { background:var(--card); border-left:3px solid var(--ok); }
+.verdict-box.verdict-empty { background:var(--card); border-left:3px solid var(--line);
+  color:var(--muted); }
+.verdict-box code { font-size:.85em; }
+.issue-key { margin-top:.4rem; }
+nav.top { align-items:center; }
+.navsearch { margin-left:auto; position:relative; flex:0 1 240px; min-width:150px; }
+.navsearch input { width:100%; padding:.3rem .7rem; border:1px solid var(--line);
+  border-radius:6px; background:var(--card); color:var(--fg); font:inherit; font-size:.88rem; }
+.navsearch input:focus { outline:1px solid var(--accent); }
+.sdrop { position:absolute; right:0; top:calc(100% + 6px); width:min(460px,92vw);
+  max-height:70vh; overflow-y:auto; background:var(--bg); border:1px solid var(--line);
+  border-radius:8px; box-shadow:0 8px 28px rgba(0,0,0,.18); z-index:60; }
+.sres { display:block; padding:.5rem .7rem; border-bottom:1px solid var(--line);
+  text-decoration:none; color:var(--fg); font-size:.88rem; }
+.sres:last-child { border-bottom:none; }
+.sres.active, .sres:hover { background:var(--card); }
+.sres .sline { display:flex; align-items:baseline; gap:.4rem; min-width:0; }
+.sres .st { flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.sres .sdoc { display:block; font-size:.78rem; overflow:hidden; text-overflow:ellipsis;
+  white-space:nowrap; }
+.sres.sall { color:var(--accent); text-align:center; }
+.badge.t-document { background:var(--accent); color:var(--bg); }
+.badge.t-claim { background:var(--ok); color:var(--bg); }
+.badge.t-gap { background:var(--warn); color:var(--bg); }
+.badge.t-term { background:var(--accent2); color:var(--bg); }
+.badge.t-concept { background:var(--chip); color:var(--fg); }
+.scard .sx { font-size:.9rem; margin:.3rem 0; }
+.sx mark { background:transparent; color:var(--accent); font-weight:600; }
+.sfilters button, #smore { font:inherit; font-size:.85rem; padding:.25rem .8rem;
+  border-radius:999px; border:1px solid var(--line); background:var(--card);
+  color:var(--fg); cursor:pointer; }
+.sfilters button.active { border-color:var(--accent); color:var(--accent); }
+li:target { box-shadow:inset 3px 0 0 var(--accent); background:var(--card);
+  padding:.4rem .6rem; margin-left:-.6rem; border-radius:0 6px 6px 0; }
+a.alink { color:inherit; text-decoration:underline;
+  text-decoration-color:var(--line); text-underline-offset:2px; }
+a.alink:hover { color:var(--accent); text-decoration-color:var(--accent); }
+</style></head><body><nav class='top'><a href="../index.html">Overview</a><a href="../graph.html">Graph</a><a href="../concepts.html" class=here>Concepts</a><a href="../tensions.html">Tensions</a><a href="../issues.html">Issues</a><a href="../claims.html">Claims</a><a href="../threads.html">Threads</a><a href="../gaps.html">Gaps</a><a href="../timeline.html">Timeline</a><div class='navsearch'><input id='navq' type='search' placeholder='Search&hellip;  /  &#8984;K' autocomplete='off' spellcheck='false'><div id='navdrop' class='sdrop' hidden></div></div></nav><main><h1>Taxonomy Without a Decision Procedure (Pattern Catalog vs. Pattern Language)</h1><p>A recurring critique of named-category taxonomies (design-pattern catalogs, skill taxonomies, business-model catalogs) that supply a name plus one-line intent plus example per category but no criteria — forces, trade-offs, applicability conditions — for choosing among overlapping options; contrasted with a true &quot;pattern language&quot; (Alexander/GoF) that resolves forces into a choice.</p><p class='muted'>Also known as: pattern catalog, pattern language, selection criteria, when to pick which, decision procedure, connective tissue (GoF/Alexander), forces and trade-offs</p><h2>Documents (1)</h2><ul class='plain'><li><a href="../docs/extract-ssas-yearbook-affiliation-your-success-is-my-success.html">Service Models in the Public Sector — Supporting Information</a> <span class='muted'><a class="alink" href="../search.html?q=Kuno+Schedler+and+Ali+Asker+Guenduez+%28Yearbook+of+Swiss+Administrative+Sciences%29">Kuno Schedler and Ali Asker Guenduez (Yearbook of Swiss Administrative Sciences)</a> · 2024-12-31</span> <a href="https://read.readwise.io/read/01m1xj324h1sxaa13rz3jg92et">Reader</a> <a href="wiseread://read/01m1xj324h1sxaa13rz3jg92et" title="Open in Reader app">🖥️</a><br><span class='muted'>Forty-five named patterns for organizing and delivering public services — most adapted from Gassmann et al.&#x27;s private-sector Business Model Navigator, some invented specifically for government — are each already in documented use by real governments worldwide, demonstrating that public-sector service delivery can be systematically redesigned using a catalogable set of reusable organizing templates rather than treated as a series of one-off administrative choices.</span></li></ul><h2>Propositions touching this concept (1)</h2><p class='muted'>By publication month, oldest first (extraction month when no publication date is known).</p><h3>2026-07</h3><ul class='plain'><li><span class='badge explicit'>explicit</span>A proposed new standing rule should be tested by asking whether a reasonably competent orchestrator would make the right decision once it knew the one missing fact; if yes, the rule should just state that fact, and a fix that instead specifies a decision procedure (approvals, checkpoints, mandatory steps) is usually a sign of encoding process where a small clarification would have sufficed.<div class='rel-line'><a href="../docs/extract-fowler-orchestrators-tax.html#p11">The Orchestrator&#x27;s Tax · p11</a></div></li></ul><h2>Open gaps (9)</h2><ul class='plain'><li><span class='badge gap'>incomplete</span>No decision procedure. Twenty patterns, zero guidance on when to pick which. Each pattern carries only a &#x27;Used for: [domains]&#x27; tag (naming application areas, not selection criteria, forces, or trade-offs). This is a pattern CATALOG, not a pattern LANGUAGE -- it has none of the GoF/Alexander connective tissue (Intent, Applicability, Consequences, forces that resolve into a choice). For a reader whose bar is &#x27;a taxonomy without when-to-use-which is half a pattern language&#x27;, this is the central omission.<div class='rel-line'><a href='../docs/extract-20-loop-design-patterns.html#g1'>20 Loop Design Patterns Every AI Engineer Should Know</a> — read next: Read against a real pattern-structure: Anthropic&#x27;s harness paper (extract-anthropic-harness-design-long-running-application-development#p8) ties evaluator use to a concrete condition -- worth its cost only when the task sits beyond what the model does reliably solo -- exactly the selection criterion this thread lacks. Also extract-ai-workflow-patterns-real-unit-of-adoption-2026 (guidance on which workflows to automate first / how patterns chain).</div></li><li><span class='badge gap'>incomplete</span>No context is given on team size, function (e.g. engineering vs. sales), growth stage, or remote/hybrid setup; the specific cadences and durations (30 min weekly, 45-60 min monthly 1:1s, quarterly 2-3hr sessions) are presented as universal defaults with no acknowledgment that they&#x27;d need adaptation for, say, a large distributed engineering org.<div class='rel-line'><a href='../docs/extract-amy-gibson-meeting-types.html#g2'>Amy Gibson&#x27;s Post</a> — read next: Compare against context-sensitive team-design frameworks (e.g. your own pattern language on cross-disciplinary team spaces) that make cadence and structure conditional on team size, distribution, and work type rather than fixed.</div></li><li><span class='badge gap'>unstated assumption</span>The author assumes that the inability to externalize institutional knowledge and design context is a fundamental limitation of AI, not merely a tooling limitation. This conflates current AI capabilities with inherent constraints. Future models with persistent memory, codebase-scale context, and temporal reasoning could potentially bridge this gap.<div class='rel-line'><a href='../docs/extract-eight-years-wanting-three-months-building-ai.html#g1'>Eight years of wanting, three months of building with AI</a> — read next: Read work on long-context models, AI memory architectures, and research on whether design taste can be formalized or learned (e.g., Christopher Alexander&#x27;s pattern language as a possible bridge).</div></li><li><span class='badge gap'>incomplete</span>The &#x27;hidden cost of yes&#x27; claim names the phenomenon but gives no method for actually estimating that hidden cost before committing, i.e., no decision procedure — only the observation that the cost exists.<div class='rel-line'><a href='../docs/extract-farnam-street-two-types-of-talent.html#g2'>Brain Food: Two Types of Talent</a> — read next: Greg McKeown&#x27;s &#x27;Essentialism&#x27; (notably advertised in the same email) and Cal Newport&#x27;s writing on deep work and attention scarcity both supply the operational frameworks this aphorism gestures at but doesn&#x27;t provide.</div></li><li><span class='badge gap'>incomplete</span>Pair rotations are treated as the mechanism for collective ownership, but the article admits opinions diverge on frequency and concedes costs (context switch, lost tacit knowledge). It does not give a decision procedure, so &#x27;pair + rotate&#x27; as a substitute for PR-mediated cross-team review remains under-specified.<div class='rel-line'><a href='../docs/extract-on-pair-programming.html#g4'>On Pair Programming</a> — read next: Mob programming literature (Llewellyn Falco, Woody Zuill); engineering org studies on knowledge silo formation.</div></li><li><span class='badge gap'>incomplete</span>The 45 service models are presented as a flat, unordered catalog — each with only a name, a one-sentence &#x27;operating principle&#x27;, and two examples — with no criteria (forces, trade-offs, applicability conditions, or a decision procedure) for choosing among models when several plausibly apply to the same problem (e.g. is a city building shared infrastructure better served by &#x27;Orchestrator&#x27;, &#x27;Fractional Ownership&#x27;, or &#x27;Government as a Platform&#x27;?). This is a pattern CATALOG rather than a pattern LANGUAGE in the Alexander/Gang-of-Four sense — it lacks the connective tissue (Intent, Applicability, Consequences, forces resolved into a choice) that would make it genuinely actionable rather than merely descriptive.<div class='rel-line'><a href='../docs/extract-ssas-yearbook-affiliation-your-success-is-my-success.html#g1'>Service Models in the Public Sector — Supporting Information</a> — read next: This is the same &#x27;taxonomy without a decision procedure&#x27; gap already flagged twice elsewhere in this corpus — in a 20-pattern AI agentic-loop catalog (extract-20-loop-design-patterns#g1) and in a 9-category agent-skills taxonomy (extract-claude-code-how-we-use-skills#g2) — suggesting it is a structural failure mode of catalog-style research generally, not specific to this domain. The main Schedler &amp; Guenduez paper (not included in this SI) reportedly identifies five governmental roles — Activator, Yield Shaper, Funder, Guardian of Public Goods, Performance Designer — which might supply exactly this selection logic and would be the natural next read.</div></li><li><span class='badge gap'>incomplete</span>None of the 90 examples documents a failed, reversed, or politically contested adoption of a service model — every case is presented as an apparent success. The catalog is silent on when these private-sector-derived mechanisms produce legitimacy costs, equity problems, or accountability gaps specific to government (e.g. an &#x27;Auction&#x27; or &#x27;Pay what you want&#x27; logic applied to a core public good could conflict with universal-access norms), so a practitioner reading this SI alone has no way to anticipate failure modes before choosing a model.<div class='rel-line'><a href='../docs/extract-ssas-yearbook-affiliation-your-success-is-my-success.html#g2'>Service Models in the Public Sector — Supporting Information</a> — read next: New Public Management critique literature on the marketization of public services and quasi-market legitimacy costs (e.g. work building on Christopher Hood&#x27;s NPM analysis), or empirical follow-up studies tracking which of these 45 models were later abandoned or reversed.</div></li><li><span class='badge gap'>uninformed</span>The SI never explicitly distinguishes which of the 45 public-sector models are direct imports from the 55-item private-sector Business Model Navigator (reproduced verbatim in Table A) versus which are genuinely public-sector-native categories with no private-sector counterpart (e.g. &#x27;Contracting Out&#x27;, &#x27;Sanctions&#x27;, &#x27;Registrar&#x27;, &#x27;Regulator&#x27;, &#x27;Guarantees&#x27;, &#x27;Seed Money&#x27;, &#x27;Voucher&#x27;, &#x27;Waiver&#x27;, &#x27;Concession&#x27;, &#x27;Permits&#x27;, &#x27;Taxpayers&#x27; money&#x27;). Roughly a third of the 45 look novel to this study rather than adapted, but the document leaves readers to infer the split themselves rather than stating it.<div class='rel-line'><a href='../docs/extract-ssas-yearbook-affiliation-your-success-is-my-success.html#g3'>Service Models in the Public Sector — Supporting Information</a> — read next: The main paper&#x27;s methodology section likely makes this provenance explicit — worth reading directly (Schedler &amp; Guenduez, &#x27;Service Models in the Public Sector,&#x27; Yearbook of Swiss Administrative Sciences, 2024) rather than inferring it from the SI&#x27;s raw list.</div></li><li><span class='badge gap'>incomplete</span>The article&#x27;s own central provocative question — &#x27;how much data is too much data&#x27; — is posed rhetorically and never answered; no threshold, framework, or decision procedure is offered for organizations trying to operationalize &#x27;minimization&#x27; in practice.<div class='rel-line'><a href='../docs/extract-what-happens-after-every-company-becomes-a-data-company.html#g3'>What Happens After Every Company Becomes a Data Company?</a> — read next: Data-minimization-by-design frameworks (e.g. NIST privacy engineering, GDPR Art. 5 guidance) that attempt to convert the principle into an auditable practice.</div></li></ul></main><script src='../assets/search.js' defer></script></body></html>

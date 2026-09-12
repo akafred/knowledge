@@ -1,0 +1,104 @@
+<!doctype html><html><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>General-Purpose Knowledge-Work Agent Platforms</title><style>
+:root { --bg:#ffffff; --fg:#1a1a1a; --muted:#6b6b6b; --line:#e3e3e0;
+  --card:#f7f7f5; --accent:#4a6fa5; --accent2:#8a6fae; --warn:#b3593a;
+  --ok:#4a7a55; --chip:#eceff4; }
+@media (prefers-color-scheme: dark) {
+  :root { --bg:#191917; --fg:#e8e6e3; --muted:#9a9892; --line:#33322f;
+    --card:#22211f; --accent:#8fb0dd; --accent2:#b6a2d8; --warn:#d98a68;
+    --ok:#84b591; --chip:#2c2b28; }
+}
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:var(--fg);
+  font:16px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+main { max-width:960px; margin:0 auto; padding:1.5rem 1.25rem 4rem; }
+nav.top { display:flex; flex-wrap:wrap; gap:.35rem 1.1rem; padding:.8rem 1.25rem;
+  border-bottom:1px solid var(--line); font-size:.92rem; }
+nav.top a { color:var(--muted); text-decoration:none; }
+nav.top a:hover, nav.top a.here { color:var(--accent); }
+h1 { font-size:1.55rem; line-height:1.25; margin:.8rem 0 .3rem; }
+h2 { font-size:1.15rem; margin:2rem 0 .6rem; border-bottom:1px solid var(--line);
+  padding-bottom:.3rem; }
+h3 { font-size:1rem; margin:1.2rem 0 .4rem; }
+a { color:var(--accent); }
+.muted { color:var(--muted); font-size:.9rem; }
+.unity { border-left:3px solid var(--accent); background:var(--card);
+  padding:.7rem 1rem; margin:1rem 0; font-style:italic; }
+.chips { display:flex; flex-wrap:wrap; gap:.35rem; margin:.5rem 0; }
+.chip { background:var(--chip); border-radius:999px; padding:.1rem .7rem;
+  font-size:.82rem; text-decoration:none; color:var(--fg); }
+.chip:hover { outline:1px solid var(--accent); }
+.chip.count { color:var(--muted); }
+.card { background:var(--card); border:1px solid var(--line); border-radius:8px;
+  padding: .8rem 1rem; margin:.6rem 0; }
+.badge { font-size:.72rem; border-radius:4px; padding:.05rem .4rem;
+  vertical-align:middle; margin-right:.4rem; white-space:nowrap; }
+.badge.explicit { background:var(--ok); color:var(--bg); }
+.badge.implicit { background:var(--accent2); color:var(--bg); }
+.badge.gap { background:var(--warn); color:var(--bg); }
+.badge.closed { background:var(--ok); color:var(--bg); }
+.badge.rel { background:var(--accent); color:var(--bg); }
+.badge.contested { background:var(--warn); color:var(--bg); }
+.badge.established, .badge.corroborated { background:var(--ok); color:var(--bg); }
+.badge.developed { background:var(--accent2); color:var(--bg); }
+.tag.conf { font-size:.72rem; color:var(--muted); border:1px solid var(--line);
+  border-radius:4px; padding:.05rem .4rem; margin-left:.3rem; }
+ul.plain { list-style:none; padding-left:0; }
+ul.plain > li { margin:.55rem 0; }
+table { border-collapse:collapse; width:100%; font-size:.92rem; }
+th, td { text-align:left; padding:.4rem .6rem; border-bottom:1px solid var(--line);
+  vertical-align:top; }
+.tablewrap { overflow-x:auto; }
+.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:.7rem; }
+.stat { font-size:1.7rem; font-weight:600; color:var(--accent); }
+.rel-line { font-size:.86rem; color:var(--muted); margin:.15rem 0 .15rem 1rem; }
+.searchbox { width:100%; padding:.5rem .8rem; border:1px solid var(--line);
+  border-radius:6px; background:var(--card); color:var(--fg); font-size:1rem; }
+.issue-card h3 { margin:.1rem 0 .5rem; }
+.issue-cols { display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin:.6rem 0; }
+@media (max-width:640px) { .issue-cols { grid-template-columns:1fr; } }
+.issue-side h4 { margin:0 0 .4rem; font-size:.85rem; text-transform:uppercase;
+  letter-spacing:.03em; color:var(--muted); }
+.issue-side li { margin:.6rem 0; }
+.supported-by { margin:.15rem 0 .15rem 1rem; }
+.issue-edges { margin-top:.6rem; font-size:.9rem; }
+.verdict-box { margin-top:.7rem; padding:.6rem .8rem; border-radius:6px; font-size:.92rem; }
+.verdict-box.verdict-set { background:var(--card); border-left:3px solid var(--ok); }
+.verdict-box.verdict-empty { background:var(--card); border-left:3px solid var(--line);
+  color:var(--muted); }
+.verdict-box code { font-size:.85em; }
+.issue-key { margin-top:.4rem; }
+nav.top { align-items:center; }
+.navsearch { margin-left:auto; position:relative; flex:0 1 240px; min-width:150px; }
+.navsearch input { width:100%; padding:.3rem .7rem; border:1px solid var(--line);
+  border-radius:6px; background:var(--card); color:var(--fg); font:inherit; font-size:.88rem; }
+.navsearch input:focus { outline:1px solid var(--accent); }
+.sdrop { position:absolute; right:0; top:calc(100% + 6px); width:min(460px,92vw);
+  max-height:70vh; overflow-y:auto; background:var(--bg); border:1px solid var(--line);
+  border-radius:8px; box-shadow:0 8px 28px rgba(0,0,0,.18); z-index:60; }
+.sres { display:block; padding:.5rem .7rem; border-bottom:1px solid var(--line);
+  text-decoration:none; color:var(--fg); font-size:.88rem; }
+.sres:last-child { border-bottom:none; }
+.sres.active, .sres:hover { background:var(--card); }
+.sres .sline { display:flex; align-items:baseline; gap:.4rem; min-width:0; }
+.sres .st { flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.sres .sdoc { display:block; font-size:.78rem; overflow:hidden; text-overflow:ellipsis;
+  white-space:nowrap; }
+.sres.sall { color:var(--accent); text-align:center; }
+.badge.t-document { background:var(--accent); color:var(--bg); }
+.badge.t-claim { background:var(--ok); color:var(--bg); }
+.badge.t-gap { background:var(--warn); color:var(--bg); }
+.badge.t-term { background:var(--accent2); color:var(--bg); }
+.badge.t-concept { background:var(--chip); color:var(--fg); }
+.scard .sx { font-size:.9rem; margin:.3rem 0; }
+.sx mark { background:transparent; color:var(--accent); font-weight:600; }
+.sfilters button, #smore { font:inherit; font-size:.85rem; padding:.25rem .8rem;
+  border-radius:999px; border:1px solid var(--line); background:var(--card);
+  color:var(--fg); cursor:pointer; }
+.sfilters button.active { border-color:var(--accent); color:var(--accent); }
+li:target { box-shadow:inset 3px 0 0 var(--accent); background:var(--card);
+  padding:.4rem .6rem; margin-left:-.6rem; border-radius:0 6px 6px 0; }
+a.alink { color:inherit; text-decoration:underline;
+  text-decoration-color:var(--line); text-underline-offset:2px; }
+a.alink:hover { color:var(--accent); text-decoration-color:var(--accent); }
+</style></head><body><nav class='top'><a href="../index.html">Overview</a><a href="../graph.html">Graph</a><a href="../concepts.html" class=here>Concepts</a><a href="../tensions.html">Tensions</a><a href="../issues.html">Issues</a><a href="../claims.html">Claims</a><a href="../threads.html">Threads</a><a href="../gaps.html">Gaps</a><a href="../timeline.html">Timeline</a><div class='navsearch'><input id='navq' type='search' placeholder='Search&hellip;  /  &#8984;K' autocomplete='off' spellcheck='false'><div id='navdrop' class='sdrop' hidden></div></div></nav><main><h1>General-Purpose Knowledge-Work Agent Platforms</h1><p>Consumer-facing agent products (Grok Bot, Cursor&#x27;s &quot;Sand,&quot; ChatGPT work agents) that generalize single-task coding-agent automation into persistent, multi-agent systems spanning general business applications — sales, marketing, ops — rather than terminal-based software development.</p><p class='muted'>Also known as: general-purpose agent platform, persistent agent platform, agent platform (consumer), Grok Bot, business-workflow agents</p><h2>Documents (3)</h2><ul class='plain'><li><a href="../docs/extract-spacexai-launches-grok-bot.html">SpaceXAI Launches Grok Bot for Autonomous AI Agents</a> <span class='muted'><a class="alink" href="../search.html?q=Daniel+Dominguez">Daniel Dominguez</a> · 2026-08-17</span> <a href="https://read.readwise.io/read/01m08k6ehzbr9nbvvg5jag9fq0">Reader</a> <a href="wiseread://read/01m08k6ehzbr9nbvvg5jag9fq0" title="Open in Reader app">🖥️</a><br><span class='muted'>SpaceXAI&#x27;s Grok Bot generalizes xAI&#x27;s agent strategy beyond single-task workflow skills into a persistent, multi-agent platform for business workflows across applications — distinguishing itself from coding-specific agents and single-agent computer-use tools, and positioned to benefit from the newly closed SpaceX-Cursor consolidation.</span></li><li><a href="../docs/extract-ai-daily-brief-chatgpt-work-agent.html">ChatGPT Just Became A Work Agent</a> <span class='muted'><a class="alink" href="../search.html?q=AI+Daily+Brief+%28Nathaniel+Whittemore%29">AI Daily Brief (Nathaniel Whittemore)</a> · 2026-07-11</span> <a href="https://read.readwise.io/read/01kx7avgrdad3rde0dqzarbq1q">Reader</a> <a href="wiseread://read/01kx7avgrdad3rde0dqzarbq1q" title="Open in Reader app">🖥️</a><br><span class='muted'>The decisive competitive battle in AI has shifted from which model is smartest to which company builds the best harness — the connectors, execution environment, and access controls — for wrapping that model around real knowledge work, as shown by OpenAI&#x27;s ChatGPT Work launch directly targeting the market Claude Cowork opened and that Cursor&#x27;s in-development &#x27;Sand&#x27; agent is also chasing.</span></li><li><a href="../docs/extract-xai-grok-skills-responses-api.html">xAI Releases Grok Skills and Updates Tool Calling Responses API</a> <span class='muted'><a class="alink" href="../search.html?q=Daniel+Dominguez">Daniel Dominguez</a> · 2026-05</span> <a href="https://read.readwise.io/read/01ks7mc85xqc5r3tx6r17h2xr4">Reader</a> <a href="wiseread://read/01ks7mc85xqc5r3tx6r17h2xr4" title="Open in Reader app">🖥️</a><br><span class='muted'>xAI&#x27;s Grok Skills + enhanced Responses API position Grok as a platform-native, account-level workflow runtime — catching up to industry-standard &#x27;Skills&#x27; vocabulary while differentiating through X integration — rather than as a fully deployable autonomous agent system like Anthropic&#x27;s and OpenAI&#x27;s offerings.</span></li></ul><h2>Propositions touching this concept (8)</h2><p class='muted'>By publication month, oldest first (extraction month when no publication date is known).</p><h3>2026-08</h3><ul class='plain'><li><span class='badge explicit'>explicit</span>Grok Bot is a system of persistent AI agents that run on dedicated cloud computers and can interact with websites, applications, inboxes, and other tools.<div class='rel-line'><a href="../docs/extract-spacexai-launches-grok-bot.html#p1">SpaceXAI Launches Grok Bot for Autonomous AI Agents · p1</a></div></li><li><span class='badge explicit'>explicit</span>Grok Bot originated as an internal xAI prototype used for sales outreach, marketing, operations, and software development before being productized.<div class='rel-line'><a href="../docs/extract-spacexai-launches-grok-bot.html#p5">SpaceXAI Launches Grok Bot for Autonomous AI Agents · p5</a></div></li><li><span class='badge explicit'>explicit</span>Grok Bot differs from coding-focused tools like Claude Code and OpenAI Codex by targeting general business workflows across applications rather than terminal-based software development.<div class='rel-line'><a href="../docs/extract-spacexai-launches-grok-bot.html#p6">SpaceXAI Launches Grok Bot for Autonomous AI Agents · p6</a></div></li><li><span class='badge explicit'>explicit</span>Grok Bot&#x27;s differentiation from browser-use and other computer-use agent products is that it combines persistent agents, workflow memory, and multi-agent coordination into a single consumer-facing product, and can act on services with no API or MCP interface.<div class='rel-line'><a href="../docs/extract-spacexai-launches-grok-bot.html#p7">SpaceXAI Launches Grok Bot for Autonomous AI Agents · p7</a></div></li><li><span class='badge explicit'>explicit</span>The Grok Bot launch follows shortly after SpaceX completed its acquisition of Cursor, with whom xAI had already collaborated on model training including Grok 4.5.<div class='rel-line'><a href="../docs/extract-spacexai-launches-grok-bot.html#p8">SpaceXAI Launches Grok Bot for Autonomous AI Agents · p8</a></div></li><li><span class='badge explicit'>explicit</span>Grok Bot is in beta and gated to SuperGrok Heavy, Cursor Ultra, and Cursor Teams Premium subscribers.<div class='rel-line'><a href="../docs/extract-spacexai-launches-grok-bot.html#p9">SpaceXAI Launches Grok Bot for Autonomous AI Agents · p9</a></div></li><li><span class='badge implicit'>implicit</span>Bundling Grok Bot access with Cursor Ultra/Teams Premium subscriptions signals xAI intends to use the freshly closed Cursor acquisition to distribute Grok Bot into Cursor&#x27;s existing developer subscriber base, not just sell it standalone through SuperGrok.<div class='rel-line'><a href="../docs/extract-spacexai-launches-grok-bot.html#p10">SpaceXAI Launches Grok Bot for Autonomous AI Agents · p10</a></div></li><li><span class='badge implicit'>implicit</span>By emphasizing that Grok Bot can act on services lacking an API or MCP interface, xAI is betting that direct computer/browser control is a more durable capability edge than integration-dependent, protocol-gated agent access.<div class='rel-line'><a href="../docs/extract-spacexai-launches-grok-bot.html#p11">SpaceXAI Launches Grok Bot for Autonomous AI Agents · p11</a></div></li></ul><h2>Open gaps (8)</h2><ul class='plain'><li><span class='badge gap'>incomplete</span>The productivity claims for ChatGPT Work — OpenAI&#x27;s own sales/finance teams compressing week-long processes into hours, and Zapier&#x27;s &#x27;seven figures in missed pipeline&#x27; testimonial — are cited with no methodology, task-completion rate, error/failure rate, or independent audit. They come from the vendor and a partner with an incentive to promote the launch.<div class='rel-line'><a href='../docs/extract-ai-daily-brief-chatgpt-work-agent.html#g1'>ChatGPT Just Became A Work Agent</a> — read next: Look for independent third-party case studies or benchmarks of ChatGPT Work and Claude Cowork task-completion and failure rates on real enterprise workflows, not vendor testimonials.</div></li><li><span class='badge gap'>incomplete</span>The article never explains what Claude Cowork itself actually does (connectors, execution model, access controls) — it&#x27;s used only as a reference point for competitors (ChatGPT Work, Sand) rather than described directly, so the comparison the whole piece is built around is one-sided.<div class='rel-line'><a href='../docs/extract-ai-daily-brief-chatgpt-work-agent.html#g2'>ChatGPT Just Became A Work Agent</a> — read next: Read Anthropic&#x27;s own Claude Cowork announcement/documentation to compare feature-for-feature against ChatGPT Work&#x27;s connectors, cloud execution, and access controls described here.</div></li><li><span class='badge gap'>uninformed</span>The comparative capability/cost claims in this week&#x27;s model launches (Sol beating Fable on the Coding Agent Index, Luna matching GLM-5.2 at 43% cheaper, Muse Spark 1.1 being SOTA on &#x27;MCP Atlas&#x27; and &#x27;JobBench&#x27;) all trace to vendor blog posts or single X posts (Artificial Analysis, Simon Smith, Vals AI&#x27;s Rayyan) rather than independently reproduced evaluation — and the article&#x27;s own SWE-bench Pro item shows a leading benchmark was 30% broken, undermining trust in any single benchmark source, including the ones used elsewhere in this same issue.<div class='rel-line'><a href='../docs/extract-ai-daily-brief-chatgpt-work-agent.html#g3'>ChatGPT Just Became A Work Agent</a> — read next: Before trusting any cross-lab benchmark claim in this piece, check whether Artificial Analysis, Vals AI, or another independent evaluator has published a methodology and raw results, not just a summary tweet.</div></li><li><span class='badge gap'>illogical</span>OpenAI&#x27;s new national-security red-lines document is presented as a notable development, but the author&#x27;s own aside — that it lands &#x27;awfully close&#x27; to Anthropic&#x27;s principles and that it&#x27;s &#x27;not obvious what problem this document solves&#x27; — undercuts the item&#x27;s inclusion as news without the piece drawing out what that implies (e.g., that it may be a defensive/lobbying move rather than a substantive commitment).<div class='rel-line'><a href='../docs/extract-ai-daily-brief-chatgpt-work-agent.html#g4'>ChatGPT Just Became A Work Agent</a> — read next: Track whether OpenAI&#x27;s stated red lines actually constrain any specific government contract or deal going forward, as the real test of whether the document is substantive.</div></li><li><span class='badge gap'>incomplete</span>The article never operationalizes what a Skill IS at the runtime level. Persistent across conversations could mean (a) system-prompt fragment retrieved by trigger, (b) tool entry in the model&#x27;s available toolset, (c) per-account fine-tuned adapter, (d) execution graph stored against the account. Each option has very different governance, observability, and failure-mode profiles.<div class='rel-line'><a href='../docs/extract-xai-grok-skills-responses-api.html#g1'>xAI Releases Grok Skills and Updates Tool Calling Responses API</a> — read next: Pair with the Google Genkit middleware extract — Genkit&#x27;s middleware metaphor and Skills-as-runtime-artifact are unrelated abstractions that both claim to wrap agent execution. Worth a syntopical pass: what is the actual unit of customization across these vendors?</div></li><li><span class='badge gap'>incomplete</span>The Grok-vs-OpenAI-vs-Claude-vs-Vercel comparison is asserted but not analyzed structurally. The article uses workflow/agent/developer-extension as distinguishing terms without defining them. The user&#x27;s recent extractions (Anthropic dev newsletter, Console.dev, Genkit) provide the comparative scaffolding the article lacks.<div class='rel-line'><a href='../docs/extract-xai-grok-skills-responses-api.html#g2'>xAI Releases Grok Skills and Updates Tool Calling Responses API</a> — read next: Direct syntopical reading: extract-anthropic-developer-newsletter-2026-05.json + extract-google-genkit-middleware.json + extract-console-dev-best-tools-and-betas.json + this piece. Central question: &#x27;What is a Skill?&#x27; across vendors.</div></li><li><span class='badge gap'>incomplete</span>Tight X-platform integration is offered as the moat, but the article doesn&#x27;t engage what happens to Skills tied to X if a user multi-homes across LLM vendors (the norm for power users). The implicit premise — that X integration is sticky enough to outweigh model-quality and tool-ecosystem competition — is undefended.<div class='rel-line'><a href='../docs/extract-xai-grok-skills-responses-api.html#g3'>xAI Releases Grok Skills and Updates Tool Calling Responses API</a> — read next: AI Daily Brief on Google v Claude Code (already extracted) — same question of platform moats vs. model quality; xAI is making the inverse bet.</div></li><li><span class='badge gap'>incomplete</span>Governance is absent. AWS MCP extraction surfaced &#x27;IAM-bounded ≠ governed&#x27; as the load-bearing over-claim; xAI&#x27;s piece doesn&#x27;t even attempt the IAM analogy. Account-level Skills with cross-platform persistence and tool access (William Wallace&#x27;s GitHub-connected example) raise auditability and credential-isolation questions the article doesn&#x27;t acknowledge.<div class='rel-line'><a href='../docs/extract-xai-grok-skills-responses-api.html#g4'>xAI Releases Grok Skills and Updates Tool Calling Responses API</a> — read next: Pair with the AWS MCP GA extract — same agent-tooling category, very different governance surface.</div></li></ul></main><script src='../assets/search.js' defer></script></body></html>

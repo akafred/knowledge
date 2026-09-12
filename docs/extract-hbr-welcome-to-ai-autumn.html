@@ -1,0 +1,104 @@
+<!doctype html><html><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>Welcome to AI Autumn</title><style>
+:root { --bg:#ffffff; --fg:#1a1a1a; --muted:#6b6b6b; --line:#e3e3e0;
+  --card:#f7f7f5; --accent:#4a6fa5; --accent2:#8a6fae; --warn:#b3593a;
+  --ok:#4a7a55; --chip:#eceff4; }
+@media (prefers-color-scheme: dark) {
+  :root { --bg:#191917; --fg:#e8e6e3; --muted:#9a9892; --line:#33322f;
+    --card:#22211f; --accent:#8fb0dd; --accent2:#b6a2d8; --warn:#d98a68;
+    --ok:#84b591; --chip:#2c2b28; }
+}
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:var(--fg);
+  font:16px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+main { max-width:960px; margin:0 auto; padding:1.5rem 1.25rem 4rem; }
+nav.top { display:flex; flex-wrap:wrap; gap:.35rem 1.1rem; padding:.8rem 1.25rem;
+  border-bottom:1px solid var(--line); font-size:.92rem; }
+nav.top a { color:var(--muted); text-decoration:none; }
+nav.top a:hover, nav.top a.here { color:var(--accent); }
+h1 { font-size:1.55rem; line-height:1.25; margin:.8rem 0 .3rem; }
+h2 { font-size:1.15rem; margin:2rem 0 .6rem; border-bottom:1px solid var(--line);
+  padding-bottom:.3rem; }
+h3 { font-size:1rem; margin:1.2rem 0 .4rem; }
+a { color:var(--accent); }
+.muted { color:var(--muted); font-size:.9rem; }
+.unity { border-left:3px solid var(--accent); background:var(--card);
+  padding:.7rem 1rem; margin:1rem 0; font-style:italic; }
+.chips { display:flex; flex-wrap:wrap; gap:.35rem; margin:.5rem 0; }
+.chip { background:var(--chip); border-radius:999px; padding:.1rem .7rem;
+  font-size:.82rem; text-decoration:none; color:var(--fg); }
+.chip:hover { outline:1px solid var(--accent); }
+.chip.count { color:var(--muted); }
+.card { background:var(--card); border:1px solid var(--line); border-radius:8px;
+  padding: .8rem 1rem; margin:.6rem 0; }
+.badge { font-size:.72rem; border-radius:4px; padding:.05rem .4rem;
+  vertical-align:middle; margin-right:.4rem; white-space:nowrap; }
+.badge.explicit { background:var(--ok); color:var(--bg); }
+.badge.implicit { background:var(--accent2); color:var(--bg); }
+.badge.gap { background:var(--warn); color:var(--bg); }
+.badge.closed { background:var(--ok); color:var(--bg); }
+.badge.rel { background:var(--accent); color:var(--bg); }
+.badge.contested { background:var(--warn); color:var(--bg); }
+.badge.established, .badge.corroborated { background:var(--ok); color:var(--bg); }
+.badge.developed { background:var(--accent2); color:var(--bg); }
+.tag.conf { font-size:.72rem; color:var(--muted); border:1px solid var(--line);
+  border-radius:4px; padding:.05rem .4rem; margin-left:.3rem; }
+ul.plain { list-style:none; padding-left:0; }
+ul.plain > li { margin:.55rem 0; }
+table { border-collapse:collapse; width:100%; font-size:.92rem; }
+th, td { text-align:left; padding:.4rem .6rem; border-bottom:1px solid var(--line);
+  vertical-align:top; }
+.tablewrap { overflow-x:auto; }
+.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:.7rem; }
+.stat { font-size:1.7rem; font-weight:600; color:var(--accent); }
+.rel-line { font-size:.86rem; color:var(--muted); margin:.15rem 0 .15rem 1rem; }
+.searchbox { width:100%; padding:.5rem .8rem; border:1px solid var(--line);
+  border-radius:6px; background:var(--card); color:var(--fg); font-size:1rem; }
+.issue-card h3 { margin:.1rem 0 .5rem; }
+.issue-cols { display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin:.6rem 0; }
+@media (max-width:640px) { .issue-cols { grid-template-columns:1fr; } }
+.issue-side h4 { margin:0 0 .4rem; font-size:.85rem; text-transform:uppercase;
+  letter-spacing:.03em; color:var(--muted); }
+.issue-side li { margin:.6rem 0; }
+.supported-by { margin:.15rem 0 .15rem 1rem; }
+.issue-edges { margin-top:.6rem; font-size:.9rem; }
+.verdict-box { margin-top:.7rem; padding:.6rem .8rem; border-radius:6px; font-size:.92rem; }
+.verdict-box.verdict-set { background:var(--card); border-left:3px solid var(--ok); }
+.verdict-box.verdict-empty { background:var(--card); border-left:3px solid var(--line);
+  color:var(--muted); }
+.verdict-box code { font-size:.85em; }
+.issue-key { margin-top:.4rem; }
+nav.top { align-items:center; }
+.navsearch { margin-left:auto; position:relative; flex:0 1 240px; min-width:150px; }
+.navsearch input { width:100%; padding:.3rem .7rem; border:1px solid var(--line);
+  border-radius:6px; background:var(--card); color:var(--fg); font:inherit; font-size:.88rem; }
+.navsearch input:focus { outline:1px solid var(--accent); }
+.sdrop { position:absolute; right:0; top:calc(100% + 6px); width:min(460px,92vw);
+  max-height:70vh; overflow-y:auto; background:var(--bg); border:1px solid var(--line);
+  border-radius:8px; box-shadow:0 8px 28px rgba(0,0,0,.18); z-index:60; }
+.sres { display:block; padding:.5rem .7rem; border-bottom:1px solid var(--line);
+  text-decoration:none; color:var(--fg); font-size:.88rem; }
+.sres:last-child { border-bottom:none; }
+.sres.active, .sres:hover { background:var(--card); }
+.sres .sline { display:flex; align-items:baseline; gap:.4rem; min-width:0; }
+.sres .st { flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.sres .sdoc { display:block; font-size:.78rem; overflow:hidden; text-overflow:ellipsis;
+  white-space:nowrap; }
+.sres.sall { color:var(--accent); text-align:center; }
+.badge.t-document { background:var(--accent); color:var(--bg); }
+.badge.t-claim { background:var(--ok); color:var(--bg); }
+.badge.t-gap { background:var(--warn); color:var(--bg); }
+.badge.t-term { background:var(--accent2); color:var(--bg); }
+.badge.t-concept { background:var(--chip); color:var(--fg); }
+.scard .sx { font-size:.9rem; margin:.3rem 0; }
+.sx mark { background:transparent; color:var(--accent); font-weight:600; }
+.sfilters button, #smore { font:inherit; font-size:.85rem; padding:.25rem .8rem;
+  border-radius:999px; border:1px solid var(--line); background:var(--card);
+  color:var(--fg); cursor:pointer; }
+.sfilters button.active { border-color:var(--accent); color:var(--accent); }
+li:target { box-shadow:inset 3px 0 0 var(--accent); background:var(--card);
+  padding:.4rem .6rem; margin-left:-.6rem; border-radius:0 6px 6px 0; }
+a.alink { color:inherit; text-decoration:underline;
+  text-decoration-color:var(--line); text-underline-offset:2px; }
+a.alink:hover { color:var(--accent); text-decoration-color:var(--accent); }
+</style></head><body><nav class='top'><a href="../index.html">Overview</a><a href="../graph.html">Graph</a><a href="../concepts.html">Concepts</a><a href="../tensions.html">Tensions</a><a href="../issues.html">Issues</a><a href="../claims.html">Claims</a><a href="../threads.html">Threads</a><a href="../gaps.html">Gaps</a><a href="../timeline.html">Timeline</a><div class='navsearch'><input id='navq' type='search' placeholder='Search&hellip;  /  &#8984;K' autocomplete='off' spellcheck='false'><div id='navdrop' class='sdrop' hidden></div></div></nav><main><h1>Welcome to AI Autumn</h1><p class='muted'><a class="alink" href="../search.html?q=Gretchen+Gavett">Gretchen Gavett</a> · article · 2026-09-08 <a href="https://hbr.org/2026/09/welcome-to-ai-autumn" title="Original source" target="_blank" rel="noopener">source&nbsp;↗</a> <a href="https://read.readwise.io/read/01m20tpm0ts2m6jyyd3dzq7jqk">Reader</a> <a href="wiseread://read/01m20tpm0ts2m6jyyd3dzq7jqk" title="Open in Reader app">🖥️</a></p><div class='chips'><a class="chip" href="../concepts/blue-ocean-strategy.html">Blue Ocean Strategy</a><a class="chip" href="../concepts/career-development.html">Career Development</a><a class="chip" href="../concepts/change-management.html">Change Management &amp; Adoption</a><a class="chip" href="../concepts/managing-up.html">Managing Up &amp; Influence</a></div><div class='unity'>Two distinct claims coexist under one masthead: leaders can find profitable new market space not by outcompeting rivals but by removing industry-imposed pain points for excluded noncustomers (illustrated via Midea&#x27;s air-conditioner redesign), and HBR&#x27;s own newsletter readership currently ranks &#x27;leading through change and uncertainty&#x27; as its top self-reported leadership challenge, ahead of workload, career advancement, influence, and organizational politics.</div><p class='muted'>practical · expository — This is &#x27;The Insider&#x27; — HBR.org&#x27;s editor&#x27;s-note newsletter, not a standalone essay. Genre matters here: most of the text is programming announcements and a linked-article roundup, which carry no independent claims of their own (they point elsewhere for the actual argument). Two sections carry real content worth analytical reading: a report on Kim &amp; Mauborgne&#x27;s revisited blue ocean strategy framework (practical — argues for a way of acting: use these questions to find market opportunity), and the results of a reader survey on leadership challenges (expository — reports data, makes no argument from it). The extraction below focuses on those two pockets and treats the newsletter scaffolding as context, not as source material for propositions.</p><h2>Structure</h2><div class='tablewrap'><table><tr><th>Part</th><th>Role</th></tr><tr><td>Opening framing on &#x27;what&#x27;s actually happening with AI&#x27; and a list of upcoming HBR content (articles, a guide, LinkedIn conversations, an IdeaCast series, a reader survey call-out, a research-participant call-out, and a linked-article roundup)</td><td>editorial announcement / table of contents — no independent propositions, points to content that doesn&#x27;t exist yet or lives elsewhere</td></tr><tr><td>&#x27;Hot Air, Blue Oceans&#x27; — a report on Kim &amp; Mauborgne&#x27;s revisited blue ocean strategy book, anchored by the Midea air-conditioning case study and eight diagnostic questions (two of which are quoted)</td><td>evidence + practical tool — the piece&#x27;s one argumentative core</td></tr><tr><td>&#x27;Your Top Leadership Challenges&#x27; — results of the Insider Insights reader survey (100+ respondents), five challenges ranked by percentage</td><td>data report — no argument built on the numbers beyond &#x27;we&#x27;ll cover these topics&#x27;</td></tr><tr><td>&#x27;More Must-Reads&#x27; link list and sign-off</td><td>pure roundup — no independent content</td></tr></table></div><h2>Key terms</h2><ul class='plain'><li id='term-blue-ocean'><a class="alink" href="../search.html?q=blue+ocean"><b>blue ocean</b></a> <a class="chip" href="../concepts/blue-ocean-strategy.html">Blue Ocean Strategy</a><br><span class='muted'>A previously unknown or uncontested market space where demand is created rather than fought over, as opposed to competing within an existing, overcrowded industry (&#x27;red ocean&#x27;, implied but not named here). Identified by examining industry-imposed pain points that exclude noncustomers, not by benchmarking existing competitors&#x27; offerings.</span></li><li id='term-noncustomers'><a class="alink" href="../search.html?q=noncustomers"><b>noncustomers</b></a> <a class="chip" href="../concepts/blue-ocean-strategy.html">Blue Ocean Strategy</a><br><span class='muted'>People who don&#x27;t currently buy in an industry because something about the industry&#x27;s existing offerings excludes them (e.g., high installation cost, noise) — the population blue ocean strategy targets first, before existing customers.</span></li></ul><h2>Propositions</h2><ul class='plain'><li id='p1'><span class='badge explicit'>explicit</span><span class='badge contested' title='epistemic status: contested'>contested</span>Firms can sustain high performance by identifying blue oceans — market spaces where demand is created rather than fought over — instead of competing within an already-crowded industry.<span class='tag conf' title='author-stated confidence'>conf: high</span><div class='rel-line'><span class='badge rel'>contradicts</span><a href="../docs/extract-hbr-ferriss-founder-mindset-experiments-risk-freedom.html#p11">Introducing The Founder Mindset: Tim Ferriss on Experiments, Risk, and Freedom · p11</a> — Same term, near-opposite meaning: this document&#x27;s &#x27;blue ocean&#x27; (Kim &amp; Mauborgne) means creating genuinely new, previously uncontested demand by removing barriers for noncustomers; the Ferriss piece&#x27;s &#x27;blue oceans&#x27; means deliberately re-entering a domain that was once fashionable and is now stale — i.e. an old, previously-contested space, not a new uncontested one. The corpus now holds two incompatible senses of the same borrowed phrase.</div></li><li id='p2'><span class='badge explicit'>explicit</span>A blue ocean can be found in a mature, unglamorous, physical-goods industry (air conditioning) and not only in a frontier technology market (AI/NVIDIA).<span class='tag conf' title='author-stated confidence'>conf: high</span></li><li id='p3'><span class='badge explicit'>explicit</span>Midea found its blue ocean by focusing on how the air-conditioning industry imposed costs on buyers (high installation cost, loud portable units) rather than by improving on competitors&#x27; existing product specs.<span class='tag conf' title='author-stated confidence'>conf: high</span></li><li id='p4'><span class='badge implicit'>implicit</span>Systematically asking a fixed set of diagnostic questions (e.g., who are your industry&#x27;s noncustomers, and what&#x27;s keeping them out?) is a sufficient method for a team to locate its own blue ocean.<span class='tag conf' title='author-stated confidence'>conf: medium</span></li><li id='p5'><span class='badge explicit'>explicit</span>Across more than 100 respondents to HBR&#x27;s Insider Insights survey, &#x27;leading through change and uncertainty&#x27; is the most commonly cited top leadership challenge (17%), ahead of managing higher workloads with limited resources (14%), advancing one&#x27;s own career or preparing for a bigger role (14%), building influence across the organization (12%), and managing organizational politics or stakeholder expectations (9%).<span class='tag conf' title='author-stated confidence'>conf: high</span></li><li id='p6'><span class='badge implicit'>implicit</span>A self-selected sample of newsletter-survey respondents&#x27; stated top challenge is a reliable enough signal of what content will be valuable to plan a month of editorial coverage around.<span class='tag conf' title='author-stated confidence'>conf: medium</span></li></ul><h2>Arguments</h2><div class='card'><b>Readers should try the eight blue-ocean diagnostic questions at their next offsite or strategy planning meeting.</b> <span class='tag conf' title='argument strength (author-stated): weak as a general argument, though serviceable as a prompt for a discussion exercise — it rests on two hand-picked winners and doesn&#x27;t engage the standard critique of the underlying framework (imitation erodes the advantage; case selection favors survivors).'>strength: low</span><div class='muted'>Explicit premises:</div><ul><li>Blue ocean strategy (finding uncontested demand) sustains higher performance than competing in an overcrowded industry.</li><li>The framework has just been demonstrated to work again, in a fresh, non-tech case (Midea/air conditioning) as well as the familiar tech one (NVIDIA/AI).</li></ul><div class='muted'>Implicit premises:</div><ul><li>Answering the diagnostic questions honestly is itself enough to surface an actionable opportunity — no further methodology (pricing, channel, execution) is required to get value from the exercise.</li><li>A strategy that worked for a large, resourced Chinese home-appliance conglomerate generalizes to whatever size or type of organization the reader leads.</li><li>The two cases cited (NVIDIA, Midea) are representative successes rather than survivorship-biased examples selected because they worked, out of a much larger population of attempted blue-ocean bets that didn&#x27;t.</li></ul><div class='muted'>Inferences:</div><ul><li>If blue oceans reliably attract fast, profitable growth once found, competitors should be expected to follow quickly — the piece never asks how long a newly identified blue ocean stays uncontested, i.e. how fast it turns red.</li></ul></div><h2>Narratives</h2><ul class='plain'><li>Midea, the Chinese home-appliance giant, redesigned its air-conditioning offering around two buyer pain points — high installation cost and loud portable units — rather than competing on the existing feature set, as Europe&#x27;s summers grow hotter.<br><span class='muted'>→ Concretizes the abstract blue-ocean claim and extends it beyond its most familiar (tech/AI) illustration, functioning as the piece&#x27;s sole evidence that the framework still works in 2026.</span></li></ul><h2>Questions addressed</h2><ul class='plain'><li>✅ How can a firm find new, high-growth market opportunity instead of fighting over share in an existing, crowded market?<br><span class=muted>Via blue ocean strategy: diagnose which noncustomers your industry excludes and why, using the eight framing questions (two are quoted) — resolved at the level of &#x27;ask these questions,&#x27; not through a worked methodology showing what Midea did after identifying the pain points, or what results followed.</span></li><li>✅ What should HBR.org cover in the coming month to be useful to its readers?<br><span class=muted>By ranking readers&#x27; self-reported top leadership challenges from a 100+ respondent survey and committing to run articles against each.</span></li><li>⭕ How representative or precise is the leadership-challenges ranking, given the five listed percentages sum to only 66% of respondents?</li></ul><h2>Gaps</h2><ul class='plain'><li id='g1'><span class='badge gap'>incomplete</span>The piece quotes only 2 of the 8 diagnostic questions Kim &amp; Mauborgne propose, and never shows what Midea actually changed (price point, installation model, product design) or what business results followed (share, revenue, adoption) — the case study asserts an insight but not its execution or outcome.<br><span class='muted'>Read next: The new/enhanced edition of Kim &amp; Mauborgne&#x27;s blue ocean strategy book itself, for the full eight-question framework and the Midea case in detail.</span></li><li id='g2'><span class='badge gap'>incomplete</span>The piece doesn&#x27;t engage the standard critique of blue ocean strategy: that a genuinely uncontested market space rarely stays uncontested once demand and profitability are demonstrated (competitors imitate, the &#x27;blue ocean&#x27; turns &#x27;red&#x27;), and that framework case studies are drawn from known successes (NVIDIA, Midea) rather than from a representative sample of firms that tried the same diagnostic and failed — a survivorship-bias problem common to consulting-style strategy frameworks.<br><span class='muted'>Read next: Critical strategy literature on first-mover advantage erosion and imitation dynamics, or empirical follow-up studies on blue ocean strategy&#x27;s track record since its 2005 introduction.</span></li><li id='g3'><span class='badge gap'>incomplete</span>The survey report gives five ranked leadership challenges with percentages that sum to 66% of respondents, with no statement of what the remaining 34% said (an &#x27;other&#x27; category? unlisted lower-ranked challenges? was the question multi-select?), no total respondent count beyond &#x27;more than 100&#x27;, and no description of how respondents were recruited (self-selected newsletter subscribers who chose to answer a survey) — making it impossible to assess how representative the ranking is of leaders generally, versus of engaged HBR.org newsletter readers specifically.<br><span class='muted'>Read next: HBR&#x27;s own methodology notes for the Insider Insights survey series, if published, or a larger-sample leadership-challenges survey with disclosed methodology for comparison.</span></li></ul><h2>Related documents</h2><ul class='plain'><li><a href="../docs/extract-hbr-ferriss-founder-mindset-experiments-risk-freedom.html">Introducing The Founder Mindset: Tim Ferriss on Experiments, Risk, and Freedom</a><div class='chips'><a class="chip" href="../concepts/blue-ocean-strategy.html">Blue Ocean Strategy</a> <a class="chip" href="../concepts/career-development.html">Career Development</a></div></li><li><a href="../docs/extract-operationalizing-dora-large-organization.html">DORA Community Discussion - Operationalizing DORA within a large organization</a><div class='chips'><a class="chip" href="../concepts/change-management.html">Change Management &amp; Adoption</a> <a class="chip" href="../concepts/managing-up.html">Managing Up &amp; Influence</a></div></li></ul></main><script src='../assets/search.js' defer></script></body></html>

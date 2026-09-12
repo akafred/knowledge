@@ -1,0 +1,104 @@
+<!doctype html><html><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>Exception Drift (Operating Mode as Runtime State)</title><style>
+:root { --bg:#ffffff; --fg:#1a1a1a; --muted:#6b6b6b; --line:#e3e3e0;
+  --card:#f7f7f5; --accent:#4a6fa5; --accent2:#8a6fae; --warn:#b3593a;
+  --ok:#4a7a55; --chip:#eceff4; }
+@media (prefers-color-scheme: dark) {
+  :root { --bg:#191917; --fg:#e8e6e3; --muted:#9a9892; --line:#33322f;
+    --card:#22211f; --accent:#8fb0dd; --accent2:#b6a2d8; --warn:#d98a68;
+    --ok:#84b591; --chip:#2c2b28; }
+}
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:var(--fg);
+  font:16px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+main { max-width:960px; margin:0 auto; padding:1.5rem 1.25rem 4rem; }
+nav.top { display:flex; flex-wrap:wrap; gap:.35rem 1.1rem; padding:.8rem 1.25rem;
+  border-bottom:1px solid var(--line); font-size:.92rem; }
+nav.top a { color:var(--muted); text-decoration:none; }
+nav.top a:hover, nav.top a.here { color:var(--accent); }
+h1 { font-size:1.55rem; line-height:1.25; margin:.8rem 0 .3rem; }
+h2 { font-size:1.15rem; margin:2rem 0 .6rem; border-bottom:1px solid var(--line);
+  padding-bottom:.3rem; }
+h3 { font-size:1rem; margin:1.2rem 0 .4rem; }
+a { color:var(--accent); }
+.muted { color:var(--muted); font-size:.9rem; }
+.unity { border-left:3px solid var(--accent); background:var(--card);
+  padding:.7rem 1rem; margin:1rem 0; font-style:italic; }
+.chips { display:flex; flex-wrap:wrap; gap:.35rem; margin:.5rem 0; }
+.chip { background:var(--chip); border-radius:999px; padding:.1rem .7rem;
+  font-size:.82rem; text-decoration:none; color:var(--fg); }
+.chip:hover { outline:1px solid var(--accent); }
+.chip.count { color:var(--muted); }
+.card { background:var(--card); border:1px solid var(--line); border-radius:8px;
+  padding: .8rem 1rem; margin:.6rem 0; }
+.badge { font-size:.72rem; border-radius:4px; padding:.05rem .4rem;
+  vertical-align:middle; margin-right:.4rem; white-space:nowrap; }
+.badge.explicit { background:var(--ok); color:var(--bg); }
+.badge.implicit { background:var(--accent2); color:var(--bg); }
+.badge.gap { background:var(--warn); color:var(--bg); }
+.badge.closed { background:var(--ok); color:var(--bg); }
+.badge.rel { background:var(--accent); color:var(--bg); }
+.badge.contested { background:var(--warn); color:var(--bg); }
+.badge.established, .badge.corroborated { background:var(--ok); color:var(--bg); }
+.badge.developed { background:var(--accent2); color:var(--bg); }
+.tag.conf { font-size:.72rem; color:var(--muted); border:1px solid var(--line);
+  border-radius:4px; padding:.05rem .4rem; margin-left:.3rem; }
+ul.plain { list-style:none; padding-left:0; }
+ul.plain > li { margin:.55rem 0; }
+table { border-collapse:collapse; width:100%; font-size:.92rem; }
+th, td { text-align:left; padding:.4rem .6rem; border-bottom:1px solid var(--line);
+  vertical-align:top; }
+.tablewrap { overflow-x:auto; }
+.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:.7rem; }
+.stat { font-size:1.7rem; font-weight:600; color:var(--accent); }
+.rel-line { font-size:.86rem; color:var(--muted); margin:.15rem 0 .15rem 1rem; }
+.searchbox { width:100%; padding:.5rem .8rem; border:1px solid var(--line);
+  border-radius:6px; background:var(--card); color:var(--fg); font-size:1rem; }
+.issue-card h3 { margin:.1rem 0 .5rem; }
+.issue-cols { display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin:.6rem 0; }
+@media (max-width:640px) { .issue-cols { grid-template-columns:1fr; } }
+.issue-side h4 { margin:0 0 .4rem; font-size:.85rem; text-transform:uppercase;
+  letter-spacing:.03em; color:var(--muted); }
+.issue-side li { margin:.6rem 0; }
+.supported-by { margin:.15rem 0 .15rem 1rem; }
+.issue-edges { margin-top:.6rem; font-size:.9rem; }
+.verdict-box { margin-top:.7rem; padding:.6rem .8rem; border-radius:6px; font-size:.92rem; }
+.verdict-box.verdict-set { background:var(--card); border-left:3px solid var(--ok); }
+.verdict-box.verdict-empty { background:var(--card); border-left:3px solid var(--line);
+  color:var(--muted); }
+.verdict-box code { font-size:.85em; }
+.issue-key { margin-top:.4rem; }
+nav.top { align-items:center; }
+.navsearch { margin-left:auto; position:relative; flex:0 1 240px; min-width:150px; }
+.navsearch input { width:100%; padding:.3rem .7rem; border:1px solid var(--line);
+  border-radius:6px; background:var(--card); color:var(--fg); font:inherit; font-size:.88rem; }
+.navsearch input:focus { outline:1px solid var(--accent); }
+.sdrop { position:absolute; right:0; top:calc(100% + 6px); width:min(460px,92vw);
+  max-height:70vh; overflow-y:auto; background:var(--bg); border:1px solid var(--line);
+  border-radius:8px; box-shadow:0 8px 28px rgba(0,0,0,.18); z-index:60; }
+.sres { display:block; padding:.5rem .7rem; border-bottom:1px solid var(--line);
+  text-decoration:none; color:var(--fg); font-size:.88rem; }
+.sres:last-child { border-bottom:none; }
+.sres.active, .sres:hover { background:var(--card); }
+.sres .sline { display:flex; align-items:baseline; gap:.4rem; min-width:0; }
+.sres .st { flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.sres .sdoc { display:block; font-size:.78rem; overflow:hidden; text-overflow:ellipsis;
+  white-space:nowrap; }
+.sres.sall { color:var(--accent); text-align:center; }
+.badge.t-document { background:var(--accent); color:var(--bg); }
+.badge.t-claim { background:var(--ok); color:var(--bg); }
+.badge.t-gap { background:var(--warn); color:var(--bg); }
+.badge.t-term { background:var(--accent2); color:var(--bg); }
+.badge.t-concept { background:var(--chip); color:var(--fg); }
+.scard .sx { font-size:.9rem; margin:.3rem 0; }
+.sx mark { background:transparent; color:var(--accent); font-weight:600; }
+.sfilters button, #smore { font:inherit; font-size:.85rem; padding:.25rem .8rem;
+  border-radius:999px; border:1px solid var(--line); background:var(--card);
+  color:var(--fg); cursor:pointer; }
+.sfilters button.active { border-color:var(--accent); color:var(--accent); }
+li:target { box-shadow:inset 3px 0 0 var(--accent); background:var(--card);
+  padding:.4rem .6rem; margin-left:-.6rem; border-radius:0 6px 6px 0; }
+a.alink { color:inherit; text-decoration:underline;
+  text-decoration-color:var(--line); text-underline-offset:2px; }
+a.alink:hover { color:var(--accent); text-decoration-color:var(--accent); }
+</style></head><body><nav class='top'><a href="../index.html">Overview</a><a href="../graph.html">Graph</a><a href="../concepts.html" class=here>Concepts</a><a href="../tensions.html">Tensions</a><a href="../issues.html">Issues</a><a href="../claims.html">Claims</a><a href="../threads.html">Threads</a><a href="../gaps.html">Gaps</a><a href="../timeline.html">Timeline</a><div class='navsearch'><input id='navq' type='search' placeholder='Search&hellip;  /  &#8984;K' autocomplete='off' spellcheck='false'><div id='navdrop' class='sdrop' hidden></div></div></nav><main><h1>Exception Drift (Operating Mode as Runtime State)</h1><p>Temporary, authorized emergency/incident exceptions (altered routing, approvals, permissions) that outlive the incident that justified them because the platform has no authoritative, scoped, time-bound runtime representation of &quot;which operating mode is active&quot; — fixed by injecting organizational operating state (normal/incident/recovery, with scope/authority/expiry/status) into the agent runtime as a first-class input, alongside identity and permissions, so closure can be automatically verified.</p><p class='muted'>Also known as: exception drift, operating mode, exception-aware agents, runtime operating state, incident mode as runtime input</p><p class='muted'>Part of: <a class="chip" href="../concepts/agent-governance.html">Agent Governance (Internal)</a></p><h2>How authors use it</h2><p class='muted'>Oldest first (extraction date when no publication date is known).</p><div class='tablewrap'><table><tr><th>Author</th><th>Their term</th><th>Their meaning</th></tr><tr><td><a href="../docs/extract-operating-mode-as-runtime-state.html">Operating Mode as Runtime State: A Contract for Enterprise</a><br><span class='muted'><a class="alink" href="../search.html?q=Shreshta+Shyamsundar+and+Chidambaram+GS">Shreshta Shyamsundar and Chidambaram GS</a> · 2026-09-11</span></td><td><a href='../docs/extract-operating-mode-as-runtime-state.html#term-exception-drift'><b>exception drift</b></a></td><td>The process by which temporary exception behavior (an emergency routing rule, a shortened approval path, an elevated tool permission) outlives its authorized scope, authority, or duration and settles into normal execution without anyone deciding it should.</td></tr><tr><td><a href="../docs/extract-operating-mode-as-runtime-state.html">Operating Mode as Runtime State: A Contract for Enterprise</a><br><span class='muted'><a class="alink" href="../search.html?q=Shreshta+Shyamsundar+and+Chidambaram+GS">Shreshta Shyamsundar and Chidambaram GS</a> · 2026-09-11</span></td><td><a href='../docs/extract-operating-mode-as-runtime-state.html#term-operating-mode'><b>operating mode</b></a></td><td>An explicit, authoritative runtime value (normal, incident, recovery, or a declared exception) describing which organizational operating state currently governs execution, handed to the agent runtime the way identity, tenant, and permissions already are.</td></tr></table></div><h2>Documents (1)</h2><ul class='plain'><li><a href="../docs/extract-operating-mode-as-runtime-state.html">Operating Mode as Runtime State: A Contract for Enterprise</a> <span class='muted'><a class="alink" href="../search.html?q=Shreshta+Shyamsundar+and+Chidambaram+GS">Shreshta Shyamsundar and Chidambaram GS</a> · 2026-09-11</span> <a href="https://www.oreilly.com/radar/operating-mode-as-runtime-state-a-contract-for-enterprise/" title="Original source" target="_blank" rel="noopener">source&nbsp;↗</a> <a href="https://read.readwise.io/read/01m2846vb0rs9zes1kpw5yc9tc">Reader</a> <a href="wiseread://read/01m2846vb0rs9zes1kpw5yc9tc" title="Open in Reader app">🖥️</a><br><span class='muted'>Because enterprise AI agents infer whether they&#x27;re operating under normal, incident, or recovery conditions from prompts and accumulated context rather than receiving it as authoritative input, temporary emergency exceptions quietly harden into permanent runtime behavior (&#x27;exception drift&#x27;) — the fix is to make organizational operating mode a first-class, scoped, time-bound runtime construct, injected alongside identity and permissions, whose closure the platform itself can verify rather than merely document.</span></li></ul><h2>Propositions touching this concept (10)</h2><p class='muted'>By publication month, oldest first (extraction month when no publication date is known).</p><h3>2026-09</h3><ul class='plain'><li><span class='badge explicit'>explicit</span>Exception drift is architectural, not a failure of human incident/change-management process: enterprises already have adequate human machinery (incident management, change control, postincident review), but most agent platforms treat organizational operating state as external to the runtime rather than as an input to it.<div class='rel-line'><a href="../docs/extract-operating-mode-as-runtime-state.html#p3">Operating Mode as Runtime State: A Contract for Enterprise · p3</a></div></li><li><span class='badge explicit'>explicit</span>When the answer to &quot;which operating mode is active&quot; is left implicit, every agent, workflow, and tool gateway invents its own answer.<div class='rel-line'><a href="../docs/extract-operating-mode-as-runtime-state.html#p4">Operating Mode as Runtime State: A Contract for Enterprise · p4</a></div></li><li><span class='badge explicit'>explicit</span>Production agent behavior depends as much on runtime context (identity, tenant, environment, permissions, session state, policy, tool access) as on capabilities (models, tools, orchestration); operating mode is the one piece of that context usually missing.<div class='rel-line'><a href="../docs/extract-operating-mode-as-runtime-state.html#p5">Operating Mode as Runtime State: A Contract for Enterprise · p5</a></div></li><li><span class='badge explicit'>explicit</span>AI agents raise the stakes of exception drift relative to traditional (human/runbook) exceptions, because agents act autonomously across tools, workflows, and other agents, so a single accommodation introduced under pressure can propagate along many execution paths simultaneously, making it structurally harder to locate and retire than an exception recorded in one runbook.<div class='rel-line'><a href="../docs/extract-operating-mode-as-runtime-state.html#p8">Operating Mode as Runtime State: A Contract for Enterprise · p8</a></div></li><li><span class='badge explicit'>explicit</span>Historical traces and retained agent memory can explain why an accommodation once existed, but should never decide whether it is still authorized; memory informs execution, operating mode governs it, and when the two disagree, authoritative runtime state should win.<div class='rel-line'><a href="../docs/extract-operating-mode-as-runtime-state.html#p9">Operating Mode as Runtime State: A Contract for Enterprise · p9</a></div></li><li><span class='badge explicit'>explicit</span>Operating mode is architecturally distinct from feature flags (LaunchDarkly-style targeting), RBAC (who may act), and tenancy metadata (where a request belongs): permissions determine who may act, policies determine how, and operating mode determines whether exception behavior is authorized at all — a higher-order governance constraint on agents, workflows, approvals, tools, and escalation paths.<div class='rel-line'><a href="../docs/extract-operating-mode-as-runtime-state.html#p10">Operating Mode as Runtime State: A Contract for Enterprise · p10</a></div></li><li><span class='badge explicit'>explicit</span>The right architectural test is whether the platform can guarantee that exception behavior is impossible outside an authorized operating mode — emergency behavior should exist only because the platform enables it, for no other reason.<div class='rel-line'><a href="../docs/extract-operating-mode-as-runtime-state.html#p12">Operating Mode as Runtime State: A Contract for Enterprise · p12</a></div></li><li><span class='badge explicit'>explicit</span>Operating mode should be owned by an external control plane (incident-management platforms, maintenance-window services, change-management workflows) rather than embedded in prompts, workflow definitions, or agent memory, because those systems already hold authoritative operational state.<div class='rel-line'><a href="../docs/extract-operating-mode-as-runtime-state.html#p13">Operating Mode as Runtime State: A Contract for Enterprise · p13</a></div></li><li><span class='badge explicit'>explicit</span>In multi-agent systems, exception drift compounds because collaborating agents (customer-facing, orchestration, execution) can disagree about operating state — one continuing emergency behavior after another has reverted to standard controls — so a single, consistently-read shared operating state is necessary to avoid fragmented accountability.<div class='rel-line'><a href="../docs/extract-operating-mode-as-runtime-state.html#p15">Operating Mode as Runtime State: A Contract for Enterprise · p15</a></div></li><li><span class='badge explicit'>explicit</span>Making operating mode explicit converts exception drift from something detectable only via audit, after the fact, into an observable, continuously monitored runtime signal — how many exceptions are open, how long they stay open, how often they harden into permanent change.<div class='rel-line'><a href="../docs/extract-operating-mode-as-runtime-state.html#p16">Operating Mode as Runtime State: A Contract for Enterprise · p16</a></div></li></ul><h2>Open gaps (1)</h2><ul class='plain'><li><span class='badge gap'>illogical</span>The article insists memory should never decide whether an accommodation is &#x27;still authorized&#x27; and that authoritative runtime state must win when the two disagree, yet allows expiry to be tied to a soft condition like &#x27;incident-close&#x27; — a status that itself has to be recorded and read from somewhere, often by human judgment. If that status update is delayed, inferred, or manually entered, the &#x27;authoritative state&#x27; is not obviously more reliable than the informal traces it&#x27;s meant to replace; the piece never explains what structurally distinguishes a trustworthy &#x27;incident-close&#x27; status from the kind of soft, human-mediated signal it dismisses when it comes from memory or prompts.<div class='rel-line'><a href='../docs/extract-operating-mode-as-runtime-state.html#g4'>Operating Mode as Runtime State: A Contract for Enterprise</a> — read next: Distinguish structurally-guaranteed authority (a hard-timestamped, cryptographically scoped token) from merely relocated human judgment (a status field someone updates); read against the piece&#x27;s own JIT/short-lived-token material and against extract-privilege-drift-multi-agent-systems on runtime enforcement.</div></li></ul></main><script src='../assets/search.js' defer></script></body></html>

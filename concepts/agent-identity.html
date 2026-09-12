@@ -1,0 +1,104 @@
+<!doctype html><html><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>Agent Identity &amp; Attribution</title><style>
+:root { --bg:#ffffff; --fg:#1a1a1a; --muted:#6b6b6b; --line:#e3e3e0;
+  --card:#f7f7f5; --accent:#4a6fa5; --accent2:#8a6fae; --warn:#b3593a;
+  --ok:#4a7a55; --chip:#eceff4; }
+@media (prefers-color-scheme: dark) {
+  :root { --bg:#191917; --fg:#e8e6e3; --muted:#9a9892; --line:#33322f;
+    --card:#22211f; --accent:#8fb0dd; --accent2:#b6a2d8; --warn:#d98a68;
+    --ok:#84b591; --chip:#2c2b28; }
+}
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:var(--fg);
+  font:16px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+main { max-width:960px; margin:0 auto; padding:1.5rem 1.25rem 4rem; }
+nav.top { display:flex; flex-wrap:wrap; gap:.35rem 1.1rem; padding:.8rem 1.25rem;
+  border-bottom:1px solid var(--line); font-size:.92rem; }
+nav.top a { color:var(--muted); text-decoration:none; }
+nav.top a:hover, nav.top a.here { color:var(--accent); }
+h1 { font-size:1.55rem; line-height:1.25; margin:.8rem 0 .3rem; }
+h2 { font-size:1.15rem; margin:2rem 0 .6rem; border-bottom:1px solid var(--line);
+  padding-bottom:.3rem; }
+h3 { font-size:1rem; margin:1.2rem 0 .4rem; }
+a { color:var(--accent); }
+.muted { color:var(--muted); font-size:.9rem; }
+.unity { border-left:3px solid var(--accent); background:var(--card);
+  padding:.7rem 1rem; margin:1rem 0; font-style:italic; }
+.chips { display:flex; flex-wrap:wrap; gap:.35rem; margin:.5rem 0; }
+.chip { background:var(--chip); border-radius:999px; padding:.1rem .7rem;
+  font-size:.82rem; text-decoration:none; color:var(--fg); }
+.chip:hover { outline:1px solid var(--accent); }
+.chip.count { color:var(--muted); }
+.card { background:var(--card); border:1px solid var(--line); border-radius:8px;
+  padding: .8rem 1rem; margin:.6rem 0; }
+.badge { font-size:.72rem; border-radius:4px; padding:.05rem .4rem;
+  vertical-align:middle; margin-right:.4rem; white-space:nowrap; }
+.badge.explicit { background:var(--ok); color:var(--bg); }
+.badge.implicit { background:var(--accent2); color:var(--bg); }
+.badge.gap { background:var(--warn); color:var(--bg); }
+.badge.closed { background:var(--ok); color:var(--bg); }
+.badge.rel { background:var(--accent); color:var(--bg); }
+.badge.contested { background:var(--warn); color:var(--bg); }
+.badge.established, .badge.corroborated { background:var(--ok); color:var(--bg); }
+.badge.developed { background:var(--accent2); color:var(--bg); }
+.tag.conf { font-size:.72rem; color:var(--muted); border:1px solid var(--line);
+  border-radius:4px; padding:.05rem .4rem; margin-left:.3rem; }
+ul.plain { list-style:none; padding-left:0; }
+ul.plain > li { margin:.55rem 0; }
+table { border-collapse:collapse; width:100%; font-size:.92rem; }
+th, td { text-align:left; padding:.4rem .6rem; border-bottom:1px solid var(--line);
+  vertical-align:top; }
+.tablewrap { overflow-x:auto; }
+.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:.7rem; }
+.stat { font-size:1.7rem; font-weight:600; color:var(--accent); }
+.rel-line { font-size:.86rem; color:var(--muted); margin:.15rem 0 .15rem 1rem; }
+.searchbox { width:100%; padding:.5rem .8rem; border:1px solid var(--line);
+  border-radius:6px; background:var(--card); color:var(--fg); font-size:1rem; }
+.issue-card h3 { margin:.1rem 0 .5rem; }
+.issue-cols { display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin:.6rem 0; }
+@media (max-width:640px) { .issue-cols { grid-template-columns:1fr; } }
+.issue-side h4 { margin:0 0 .4rem; font-size:.85rem; text-transform:uppercase;
+  letter-spacing:.03em; color:var(--muted); }
+.issue-side li { margin:.6rem 0; }
+.supported-by { margin:.15rem 0 .15rem 1rem; }
+.issue-edges { margin-top:.6rem; font-size:.9rem; }
+.verdict-box { margin-top:.7rem; padding:.6rem .8rem; border-radius:6px; font-size:.92rem; }
+.verdict-box.verdict-set { background:var(--card); border-left:3px solid var(--ok); }
+.verdict-box.verdict-empty { background:var(--card); border-left:3px solid var(--line);
+  color:var(--muted); }
+.verdict-box code { font-size:.85em; }
+.issue-key { margin-top:.4rem; }
+nav.top { align-items:center; }
+.navsearch { margin-left:auto; position:relative; flex:0 1 240px; min-width:150px; }
+.navsearch input { width:100%; padding:.3rem .7rem; border:1px solid var(--line);
+  border-radius:6px; background:var(--card); color:var(--fg); font:inherit; font-size:.88rem; }
+.navsearch input:focus { outline:1px solid var(--accent); }
+.sdrop { position:absolute; right:0; top:calc(100% + 6px); width:min(460px,92vw);
+  max-height:70vh; overflow-y:auto; background:var(--bg); border:1px solid var(--line);
+  border-radius:8px; box-shadow:0 8px 28px rgba(0,0,0,.18); z-index:60; }
+.sres { display:block; padding:.5rem .7rem; border-bottom:1px solid var(--line);
+  text-decoration:none; color:var(--fg); font-size:.88rem; }
+.sres:last-child { border-bottom:none; }
+.sres.active, .sres:hover { background:var(--card); }
+.sres .sline { display:flex; align-items:baseline; gap:.4rem; min-width:0; }
+.sres .st { flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.sres .sdoc { display:block; font-size:.78rem; overflow:hidden; text-overflow:ellipsis;
+  white-space:nowrap; }
+.sres.sall { color:var(--accent); text-align:center; }
+.badge.t-document { background:var(--accent); color:var(--bg); }
+.badge.t-claim { background:var(--ok); color:var(--bg); }
+.badge.t-gap { background:var(--warn); color:var(--bg); }
+.badge.t-term { background:var(--accent2); color:var(--bg); }
+.badge.t-concept { background:var(--chip); color:var(--fg); }
+.scard .sx { font-size:.9rem; margin:.3rem 0; }
+.sx mark { background:transparent; color:var(--accent); font-weight:600; }
+.sfilters button, #smore { font:inherit; font-size:.85rem; padding:.25rem .8rem;
+  border-radius:999px; border:1px solid var(--line); background:var(--card);
+  color:var(--fg); cursor:pointer; }
+.sfilters button.active { border-color:var(--accent); color:var(--accent); }
+li:target { box-shadow:inset 3px 0 0 var(--accent); background:var(--card);
+  padding:.4rem .6rem; margin-left:-.6rem; border-radius:0 6px 6px 0; }
+a.alink { color:inherit; text-decoration:underline;
+  text-decoration-color:var(--line); text-underline-offset:2px; }
+a.alink:hover { color:var(--accent); text-decoration-color:var(--accent); }
+</style></head><body><nav class='top'><a href="../index.html">Overview</a><a href="../graph.html">Graph</a><a href="../concepts.html" class=here>Concepts</a><a href="../tensions.html">Tensions</a><a href="../issues.html">Issues</a><a href="../claims.html">Claims</a><a href="../threads.html">Threads</a><a href="../gaps.html">Gaps</a><a href="../timeline.html">Timeline</a><div class='navsearch'><input id='navq' type='search' placeholder='Search&hellip;  /  &#8984;K' autocomplete='off' spellcheck='false'><div id='navdrop' class='sdrop' hidden></div></div></nav><main><h1>Agent Identity &amp; Attribution</h1><p>How autonomous agent actions are bound to an accountable principal — via dedicated per-agent credentials/identities vs. augmenting the human&#x27;s existing identity with agent/session context — and the security tradeoffs between the two approaches.</p><p class='muted'>Also known as: agent identity, non-human identity, service account (for agents), agent credentials, dedicated agent identity, Entra Agent ID, attribution (agent actions)</p><h2>How authors use it</h2><p class='muted'>Oldest first (extraction date when no publication date is known).</p><div class='tablewrap'><table><tr><th>Author</th><th>Their term</th><th>Their meaning</th></tr><tr><td><a href="../docs/extract-when-your-buyer-is-an-ai-agent.html">When Your Buyer Is an AI Agent</a><br><span class='muted'><a class="alink" href="../search.html?q=Rudrendu+Paul+and+Sourav+Nandy">Rudrendu Paul and Sourav Nandy</a> · 2026-08-19</span></td><td><a href='../docs/extract-when-your-buyer-is-an-ai-agent.html#term-non-human-identity-nhi'><b>non-human identity (NHI)</b></a></td><td>A credentialed identity assigned to a software agent (as opposed to a human employee) for the purpose of authentication, authorization, and accountability in enterprise systems; cited as already outnumbering human identities 96:1 (financial services) to 144:1 (general enterprise).</td></tr></table></div><h2>Documents (4)</h2><ul class='plain'><li><a href="../docs/extract-when-your-buyer-is-an-ai-agent.html">When Your Buyer Is an AI Agent</a> <span class='muted'><a class="alink" href="../search.html?q=Rudrendu+Paul+and+Sourav+Nandy">Rudrendu Paul and Sourav Nandy</a> · 2026-08-19</span> <a href="https://www.oreilly.com/radar/when-your-buyer-is-an-ai-agent/" title="Original source" target="_blank" rel="noopener">source&nbsp;↗</a> <a href="https://read.readwise.io/read/01m0dhc92m71dhhd8h2bwpbp8h">Reader</a> <a href="wiseread://read/01m0dhc92m71dhhd8h2bwpbp8h" title="Open in Reader app">🖥️</a><br><span class='muted'>As autonomous AI agents increasingly perform the research, negotiation, and (in advanced cases) contracting stages of enterprise B2B procurement on the buyer&#x27;s behalf, sellers must re-architect their commercial infrastructure — replacing per-seat pricing with outcome-based pricing, replacing relationship-driven sales collateral with machine-readable product data, and replacing human-click checkout with agent-compatible authorization — or risk being screened out of consideration before a human relationship ever begins.</span></li><li><a href="../docs/extract-cloudflare-writeguard-mcp-servers.html">Cloudflare WriteGuard Brings Fine-Grained Security Controls for MCP Servers</a> <span class='muted'><a class="alink" href="../search.html?q=Sergio+De+Simone">Sergio De Simone</a> · 2026-08-18</span> <a href="https://www.infoq.com/news/2026/08/cloudflare-writeguard-mcp-safety/" title="Original source" target="_blank" rel="noopener">source&nbsp;↗</a> <a href="https://read.readwise.io/read/01m0avb1zpqdqs191x7w92prbj">Reader</a> <a href="wiseread://read/01m0avb1zpqdqs191x7w92prbj" title="Open in Reader app">🖥️</a><br><span class='muted'>A centralized policy, attribution, and auditing layer sitting behind a shared MCP portal can safely upgrade AI agents from read-only to fine-grained, tool-specific write access without requiring per-server code changes or a separate agent-identity system.</span></li><li><a href="../docs/extract-gke-security-blueprint-joins-growing-list-of-cloud-ai-frameworks.html">GKE Security Blueprint Joins Growing List of Cloud AI Frameworks</a> <span class='muted'><a class="alink" href="../search.html?q=Matt+Saunders">Matt Saunders</a> · 2026-07-22</span> <a href="https://www.infoq.com/news/2026/07/google-gke-ai-security-blueprint/" title="Original source" target="_blank" rel="noopener">source&nbsp;↗</a> <a href="https://read.readwise.io/read/01ky4ez0pyrwcav94edapqvf48">Reader</a> <a href="wiseread://read/01ky4ez0pyrwcav94edapqvf48" title="Open in Reader app">🖥️</a><br><span class='muted'>As AI workloads move from prototype to production on managed Kubernetes, Google, AWS and Microsoft are each publishing layered security blueprints that harden a different part of the stack (infrastructure, identity/observability, and agent identity respectively), but none of these approaches is sufficient alone because neither cloud-native perimeter/identity controls nor Kubernetes itself can reason about semantic, runtime properties of AI behavior — whether a prompt is malicious, a response leaks data, or a permitted action is actually normal for a given agent.</span></li><li><a href="../docs/extract-token-handling-ai-agents.html">Why Token Handling Must Evolve for AI Agents</a> <span class='muted'><a class="alink" href="../search.html?q=J+Simpson">J Simpson</a> · 2026-04-20</span> <a href="https://nordicapis.com/why-token-handling-must-evolve-for-ai-agents/" title="Original source" target="_blank" rel="noopener">source&nbsp;↗</a> <a href="https://read.readwise.io/read/01kqy36g84vycsz2jpwh8nnjaz">Reader</a> <a href="wiseread://read/01kqy36g84vycsz2jpwh8nnjaz" title="Open in Reader app">🖥️</a><br><span class='muted'>Static, session-based access-token models designed for human users are fundamentally unsuited to autonomous AI agents, and must be replaced by runtime, context-aware, short-lived, minimally-scoped token strategies to prevent the class of credential-abuse breaches that already accounts for a fifth of all data breaches.</span></li></ul><h2>Propositions touching this concept (3)</h2><p class='muted'>By publication month, oldest first (extraction month when no publication date is known).</p><h3>2026-04</h3><ul class='plain'><li><span class='badge implicit'>implicit</span><span class='badge contested' title='epistemic status: contested'>contested</span>Agent identity is a solved or solvable problem — you can reliably distinguish one agent from another and from the human principal it serves.<div class='rel-line'><a href="../docs/extract-token-handling-ai-agents.html#I3">Why Token Handling Must Evolve for AI Agents · I3</a></div></li></ul><h3>2026-07</h3><ul class='plain'><li><span class='badge explicit'>explicit</span><span class='badge contested' title='epistemic status: contested'>contested</span>Microsoft secures AI agents primarily through agent identity — Entra Agent ID issues individual agents their own scoped, short-lived credentials — rather than through the underlying container platform, and pairs this with automated red-teaming (PyRIT) to probe agents for weaknesses before release.<div class='rel-line'><a href="../docs/extract-gke-security-blueprint-joins-growing-list-of-cloud-ai-frameworks.html#p9">GKE Security Blueprint Joins Growing List of Cloud AI Frameworks · p9</a></div></li></ul><h3>2026-08</h3><ul class='plain'><li><span class='badge implicit'>implicit</span><span class='badge contested' title='epistemic status: contested'>contested</span>Agent identity and governance are currently inadequate in practice: a documented Claude-based exploit succeeded via an uploaded &#x27;agent file&#x27; specifically because the agents involved lacked tracked identity and proper security governance.<div class='rel-line'><a href="../docs/extract-agentic-ai-sorcerers-apprentice-tracy-bannon.html#p15">Podcast: Will Agentic AI Bring Fantasia&#x27;s Sorcerer&#x27;s Apprentice to Life?: A Conversation with Tracy Bannon · p15</a></div></li></ul><h2>Open gaps (5)</h2><ul class='plain'><li><span class='badge gap'>incomplete</span>The article never addresses the cold-start problem: none of the five signs work without an established behavioral baseline, and it says nothing about how long a baseline takes to become reliable, what happens during that window for new employees, new customers, or newly provisioned service/agent accounts, or how organizations should treat authenticated traffic from identities with no meaningful history yet.<div class='rel-line'><a href='../docs/extract-5-signs-authenticated-api-traffic-actually-malicious.html#g1'>5 Signs That Authenticated API Traffic Is Actually Malicious</a> — read next: Literature on user/entity behavior analytics (UEBA) cold-start handling, and on non-human/workload identity onboarding (service accounts, AI agent credentials) for how baseline-dependent anomaly detection copes with brand-new identities.</div></li><li><span class='badge gap'>unstated assumption</span>No discussion of the performance and cost implications of per-request token issuance at scale.<div class='rel-line'><a href='../docs/extract-token-handling-ai-agents.html#g1'>Why Token Handling Must Evolve for AI Agents</a> — read next: Research on token-service throughput benchmarks and latency budgets for per-call issuance</div></li><li><span class='badge gap'>bias</span>The article is partly a promotional vehicle for Curity&#x27;s Access Intelligence product but does not disclose the commercial relationship or compare alternative solutions.<div class='rel-line'><a href='../docs/extract-token-handling-ai-agents.html#g4'>Why Token Handling Must Evolve for AI Agents</a></div></li><li><span class='badge gap'>incomplete</span>The article never specifies the accountability mechanism when multiple orchestrators, or an orchestrator and a vendor/platform, jointly produce a system that fails — it only asserts that delegated intelligence is &#x27;always traceable back to an accountable operator&#x27; without addressing shared or contested authorship, which is the common real-world case (an orchestrator directing a third-party agent platform built by another company).<div class='rel-line'><a href='../docs/extract-whats-an-orchestrator-why-software-needs-one.html#g1'>What&#x27;s an Orchestrator—and Why Does Software Need One?</a> — read next: Multi-party AI liability and supply-chain accountability frameworks (e.g. the enterprise-as-accountable-integrator argument in extract-outsourced-ai-still-own-the-risk); agent identity/attribution mechanisms that bind actions to a specific accountable principal.</div></li><li><span class='badge gap'>incomplete</span>The &#x27;agent-compatible commercial authorization&#x27; prescription addresses verifying an agent&#x27;s authority to transact (authentication/authorization) but says nothing about liability or recourse when a duly-authorized agent negotiates a bad deal, misreads a term, or commits a company to an unfavorable contract at machine speed. Verified authority to act and good judgment in acting are conflated.<div class='rel-line'><a href='../docs/extract-when-your-buyer-is-an-ai-agent.html#g2'>When Your Buyer Is an AI Agent</a> — read next: Look for enterprise governance/liability frameworks specifically for autonomous-agent-negotiated contracts, distinct from the identity/authentication layer (Descope, Entro Labs) the article cites.</div></li></ul></main><script src='../assets/search.js' defer></script></body></html>
