@@ -1,0 +1,104 @@
+<!doctype html><html><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>Ethical Persuasion vs. Manipulation</title><style>
+:root { --bg:#ffffff; --fg:#1a1a1a; --muted:#6b6b6b; --line:#e3e3e0;
+  --card:#f7f7f5; --accent:#4a6fa5; --accent2:#8a6fae; --warn:#b3593a;
+  --ok:#4a7a55; --chip:#eceff4; }
+@media (prefers-color-scheme: dark) {
+  :root { --bg:#191917; --fg:#e8e6e3; --muted:#9a9892; --line:#33322f;
+    --card:#22211f; --accent:#8fb0dd; --accent2:#b6a2d8; --warn:#d98a68;
+    --ok:#84b591; --chip:#2c2b28; }
+}
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:var(--fg);
+  font:16px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+main { max-width:960px; margin:0 auto; padding:1.5rem 1.25rem 4rem; }
+nav.top { display:flex; flex-wrap:wrap; gap:.35rem 1.1rem; padding:.8rem 1.25rem;
+  border-bottom:1px solid var(--line); font-size:.92rem; }
+nav.top a { color:var(--muted); text-decoration:none; }
+nav.top a:hover, nav.top a.here { color:var(--accent); }
+h1 { font-size:1.55rem; line-height:1.25; margin:.8rem 0 .3rem; }
+h2 { font-size:1.15rem; margin:2rem 0 .6rem; border-bottom:1px solid var(--line);
+  padding-bottom:.3rem; }
+h3 { font-size:1rem; margin:1.2rem 0 .4rem; }
+a { color:var(--accent); }
+.muted { color:var(--muted); font-size:.9rem; }
+.unity { border-left:3px solid var(--accent); background:var(--card);
+  padding:.7rem 1rem; margin:1rem 0; font-style:italic; }
+.chips { display:flex; flex-wrap:wrap; gap:.35rem; margin:.5rem 0; }
+.chip { background:var(--chip); border-radius:999px; padding:.1rem .7rem;
+  font-size:.82rem; text-decoration:none; color:var(--fg); }
+.chip:hover { outline:1px solid var(--accent); }
+.chip.count { color:var(--muted); }
+.card { background:var(--card); border:1px solid var(--line); border-radius:8px;
+  padding: .8rem 1rem; margin:.6rem 0; }
+.badge { font-size:.72rem; border-radius:4px; padding:.05rem .4rem;
+  vertical-align:middle; margin-right:.4rem; white-space:nowrap; }
+.badge.explicit { background:var(--ok); color:var(--bg); }
+.badge.implicit { background:var(--accent2); color:var(--bg); }
+.badge.gap { background:var(--warn); color:var(--bg); }
+.badge.closed { background:var(--ok); color:var(--bg); }
+.badge.rel { background:var(--accent); color:var(--bg); }
+.badge.contested { background:var(--warn); color:var(--bg); }
+.badge.established, .badge.corroborated { background:var(--ok); color:var(--bg); }
+.badge.developed { background:var(--accent2); color:var(--bg); }
+.tag.conf { font-size:.72rem; color:var(--muted); border:1px solid var(--line);
+  border-radius:4px; padding:.05rem .4rem; margin-left:.3rem; }
+ul.plain { list-style:none; padding-left:0; }
+ul.plain > li { margin:.55rem 0; }
+table { border-collapse:collapse; width:100%; font-size:.92rem; }
+th, td { text-align:left; padding:.4rem .6rem; border-bottom:1px solid var(--line);
+  vertical-align:top; }
+.tablewrap { overflow-x:auto; }
+.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:.7rem; }
+.stat { font-size:1.7rem; font-weight:600; color:var(--accent); }
+.rel-line { font-size:.86rem; color:var(--muted); margin:.15rem 0 .15rem 1rem; }
+.searchbox { width:100%; padding:.5rem .8rem; border:1px solid var(--line);
+  border-radius:6px; background:var(--card); color:var(--fg); font-size:1rem; }
+.issue-card h3 { margin:.1rem 0 .5rem; }
+.issue-cols { display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin:.6rem 0; }
+@media (max-width:640px) { .issue-cols { grid-template-columns:1fr; } }
+.issue-side h4 { margin:0 0 .4rem; font-size:.85rem; text-transform:uppercase;
+  letter-spacing:.03em; color:var(--muted); }
+.issue-side li { margin:.6rem 0; }
+.supported-by { margin:.15rem 0 .15rem 1rem; }
+.issue-edges { margin-top:.6rem; font-size:.9rem; }
+.verdict-box { margin-top:.7rem; padding:.6rem .8rem; border-radius:6px; font-size:.92rem; }
+.verdict-box.verdict-set { background:var(--card); border-left:3px solid var(--ok); }
+.verdict-box.verdict-empty { background:var(--card); border-left:3px solid var(--line);
+  color:var(--muted); }
+.verdict-box code { font-size:.85em; }
+.issue-key { margin-top:.4rem; }
+nav.top { align-items:center; }
+.navsearch { margin-left:auto; position:relative; flex:0 1 240px; min-width:150px; }
+.navsearch input { width:100%; padding:.3rem .7rem; border:1px solid var(--line);
+  border-radius:6px; background:var(--card); color:var(--fg); font:inherit; font-size:.88rem; }
+.navsearch input:focus { outline:1px solid var(--accent); }
+.sdrop { position:absolute; right:0; top:calc(100% + 6px); width:min(460px,92vw);
+  max-height:70vh; overflow-y:auto; background:var(--bg); border:1px solid var(--line);
+  border-radius:8px; box-shadow:0 8px 28px rgba(0,0,0,.18); z-index:60; }
+.sres { display:block; padding:.5rem .7rem; border-bottom:1px solid var(--line);
+  text-decoration:none; color:var(--fg); font-size:.88rem; }
+.sres:last-child { border-bottom:none; }
+.sres.active, .sres:hover { background:var(--card); }
+.sres .sline { display:flex; align-items:baseline; gap:.4rem; min-width:0; }
+.sres .st { flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.sres .sdoc { display:block; font-size:.78rem; overflow:hidden; text-overflow:ellipsis;
+  white-space:nowrap; }
+.sres.sall { color:var(--accent); text-align:center; }
+.badge.t-document { background:var(--accent); color:var(--bg); }
+.badge.t-claim { background:var(--ok); color:var(--bg); }
+.badge.t-gap { background:var(--warn); color:var(--bg); }
+.badge.t-term { background:var(--accent2); color:var(--bg); }
+.badge.t-concept { background:var(--chip); color:var(--fg); }
+.scard .sx { font-size:.9rem; margin:.3rem 0; }
+.sx mark { background:transparent; color:var(--accent); font-weight:600; }
+.sfilters button, #smore { font:inherit; font-size:.85rem; padding:.25rem .8rem;
+  border-radius:999px; border:1px solid var(--line); background:var(--card);
+  color:var(--fg); cursor:pointer; }
+.sfilters button.active { border-color:var(--accent); color:var(--accent); }
+li:target { box-shadow:inset 3px 0 0 var(--accent); background:var(--card);
+  padding:.4rem .6rem; margin-left:-.6rem; border-radius:0 6px 6px 0; }
+a.alink { color:inherit; text-decoration:underline;
+  text-decoration-color:var(--line); text-underline-offset:2px; }
+a.alink:hover { color:var(--accent); text-decoration-color:var(--accent); }
+</style></head><body><nav class='top'><a href="../index.html">Overview</a><a href="../graph.html">Graph</a><a href="../concepts.html" class=here>Concepts</a><a href="../tensions.html">Tensions</a><a href="../issues.html">Issues</a><a href="../claims.html">Claims</a><a href="../threads.html">Threads</a><a href="../gaps.html">Gaps</a><a href="../timeline.html">Timeline</a><div class='navsearch'><input id='navq' type='search' placeholder='Search&hellip;  /  &#8984;K' autocomplete='off' spellcheck='false'><div id='navdrop' class='sdrop' hidden></div></div></nav><main><h1>Ethical Persuasion vs. Manipulation</h1><p>The distinction between legitimate persuasion — engaging another person as a reasoning partner through honest reasons, respect, and compassion — and manipulation, which manages a target&#x27;s psychology rather than their reasoning; the same technique can fall on either side depending on intent, context, and relational stance.</p><p class='muted'>Also known as: persuasion ethics, ethical persuasion, manipulation (interpersonal), reasoning partner, psychological systems to be managed, foot-in-the-door technique, gradual buy-in, ethical amplifier</p><h2>How authors use it</h2><p class='muted'>Oldest first (extraction date when no publication date is known).</p><div class='tablewrap'><table><tr><th>Author</th><th>Their term</th><th>Their meaning</th></tr><tr><td><a href="../docs/extract-hbr-persuasion-manipulation-marshall.html">When Persuasion Is (and Isn&#x27;t) Manipulation</a><br><span class='muted'><a class="alink" href="../search.html?q=Eben+Harrell+%28interviewing+Colin+Marshall%29">Eben Harrell (interviewing Colin Marshall)</a> · 2026-09-14</span></td><td><a href='../docs/extract-hbr-persuasion-manipulation-marshall.html#term-reasoning-partner'><b>Reasoning partner</b></a></td><td>The status Marshall says ethical persuasion must accord the other person: someone who can &#x27;reason, feel, resist, misunderstand, and still deserve to be engaged honestly&#x27; — the structural opposite of a &#x27;psychological system to be managed.&#x27;</td></tr><tr><td><a href="../docs/extract-hbr-persuasion-manipulation-marshall.html">When Persuasion Is (and Isn&#x27;t) Manipulation</a><br><span class='muted'><a class="alink" href="../search.html?q=Eben+Harrell+%28interviewing+Colin+Marshall%29">Eben Harrell (interviewing Colin Marshall)</a> · 2026-09-14</span></td><td><a href='../docs/extract-hbr-persuasion-manipulation-marshall.html#term-ethical-amplifier'><b>Ethical amplifier</b></a></td><td>Marshall&#x27;s claim about AI specifically: it does not introduce a new category of ethical risk to persuasion, but scales whatever the human user&#x27;s underlying honesty and intent already are — &#x27;it can make bad things worse, and it can make some good things better.&#x27;</td></tr></table></div><h2>Documents (1)</h2><ul class='plain'><li><a href="../docs/extract-hbr-persuasion-manipulation-marshall.html">When Persuasion Is (and Isn&#x27;t) Manipulation</a> <span class='muted'><a class="alink" href="../search.html?q=Eben+Harrell+%28interviewing+Colin+Marshall%29">Eben Harrell (interviewing Colin Marshall)</a> · 2026-09-14</span> <a href="https://hbr.org/2026/09/when-persuasion-is-and-isnt-manipulation" title="Original source" target="_blank" rel="noopener">source&nbsp;↗</a> <a href="https://read.readwise.io/read/01m2g41w9xpnm8aj2zrt6nfw95">Reader</a> <a href="wiseread://read/01m2g41w9xpnm8aj2zrt6nfw95" title="Open in Reader app">🖥️</a><br><span class='muted'>Persuasion is ethical, not inherently manipulative, when it treats the other person as a reasoning partner — engaged through honest reasons, respect, and compassion under conditions of real attention and trust — rather than as a psychological system to be managed, and this same criterion, not any particular technique or tool (including AI), is what determines whether an act of influence helps or harms.</span></li></ul><h2>Propositions touching this concept (6)</h2><p class='muted'>By publication month, oldest first (extraction month when no publication date is known).</p><h3>2026-09</h3><ul class='plain'><li><span class='badge explicit'>explicit</span><span class='badge contested' title='epistemic status: contested'>contested</span>Manipulation consists in treating other people as psychological systems to be managed — through flattery, social pressure, selective storytelling, emotional triggers, or &#x27;bullshit&#x27; — rather than as reasoning partners.<div class='rel-line'><a href="../docs/extract-hbr-persuasion-manipulation-marshall.html#p2">When Persuasion Is (and Isn&#x27;t) Manipulation · p2</a></div></li><li><span class='badge explicit'>explicit</span>Ethical persuasion requires a setting with enough attention and trust — a private conversation rather than a heated public meeting — and requires the persuader to be perceived by the other person as warm and competent.<div class='rel-line'><a href="../docs/extract-hbr-persuasion-manipulation-marshall.html#p4">When Persuasion Is (and Isn&#x27;t) Manipulation · p4</a></div></li><li><span class='badge explicit'>explicit</span>AI functions as an &#x27;ethical amplifier&#x27;: it can make good-faith persuasive communication more compassionate and effective, and can make dishonest or hollow persuasion worse and more scalable — without introducing a wholly new ethical category of its own.<div class='rel-line'><a href="../docs/extract-hbr-persuasion-manipulation-marshall.html#p10">When Persuasion Is (and Isn&#x27;t) Manipulation · p10</a></div></li><li><span class='badge explicit'>explicit</span>Using AI to generate an argument for a conclusion you already wanted (&#x27;a hunch&#x27;), without having reasoned your own way to it, forfeits the honest self-presentation that ethical persuasion requires — even though the resulting text may look identical to sincerely reasoned prose.<div class='rel-line'><a href="../docs/extract-hbr-persuasion-manipulation-marshall.html#p11">When Persuasion Is (and Isn&#x27;t) Manipulation · p11</a></div></li><li><span class='badge explicit'>explicit</span>Belief change on matters that matter is almost never produced by a single message or speech; it accumulates through a series of interactions, so ethical persuasion is often better pursued as a distributed, team effort than as a solo act.<div class='rel-line'><a href="../docs/extract-hbr-persuasion-manipulation-marshall.html#p13">When Persuasion Is (and Isn&#x27;t) Manipulation · p13</a></div></li><li><span class='badge implicit'>implicit</span>Treating someone as a reasoning partner obligates the persuader to remain genuinely open to being persuaded themselves, not only to persuading — the stance is reciprocal even though the immediate goal is asymmetric.<div class='rel-line'><a href="../docs/extract-hbr-persuasion-manipulation-marshall.html#p14">When Persuasion Is (and Isn&#x27;t) Manipulation · p14</a></div></li></ul><h2>Open gaps (4)</h2><ul class='plain'><li><span class='badge gap'>incomplete</span>The respect-and-compassion checklist (sincerity, openness to being persuaded, giving the other person room to live their life, preserving self-respect, attending to both parties&#x27; emotional limits) has no arbitration procedure for when the criteria conflict with each other — e.g., preserving your own self-respect versus giving the other person room to live their life, or the time pressure of leadership versus the slow-relationship model exemplified by Davis.<div class='rel-line'><a href='../docs/extract-hbr-persuasion-manipulation-marshall.html#g1'>When Persuasion Is (and Isn&#x27;t) Manipulation</a> — read next: Applied ethics literature on conflicting prima facie duties (W.D. Ross) or practical-wisdom/phronesis accounts (Aristotle, via virtue ethics) for how competing duty-like criteria get weighed case by case.</div></li><li><span class='badge gap'>incomplete</span>The test Marshall offers for whether AI-assisted persuasion is ethical — whether the human had already reasoned their way to the conclusion before invoking AI, versus backfilling a &#x27;hunch&#x27; — is purely introspective and unobservable from outside. Two textually identical AI-assisted messages could be ethical or manipulative depending entirely on a private fact about the author&#x27;s process, leaving no way for a target, colleague, or organizational AI-use policy to verify which case applies.<div class='rel-line'><a href='../docs/extract-hbr-persuasion-manipulation-marshall.html#g2'>When Persuasion Is (and Isn&#x27;t) Manipulation</a> — read next: AI governance / content-provenance literature (disclosure requirements, process audits rather than output audits) for mechanisms that try to verify process rather than product.</div></li><li><span class='badge gap'>incomplete</span>Marshall&#x27;s own book teaches readers to recognize named manipulation tactics (flattery, social pressure, selective storytelling, emotional triggers, foot-in-the-door) &#x27;in context,&#x27; but doesn&#x27;t address the risk that this same knowledge makes a reader more effective at deploying those tactics if they choose to disregard the ethical criteria — the book implicitly assumes its readers are already disposed toward ethical use rather than defending against readers who aren&#x27;t.<div class='rel-line'><a href='../docs/extract-hbr-persuasion-manipulation-marshall.html#g3'>When Persuasion Is (and Isn&#x27;t) Manipulation</a> — read next: extract-barker-good-life-ancient-wisdom#g2 raises the identical dual-use tension about manipulation-knowledge more sharply (the oncologist/poison analogy); read Cialdini&#x27;s own later reflections on responsible teaching of influence principles, and offensive-security-education literature on teaching attack skills responsibly.</div></li><li><span class='badge gap'>perspective</span>The entire framework is built from the persuader&#x27;s-eye view of their own intent and process. It offers no epistemics for the person being persuaded — no way for a target to reliably distinguish, in the moment, a genuine reasoning-partner approach from a well-executed manipulation that merely performs warmth, competence, and sincerity.<div class='rel-line'><a href='../docs/extract-hbr-persuasion-manipulation-marshall.html#g4'>When Persuasion Is (and Isn&#x27;t) Manipulation</a> — read next: Literature on manipulation detection and epistemic vigilance (e.g. Sperber et al. on epistemic vigilance) from the target&#x27;s side, rather than the persuader&#x27;s.</div></li></ul></main><script src='../assets/search.js' defer></script></body></html>
