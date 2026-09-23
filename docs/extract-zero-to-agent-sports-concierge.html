@@ -1,0 +1,104 @@
+<!doctype html><html><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>Zero to Agent in 30 Minutes: Build a Sports Concierge Agent with Chester Ismay</title><style>
+:root { --bg:#ffffff; --fg:#1a1a1a; --muted:#6b6b6b; --line:#e3e3e0;
+  --card:#f7f7f5; --accent:#4a6fa5; --accent2:#8a6fae; --warn:#b3593a;
+  --ok:#4a7a55; --chip:#eceff4; }
+@media (prefers-color-scheme: dark) {
+  :root { --bg:#191917; --fg:#e8e6e3; --muted:#9a9892; --line:#33322f;
+    --card:#22211f; --accent:#8fb0dd; --accent2:#b6a2d8; --warn:#d98a68;
+    --ok:#84b591; --chip:#2c2b28; }
+}
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:var(--fg);
+  font:16px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+main { max-width:960px; margin:0 auto; padding:1.5rem 1.25rem 4rem; }
+nav.top { display:flex; flex-wrap:wrap; gap:.35rem 1.1rem; padding:.8rem 1.25rem;
+  border-bottom:1px solid var(--line); font-size:.92rem; }
+nav.top a { color:var(--muted); text-decoration:none; }
+nav.top a:hover, nav.top a.here { color:var(--accent); }
+h1 { font-size:1.55rem; line-height:1.25; margin:.8rem 0 .3rem; }
+h2 { font-size:1.15rem; margin:2rem 0 .6rem; border-bottom:1px solid var(--line);
+  padding-bottom:.3rem; }
+h3 { font-size:1rem; margin:1.2rem 0 .4rem; }
+a { color:var(--accent); }
+.muted { color:var(--muted); font-size:.9rem; }
+.unity { border-left:3px solid var(--accent); background:var(--card);
+  padding:.7rem 1rem; margin:1rem 0; font-style:italic; }
+.chips { display:flex; flex-wrap:wrap; gap:.35rem; margin:.5rem 0; }
+.chip { background:var(--chip); border-radius:999px; padding:.1rem .7rem;
+  font-size:.82rem; text-decoration:none; color:var(--fg); }
+.chip:hover { outline:1px solid var(--accent); }
+.chip.count { color:var(--muted); }
+.card { background:var(--card); border:1px solid var(--line); border-radius:8px;
+  padding: .8rem 1rem; margin:.6rem 0; }
+.badge { font-size:.72rem; border-radius:4px; padding:.05rem .4rem;
+  vertical-align:middle; margin-right:.4rem; white-space:nowrap; }
+.badge.explicit { background:var(--ok); color:var(--bg); }
+.badge.implicit { background:var(--accent2); color:var(--bg); }
+.badge.gap { background:var(--warn); color:var(--bg); }
+.badge.closed { background:var(--ok); color:var(--bg); }
+.badge.rel { background:var(--accent); color:var(--bg); }
+.badge.contested { background:var(--warn); color:var(--bg); }
+.badge.established, .badge.corroborated { background:var(--ok); color:var(--bg); }
+.badge.developed { background:var(--accent2); color:var(--bg); }
+.tag.conf { font-size:.72rem; color:var(--muted); border:1px solid var(--line);
+  border-radius:4px; padding:.05rem .4rem; margin-left:.3rem; }
+ul.plain { list-style:none; padding-left:0; }
+ul.plain > li { margin:.55rem 0; }
+table { border-collapse:collapse; width:100%; font-size:.92rem; }
+th, td { text-align:left; padding:.4rem .6rem; border-bottom:1px solid var(--line);
+  vertical-align:top; }
+.tablewrap { overflow-x:auto; }
+.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:.7rem; }
+.stat { font-size:1.7rem; font-weight:600; color:var(--accent); }
+.rel-line { font-size:.86rem; color:var(--muted); margin:.15rem 0 .15rem 1rem; }
+.searchbox { width:100%; padding:.5rem .8rem; border:1px solid var(--line);
+  border-radius:6px; background:var(--card); color:var(--fg); font-size:1rem; }
+.issue-card h3 { margin:.1rem 0 .5rem; }
+.issue-cols { display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin:.6rem 0; }
+@media (max-width:640px) { .issue-cols { grid-template-columns:1fr; } }
+.issue-side h4 { margin:0 0 .4rem; font-size:.85rem; text-transform:uppercase;
+  letter-spacing:.03em; color:var(--muted); }
+.issue-side li { margin:.6rem 0; }
+.supported-by { margin:.15rem 0 .15rem 1rem; }
+.issue-edges { margin-top:.6rem; font-size:.9rem; }
+.verdict-box { margin-top:.7rem; padding:.6rem .8rem; border-radius:6px; font-size:.92rem; }
+.verdict-box.verdict-set { background:var(--card); border-left:3px solid var(--ok); }
+.verdict-box.verdict-empty { background:var(--card); border-left:3px solid var(--line);
+  color:var(--muted); }
+.verdict-box code { font-size:.85em; }
+.issue-key { margin-top:.4rem; }
+nav.top { align-items:center; }
+.navsearch { margin-left:auto; position:relative; flex:0 1 240px; min-width:150px; }
+.navsearch input { width:100%; padding:.3rem .7rem; border:1px solid var(--line);
+  border-radius:6px; background:var(--card); color:var(--fg); font:inherit; font-size:.88rem; }
+.navsearch input:focus { outline:1px solid var(--accent); }
+.sdrop { position:absolute; right:0; top:calc(100% + 6px); width:min(460px,92vw);
+  max-height:70vh; overflow-y:auto; background:var(--bg); border:1px solid var(--line);
+  border-radius:8px; box-shadow:0 8px 28px rgba(0,0,0,.18); z-index:60; }
+.sres { display:block; padding:.5rem .7rem; border-bottom:1px solid var(--line);
+  text-decoration:none; color:var(--fg); font-size:.88rem; }
+.sres:last-child { border-bottom:none; }
+.sres.active, .sres:hover { background:var(--card); }
+.sres .sline { display:flex; align-items:baseline; gap:.4rem; min-width:0; }
+.sres .st { flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.sres .sdoc { display:block; font-size:.78rem; overflow:hidden; text-overflow:ellipsis;
+  white-space:nowrap; }
+.sres.sall { color:var(--accent); text-align:center; }
+.badge.t-document { background:var(--accent); color:var(--bg); }
+.badge.t-claim { background:var(--ok); color:var(--bg); }
+.badge.t-gap { background:var(--warn); color:var(--bg); }
+.badge.t-term { background:var(--accent2); color:var(--bg); }
+.badge.t-concept { background:var(--chip); color:var(--fg); }
+.scard .sx { font-size:.9rem; margin:.3rem 0; }
+.sx mark { background:transparent; color:var(--accent); font-weight:600; }
+.sfilters button, #smore { font:inherit; font-size:.85rem; padding:.25rem .8rem;
+  border-radius:999px; border:1px solid var(--line); background:var(--card);
+  color:var(--fg); cursor:pointer; }
+.sfilters button.active { border-color:var(--accent); color:var(--accent); }
+li:target { box-shadow:inset 3px 0 0 var(--accent); background:var(--card);
+  padding:.4rem .6rem; margin-left:-.6rem; border-radius:0 6px 6px 0; }
+a.alink { color:inherit; text-decoration:underline;
+  text-decoration-color:var(--line); text-underline-offset:2px; }
+a.alink:hover { color:var(--accent); text-decoration-color:var(--accent); }
+</style></head><body><nav class='top'><a href="../index.html">Overview</a><a href="../graph.html">Graph</a><a href="../concepts.html">Concepts</a><a href="../tensions.html">Tensions</a><a href="../issues.html">Issues</a><a href="../claims.html">Claims</a><a href="../threads.html">Threads</a><a href="../gaps.html">Gaps</a><a href="../timeline.html">Timeline</a><div class='navsearch'><input id='navq' type='search' placeholder='Search&hellip;  /  &#8984;K' autocomplete='off' spellcheck='false'><div id='navdrop' class='sdrop' hidden></div></div></nav><main><h1>Zero to Agent in 30 Minutes: Build a Sports Concierge Agent with Chester Ismay</h1><p class='muted'><a class="alink" href="../search.html?q=Michelle+Smith">Michelle Smith</a> · rss · 2026-09-21 <a href="https://read.readwise.io/read/01m32ht51jx1vqqgeq2affqc3b">Reader</a> <a href="wiseread://read/01m32ht51jx1vqqgeq2affqc3b" title="Open in Reader app">🖥️</a></p><div class='chips'><a class="chip" href="../concepts/agent-harness.html">Agent Harness</a><a class="chip" href="../concepts/agent-security.html">Agent Security</a><a class="chip" href="../concepts/claude-md.html">Agent Context Files (CLAUDE.md / AGENTS.md)</a><a class="chip" href="../concepts/long-running-agents.html">Long-Running &amp; Managed Agents</a></div><div class='unity'>A minimal-infrastructure pattern — a single markdown policy file plus pre-fetched data, scoped tool permissions, and ordinary OS scheduling — is enough to turn a recurring personal decision into a reliable, unattended weekly agent, without needing dedicated agent-orchestration infrastructure.</div><p class='muted'>practical · expository — A build-log recap of a video walkthrough: a numbered how-to for assembling a narrow personal agent, framed by a problem statement (deciding what to watch, not finding schedule data) and closed with an iteration note and series teaser.</p><h2>Structure</h2><div class='tablewrap'><table><tr><th>Part</th><th>Role</th></tr><tr><td>Problem framing: Chester already had schedule viewers for the sports he follows, but still had to manually decide which games were worth his attention each week.</td><td>context</td></tr><tr><td>Five-step build walkthrough: preferences file, a script that pre-fetches and combines schedule + preference data, CONCIERGE.md as the policy defining the agent&#x27;s job, execution under limited permissions, and OS-level scheduling plus notification delivery.</td><td>evidence / main content</td></tr><tr><td>Iteration note: when output misses the mark, Chester edits CONCIERGE.md rather than the code; a timezone bug was fixed the same way, by adding explicit instructions to the policy.</td><td>evidence for the policy-file-as-primary-control-surface claim</td></tr><tr><td>Series teaser for next week&#x27;s episode (an agent given its own cloud computer via E2B/Scrapybara).</td><td>context, not argument</td></tr></table></div><h2>Key terms</h2><ul class='plain'><li id='term-sports-concierge-agent'><a class="alink" href="../search.html?q=sports+concierge+agent"><b>sports concierge agent</b></a><br><span class='muted'>A narrow, single-purpose, scheduled agent that filters a personal data feed (sports schedules) against stated preferences and delivers a curated weekly recommendation.</span></li><li id='term-concierge-md-policy'><a class="alink" href="../search.html?q=CONCIERGE.md+%2F+policy"><b>CONCIERGE.md / policy</b></a><br><span class='muted'>A single markdown file that defines the agent&#x27;s job: goal, data sources, decision rules (including edge cases like finished tournaments and duplicate matchups), and expected output/delivery format. Used loosely — not a formal access-control policy, but a natural-language behavior specification.</span></li></ul><h2>Propositions</h2><ul class='plain'><li id='p1'><span class='badge implicit'>implicit</span>A structured, context-rich preferences file (with a purpose-built editing interface) produces better agent decisions than working directly with the underlying raw JSON.<span class='tag conf' title='author-stated confidence'>conf: medium</span></li><li id='p2'><span class='badge explicit'>explicit</span>Pre-fetching and combining schedule and preference data into one tool call, rather than letting the agent search for each game itself, reduces the work and error surface of the agent&#x27;s task.<span class='tag conf' title='author-stated confidence'>conf: high</span></li><li id='p3'><span class='badge explicit'>explicit</span>When an agent&#x27;s output misses the mark, the correct fix is to add detail to or adjust the natural-language policy file, not to change the underlying code or model.<span class='tag conf' title='author-stated confidence'>conf: high</span><div class='rel-line'><span class='badge rel'>supports</span><a href="../docs/extract-jobrunr-clawrunr-java-ai-agent.html#p4">JobRunr Introduces ClawRunr, an Open-Source Java AI Agent · p4</a> — Both pieces treat a workspace markdown file (AGENT.md/INFO.md there, CONCIERGE.md here) as the actual configurable control surface for agent behavior — this is a second, independent case of the same pattern.</div></li><li id='p4'><span class='badge explicit'>explicit</span>Restricting an agent&#x27;s permissions to only the files and tools a task requires is presented as a routine, low-effort safety step for a personal automation agent, not a specialized security exercise.<span class='tag conf' title='author-stated confidence'>conf: high</span><div class='rel-line'><span class='badge rel'>supports</span><a href="../docs/extract-anatomy-of-an-agent-harness.html#p8">The Anatomy of an Agent Harness · p8</a> — Chester&#x27;s permission-scoping is a lightweight, concrete instance of the architectural principle that permission/safety enforcement should sit outside the model&#x27;s own reasoning.</div></li><li id='p5'><span class='badge implicit'>implicit</span>Ordinary OS-level tools (a Mac scheduler and a simple push-notification service) are sufficient for reliably running and delivering a personal agent&#x27;s output on a recurring schedule — no dedicated agent-orchestration platform is needed.<span class='tag conf' title='author-stated confidence'>conf: medium</span></li><li id='p6'><span class='badge explicit'>explicit</span>Correctness bugs in a narrow personal agent (e.g. a timezone default causing games to land on the wrong day) surface only through real use, not upfront design, and get patched by adding explicit instructions after the fact.<span class='tag conf' title='author-stated confidence'>conf: high</span></li></ul><h2>Arguments</h2><div class='card'><b>The policy file (CONCIERGE.md) is the most leveraged place to iterate when a personal agent&#x27;s behavior needs correcting.</b> <span class='tag conf' title='argument strength (author-stated): moderate — consistent with the piece&#x27;s own examples, but based on a single builder&#x27;s single project, not a tested or generalized claim'>strength: medium</span><div class='muted'>Explicit premises:</div><ul><li>Chester&#x27;s stated troubleshooting method, both generally and for the specific timezone bug, was to return to CONCIERGE.md and add or adjust instructions.</li></ul><div class='muted'>Implicit premises:</div><ul><li>The agent&#x27;s decision logic is fully governed by what&#x27;s written in the policy file rather than by hidden code paths outside it.</li><li>The model reliably changes its behavior in the intended direction in response to more specific natural-language instructions.</li></ul><div class='muted'>Inferences:</div><ul><li>This implies the policy file functions as the agent&#x27;s real &#x27;source code&#x27; for behavior — debugging the agent means editing prose, not code.</li></ul></div><h2>Narratives</h2><ul class='plain'><li>A timezone bug: because the system defaulted to UTC, games could appear on the wrong day; Chester fixed it not by changing code but by adding explicit timezone instructions to CONCIERGE.md.<br><span class='muted'>→ Shows concretely that even a narrow, well-scoped personal agent produces the classic class of silent default-assumption bugs — and that the piece&#x27;s fix-the-policy-not-the-code proposition (p3) is more than a stated principle; it&#x27;s what actually happened when something broke.</span></li></ul><h2>Questions addressed</h2><ul class='plain'><li>✅ How do you keep a personal agent from doing more than its assigned job?<br><span class=muted>By scoping tool/file permissions narrowly to what the task requires, and by defining the agent&#x27;s goal, data sources, and decision rules in one policy file.</span></li><li>✅ How do you build a small, recurring personal AI agent without standing up dedicated agent infrastructure?<br><span class=muted>Compose it from a policy file, a data-fetching script, Claude Code as the execution engine, OS-level scheduling (launchd), and a lightweight notification tool (ntfy).</span></li><li>⭕ How much ongoing manual review does a policy-file-governed personal agent actually need before its output can be trusted unattended?</li></ul><h2>Gaps</h2><ul class='plain'><li id='g1'><span class='badge gap'>incomplete</span>The piece asserts errors get &#x27;caught&#x27; by tests and multiple data sources and that Chester &#x27;checks the recommendations against the underlying schedules,&#x27; but never specifies how much manual review still happens each week versus fully trusting automated output — leaving open how much human-in-the-loop checking this kind of low-stakes, high-frequency personal agent actually needs at steady state.<br><span class='muted'>Read next: Look for content that measures or reports actual error/false-positive rates of policy-file-governed personal agents over time, or a human-in-the-loop framework calibrated to low-stakes, high-frequency automation specifically.</span></li><li id='g2'><span class='badge gap'>incomplete</span>No discussion of what happens to CONCIERGE.md as more edge cases (finished tournaments, duplicate matchups, timezone handling, and whatever comes next) get patched into it — whether a purpose-built agent policy file degrades the way large CLAUDE.md/context files are reported to elsewhere in this corpus as more rules accumulate.<br><span class='muted'>Read next: Compare against material specifically on CLAUDE.md/AGENTS.md bloat and context degradation from iterative rule-patching.</span></li><li id='g3'><span class='badge gap'>uninformed</span>&#x27;Limited tool permissions&#x27; is described only qualitatively (&quot;configured permissions so the agent worked only with the files and tools required&quot;) with no detail on the actual enforcement mechanism (OS sandbox, Claude Code&#x27;s permission-prompt system, filesystem scoping) or how it was verified — thinner than more rigorous treatments elsewhere in the corpus of what enforcing agent permissions architecturally actually means.<br><span class='muted'>Read next: See the corpus&#x27;s own treatments of permission-enforcement mechanisms for concrete comparison.</span></li></ul><h2>Related documents</h2><ul class='plain'><li><a href="../docs/extract-anatomy-of-an-agent-harness.html">The Anatomy of an Agent Harness</a><div class='chips'></div></li><li><a href="../docs/extract-genkit-agents-api.html">Google&#x27;s Genkit Ships Agents API with Detached Turns and Human-in-the-Loop for TypeScript and Go</a><div class='chips'><a class="chip" href="../concepts/agent-harness.html">Agent Harness</a> <a class="chip" href="../concepts/agent-security.html">Agent Security</a> <a class="chip" href="../concepts/long-running-agents.html">Long-Running &amp; Managed Agents</a></div></li><li><a href="../docs/extract-agent-harness-engineering.html">Agent Harness Engineering</a><div class='chips'><a class="chip" href="../concepts/agent-harness.html">Agent Harness</a> <a class="chip" href="../concepts/claude-md.html">Agent Context Files (CLAUDE.md / AGENTS.md)</a></div></li><li><a href="../docs/extract-alex-wang-claude-code-habits.html">Alex Wang&#x27;s Post</a><div class='chips'><a class="chip" href="../concepts/agent-harness.html">Agent Harness</a> <a class="chip" href="../concepts/claude-md.html">Agent Context Files (CLAUDE.md / AGENTS.md)</a></div></li><li><a href="../docs/extract-anatomy-of-perfect-openclaw-setup.html">Anatomy of a perfect Openclaw setup</a><div class='chips'><a class="chip" href="../concepts/claude-md.html">Agent Context Files (CLAUDE.md / AGENTS.md)</a> <a class="chip" href="../concepts/long-running-agents.html">Long-Running &amp; Managed Agents</a></div></li><li><a href="../docs/extract-anthropic-developer-newsletter-2026-05.html">Developer Newsletter: higher usage limits, dreaming for Claude Managed Agents, and Claude Security</a><div class='chips'><a class="chip" href="../concepts/agent-harness.html">Agent Harness</a> <a class="chip" href="../concepts/long-running-agents.html">Long-Running &amp; Managed Agents</a></div></li><li><a href="../docs/extract-anthropic-harness-design-long-running-application-development.html">Harness design for long-running application development</a><div class='chips'><a class="chip" href="../concepts/agent-harness.html">Agent Harness</a> <a class="chip" href="../concepts/long-running-agents.html">Long-Running &amp; Managed Agents</a></div></li><li><a href="../docs/extract-anthropics-three-agent-harness.html">Anthropic&#x27;s Designs Three-Agent Harness Supports Long-Running Full-Stack AI Development</a><div class='chips'><a class="chip" href="../concepts/agent-harness.html">Agent Harness</a> <a class="chip" href="../concepts/long-running-agents.html">Long-Running &amp; Managed Agents</a></div></li><li><a href="../docs/extract-audit-your-agent-files.html">Audit your Agent files</a><div class='chips'><a class="chip" href="../concepts/agent-harness.html">Agent Harness</a> <a class="chip" href="../concepts/claude-md.html">Agent Context Files (CLAUDE.md / AGENTS.md)</a></div></li><li><a href="../docs/extract-claude-code-best-practices.html">Claude Code: Best practices for agentic coding</a><div class='chips'><a class="chip" href="../concepts/agent-harness.html">Agent Harness</a> <a class="chip" href="../concepts/claude-md.html">Agent Context Files (CLAUDE.md / AGENTS.md)</a></div></li></ul></main><script src='../assets/search.js' defer></script></body></html>

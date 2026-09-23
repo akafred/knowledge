@@ -1,0 +1,104 @@
+<!doctype html><html><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>Agent Harness Control Plane</title><style>
+:root { --bg:#ffffff; --fg:#1a1a1a; --muted:#6b6b6b; --line:#e3e3e0;
+  --card:#f7f7f5; --accent:#4a6fa5; --accent2:#8a6fae; --warn:#b3593a;
+  --ok:#4a7a55; --chip:#eceff4; }
+@media (prefers-color-scheme: dark) {
+  :root { --bg:#191917; --fg:#e8e6e3; --muted:#9a9892; --line:#33322f;
+    --card:#22211f; --accent:#8fb0dd; --accent2:#b6a2d8; --warn:#d98a68;
+    --ok:#84b591; --chip:#2c2b28; }
+}
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:var(--fg);
+  font:16px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+main { max-width:960px; margin:0 auto; padding:1.5rem 1.25rem 4rem; }
+nav.top { display:flex; flex-wrap:wrap; gap:.35rem 1.1rem; padding:.8rem 1.25rem;
+  border-bottom:1px solid var(--line); font-size:.92rem; }
+nav.top a { color:var(--muted); text-decoration:none; }
+nav.top a:hover, nav.top a.here { color:var(--accent); }
+h1 { font-size:1.55rem; line-height:1.25; margin:.8rem 0 .3rem; }
+h2 { font-size:1.15rem; margin:2rem 0 .6rem; border-bottom:1px solid var(--line);
+  padding-bottom:.3rem; }
+h3 { font-size:1rem; margin:1.2rem 0 .4rem; }
+a { color:var(--accent); }
+.muted { color:var(--muted); font-size:.9rem; }
+.unity { border-left:3px solid var(--accent); background:var(--card);
+  padding:.7rem 1rem; margin:1rem 0; font-style:italic; }
+.chips { display:flex; flex-wrap:wrap; gap:.35rem; margin:.5rem 0; }
+.chip { background:var(--chip); border-radius:999px; padding:.1rem .7rem;
+  font-size:.82rem; text-decoration:none; color:var(--fg); }
+.chip:hover { outline:1px solid var(--accent); }
+.chip.count { color:var(--muted); }
+.card { background:var(--card); border:1px solid var(--line); border-radius:8px;
+  padding: .8rem 1rem; margin:.6rem 0; }
+.badge { font-size:.72rem; border-radius:4px; padding:.05rem .4rem;
+  vertical-align:middle; margin-right:.4rem; white-space:nowrap; }
+.badge.explicit { background:var(--ok); color:var(--bg); }
+.badge.implicit { background:var(--accent2); color:var(--bg); }
+.badge.gap { background:var(--warn); color:var(--bg); }
+.badge.closed { background:var(--ok); color:var(--bg); }
+.badge.rel { background:var(--accent); color:var(--bg); }
+.badge.contested { background:var(--warn); color:var(--bg); }
+.badge.established, .badge.corroborated { background:var(--ok); color:var(--bg); }
+.badge.developed { background:var(--accent2); color:var(--bg); }
+.tag.conf { font-size:.72rem; color:var(--muted); border:1px solid var(--line);
+  border-radius:4px; padding:.05rem .4rem; margin-left:.3rem; }
+ul.plain { list-style:none; padding-left:0; }
+ul.plain > li { margin:.55rem 0; }
+table { border-collapse:collapse; width:100%; font-size:.92rem; }
+th, td { text-align:left; padding:.4rem .6rem; border-bottom:1px solid var(--line);
+  vertical-align:top; }
+.tablewrap { overflow-x:auto; }
+.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:.7rem; }
+.stat { font-size:1.7rem; font-weight:600; color:var(--accent); }
+.rel-line { font-size:.86rem; color:var(--muted); margin:.15rem 0 .15rem 1rem; }
+.searchbox { width:100%; padding:.5rem .8rem; border:1px solid var(--line);
+  border-radius:6px; background:var(--card); color:var(--fg); font-size:1rem; }
+.issue-card h3 { margin:.1rem 0 .5rem; }
+.issue-cols { display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin:.6rem 0; }
+@media (max-width:640px) { .issue-cols { grid-template-columns:1fr; } }
+.issue-side h4 { margin:0 0 .4rem; font-size:.85rem; text-transform:uppercase;
+  letter-spacing:.03em; color:var(--muted); }
+.issue-side li { margin:.6rem 0; }
+.supported-by { margin:.15rem 0 .15rem 1rem; }
+.issue-edges { margin-top:.6rem; font-size:.9rem; }
+.verdict-box { margin-top:.7rem; padding:.6rem .8rem; border-radius:6px; font-size:.92rem; }
+.verdict-box.verdict-set { background:var(--card); border-left:3px solid var(--ok); }
+.verdict-box.verdict-empty { background:var(--card); border-left:3px solid var(--line);
+  color:var(--muted); }
+.verdict-box code { font-size:.85em; }
+.issue-key { margin-top:.4rem; }
+nav.top { align-items:center; }
+.navsearch { margin-left:auto; position:relative; flex:0 1 240px; min-width:150px; }
+.navsearch input { width:100%; padding:.3rem .7rem; border:1px solid var(--line);
+  border-radius:6px; background:var(--card); color:var(--fg); font:inherit; font-size:.88rem; }
+.navsearch input:focus { outline:1px solid var(--accent); }
+.sdrop { position:absolute; right:0; top:calc(100% + 6px); width:min(460px,92vw);
+  max-height:70vh; overflow-y:auto; background:var(--bg); border:1px solid var(--line);
+  border-radius:8px; box-shadow:0 8px 28px rgba(0,0,0,.18); z-index:60; }
+.sres { display:block; padding:.5rem .7rem; border-bottom:1px solid var(--line);
+  text-decoration:none; color:var(--fg); font-size:.88rem; }
+.sres:last-child { border-bottom:none; }
+.sres.active, .sres:hover { background:var(--card); }
+.sres .sline { display:flex; align-items:baseline; gap:.4rem; min-width:0; }
+.sres .st { flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.sres .sdoc { display:block; font-size:.78rem; overflow:hidden; text-overflow:ellipsis;
+  white-space:nowrap; }
+.sres.sall { color:var(--accent); text-align:center; }
+.badge.t-document { background:var(--accent); color:var(--bg); }
+.badge.t-claim { background:var(--ok); color:var(--bg); }
+.badge.t-gap { background:var(--warn); color:var(--bg); }
+.badge.t-term { background:var(--accent2); color:var(--bg); }
+.badge.t-concept { background:var(--chip); color:var(--fg); }
+.scard .sx { font-size:.9rem; margin:.3rem 0; }
+.sx mark { background:transparent; color:var(--accent); font-weight:600; }
+.sfilters button, #smore { font:inherit; font-size:.85rem; padding:.25rem .8rem;
+  border-radius:999px; border:1px solid var(--line); background:var(--card);
+  color:var(--fg); cursor:pointer; }
+.sfilters button.active { border-color:var(--accent); color:var(--accent); }
+li:target { box-shadow:inset 3px 0 0 var(--accent); background:var(--card);
+  padding:.4rem .6rem; margin-left:-.6rem; border-radius:0 6px 6px 0; }
+a.alink { color:inherit; text-decoration:underline;
+  text-decoration-color:var(--line); text-underline-offset:2px; }
+a.alink:hover { color:var(--accent); text-decoration-color:var(--accent); }
+</style></head><body><nav class='top'><a href="../index.html">Overview</a><a href="../graph.html">Graph</a><a href="../concepts.html" class=here>Concepts</a><a href="../tensions.html">Tensions</a><a href="../issues.html">Issues</a><a href="../claims.html">Claims</a><a href="../threads.html">Threads</a><a href="../gaps.html">Gaps</a><a href="../timeline.html">Timeline</a><div class='navsearch'><input id='navq' type='search' placeholder='Search&hellip;  /  &#8984;K' autocomplete='off' spellcheck='false'><div id='navdrop' class='sdrop' hidden></div></div></nav><main><h1>Agent Harness Control Plane</h1><p>The explicit contract a production agent harness must enforce so a non-deterministic model can&#x27;t silently violate it — a single ordered commit path per mutable shared state, scoped and time-boxed approval objects rather than a vague memory of a click, bounded tool-call lifecycles, and a &quot;receipt&quot; that crosses the user-visible edge as proof of outcome, more trustworthy than a transcript or a tool&#x27;s own self-reported success — turning standard distributed-systems discipline into boundaries an agent can&#x27;t quietly cross.</p><p class='muted'>Also known as: control plane, state ownership, mutation ordering, approval boundary, receipt vs. transcript, scoped approval object, tool call lifecycle</p><p class='muted'>Part of: <a class="chip" href="../concepts/agent-harness.html">Agent Harness</a></p><h2>Documents (1)</h2><ul class='plain'><li><a href="../docs/extract-the-agent-harness-control-planes.html">Presentation: The Agent Harness: Control Planes, Invariants, and Approval Boundaries for Production AI Agents</a> <span class='muted'><a class="alink" href="../search.html?q=Vinoth+Govindarajan">Vinoth Govindarajan</a> · 2026-09-21</span> <a href="https://www.infoq.com/presentations/ai-agent-harness/?utm_campaign=infoq_content&amp;utm_source=infoq&amp;utm_medium=feed&amp;utm_term=global" title="Original source" target="_blank" rel="noopener">source&nbsp;↗</a> <a href="https://read.readwise.io/read/01m31vrzhtr7y2fyxqavh8h7rm">Reader</a> <a href="wiseread://read/01m31vrzhtr7y2fyxqavh8h7rm" title="Open in Reader app">🖥️</a><br><span class='muted'>The reliability of a production AI agent depends not on the model but on its harness — whether every fact an agent depends on has a single owner and replay path, concurrent state mutations are serialized through one ordered commit path, every unit of work has a bounded lifecycle, every approval is a scoped and expiring authority object rather than a remembered click, and every action is proven with a receipt that crosses the user-visible edge — because a model can only propose an action, and it is the harness, not the model, that commits it and proves it happened.</span></li></ul><h2>Propositions touching this concept (16)</h2><p class='muted'>By publication month, oldest first (extraction month when no publication date is known).</p><h3>2026-04</h3><ul class='plain'><li><span class='badge explicit'>explicit</span><span class='badge contested' title='epistemic status: contested, also corroborated (disputed &amp; independently supported)'>⚡ disputed &amp; corroborated</span>The gateway + registry pattern is the dominant architectural consensus for deploying MCP at enterprise scale, serving as the control plane for all agent interactions.<div class='rel-line'><a href="../docs/extract-mcp-dev-summit-gateways-grpc.html#p1">AAIF&#x27;s MCP Dev Summit: Gateways, gRPC, and Observability Signal Protocol Hardening · p1</a></div></li><li><span class='badge prescriptive claim'>prescriptive claim</span>Reliability at scale must be a function of code logic (automated state reconciliation via a control plane), not of operator response time.<div class='rel-line'><a href="../docs/extract-three-pillars-platform-engineering.html#p2">Three Pillars of Platform Engineering: A Virtuous Cycle · p2</a></div></li><li><span class='badge architectural recommendation'>architectural recommendation</span>A single-leader control plane architecture is sufficient for years or decades and simplifies global decision-making (e.g., rate limiting) by avoiding distributed coordination.<div class='rel-line'><a href="../docs/extract-three-pillars-platform-engineering.html#p9">Three Pillars of Platform Engineering: A Virtuous Cycle · p9</a></div></li></ul><h3>2026-05</h3><ul class='plain'><li><span class='badge explicit'>explicit</span><span class='badge developed' title='epistemic status: developed'>developed</span>A single control plane managing a million chips creates significant blast radius and change management risk<div class='rel-line'><a href="../docs/extract-gke-agent-sandbox-hypercluster.html#p4">Google Announces GKE Agent Sandbox and Hypercluster at Next &#x27;26 · p4</a></div></li><li><span class='badge explicit'>explicit</span>Mythos Preview was tested against more than fifty Cloudflare repositories spanning runtime, edge data path, protocol stack, control plane, and OSS dependencies.<div class='rel-line'><a href="../docs/extract-project-glasswing-mythos.html#p1">Project Glasswing: what Mythos showed us · p1</a></div></li></ul><h3>2026-07</h3><ul class='plain'><li><span class='badge implicit'>implicit</span><span class='badge corroborated' title='epistemic status: corroborated'>corroborated</span>Cost-optimization routing and compliance/sovereignty-aware routing are converging into a single infrastructure control plane rather than remaining separate concerns.<div class='rel-line'><a href="../docs/extract-ai-daily-brief-costs-surging-cheap-model-fix.html#p10">AI Costs Are Surging and the Cheap Model Fix Might Not Last · p10</a></div></li><li><span class='badge explicit'>explicit</span>Concentrating the fastest-changing AI concerns — model routing, identity/authorization, action policy, segmentation, content guarding, and audit — into a single gateway control plane lets the rest of the enterprise architecture remain stable while that layer evolves at its own pace.<div class='rel-line'><a href="../docs/extract-evolutionary-architecture-pattern-for-managing-ais-pace-of-change.html#p3">An Evolutionary Architecture Pattern for Managing AI&#x27;s Pace of Change · p3</a></div></li><li><span class='badge implicit'>implicit</span>Enterprise agent infrastructure is consolidating toward a centralized, identity-provider-anchored control plane rather than per-employee, per-server self-service.<div class='rel-line'><a href="../docs/extract-mcp-centralised-auth-enterprise.html#p8">AI Model Context Protocol Adds Centralised Auth for Enterprise · p8</a></div></li><li><span class='badge explicit'>explicit</span><span class='badge corroborated' title='epistemic status: corroborated'>corroborated</span>Cost spikes, unsafe delegation, and runaway actions are three distinct failure types that all expose the same missing layer: a control plane cannot govern a loop it cannot independently observe.<div class='rel-line'><a href="../docs/extract-the-meter-was-always-running.html#p2">The Meter Was Always Running · p2</a></div></li></ul><h3>2026-09</h3><ul class='plain'><li><span class='badge explicit'>explicit</span>The regulated-workload case for Hybrid still holds independent of the pricing and multi-session gaps: session hosts and application data stay on-premises while only the control plane runs in Azure, satisfying data-residency requirements without moving the workload.<div class='rel-line'><a href="../docs/extract-azure-virtual-desktop-hybrid-ga.html#p12">Azure Virtual Desktop Hybrid Reaches GA with Licensing Details Unpublished · p12</a></div></li><li><span class='badge explicit'>explicit</span>The Kubernetes integration works by having a custom virtual kubelet report every scaled-to-zero pod as &#x27;running&#x27; at all times, regardless of its actual suspended state, on the premise that if wake-and-reply happens within milliseconds, the control plane&#x27;s false belief is inconsequential to the end user.<div class='rel-line'><a href="../docs/extract-fixing-ai-infra-scale-problem-1m-sandboxes.html#p9">Presentation: Fixing the AI Infra Scale Problem by Stuffing 1M Sandboxes in a Single Server · p9</a></div></li><li><span class='badge explicit'>explicit</span>AX&#x27;s control plane exposes four declarative primitives — Task, Workspace, Gateway, Model — under the ax.io/v1alpha1 API group, covering execution lifecycle, pre-execution environment assembly (repos, MCP servers, skill bundles, natural-language bootstrap goals), outbound network allowlisting/credential injection, and unified LLM-provider configuration respectively.<div class='rel-line'><a href="../docs/extract-google-ax-agent-orchestrator.html#p5">Google Open-Sources AX a Kubernetes Style Orchestrator for Autonomous AI Agents · p5</a></div></li><li><span class='badge explicit'>explicit</span>Operating AX requires deploying its control plane into a Kubernetes cluster (via ko and Redis, into an ax-system namespace) and managing workloads through a dedicated Go-based `ax` CLI (apply/watch/ssh/suspend/resume) layered on top of existing kubectl/kubectx workflows.<div class='rel-line'><a href="../docs/extract-google-ax-agent-orchestrator.html#p6">Google Open-Sources AX a Kubernetes Style Orchestrator for Autonomous AI Agents · p6</a></div></li><li><span class='badge implicit'>implicit</span>By building AX&#x27;s control plane out of Kubernetes-native conventions (declarative CRDs, a v1alpha1 API group, kubectl-adjacent tooling) rather than a bespoke non-Kubernetes API, Google is betting that Kubernetes fluency is now table stakes for agent-infrastructure operators — the &#x27;Kubernetes-style&#x27; framing is as much a deliberate adoption/legitimacy strategy as a technical necessity.<div class='rel-line'><a href="../docs/extract-google-ax-agent-orchestrator.html#p12">Google Open-Sources AX a Kubernetes Style Orchestrator for Autonomous AI Agents · p12</a></div></li><li><span class='badge explicit'>explicit</span>Netflix integrated the open-source autoscaler with its own internal control plane — a Spring Boot service using Temporal workflows to isolate per-job autoscaling decisions — rather than deploying it directly through the Flink Kubernetes Operator.<div class='rel-line'><a href="../docs/extract-netflix-flink-autoscaler.html#p5">Netflix Moves Toward Open Source Flink Autoscaler for 30,000+ Streaming Jobs · p5</a></div></li><li><span class='badge explicit'>explicit</span>Operating mode should be owned by an external control plane (incident-management platforms, maintenance-window services, change-management workflows) rather than embedded in prompts, workflow definitions, or agent memory, because those systems already hold authoritative operational state.<div class='rel-line'><a href="../docs/extract-operating-mode-as-runtime-state.html#p13">Operating Mode as Runtime State: A Contract for Enterprise · p13</a></div></li></ul><h2>Open gaps (4)</h2><ul class='plain'><li><span class='badge gap'>uninformed</span>The entire conversation is framed as a US-China binary — &#x27;engineering state&#x27; vs. &#x27;lawyerly society&#x27; — with no consideration of a third model, such as European/Nordic coordinated-market economies that combine strong worker protections and rule-of-law transparency with selective industrial policy and high-quality infrastructure (e.g., Norway&#x27;s state ownership stakes, German Mittelstand manufacturing). A listener outside the US is left without guidance on which elements of the &#x27;engineering state&#x27; argument — if any — are adoptable inside a transparent, rights-based system, since Wang&#x27;s framework treats the two poles as effectively exhaustive alternatives rather than a spectrum.<div class='rel-line'><a href='../docs/extract-hbr-ideacast-chinese-companies-competitive.html#g4'>What Makes Chinese Companies So Competitive?</a> — read next: Comparative political-economy literature on coordinated market economies (Hall &amp; Soskice&#x27;s &#x27;Varieties of Capitalism&#x27;); Norwegian/Nordic industrial-policy case studies (state ownership in Equinor, Norwegian sovereign wealth fund governance) as a test of whether infrastructure/manufacturing strength requires trading away legal transparency.</div></li><li><span class='badge gap'>incomplete</span>No security analysis of the EMA/ID-JAG mechanism itself. Centralizing authorization in the identity provider concentrates risk, yet token theft, identity-provider compromise, and the blast radius of a single control plane are unexamined, especially against the corpus finding that 43% of MCP servers already have authentication flaws.<div class='rel-line'><a href='../docs/extract-mcp-centralised-auth-enterprise.html#g2'>AI Model Context Protocol Adds Centralised Auth for Enterprise</a> — read next: Threat models for OAuth identity-assertion grants and token exchange; MCP auth vulnerability reports (mcp-api-sprawl); non-human/workload identity standards such as SPIFFE.</div></li><li><span class='badge gap'>incomplete</span>The claim that OpenClaw&#x27;s contributor &#x27;Peter&#x27; submitted roughly 600 pull requests in a day because of the proof-required review culture is offered with no independent verification, no baseline for comparison, and no accounting for PR size or quality — the same self-reported-evidence problem the corpus has flagged in other vendor/practitioner production-metrics talks.<div class='rel-line'><a href='../docs/extract-the-agent-harness-control-planes.html#g2'>Presentation: The Agent Harness: Control Planes, Invariants, and Approval Boundaries for Production AI Agents</a> — read next: Read alongside extract-anthropic-details-how-it-contains-claude#g4, which raises an identical evidentiary-independence gap about self-reported production security metrics, to see whether unverified headline numbers are a systemic weakness across &#x27;here is our production agent&#x27;s numbers&#x27; talks.</div></li><li><span class='badge gap'>missing perspective</span>The economic dimension is absent: there is no discussion of the cost of building and maintaining a control plane, opinionated SDKs, and layered observability — or how to prioritize investment when resources are constrained.<div class='rel-line'><a href='../docs/extract-three-pillars-platform-engineering.html#g4'>Three Pillars of Platform Engineering: A Virtuous Cycle</a></div></li></ul></main><script src='../assets/search.js' defer></script></body></html>
