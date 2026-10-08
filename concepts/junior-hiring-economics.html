@@ -1,0 +1,104 @@
+<!doctype html><html><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>Junior Hiring Economics</title><style>
+:root { --bg:#ffffff; --fg:#1a1a1a; --muted:#6b6b6b; --line:#e3e3e0;
+  --card:#f7f7f5; --accent:#4a6fa5; --accent2:#8a6fae; --warn:#b3593a;
+  --ok:#4a7a55; --chip:#eceff4; }
+@media (prefers-color-scheme: dark) {
+  :root { --bg:#191917; --fg:#e8e6e3; --muted:#9a9892; --line:#33322f;
+    --card:#22211f; --accent:#8fb0dd; --accent2:#b6a2d8; --warn:#d98a68;
+    --ok:#84b591; --chip:#2c2b28; }
+}
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:var(--fg);
+  font:16px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+main { max-width:960px; margin:0 auto; padding:1.5rem 1.25rem 4rem; }
+nav.top { display:flex; flex-wrap:wrap; gap:.35rem 1.1rem; padding:.8rem 1.25rem;
+  border-bottom:1px solid var(--line); font-size:.92rem; }
+nav.top a { color:var(--muted); text-decoration:none; }
+nav.top a:hover, nav.top a.here { color:var(--accent); }
+h1 { font-size:1.55rem; line-height:1.25; margin:.8rem 0 .3rem; }
+h2 { font-size:1.15rem; margin:2rem 0 .6rem; border-bottom:1px solid var(--line);
+  padding-bottom:.3rem; }
+h3 { font-size:1rem; margin:1.2rem 0 .4rem; }
+a { color:var(--accent); }
+.muted { color:var(--muted); font-size:.9rem; }
+.unity { border-left:3px solid var(--accent); background:var(--card);
+  padding:.7rem 1rem; margin:1rem 0; font-style:italic; }
+.chips { display:flex; flex-wrap:wrap; gap:.35rem; margin:.5rem 0; }
+.chip { background:var(--chip); border-radius:999px; padding:.1rem .7rem;
+  font-size:.82rem; text-decoration:none; color:var(--fg); }
+.chip:hover { outline:1px solid var(--accent); }
+.chip.count { color:var(--muted); }
+.card { background:var(--card); border:1px solid var(--line); border-radius:8px;
+  padding: .8rem 1rem; margin:.6rem 0; }
+.badge { font-size:.72rem; border-radius:4px; padding:.05rem .4rem;
+  vertical-align:middle; margin-right:.4rem; white-space:nowrap; }
+.badge.explicit { background:var(--ok); color:var(--bg); }
+.badge.implicit { background:var(--accent2); color:var(--bg); }
+.badge.gap { background:var(--warn); color:var(--bg); }
+.badge.closed { background:var(--ok); color:var(--bg); }
+.badge.rel { background:var(--accent); color:var(--bg); }
+.badge.contested { background:var(--warn); color:var(--bg); }
+.badge.established, .badge.corroborated { background:var(--ok); color:var(--bg); }
+.badge.developed { background:var(--accent2); color:var(--bg); }
+.tag.conf { font-size:.72rem; color:var(--muted); border:1px solid var(--line);
+  border-radius:4px; padding:.05rem .4rem; margin-left:.3rem; }
+ul.plain { list-style:none; padding-left:0; }
+ul.plain > li { margin:.55rem 0; }
+table { border-collapse:collapse; width:100%; font-size:.92rem; }
+th, td { text-align:left; padding:.4rem .6rem; border-bottom:1px solid var(--line);
+  vertical-align:top; }
+.tablewrap { overflow-x:auto; }
+.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:.7rem; }
+.stat { font-size:1.7rem; font-weight:600; color:var(--accent); }
+.rel-line { font-size:.86rem; color:var(--muted); margin:.15rem 0 .15rem 1rem; }
+.searchbox { width:100%; padding:.5rem .8rem; border:1px solid var(--line);
+  border-radius:6px; background:var(--card); color:var(--fg); font-size:1rem; }
+.issue-card h3 { margin:.1rem 0 .5rem; }
+.issue-cols { display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin:.6rem 0; }
+@media (max-width:640px) { .issue-cols { grid-template-columns:1fr; } }
+.issue-side h4 { margin:0 0 .4rem; font-size:.85rem; text-transform:uppercase;
+  letter-spacing:.03em; color:var(--muted); }
+.issue-side li { margin:.6rem 0; }
+.supported-by { margin:.15rem 0 .15rem 1rem; }
+.issue-edges { margin-top:.6rem; font-size:.9rem; }
+.verdict-box { margin-top:.7rem; padding:.6rem .8rem; border-radius:6px; font-size:.92rem; }
+.verdict-box.verdict-set { background:var(--card); border-left:3px solid var(--ok); }
+.verdict-box.verdict-empty { background:var(--card); border-left:3px solid var(--line);
+  color:var(--muted); }
+.verdict-box code { font-size:.85em; }
+.issue-key { margin-top:.4rem; }
+nav.top { align-items:center; }
+.navsearch { margin-left:auto; position:relative; flex:0 1 240px; min-width:150px; }
+.navsearch input { width:100%; padding:.3rem .7rem; border:1px solid var(--line);
+  border-radius:6px; background:var(--card); color:var(--fg); font:inherit; font-size:.88rem; }
+.navsearch input:focus { outline:1px solid var(--accent); }
+.sdrop { position:absolute; right:0; top:calc(100% + 6px); width:min(460px,92vw);
+  max-height:70vh; overflow-y:auto; background:var(--bg); border:1px solid var(--line);
+  border-radius:8px; box-shadow:0 8px 28px rgba(0,0,0,.18); z-index:60; }
+.sres { display:block; padding:.5rem .7rem; border-bottom:1px solid var(--line);
+  text-decoration:none; color:var(--fg); font-size:.88rem; }
+.sres:last-child { border-bottom:none; }
+.sres.active, .sres:hover { background:var(--card); }
+.sres .sline { display:flex; align-items:baseline; gap:.4rem; min-width:0; }
+.sres .st { flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.sres .sdoc { display:block; font-size:.78rem; overflow:hidden; text-overflow:ellipsis;
+  white-space:nowrap; }
+.sres.sall { color:var(--accent); text-align:center; }
+.badge.t-document { background:var(--accent); color:var(--bg); }
+.badge.t-claim { background:var(--ok); color:var(--bg); }
+.badge.t-gap { background:var(--warn); color:var(--bg); }
+.badge.t-term { background:var(--accent2); color:var(--bg); }
+.badge.t-concept { background:var(--chip); color:var(--fg); }
+.scard .sx { font-size:.9rem; margin:.3rem 0; }
+.sx mark { background:transparent; color:var(--accent); font-weight:600; }
+.sfilters button, #smore { font:inherit; font-size:.85rem; padding:.25rem .8rem;
+  border-radius:999px; border:1px solid var(--line); background:var(--card);
+  color:var(--fg); cursor:pointer; }
+.sfilters button.active { border-color:var(--accent); color:var(--accent); }
+li:target { box-shadow:inset 3px 0 0 var(--accent); background:var(--card);
+  padding:.4rem .6rem; margin-left:-.6rem; border-radius:0 6px 6px 0; }
+a.alink { color:inherit; text-decoration:underline;
+  text-decoration-color:var(--line); text-underline-offset:2px; }
+a.alink:hover { color:var(--accent); text-decoration-color:var(--accent); }
+</style></head><body><nav class='top'><a href="../index.html">Overview</a><a href="../graph.html">Graph</a><a href="../concepts.html" class=here>Concepts</a><a href="../tensions.html">Tensions</a><a href="../issues.html">Issues</a><a href="../claims.html">Claims</a><a href="../threads.html">Threads</a><a href="../gaps.html">Gaps</a><a href="../timeline.html">Timeline</a><div class='navsearch'><input id='navq' type='search' placeholder='Search&hellip;  /  &#8984;K' autocomplete='off' spellcheck='false'><div id='navdrop' class='sdrop' hidden></div></div></nav><main><h1>Junior Hiring Economics</h1><p>The economics of hiring early-in-career engineers when AI absorbs entry-level tasks — a junior hire as a bet with up-front cost and delayed payoff (Beck&#x27;s Valley of Regret), whether AI shortens or eliminates the ramp, and who funds the pipeline when no single firm has the incentive to.</p><p class='muted'>Also known as: Valley of Regret, ramp-to-breakeven, junior ROI, junior hiring, hire seniors, automate juniors</p><p class='muted'>Part of: <a class="chip" href="../concepts/systemic-apprenticeship.html">Systemic Apprenticeship &amp; Skill Transmission</a></p><h2>How authors use it</h2><p class='muted'>Oldest first (extraction date when no publication date is known).</p><div class='tablewrap'><table><tr><th>Author</th><th>Their term</th><th>Their meaning</th></tr><tr><td><a href="../docs/extract-beck-bet-on-juniors-just-got-better.html">The Bet On Juniors Just Got Better</a><br><span class='muted'><a class="alink" href="../search.html?q=Kent+Beck+%28Software+Design%3A+Tidy+First%3F%29">Kent Beck (Software Design: Tidy First?)</a> · 2025-12-12</span></td><td><a href='../docs/extract-beck-bet-on-juniors-just-got-better.html#term-valley-of-regret'><b>Valley of Regret</b></a></td><td>The period after hiring a junior developer during which the organization is paying senior-level investment (salary, mentorship attention) for below-breakeven output, and during which the bet can fail outright (attrition, layoffs, the junior leaving the field) before ever paying off.</td></tr></table></div><h2>Documents (4)</h2><ul class='plain'><li><a href="../docs/extract-cacm-redefining-software-engineering-profession-for-ai.html">Redefining the Software Engineering Profession for AI</a> <span class='muted'><a class="alink" href="../search.html?q=Mark+Russinovich+and+Scott+Hanselman">Mark Russinovich and Scott Hanselman</a> · 2026-10-08</span> <a href="https://dl.acm.org/doi/10.1145/3779312" title="Original source" target="_blank" rel="noopener">source&nbsp;↗</a> <a href="https://read.readwise.io/read/01kj4qhmp2r8cxc53r9j0cdrec">Reader</a> <a href="wiseread://read/01kj4qhmp2r8cxc53r9j0cdrec" title="Open in Reader app">🖥️</a><br><span class='muted'>Because generative AI amplifies senior engineering judgment while penalizing early-in-career developers, organizations must deliberately keep hiring and investing in EiC engineers through a structured &#x27;preceptorship at scale&#x27; system -- senior mentors paired with AI tooling designed to teach, not just produce -- or the profession&#x27;s talent pipeline will collapse.</span></li><li><a href="../docs/extract-beck-bet-on-juniors-just-got-better.html">The Bet On Juniors Just Got Better</a> <span class='muted'><a class="alink" href="../search.html?q=Kent+Beck+%28Software+Design%3A+Tidy+First%3F%29">Kent Beck (Software Design: Tidy First?)</a> · 2025-12-12</span> <a href="https://read.readwise.io/read/01kc9gjy0azc6j9tpg98yh7fp4">Reader</a> <a href="wiseread://read/01kc9gjy0azc6j9tpg98yh7fp4" title="Open in Reader app">🖥️</a><br><span class='muted'>Because AI coding assistants used as &#x27;augmented coding&#x27; tools compress a junior developer&#x27;s ramp-to-profitability and make it more likely they survive the unprofitable early period at all, hiring juniors is now a better economic bet than before -- not a worse one -- provided organizations deliberately manage them for learning rather than production.</span></li><li><a href="../docs/extract-mcmahon-how-ai-will-change-software-engineering.html">How AI will change software engineering</a> <span class='muted'><a class="alink" href="../search.html?q=Kari+McMahon">Kari McMahon</a> · 2025-04-14</span> <a href="https://leaddev.com/career-development/how-ai-will-change-software-engineering?vgo_ee=xHhCJFdM2jTjQwaZNnvZHTZexb+SfEO4EuPNUMZTOKBVKg%3D%3D:bU2AHWieaS4pTepGgC85Auq4QQyI4lqn" title="Original source" target="_blank" rel="noopener">source&nbsp;↗</a> <a href="https://read.readwise.io/read/01js43esk8z93zcdwtx6a924jq">Reader</a> <a href="wiseread://read/01js43esk8z93zcdwtx6a924jq" title="Open in Reader app">🖥️</a><br><span class='muted'>Generative AI is changing software engineering fast enough that confident predictions about the field&#x27;s future are themselves unreliable, so engineers and organizations should focus less on forecasting the end-state and more on adapting skills, protecting junior pipelines, and treating the engineering team (not the individual) as the unit that has to stay productive.</span></li><li><a href="../docs/extract-majors-genai-not-building-your-engineering-team.html">Generative AI Is Not Going To Build Your Engineering Team For You</a> <span class='muted'><a class="alink" href="../search.html?q=Charity+Majors">Charity Majors</a> · 2024-06-10</span> <a href="https://stackoverflow.blog/2024/06/10/generative-ai-is-not-going-to-build-your-engineering-team-for-you/" title="Original source" target="_blank" rel="noopener">source&nbsp;↗</a> <a href="https://read.readwise.io/read/01j0gg72xpm8gn9rrhyzhkjwnz">Reader</a> <a href="wiseread://read/01j0gg72xpm8gn9rrhyzhkjwnz" title="Open in Reader app">🖥️</a><br><span class='muted'>Generative AI accelerates the easy, narrow, disposable part of software engineering (writing code) but does nothing for the hard part (building and operating the sociotechnical systems code lives in), so it cannot substitute for hiring and apprenticing junior engineers — teams, not individuals, are the real unit of software ownership, and starving the junior pipeline is cannibalizing the industry&#x27;s own future senior engineers.</span></li></ul><h2>Propositions touching this concept (5)</h2><p class='muted'>By publication month, oldest first (extraction month when no publication date is known).</p><h3>2024-06</h3><ul class='plain'><li><span class='badge explicit'>explicit</span>Not every company should hire junior engineers — only those with sufficient runway, slack (not constant firefighting), experienced managers, a product roadmap, and at least one person willing to mentor — because a bad first experience is worse than none for both the junior engineer and the broader case for junior hiring.<div class='rel-line'><a href="../docs/extract-majors-genai-not-building-your-engineering-team.html#p11">Generative AI Is Not Going To Build Your Engineering Team For You · p11</a></div></li></ul><h3>2025-12</h3><ul class='plain'><li><span class='badge explicit'>explicit</span>Whether AI coding assistants make junior hiring more or less profitable is controlled by one management choice: whether juniors are managed for learning or for production.<div class='rel-line'><a href="../docs/extract-beck-bet-on-juniors-just-got-better.html#p2">The Bet On Juniors Just Got Better · p2</a></div></li><li><span class='badge explicit'>explicit</span>A junior hire is a bet with a &#x27;Valley of Regret&#x27; -- an up-front period of net-negative return during which attrition, a better offer, a layoff, or the junior leaving the field can strike before the organization ever recoups its investment; the longer and deeper this valley, the less likely the bet pays off.<div class='rel-line'><a href="../docs/extract-beck-bet-on-juniors-just-got-better.html#p3">The Bet On Juniors Just Got Better · p3</a></div></li><li><span class='badge explicit'>explicit</span>Investment in AI tooling should be understood partly as investment in junior hiring, because its ROI case includes making previously unprofitable junior bets profitable, not just making existing senior developers more productive.<div class='rel-line'><a href="../docs/extract-beck-bet-on-juniors-just-got-better.html#p7">The Bet On Juniors Just Got Better · p7</a></div></li></ul><h3>2026-10</h3><ul class='plain'><li><span class='badge explicit'>explicit</span>The resulting incentive structure -- hire seniors, automate juniors -- will collapse the profession&#x27;s talent pipeline if left unaddressed, because there will be no next generation of experienced engineers to replace retiring seniors.<div class='rel-line'><a href="../docs/extract-cacm-redefining-software-engineering-profession-for-ai.html#p2">Redefining the Software Engineering Profession for AI · p2</a></div></li></ul><h2>Open gaps (2)</h2><ul class='plain'><li><span class='badge gap'>incomplete</span>The survival-math figures (20% attrition, 36% vs. 15% pre-breakeven failure rates for 24-month vs. 9-month ramps) are presented with specific percentages but no cited data source or methodology -- they read as an illustrative stylized model rather than a measured finding, and the piece doesn&#x27;t flag this distinction for the reader.<div class='rel-line'><a href='../docs/extract-beck-bet-on-juniors-just-got-better.html#g1'>The Bet On Juniors Just Got Better</a> — read next: Look for empirical studies of junior-developer attrition and time-to-productivity (with or without AI tooling) to check whether the stylized model&#x27;s qualitative conclusion (shorter ramps survive attrition much better) holds at realistic attrition rates and ramp lengths.</div></li><li><span class='badge gap'>incomplete</span>The &#x27;first job is murder&#x27; bottleneck is framed almost entirely through a US, Big-Tech-adjacent lens (top colleges, feeder systems, connections) without addressing how the dynamic plays out in different labor markets, education systems, or company sizes outside that frame — e.g. apprenticeship or vocational-training traditions in other countries that structure entry-level hiring differently.<div class='rel-line'><a href='../docs/extract-majors-genai-not-building-your-engineering-team.html#g2'>Generative AI Is Not Going To Build Your Engineering Team For You</a> — read next: Look for comparative accounts of entry-level engineering hiring outside the US Big-Tech pipeline, or vocational/apprenticeship-model traditions (e.g. German Ausbildung, or Norwegian fagbrev-style models) applied to software.</div></li></ul></main><script src='../assets/search.js' defer></script></body></html>

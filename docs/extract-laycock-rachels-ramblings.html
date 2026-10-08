@@ -1,0 +1,104 @@
+<!doctype html><html><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>Why I&#x27;m Writing Rachel&#x27;s Ramblings</title><style>
+:root { --bg:#ffffff; --fg:#1a1a1a; --muted:#6b6b6b; --line:#e3e3e0;
+  --card:#f7f7f5; --accent:#4a6fa5; --accent2:#8a6fae; --warn:#b3593a;
+  --ok:#4a7a55; --chip:#eceff4; }
+@media (prefers-color-scheme: dark) {
+  :root { --bg:#191917; --fg:#e8e6e3; --muted:#9a9892; --line:#33322f;
+    --card:#22211f; --accent:#8fb0dd; --accent2:#b6a2d8; --warn:#d98a68;
+    --ok:#84b591; --chip:#2c2b28; }
+}
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:var(--fg);
+  font:16px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+main { max-width:960px; margin:0 auto; padding:1.5rem 1.25rem 4rem; }
+nav.top { display:flex; flex-wrap:wrap; gap:.35rem 1.1rem; padding:.8rem 1.25rem;
+  border-bottom:1px solid var(--line); font-size:.92rem; }
+nav.top a { color:var(--muted); text-decoration:none; }
+nav.top a:hover, nav.top a.here { color:var(--accent); }
+h1 { font-size:1.55rem; line-height:1.25; margin:.8rem 0 .3rem; }
+h2 { font-size:1.15rem; margin:2rem 0 .6rem; border-bottom:1px solid var(--line);
+  padding-bottom:.3rem; }
+h3 { font-size:1rem; margin:1.2rem 0 .4rem; }
+a { color:var(--accent); }
+.muted { color:var(--muted); font-size:.9rem; }
+.unity { border-left:3px solid var(--accent); background:var(--card);
+  padding:.7rem 1rem; margin:1rem 0; font-style:italic; }
+.chips { display:flex; flex-wrap:wrap; gap:.35rem; margin:.5rem 0; }
+.chip { background:var(--chip); border-radius:999px; padding:.1rem .7rem;
+  font-size:.82rem; text-decoration:none; color:var(--fg); }
+.chip:hover { outline:1px solid var(--accent); }
+.chip.count { color:var(--muted); }
+.card { background:var(--card); border:1px solid var(--line); border-radius:8px;
+  padding: .8rem 1rem; margin:.6rem 0; }
+.badge { font-size:.72rem; border-radius:4px; padding:.05rem .4rem;
+  vertical-align:middle; margin-right:.4rem; white-space:nowrap; }
+.badge.explicit { background:var(--ok); color:var(--bg); }
+.badge.implicit { background:var(--accent2); color:var(--bg); }
+.badge.gap { background:var(--warn); color:var(--bg); }
+.badge.closed { background:var(--ok); color:var(--bg); }
+.badge.rel { background:var(--accent); color:var(--bg); }
+.badge.contested { background:var(--warn); color:var(--bg); }
+.badge.established, .badge.corroborated { background:var(--ok); color:var(--bg); }
+.badge.developed { background:var(--accent2); color:var(--bg); }
+.tag.conf { font-size:.72rem; color:var(--muted); border:1px solid var(--line);
+  border-radius:4px; padding:.05rem .4rem; margin-left:.3rem; }
+ul.plain { list-style:none; padding-left:0; }
+ul.plain > li { margin:.55rem 0; }
+table { border-collapse:collapse; width:100%; font-size:.92rem; }
+th, td { text-align:left; padding:.4rem .6rem; border-bottom:1px solid var(--line);
+  vertical-align:top; }
+.tablewrap { overflow-x:auto; }
+.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:.7rem; }
+.stat { font-size:1.7rem; font-weight:600; color:var(--accent); }
+.rel-line { font-size:.86rem; color:var(--muted); margin:.15rem 0 .15rem 1rem; }
+.searchbox { width:100%; padding:.5rem .8rem; border:1px solid var(--line);
+  border-radius:6px; background:var(--card); color:var(--fg); font-size:1rem; }
+.issue-card h3 { margin:.1rem 0 .5rem; }
+.issue-cols { display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin:.6rem 0; }
+@media (max-width:640px) { .issue-cols { grid-template-columns:1fr; } }
+.issue-side h4 { margin:0 0 .4rem; font-size:.85rem; text-transform:uppercase;
+  letter-spacing:.03em; color:var(--muted); }
+.issue-side li { margin:.6rem 0; }
+.supported-by { margin:.15rem 0 .15rem 1rem; }
+.issue-edges { margin-top:.6rem; font-size:.9rem; }
+.verdict-box { margin-top:.7rem; padding:.6rem .8rem; border-radius:6px; font-size:.92rem; }
+.verdict-box.verdict-set { background:var(--card); border-left:3px solid var(--ok); }
+.verdict-box.verdict-empty { background:var(--card); border-left:3px solid var(--line);
+  color:var(--muted); }
+.verdict-box code { font-size:.85em; }
+.issue-key { margin-top:.4rem; }
+nav.top { align-items:center; }
+.navsearch { margin-left:auto; position:relative; flex:0 1 240px; min-width:150px; }
+.navsearch input { width:100%; padding:.3rem .7rem; border:1px solid var(--line);
+  border-radius:6px; background:var(--card); color:var(--fg); font:inherit; font-size:.88rem; }
+.navsearch input:focus { outline:1px solid var(--accent); }
+.sdrop { position:absolute; right:0; top:calc(100% + 6px); width:min(460px,92vw);
+  max-height:70vh; overflow-y:auto; background:var(--bg); border:1px solid var(--line);
+  border-radius:8px; box-shadow:0 8px 28px rgba(0,0,0,.18); z-index:60; }
+.sres { display:block; padding:.5rem .7rem; border-bottom:1px solid var(--line);
+  text-decoration:none; color:var(--fg); font-size:.88rem; }
+.sres:last-child { border-bottom:none; }
+.sres.active, .sres:hover { background:var(--card); }
+.sres .sline { display:flex; align-items:baseline; gap:.4rem; min-width:0; }
+.sres .st { flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.sres .sdoc { display:block; font-size:.78rem; overflow:hidden; text-overflow:ellipsis;
+  white-space:nowrap; }
+.sres.sall { color:var(--accent); text-align:center; }
+.badge.t-document { background:var(--accent); color:var(--bg); }
+.badge.t-claim { background:var(--ok); color:var(--bg); }
+.badge.t-gap { background:var(--warn); color:var(--bg); }
+.badge.t-term { background:var(--accent2); color:var(--bg); }
+.badge.t-concept { background:var(--chip); color:var(--fg); }
+.scard .sx { font-size:.9rem; margin:.3rem 0; }
+.sx mark { background:transparent; color:var(--accent); font-weight:600; }
+.sfilters button, #smore { font:inherit; font-size:.85rem; padding:.25rem .8rem;
+  border-radius:999px; border:1px solid var(--line); background:var(--card);
+  color:var(--fg); cursor:pointer; }
+.sfilters button.active { border-color:var(--accent); color:var(--accent); }
+li:target { box-shadow:inset 3px 0 0 var(--accent); background:var(--card);
+  padding:.4rem .6rem; margin-left:-.6rem; border-radius:0 6px 6px 0; }
+a.alink { color:inherit; text-decoration:underline;
+  text-decoration-color:var(--line); text-underline-offset:2px; }
+a.alink:hover { color:var(--accent); text-decoration-color:var(--accent); }
+</style></head><body><nav class='top'><a href="../index.html">Overview</a><a href="../graph.html">Graph</a><a href="../concepts.html">Concepts</a><a href="../tensions.html">Tensions</a><a href="../issues.html">Issues</a><a href="../claims.html">Claims</a><a href="../threads.html">Threads</a><a href="../gaps.html">Gaps</a><a href="../timeline.html">Timeline</a><div class='navsearch'><input id='navq' type='search' placeholder='Search&hellip;  /  &#8984;K' autocomplete='off' spellcheck='false'><div id='navdrop' class='sdrop' hidden></div></div></nav><main><h1>Why I&#x27;m Writing Rachel&#x27;s Ramblings</h1><p class='muted'><a class="alink" href="../search.html?q=Rachel+Laycock+%28Thoughtworks+CTO%3B+martinfowler.com+%E2%80%94+Rachel%27s+Ramblings%29">Rachel Laycock (Thoughtworks CTO; martinfowler.com — Rachel&#x27;s Ramblings)</a> · rss · 2026-07-28 <a href="https://martinfowler.com/rachels-ramblings/intro.html" title="Original source" target="_blank" rel="noopener">source&nbsp;↗</a> <a href="https://read.readwise.io/read/01kymdqtnzxqbwh5v7ex313hhd">Reader</a> <a href="wiseread://read/01kymdqtnzxqbwh5v7ex313hhd" title="Open in Reader app">🖥️</a></p><div class='chips'><a class="chip" href="../concepts/writing-as-thinking.html">Writing as Thinking</a></div><div class='unity'>Rachel Laycock has real, not-yet-articulated patterns and hypotheses about how software, teams, and organizations are changing in the AI era, and she is committing to publish them fast and imperfectly — rather than polished and delayed — because writing is the forcing function that turns her associative, conversation-honed thinking into something durable outside her head.</div><p class='muted'>practical · narrative — A short, personal launch post for a new blog, not a technical argument about software engineering itself. Its only substantive claim is about why and how she will write going forward; the actual team/org/AI content is deferred to future posts (one of which, &#x27;The Conductor Developer,&#x27; is already in this corpus).</p><h2>Structure</h2><div class='tablewrap'><table><tr><th>Part</th><th>Role</th></tr><tr><td>Self-introduction: Rachel Laycock, Thoughtworks CTO, curious about how technology changes building software, leading teams, and running businesses</td><td>context</td></tr><tr><td>The realization at the Future of Software conference: she has her own patterns and hypotheses, not yet written down anywhere a leader could act on</td><td>narrative trigger</td></tr><tr><td>Diagnosis of why she hasn&#x27;t written: not busyness, but overthinking, moving too fast to the next idea, and self-imposed polish standards</td><td>evidence / self-diagnosis</td></tr><tr><td>The fix: &#x27;Rachel&#x27;s Ramblings&#x27; as fast, imperfect, thinking-out-loud writing that names ideas early</td><td>conclusion / commitment</td></tr><tr><td>Stated scope: future of software, AI&#x27;s effect on software development for engineers/leaders/organizations, how platforms/agents/people work together, and occasionally how she juggles the job with the rest of her life</td><td>preview of future content (not argued here)</td></tr></table></div><h2>Propositions</h2><ul class='plain'><li id='p1'><span class='badge explicit'>explicit</span>She has actual patterns and hypotheses — not just opinions — observed across clients, teams, and the industry that feel new or not yet well articulated in a form a leader could think about and act on strategically.<span class='tag conf' title='author-stated confidence'>conf: high</span></li><li id='p2'><span class='badge explicit'>explicit</span>The real reasons she hasn&#x27;t published her thinking are not busyness but three self-imposed habits: overthinking, moving too fast to the next idea before finishing the last one, and assuming it needs to be more polished than it does.<span class='tag conf' title='author-stated confidence'>conf: high</span></li><li id='p3'><span class='badge explicit'>explicit</span>&#x27;Rachel&#x27;s Ramblings&#x27; is designed as fast, imperfect, thinking-out-loud writing that names ideas early rather than waiting for them to be fully formed, because most of her day-to-day work is spotting patterns and asking not-yet-answered questions rather than answering known ones.<span class='tag conf' title='author-stated confidence'>conf: high</span></li><li id='p4'><span class='badge explicit'>explicit</span>Writing publicly functions as a forcing function that converts her associative, &#x27;knowledge-graph-like&#x27; pattern-matching thinking — useful in conversation and client work — into something that exists outside her head and can be examined, challenged, and refined.<span class='tag conf' title='author-stated confidence'>conf: high</span><div class='rel-line'><span class='badge rel'>supports</span><a href="../docs/extract-brain-food-answers-without-effort.html#p8">Brain Food: Answers Without Effort · p8</a> — Both describe writing as a forcing function for thought — Bezos&#x27;s practice (relayed by Gurley) of writing an idea out so it stands alone and is cogent to surface loose ends, and Laycock&#x27;s framing of writing as what turns her associative pattern-matching into something examinable outside her head.</div></li><li id='p5'><span class='badge explicit'>explicit</span>The blog&#x27;s intended scope is the future of software, how software development is changing in the age of AI for engineers/leaders/organizations, and how platforms, agents, and people actually work together.<span class='tag conf' title='author-stated confidence'>conf: high</span><div class='rel-line'><span class='badge rel'>extends</span><a href="../docs/extract-laycock-conductor-developer.html#p1">The Conductor Developer · p1</a> — This post&#x27;s stated intent to write about &#x27;how software development is changing in the age of AI for engineers, leaders, and organizations&#x27; is directly fulfilled a few days later by &#x27;The Conductor Developer&#x27; (published 2026-07-31), which is the first concrete delivery against this announced scope — the plan and its first instance, both now in the corpus.</div></li><li id='p6'><span class='badge implicit'>implicit</span>Committing to a fast, imperfect format addresses the overthinking and excess-polish habits she named as blockers, but does not obviously address the third named habit — moving too fast to the next idea before finishing the current one — which could just as easily produce a stream of abandoned fragments as a body of sharpened thinking.<span class='tag conf' title='author-stated confidence'>conf: medium</span></li></ul><h2>Arguments</h2><div class='card'><b>Publishing her pattern-recognition fast and imperfectly is a better use of it than continuing to withhold it until polished.</b> <div class='muted'>Explicit premises:</div><ul><li>She has real, not-yet-articulated patterns and hypotheses that leaders could act on.</li><li>The barrier to sharing them has been self-imposed (overthinking, pace, polish standard), not a lack of capacity or material.</li><li>Writing is a forcing function that turns tacit, conversational pattern-matching into an examinable, durable artifact.</li></ul><div class='muted'>Implicit premises:</div><ul><li>An early, imperfect articulation of a pattern is more valuable to readers than withholding it until it&#x27;s fully formed and possibly outdated — i.e., the cost of occasionally being wrong or evolving in public is lower than the cost of staying silent.</li><li>Her associative, knowledge-graph-style thinking translates adequately into linear written prose without losing whatever makes it valuable in live conversation and client work.</li></ul></div><h2>Narratives</h2><ul class='plain'><li>At the Future of Software conference, surrounded by people sharing their latest ideas, Laycock had the &#x27;slightly uncomfortable realization&#x27; that she has her own patterns and hypotheses that she simply hasn&#x27;t been writing down.<br><span class='muted'>→ Supplies the concrete, dateable trigger for the entire post&#x27;s thesis (&#x27;I have ideas. I haven&#x27;t been writing them. That&#x27;s about to change.&#x27;) rather than presenting the decision as an abstract resolution.</span></li></ul><h2>Questions addressed</h2><ul class='plain'><li>✅ Why hasn&#x27;t she been publishing her thinking despite having real, industry-relevant patterns to share?<br><span class=muted>Three self-imposed habits: overthinking, moving on too fast, and an inflated polish bar — not busyness.</span></li><li>✅ What will this new blog actually be about?<br><span class=muted>Four stated areas: the future of software; AI&#x27;s effect on software development for engineers/leaders/organizations; how platforms, agents, and people work together; occasional personal/work-life notes.</span></li><li>⭕ Will the fast/imperfect format actually solve the specific habit of moving on before finishing an idea, which she names as one of her three blockers?</li></ul><h2>Gaps</h2><ul class='plain'><li id='g1'><span class='badge gap'>incomplete</span>The post diagnoses three blocking habits (overthinking, moving too fast to the next idea, excess polish) but proposes one fix (write fast and imperfectly) that addresses the first and third directly while leaving the second — abandoning ideas before finishing them — essentially unaddressed; a &#x27;fast and imperfect&#x27; format could just as easily amplify that habit (more half-finished fragments) as cure it.<br><span class='muted'>Read next: Her own later posts in the same series, to see whether individual &#x27;ramblings&#x27; get revisited/developed or stay as one-off fragments — a question only answerable by reading forward in the series.</span></li></ul><h2>Related documents</h2><ul class='plain'><li><a href="../docs/extract-laycock-conductor-developer.html">The Conductor Developer</a><div class='chips'></div></li><li><a href="../docs/extract-brain-food-answers-without-effort.html">Brain Food: Answers Without Effort</a><div class='chips'></div></li></ul></main><script src='../assets/search.js' defer></script></body></html>
