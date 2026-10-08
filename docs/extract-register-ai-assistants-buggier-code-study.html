@@ -1,0 +1,104 @@
+<!doctype html><html><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>Study finds AI assistants help developers produce code that&#x27;s more likely to be buggy</title><style>
+:root { --bg:#ffffff; --fg:#1a1a1a; --muted:#6b6b6b; --line:#e3e3e0;
+  --card:#f7f7f5; --accent:#4a6fa5; --accent2:#8a6fae; --warn:#b3593a;
+  --ok:#4a7a55; --chip:#eceff4; }
+@media (prefers-color-scheme: dark) {
+  :root { --bg:#191917; --fg:#e8e6e3; --muted:#9a9892; --line:#33322f;
+    --card:#22211f; --accent:#8fb0dd; --accent2:#b6a2d8; --warn:#d98a68;
+    --ok:#84b591; --chip:#2c2b28; }
+}
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:var(--fg);
+  font:16px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+main { max-width:960px; margin:0 auto; padding:1.5rem 1.25rem 4rem; }
+nav.top { display:flex; flex-wrap:wrap; gap:.35rem 1.1rem; padding:.8rem 1.25rem;
+  border-bottom:1px solid var(--line); font-size:.92rem; }
+nav.top a { color:var(--muted); text-decoration:none; }
+nav.top a:hover, nav.top a.here { color:var(--accent); }
+h1 { font-size:1.55rem; line-height:1.25; margin:.8rem 0 .3rem; }
+h2 { font-size:1.15rem; margin:2rem 0 .6rem; border-bottom:1px solid var(--line);
+  padding-bottom:.3rem; }
+h3 { font-size:1rem; margin:1.2rem 0 .4rem; }
+a { color:var(--accent); }
+.muted { color:var(--muted); font-size:.9rem; }
+.unity { border-left:3px solid var(--accent); background:var(--card);
+  padding:.7rem 1rem; margin:1rem 0; font-style:italic; }
+.chips { display:flex; flex-wrap:wrap; gap:.35rem; margin:.5rem 0; }
+.chip { background:var(--chip); border-radius:999px; padding:.1rem .7rem;
+  font-size:.82rem; text-decoration:none; color:var(--fg); }
+.chip:hover { outline:1px solid var(--accent); }
+.chip.count { color:var(--muted); }
+.card { background:var(--card); border:1px solid var(--line); border-radius:8px;
+  padding: .8rem 1rem; margin:.6rem 0; }
+.badge { font-size:.72rem; border-radius:4px; padding:.05rem .4rem;
+  vertical-align:middle; margin-right:.4rem; white-space:nowrap; }
+.badge.explicit { background:var(--ok); color:var(--bg); }
+.badge.implicit { background:var(--accent2); color:var(--bg); }
+.badge.gap { background:var(--warn); color:var(--bg); }
+.badge.closed { background:var(--ok); color:var(--bg); }
+.badge.rel { background:var(--accent); color:var(--bg); }
+.badge.contested { background:var(--warn); color:var(--bg); }
+.badge.established, .badge.corroborated { background:var(--ok); color:var(--bg); }
+.badge.developed { background:var(--accent2); color:var(--bg); }
+.tag.conf { font-size:.72rem; color:var(--muted); border:1px solid var(--line);
+  border-radius:4px; padding:.05rem .4rem; margin-left:.3rem; }
+ul.plain { list-style:none; padding-left:0; }
+ul.plain > li { margin:.55rem 0; }
+table { border-collapse:collapse; width:100%; font-size:.92rem; }
+th, td { text-align:left; padding:.4rem .6rem; border-bottom:1px solid var(--line);
+  vertical-align:top; }
+.tablewrap { overflow-x:auto; }
+.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:.7rem; }
+.stat { font-size:1.7rem; font-weight:600; color:var(--accent); }
+.rel-line { font-size:.86rem; color:var(--muted); margin:.15rem 0 .15rem 1rem; }
+.searchbox { width:100%; padding:.5rem .8rem; border:1px solid var(--line);
+  border-radius:6px; background:var(--card); color:var(--fg); font-size:1rem; }
+.issue-card h3 { margin:.1rem 0 .5rem; }
+.issue-cols { display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin:.6rem 0; }
+@media (max-width:640px) { .issue-cols { grid-template-columns:1fr; } }
+.issue-side h4 { margin:0 0 .4rem; font-size:.85rem; text-transform:uppercase;
+  letter-spacing:.03em; color:var(--muted); }
+.issue-side li { margin:.6rem 0; }
+.supported-by { margin:.15rem 0 .15rem 1rem; }
+.issue-edges { margin-top:.6rem; font-size:.9rem; }
+.verdict-box { margin-top:.7rem; padding:.6rem .8rem; border-radius:6px; font-size:.92rem; }
+.verdict-box.verdict-set { background:var(--card); border-left:3px solid var(--ok); }
+.verdict-box.verdict-empty { background:var(--card); border-left:3px solid var(--line);
+  color:var(--muted); }
+.verdict-box code { font-size:.85em; }
+.issue-key { margin-top:.4rem; }
+nav.top { align-items:center; }
+.navsearch { margin-left:auto; position:relative; flex:0 1 240px; min-width:150px; }
+.navsearch input { width:100%; padding:.3rem .7rem; border:1px solid var(--line);
+  border-radius:6px; background:var(--card); color:var(--fg); font:inherit; font-size:.88rem; }
+.navsearch input:focus { outline:1px solid var(--accent); }
+.sdrop { position:absolute; right:0; top:calc(100% + 6px); width:min(460px,92vw);
+  max-height:70vh; overflow-y:auto; background:var(--bg); border:1px solid var(--line);
+  border-radius:8px; box-shadow:0 8px 28px rgba(0,0,0,.18); z-index:60; }
+.sres { display:block; padding:.5rem .7rem; border-bottom:1px solid var(--line);
+  text-decoration:none; color:var(--fg); font-size:.88rem; }
+.sres:last-child { border-bottom:none; }
+.sres.active, .sres:hover { background:var(--card); }
+.sres .sline { display:flex; align-items:baseline; gap:.4rem; min-width:0; }
+.sres .st { flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.sres .sdoc { display:block; font-size:.78rem; overflow:hidden; text-overflow:ellipsis;
+  white-space:nowrap; }
+.sres.sall { color:var(--accent); text-align:center; }
+.badge.t-document { background:var(--accent); color:var(--bg); }
+.badge.t-claim { background:var(--ok); color:var(--bg); }
+.badge.t-gap { background:var(--warn); color:var(--bg); }
+.badge.t-term { background:var(--accent2); color:var(--bg); }
+.badge.t-concept { background:var(--chip); color:var(--fg); }
+.scard .sx { font-size:.9rem; margin:.3rem 0; }
+.sx mark { background:transparent; color:var(--accent); font-weight:600; }
+.sfilters button, #smore { font:inherit; font-size:.85rem; padding:.25rem .8rem;
+  border-radius:999px; border:1px solid var(--line); background:var(--card);
+  color:var(--fg); cursor:pointer; }
+.sfilters button.active { border-color:var(--accent); color:var(--accent); }
+li:target { box-shadow:inset 3px 0 0 var(--accent); background:var(--card);
+  padding:.4rem .6rem; margin-left:-.6rem; border-radius:0 6px 6px 0; }
+a.alink { color:inherit; text-decoration:underline;
+  text-decoration-color:var(--line); text-underline-offset:2px; }
+a.alink:hover { color:var(--accent); text-decoration-color:var(--accent); }
+</style></head><body><nav class='top'><a href="../index.html">Overview</a><a href="../graph.html">Graph</a><a href="../concepts.html">Concepts</a><a href="../tensions.html">Tensions</a><a href="../issues.html">Issues</a><a href="../claims.html">Claims</a><a href="../threads.html">Threads</a><a href="../gaps.html">Gaps</a><a href="../timeline.html">Timeline</a><div class='navsearch'><input id='navq' type='search' placeholder='Search&hellip;  /  &#8984;K' autocomplete='off' spellcheck='false'><div id='navdrop' class='sdrop' hidden></div></div></nav><main><h1>Study finds AI assistants help developers produce code that&#x27;s more likely to be buggy</h1><p class='muted'><a class="alink" href="../search.html?q=Thomas+Claburn">Thomas Claburn</a> · article · 2022-12-13 <a href="https://read.readwise.io/read/01gn1wnsy7phxp55xsz45qc33f">Reader</a> <a href="wiseread://read/01gn1wnsy7phxp55xsz45qc33f" title="Open in Reader app">🖥️</a></p><div class='chips'><a class="chip" href="../concepts/calibrated-trust.html">Calibrated Trust (in AI Agents)</a><a class="chip" href="../concepts/code-quality.html">Code Quality</a><a class="chip" href="../concepts/llm-reliability-failures.html">LLM Reliability Failures</a></div><div class='unity'>A controlled Stanford user study found that developers given access to an AI coding assistant (OpenAI&#x27;s codex-davinci-002, as used in GitHub Copilot) produced measurably less secure code than a control group working without it — and, more strikingly, were more likely to believe their own AI-assisted code was secure than the control group was about theirs — indicating AI assistance can degrade both code security and developers&#x27; self-assessment of that security simultaneously.</div><p class='muted'>theoretical · expository — A Register news report summarizing a Stanford user study (Perry, Srivastava, Kumar, Boneh, &#x27;Do Users Write More Insecure Code with AI Assistants?,&#x27; arXiv:2211.03622) and situating it against two prior NYU studies on GitHub Copilot&#x27;s code-security properties. The article itself makes no independent argument; it reports and lightly contextualizes the paper&#x27;s findings. Published 2022-12-13, so &#x27;previously&#x27; and prior studies cited (Aug 2021, Oct 2022) are anchored to that date, not today&#x27;s.</p><h2>Structure</h2><div class='tablewrap'><table><tr><th>Part</th><th>Role</th></tr><tr><td>Headline finding stated: AI-assisted participants produced more security vulnerabilities and were more likely to believe their code was secure</td><td>conclusion (stated upfront)</td></tr><tr><td>Positioning against prior work: an Aug 2021 NYU-adjacent study (&#x27;Asleep at the Keyboard?&#x27;) found ~40% of Copilot-aided solutions across 89 scenarios had exploitable vulnerabilities, but was limited to 25 vulnerability types and three languages (Python, C, Verilog)</td><td>context</td></tr><tr><td>Positioning against a second prior study (&#x27;Security Implications of Large Language Model Code Assistants&#x27;): used a weaker Codex model, focused only on C, and reported inconclusive results — which the Stanford authors attribute to C being the one language in their own broader study with mixed results</td><td>context</td></tr><tr><td>Study design: 47 participants (undergrads, grad students, industry professionals) wrote code for 5 prompts in a monitored Electron app, with/without AI assistance</td><td>evidence</td></tr><tr><td>Prompt-by-prompt results: AI-assisted group had a lower correct-answer rate (67% vs 79%) and significantly more insecure solutions and trivial-cipher use on the encryption task; similar pattern on prompts 2-4; mixed/inconclusive but still negative signal (more integer-overflow mistakes) on the C-language prompt 5</td><td>evidence</td></tr><tr><td>Authors&#x27; stated conclusion: AI assistants should be used cautiously because they can mislead inexperienced developers and introduce vulnerabilities, while also potentially improving productivity, lowering entry barriers, and making development more accessible than hostile forums like early Stack Overflow</td><td>conclusion</td></tr></table></div><h2>Key terms</h2><ul class='plain'><li id='term-more-likely-to-believe-they-wrote-secure-code'><a class="alink" href="../search.html?q=more+likely+to+believe+they+wrote+secure+code"><b>more likely to believe they wrote secure code</b></a><br><span class='muted'>Participants self-reported higher confidence in the security of their AI-assisted solutions than the control group reported for their unassisted solutions, even though the AI-assisted solutions were objectively less secure — a confidence/competence mismatch specifically induced by AI assistance.</span></li></ul><h2>Propositions</h2><ul class='plain'><li id='p1'><span class='badge explicit'>explicit</span><span class='badge contested' title='epistemic status: contested'>contested</span>Programmers given access to an AI coding assistant produced less secure code overall than a control group working without one, with particularly significant effects on string-encryption and SQL-injection tasks.<span class='tag conf' title='author-stated confidence'>conf: high</span><div class='rel-line'><span class='badge rel'>contradicts</span><a href="../docs/extract-farley-studied-150-developers-using-ai.html#p3">We Studied 150 Developers Using AI (Here&#x27;s What&#x27;s Actually Changed...) · p3</a> — This 2022 study found AI assistance produced measurably less secure/buggier code; the later, larger, pre-registered Farley-reported study found no significant difference in objective code quality or maintenance cost between AI-assisted and non-AI-assisted code — a direct empirical tension worth reading together rather than assuming either superseded the other.</div></li><li id='p2'><span class='badge explicit'>explicit</span>Participants who used the AI assistant were more likely to believe they had written secure code than participants in the control group, even though the AI-assisted code was in fact less secure — i.e. AI assistance both degraded output security and inflated developers&#x27; confidence in that output.<span class='tag conf' title='author-stated confidence'>conf: high</span><div class='rel-line'><span class='badge rel'>supports</span><a href="../docs/extract-to-adopt-ai-at-scale-employees-need-to-trust-agents.html#p13">To Adopt AI at Scale, Employees Need to Trust Agents · p13</a> — This study&#x27;s &#x27;AI assistance makes developers more confident in objectively worse code&#x27; is a concrete, early (2022) empirical instance of the &#x27;trust excess&#x27; half of the later essay&#x27;s general trust-miscalibration framework.</div></li><li id='p3'><span class='badge explicit'>explicit</span>On the string-encryption task specifically, AI-assisted participants were both less likely to produce a correct answer (67% vs. 79% for the control group) and significantly more likely to produce an insecure solution, to use a trivial cipher such as substitution, and to omit an authenticity check.<span class='tag conf' title='author-stated confidence'>conf: high</span></li><li id='p4'><span class='badge explicit'>explicit</span>A prior study&#x27;s inconclusive finding about AI-assisted code security is attributable to its narrow single-language (C) focus, since C was the only language in the Stanford study&#x27;s broader, multi-language design to show mixed rather than clearly negative results.<span class='tag conf' title='author-stated confidence'>conf: medium</span></li><li id='p5'><span class='badge explicit'>explicit</span>AI coding assistants carry genuine productivity, accessibility, and barrier-lowering benefits (including a friendlier alternative to hostile programming forums) even as they pose a security risk, so the appropriate response is caution and design improvement rather than rejection.<span class='tag conf' title='author-stated confidence'>conf: medium</span></li></ul><h2>Arguments</h2><div class='card'><b>AI coding assistants should be used cautiously, because they can simultaneously degrade code security and inflate developers&#x27; confidence in that code&#x27;s security.</b> <span class='tag conf' title='argument strength (author-stated): moderate — a real controlled experiment with statistically significant results on most prompts, triangulated against two prior studies the authors explicitly compare themselves to, but based on a small (47-person) sample, short synthetic tasks, and a now-superseded 2022 model generation; the Register article itself does no independent evaluation and reports the paper&#x27;s framing uncritically.'>strength: medium</span><div class='muted'>Explicit premises:</div><ul><li>A controlled experiment (47 participants, 5 prompts, monitored environment) found AI-assisted participants produced measurably less secure code on most tasks.</li><li>The same participants were more likely than the control group to believe their code was secure.</li></ul><div class='muted'>Implicit premises:</div><ul><li>Self-reported confidence about code security, measured immediately after writing it, is a reasonable proxy for the overconfidence risk that matters in real-world deployment (where a developer&#x27;s belief about their own code&#x27;s security affects whether they seek further review).</li><li>A 47-participant lab study with short, templated prompts (symmetric-string-encryption, SQL-related tasks, a C integer-to-string function) generalizes to the security properties of AI-assisted code in real, larger-scale production codebases.</li><li>The specific model tested (codex-davinci-002, an earlier, less capable model than later-generation coding assistants) is informative about today&#x27;s AI coding assistants&#x27; security properties, despite substantial capability differences since 2022.</li></ul><div class='muted'>Inferences:</div><ul><li>If overconfidence from AI assistance generalizes beyond this lab setting, it implies review processes cannot rely on developer self-assessment as a filter for AI-assisted code and need an independent check — exactly the kind of structural review-gate argument made in later AI-era essays about validation overhead.</li></ul></div><h2>Questions addressed</h2><ul class='plain'><li>✅ Does AI coding assistance make developers write less secure code, and if so, do developers notice?<br><span class=muted>Yes to both halves, and in the worse possible combination: less secure code, paired with higher (not lower) confidence that the code is secure.</span></li><li>⭕ Does this 2022-era finding (using codex-davinci-002, an early Copilot-adjacent model) still hold for later-generation coding assistants and agentic coding tools?<br><span class=muted>Not addressed by the article or, at the time of publication, by any available follow-up study — the article&#x27;s own comparisons are limited to two other studies from the same 2021-2022 window.</span></li></ul><h2>Gaps</h2><ul class='plain'><li id='g1'><span class='badge gap'>incomplete</span>Neither the paper as reported nor the article examines whether the overconfidence effect is specific to older, less capable assistants (which may produce plausible-looking but subtly wrong code more often) or would persist, worsen, or disappear with later-generation coding agents that have explicit self-critique, test-running, or verification steps built into their workflow.<br><span class='muted'>Read next: extract-farley-studied-150-developers-using-ai (a later, larger, pre-registered study) found no significant difference in downstream code quality or maintenance cost between AI-assisted and non-AI-assisted code, suggesting the picture may have shifted with later tools and more disciplined usage patterns — worth reading the two findings against each other rather than assuming this early result still holds.</span></li><li id='g2'><span class='badge gap'>incomplete</span>The study measures self-reported confidence immediately after writing code in a lab setting; it does not examine whether this overconfidence propagates into real-world consequences — e.g. whether overconfident developers skip code review, merge faster, or escalate less — which is the actual mechanism by which miscalibrated trust would cause harm in production teams.<br><span class='muted'>Read next: extract-to-adopt-ai-at-scale-employees-need-to-trust-agents takes up trust miscalibration (both deficit and excess) as a general organizational-adoption problem and would be the natural next read for the downstream consequences this study doesn&#x27;t measure.</span></li></ul><h2>Related documents</h2><ul class='plain'><li><a href="../docs/extract-to-adopt-ai-at-scale-employees-need-to-trust-agents.html">To Adopt AI at Scale, Employees Need to Trust Agents</a><div class='chips'></div></li><li><a href="../docs/extract-farley-studied-150-developers-using-ai.html">We Studied 150 Developers Using AI (Here&#x27;s What&#x27;s Actually Changed...)</a><div class='chips'></div></li><li><a href="../docs/extract-zhang-practices-challenges-github-copilot.html">Practices and Challenges of Using GitHub Copilot: An Empirical Study</a><div class='chips'><a class="chip" href="../concepts/calibrated-trust.html">Calibrated Trust (in AI Agents)</a> <a class="chip" href="../concepts/llm-reliability-failures.html">LLM Reliability Failures</a></div></li></ul></main><script src='../assets/search.js' defer></script></body></html>
