@@ -1,0 +1,104 @@
+<!doctype html><html><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>Alexandr Wang on what matters in an age of abundant...</title><style>
+:root { --bg:#ffffff; --fg:#1a1a1a; --muted:#6b6b6b; --line:#e3e3e0;
+  --card:#f7f7f5; --accent:#4a6fa5; --accent2:#8a6fae; --warn:#b3593a;
+  --ok:#4a7a55; --chip:#eceff4; }
+@media (prefers-color-scheme: dark) {
+  :root { --bg:#191917; --fg:#e8e6e3; --muted:#9a9892; --line:#33322f;
+    --card:#22211f; --accent:#8fb0dd; --accent2:#b6a2d8; --warn:#d98a68;
+    --ok:#84b591; --chip:#2c2b28; }
+}
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:var(--fg);
+  font:16px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+main { max-width:960px; margin:0 auto; padding:1.5rem 1.25rem 4rem; }
+nav.top { display:flex; flex-wrap:wrap; gap:.35rem 1.1rem; padding:.8rem 1.25rem;
+  border-bottom:1px solid var(--line); font-size:.92rem; }
+nav.top a { color:var(--muted); text-decoration:none; }
+nav.top a:hover, nav.top a.here { color:var(--accent); }
+h1 { font-size:1.55rem; line-height:1.25; margin:.8rem 0 .3rem; }
+h2 { font-size:1.15rem; margin:2rem 0 .6rem; border-bottom:1px solid var(--line);
+  padding-bottom:.3rem; }
+h3 { font-size:1rem; margin:1.2rem 0 .4rem; }
+a { color:var(--accent); }
+.muted { color:var(--muted); font-size:.9rem; }
+.unity { border-left:3px solid var(--accent); background:var(--card);
+  padding:.7rem 1rem; margin:1rem 0; font-style:italic; }
+.chips { display:flex; flex-wrap:wrap; gap:.35rem; margin:.5rem 0; }
+.chip { background:var(--chip); border-radius:999px; padding:.1rem .7rem;
+  font-size:.82rem; text-decoration:none; color:var(--fg); }
+.chip:hover { outline:1px solid var(--accent); }
+.chip.count { color:var(--muted); }
+.card { background:var(--card); border:1px solid var(--line); border-radius:8px;
+  padding: .8rem 1rem; margin:.6rem 0; }
+.badge { font-size:.72rem; border-radius:4px; padding:.05rem .4rem;
+  vertical-align:middle; margin-right:.4rem; white-space:nowrap; }
+.badge.explicit { background:var(--ok); color:var(--bg); }
+.badge.implicit { background:var(--accent2); color:var(--bg); }
+.badge.gap { background:var(--warn); color:var(--bg); }
+.badge.closed { background:var(--ok); color:var(--bg); }
+.badge.rel { background:var(--accent); color:var(--bg); }
+.badge.contested { background:var(--warn); color:var(--bg); }
+.badge.established, .badge.corroborated { background:var(--ok); color:var(--bg); }
+.badge.developed { background:var(--accent2); color:var(--bg); }
+.tag.conf { font-size:.72rem; color:var(--muted); border:1px solid var(--line);
+  border-radius:4px; padding:.05rem .4rem; margin-left:.3rem; }
+ul.plain { list-style:none; padding-left:0; }
+ul.plain > li { margin:.55rem 0; }
+table { border-collapse:collapse; width:100%; font-size:.92rem; }
+th, td { text-align:left; padding:.4rem .6rem; border-bottom:1px solid var(--line);
+  vertical-align:top; }
+.tablewrap { overflow-x:auto; }
+.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:.7rem; }
+.stat { font-size:1.7rem; font-weight:600; color:var(--accent); }
+.rel-line { font-size:.86rem; color:var(--muted); margin:.15rem 0 .15rem 1rem; }
+.searchbox { width:100%; padding:.5rem .8rem; border:1px solid var(--line);
+  border-radius:6px; background:var(--card); color:var(--fg); font-size:1rem; }
+.issue-card h3 { margin:.1rem 0 .5rem; }
+.issue-cols { display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin:.6rem 0; }
+@media (max-width:640px) { .issue-cols { grid-template-columns:1fr; } }
+.issue-side h4 { margin:0 0 .4rem; font-size:.85rem; text-transform:uppercase;
+  letter-spacing:.03em; color:var(--muted); }
+.issue-side li { margin:.6rem 0; }
+.supported-by { margin:.15rem 0 .15rem 1rem; }
+.issue-edges { margin-top:.6rem; font-size:.9rem; }
+.verdict-box { margin-top:.7rem; padding:.6rem .8rem; border-radius:6px; font-size:.92rem; }
+.verdict-box.verdict-set { background:var(--card); border-left:3px solid var(--ok); }
+.verdict-box.verdict-empty { background:var(--card); border-left:3px solid var(--line);
+  color:var(--muted); }
+.verdict-box code { font-size:.85em; }
+.issue-key { margin-top:.4rem; }
+nav.top { align-items:center; }
+.navsearch { margin-left:auto; position:relative; flex:0 1 240px; min-width:150px; }
+.navsearch input { width:100%; padding:.3rem .7rem; border:1px solid var(--line);
+  border-radius:6px; background:var(--card); color:var(--fg); font:inherit; font-size:.88rem; }
+.navsearch input:focus { outline:1px solid var(--accent); }
+.sdrop { position:absolute; right:0; top:calc(100% + 6px); width:min(460px,92vw);
+  max-height:70vh; overflow-y:auto; background:var(--bg); border:1px solid var(--line);
+  border-radius:8px; box-shadow:0 8px 28px rgba(0,0,0,.18); z-index:60; }
+.sres { display:block; padding:.5rem .7rem; border-bottom:1px solid var(--line);
+  text-decoration:none; color:var(--fg); font-size:.88rem; }
+.sres:last-child { border-bottom:none; }
+.sres.active, .sres:hover { background:var(--card); }
+.sres .sline { display:flex; align-items:baseline; gap:.4rem; min-width:0; }
+.sres .st { flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.sres .sdoc { display:block; font-size:.78rem; overflow:hidden; text-overflow:ellipsis;
+  white-space:nowrap; }
+.sres.sall { color:var(--accent); text-align:center; }
+.badge.t-document { background:var(--accent); color:var(--bg); }
+.badge.t-claim { background:var(--ok); color:var(--bg); }
+.badge.t-gap { background:var(--warn); color:var(--bg); }
+.badge.t-term { background:var(--accent2); color:var(--bg); }
+.badge.t-concept { background:var(--chip); color:var(--fg); }
+.scard .sx { font-size:.9rem; margin:.3rem 0; }
+.sx mark { background:transparent; color:var(--accent); font-weight:600; }
+.sfilters button, #smore { font:inherit; font-size:.85rem; padding:.25rem .8rem;
+  border-radius:999px; border:1px solid var(--line); background:var(--card);
+  color:var(--fg); cursor:pointer; }
+.sfilters button.active { border-color:var(--accent); color:var(--accent); }
+li:target { box-shadow:inset 3px 0 0 var(--accent); background:var(--card);
+  padding:.4rem .6rem; margin-left:-.6rem; border-radius:0 6px 6px 0; }
+a.alink { color:inherit; text-decoration:underline;
+  text-decoration-color:var(--line); text-underline-offset:2px; }
+a.alink:hover { color:var(--accent); text-decoration-color:var(--accent); }
+</style></head><body><nav class='top'><a href="../index.html">Overview</a><a href="../graph.html">Graph</a><a href="../concepts.html">Concepts</a><a href="../tensions.html">Tensions</a><a href="../issues.html">Issues</a><a href="../claims.html">Claims</a><a href="../threads.html">Threads</a><a href="../gaps.html">Gaps</a><a href="../timeline.html">Timeline</a><div class='navsearch'><input id='navq' type='search' placeholder='Search&hellip;  /  &#8984;K' autocomplete='off' spellcheck='false'><div id='navdrop' class='sdrop' hidden></div></div></nav><main><h1>Alexandr Wang on what matters in an age of abundant...</h1><p class='muted'><a class="alink" href="../search.html?q=Y+Combinator">Y Combinator</a> · tweet · 2026-10-13 <a href="https://x.com/ycombinator/status/2110114740861378964?s=20" title="Original source" target="_blank" rel="noopener">source&nbsp;↗</a> <a href="https://read.readwise.io/read/01m4xbtgs589fh994dysnhkh6s">Reader</a> <a href="wiseread://read/01m4xbtgs589fh994dysnhkh6s" title="Open in Reader app">🖥️</a></p><div class='chips'><a class="chip" href="../concepts/code-not-the-bottleneck.html">Code Was Never the Bottleneck</a><a class="chip" href="../concepts/human-agency.html">Agency</a><a class="chip" href="../concepts/strategy-and-direction.html">Strategy &amp; Direction-Setting</a><a class="chip" href="../concepts/taste.html">Taste &amp; Judgment</a></div><div class='unity'>As AI makes intelligence and agency abundant, the scarce human contribution becomes vision and ambition — a clear view of the future you want to push the world toward — and because AI makes execution easier, you should dream bigger.</div><p class='muted'>practical · expository — A ~108-word X/Twitter post by Y Combinator quoting three short passages from Alexandr Wang&#x27;s talk at Startup School 2026 (July 29th). It is a short excerpt of a longer talk/interview; the original conversation is not captured in Reader, so only bare assertions are available, with no argument, evidence, or context. Practical in intent (what founders should cultivate), but essentially a pull-quote.</p><h2>Structure</h2><div class='tablewrap'><table><tr><th>Part</th><th>Role</th></tr><tr><td>Quote 1: the scarce resource will be vision and ambition, not intelligence or agency</td><td>Central claim about what becomes scarce under AI abundance</td></tr><tr><td>Quote 2: the diagnostic questions — do you have a clear view of the future you want, and where will you put your finger on the scale</td><td>Operationalises &#x27;vision&#x27; as a personal question the listener must answer</td></tr><tr><td>Quote 3: AI makes execution easier, so you can dream bigger</td><td>Consequence / prescription: easier execution raises the ceiling on ambition</td></tr></table></div><h2>Key terms</h2><ul class='plain'><li id='term-vision'><a class="alink" href="../search.html?q=vision"><b>vision</b></a><br><span class='muted'>A clear view of what you want the world to look like in the future, and the one way you want to influence its development.</span></li><li id='term-ambition'><a class="alink" href="../search.html?q=ambition"><b>ambition</b></a><br><span class='muted'>The scale of what you are willing to attempt; rises as AI lowers the cost of execution (&#x27;dream bigger&#x27;).</span></li><li id='term-agency'><a class="alink" href="../search.html?q=agency"><b>agency</b></a> <a class="chip" href="../concepts/human-agency.html">Agency</a><br><span class='muted'>The capacity to act and get things done, which Wang counts as something that will no longer be scarce (AI supplies it).</span></li><li id='term-put-your-finger-on-the-scale'><a class="alink" href="../search.html?q=put+your+finger+on+the+scale"><b>put your finger on the scale</b></a><br><span class='muted'>Deliberately choosing one way to tilt how the future develops.</span></li></ul><h2>Propositions</h2><ul class='plain'><li id='p1'><span class='badge explicit'>explicit</span>In an age of abundant AI, the scarce resource will be vision and ambition, not intelligence or agency.<span class='tag conf' title='author-stated confidence'>conf: high</span><div class='rel-line'><span class='badge rel'>supports</span><a href="../docs/extract-mosseri-ai-tailwind-authenticity.html#p1">Adam Mosseri: AI is a tailwind for authenticity · p1</a> — Both say that as building gets easier, the scarce work shifts to deciding what is worth building; Wang names it vision and ambition, Mosseri taste.</div><div class='rel-line'><span class='badge rel'>supports</span><a href="../docs/extract-engineer-career-advice-age-of-coding-agents.html#p1">Addy Osmani’s Post · p1</a> — Same shape of claim: what stays scarce under capable agents is the human choice of what to pursue, not the ability to solve or act.</div></li><li id='p2'><span class='badge explicit'>explicit</span>The question that matters is whether you have a clear view of what you want the world to look like in the future, and the one way you want to put your finger on the scale of how it develops.<span class='tag conf' title='author-stated confidence'>conf: high</span></li><li id='p3'><span class='badge explicit'>explicit</span>AI makes execution easier, which lets people dream bigger.<span class='tag conf' title='author-stated confidence'>conf: high</span><div class='rel-line'><span class='badge rel'>supports</span><a href="../docs/extract-a16z-anish-acharya-ai-signals.html#p2">Andreessen Horowitz&#x27;s Post · p2</a> — Both argue AI-lowered execution cost should raise the size of the vision founders pursue.</div></li><li id='p4'><span class='badge implicit'>implicit</span>Intelligence and agency (the capacity to act on a goal) are, or will soon be, supplied abundantly by AI rather than being differentiating human traits.<span class='tag conf' title='author-stated confidence'>conf: high</span></li><li id='p5'><span class='badge implicit'>implicit</span>Vision and ambition originate in the human, not in the AI: deciding which future to push toward is not something the abundant intelligence provides.<span class='tag conf' title='author-stated confidence'>conf: medium</span></li></ul><h2>Arguments</h2><div class='card'><b>People should invest in cultivating a clear vision and bigger ambition rather than in raw intelligence or capacity to act.</b> <div class='muted'>Explicit premises:</div><ul><li>Intelligence and agency will not be the scarce resource.</li><li>AI makes execution easier.</li></ul><div class='muted'>Implicit premises:</div><ul><li>Scarcity is what confers value, so whatever stays scarce is where human advantage lies.</li><li>AI will not itself generate vision or ambition (or at least not in a way that substitutes for the human&#x27;s).</li><li>Vision is a distinct capacity from intelligence, so abundant intelligence does not automatically yield it.</li></ul><div class='muted'>Inferences:</div><ul><li>If the binding constraint is knowing what to build, execution-focused skills and org structures lose relative value to direction-setting ones.</li><li>If many people can dream bigger at once, scarcity may shift again toward distribution, attention, or coordination.</li></ul></div><h2>Questions addressed</h2><ul class='plain'><li>✅ What remains valuable and scarce for humans when intelligence and the ability to act are abundant?<br><span class=muted>Vision and ambition: knowing what future you want and aiming at something large.</span></li><li>⭕ What distinguishes visionary from merely capable people (what is &#x27;vision&#x27; concretely, and how is it developed)?<br><span class=muted>Only a diagnostic question is offered; no account of how to form or test a vision.</span></li></ul><h2>Gaps</h2><ul class='plain'><li id='g1'><span class='badge gap'>incomplete</span>The excerpt never argues why vision and ambition will stay scarce while intelligence and agency become abundant. It does not distinguish vision from taste or judgment, or say why a sufficiently capable AI could not propose or pursue goals; the scarcity claim is a bare assertion by someone whose company and career are built on AI abundance.<br><span class='muted'>Read next: Compare with the taste/judgment-as-scarce claims in extract-mosseri-ai-tailwind-authenticity and extract-engineer-career-advice-age-of-coding-agents; look for arguments about whether AI can originate goals or strategy rather than only execute them.</span></li><li id='g2'><span class='badge gap'>incomplete</span>&#x27;Dream bigger&#x27; is presented as a pure upside, but if AI lowers the execution cost for everyone, many actors can raise ambition at once. The excerpt does not ask where scarcity moves next (distribution, attention, trust, coordination, resources), nor what happens to ambition that outruns verification or governance capacity.<br><span class='muted'>Read next: Read the abundance-entrepreneurship and Jevons-paradox material on what becomes scarce when production is cheap, and the a16z ambition-over-restraint argument for founders.</span></li></ul><h2>Related documents</h2><ul class='plain'><li><a href="../docs/extract-a16z-anish-acharya-ai-signals.html">Andreessen Horowitz&#x27;s Post</a><div class='chips'></div></li><li><a href="../docs/extract-engineer-career-advice-age-of-coding-agents.html">Addy Osmani’s Post</a><div class='chips'><a class="chip" href="../concepts/code-not-the-bottleneck.html">Code Was Never the Bottleneck</a> <a class="chip" href="../concepts/human-agency.html">Agency</a> <a class="chip" href="../concepts/taste.html">Taste &amp; Judgment</a></div></li><li><a href="../docs/extract-mosseri-ai-tailwind-authenticity.html">Adam Mosseri: AI is a tailwind for authenticity</a><div class='chips'><a class="chip" href="../concepts/human-agency.html">Agency</a> <a class="chip" href="../concepts/strategy-and-direction.html">Strategy &amp; Direction-Setting</a> <a class="chip" href="../concepts/taste.html">Taste &amp; Judgment</a></div></li><li><a href="../docs/extract-agency-matters-more-than-skills-schoening.html">Why cultivating agency matters more than cultivating skills in the AI era | Max Schoening (Head of Product, Notion)</a><div class='chips'><a class="chip" href="../concepts/human-agency.html">Agency</a> <a class="chip" href="../concepts/taste.html">Taste &amp; Judgment</a></div></li><li><a href="../docs/extract-ai-native-engineering-org.html">Designing the AI-native engineering organization</a><div class='chips'><a class="chip" href="../concepts/human-agency.html">Agency</a> <a class="chip" href="../concepts/taste.html">Taste &amp; Judgment</a></div></li><li><a href="../docs/extract-ai-slop-robin-williams.html">The best response to AI slop, infinite advice, and online noise is from Robin Williams</a><div class='chips'><a class="chip" href="../concepts/human-agency.html">Agency</a> <a class="chip" href="../concepts/taste.html">Taste &amp; Judgment</a></div></li><li><a href="../docs/extract-formal-methods-for-every-engineer-ai-future.html">Podcast: Formal Methods for Every Engineer in an AI-Powered Future</a><div class='chips'><a class="chip" href="../concepts/code-not-the-bottleneck.html">Code Was Never the Bottleneck</a> <a class="chip" href="../concepts/taste.html">Taste &amp; Judgment</a></div></li><li><a href="../docs/extract-how-anthropic-builds-and-how-engineering-will-change-soon.html">How Anthropic Builds And How Engineering Will Change Soon | Thariq Shihipar</a><div class='chips'><a class="chip" href="../concepts/code-not-the-bottleneck.html">Code Was Never the Bottleneck</a> <a class="chip" href="../concepts/taste.html">Taste &amp; Judgment</a></div></li><li><a href="../docs/extract-kill-your-org-chart-for-ai.html">The founder of Postman says you have to kill your existing org chart</a><div class='chips'><a class="chip" href="../concepts/human-agency.html">Agency</a> <a class="chip" href="../concepts/taste.html">Taste &amp; Judgment</a></div></li><li><a href="../docs/extract-own-the-outer-loop.html">Own the Outer Loop</a><div class='chips'><a class="chip" href="../concepts/human-agency.html">Agency</a> <a class="chip" href="../concepts/taste.html">Taste &amp; Judgment</a></div></li></ul></main><script src='../assets/search.js' defer></script></body></html>

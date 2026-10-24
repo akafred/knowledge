@@ -1,0 +1,104 @@
+<!doctype html><html><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>Prototype-to-Production Gap</title><style>
+:root { --bg:#ffffff; --fg:#1a1a1a; --muted:#6b6b6b; --line:#e3e3e0;
+  --card:#f7f7f5; --accent:#4a6fa5; --accent2:#8a6fae; --warn:#b3593a;
+  --ok:#4a7a55; --chip:#eceff4; }
+@media (prefers-color-scheme: dark) {
+  :root { --bg:#191917; --fg:#e8e6e3; --muted:#9a9892; --line:#33322f;
+    --card:#22211f; --accent:#8fb0dd; --accent2:#b6a2d8; --warn:#d98a68;
+    --ok:#84b591; --chip:#2c2b28; }
+}
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:var(--fg);
+  font:16px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+main { max-width:960px; margin:0 auto; padding:1.5rem 1.25rem 4rem; }
+nav.top { display:flex; flex-wrap:wrap; gap:.35rem 1.1rem; padding:.8rem 1.25rem;
+  border-bottom:1px solid var(--line); font-size:.92rem; }
+nav.top a { color:var(--muted); text-decoration:none; }
+nav.top a:hover, nav.top a.here { color:var(--accent); }
+h1 { font-size:1.55rem; line-height:1.25; margin:.8rem 0 .3rem; }
+h2 { font-size:1.15rem; margin:2rem 0 .6rem; border-bottom:1px solid var(--line);
+  padding-bottom:.3rem; }
+h3 { font-size:1rem; margin:1.2rem 0 .4rem; }
+a { color:var(--accent); }
+.muted { color:var(--muted); font-size:.9rem; }
+.unity { border-left:3px solid var(--accent); background:var(--card);
+  padding:.7rem 1rem; margin:1rem 0; font-style:italic; }
+.chips { display:flex; flex-wrap:wrap; gap:.35rem; margin:.5rem 0; }
+.chip { background:var(--chip); border-radius:999px; padding:.1rem .7rem;
+  font-size:.82rem; text-decoration:none; color:var(--fg); }
+.chip:hover { outline:1px solid var(--accent); }
+.chip.count { color:var(--muted); }
+.card { background:var(--card); border:1px solid var(--line); border-radius:8px;
+  padding: .8rem 1rem; margin:.6rem 0; }
+.badge { font-size:.72rem; border-radius:4px; padding:.05rem .4rem;
+  vertical-align:middle; margin-right:.4rem; white-space:nowrap; }
+.badge.explicit { background:var(--ok); color:var(--bg); }
+.badge.implicit { background:var(--accent2); color:var(--bg); }
+.badge.gap { background:var(--warn); color:var(--bg); }
+.badge.closed { background:var(--ok); color:var(--bg); }
+.badge.rel { background:var(--accent); color:var(--bg); }
+.badge.contested { background:var(--warn); color:var(--bg); }
+.badge.established, .badge.corroborated { background:var(--ok); color:var(--bg); }
+.badge.developed { background:var(--accent2); color:var(--bg); }
+.tag.conf { font-size:.72rem; color:var(--muted); border:1px solid var(--line);
+  border-radius:4px; padding:.05rem .4rem; margin-left:.3rem; }
+ul.plain { list-style:none; padding-left:0; }
+ul.plain > li { margin:.55rem 0; }
+table { border-collapse:collapse; width:100%; font-size:.92rem; }
+th, td { text-align:left; padding:.4rem .6rem; border-bottom:1px solid var(--line);
+  vertical-align:top; }
+.tablewrap { overflow-x:auto; }
+.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:.7rem; }
+.stat { font-size:1.7rem; font-weight:600; color:var(--accent); }
+.rel-line { font-size:.86rem; color:var(--muted); margin:.15rem 0 .15rem 1rem; }
+.searchbox { width:100%; padding:.5rem .8rem; border:1px solid var(--line);
+  border-radius:6px; background:var(--card); color:var(--fg); font-size:1rem; }
+.issue-card h3 { margin:.1rem 0 .5rem; }
+.issue-cols { display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin:.6rem 0; }
+@media (max-width:640px) { .issue-cols { grid-template-columns:1fr; } }
+.issue-side h4 { margin:0 0 .4rem; font-size:.85rem; text-transform:uppercase;
+  letter-spacing:.03em; color:var(--muted); }
+.issue-side li { margin:.6rem 0; }
+.supported-by { margin:.15rem 0 .15rem 1rem; }
+.issue-edges { margin-top:.6rem; font-size:.9rem; }
+.verdict-box { margin-top:.7rem; padding:.6rem .8rem; border-radius:6px; font-size:.92rem; }
+.verdict-box.verdict-set { background:var(--card); border-left:3px solid var(--ok); }
+.verdict-box.verdict-empty { background:var(--card); border-left:3px solid var(--line);
+  color:var(--muted); }
+.verdict-box code { font-size:.85em; }
+.issue-key { margin-top:.4rem; }
+nav.top { align-items:center; }
+.navsearch { margin-left:auto; position:relative; flex:0 1 240px; min-width:150px; }
+.navsearch input { width:100%; padding:.3rem .7rem; border:1px solid var(--line);
+  border-radius:6px; background:var(--card); color:var(--fg); font:inherit; font-size:.88rem; }
+.navsearch input:focus { outline:1px solid var(--accent); }
+.sdrop { position:absolute; right:0; top:calc(100% + 6px); width:min(460px,92vw);
+  max-height:70vh; overflow-y:auto; background:var(--bg); border:1px solid var(--line);
+  border-radius:8px; box-shadow:0 8px 28px rgba(0,0,0,.18); z-index:60; }
+.sres { display:block; padding:.5rem .7rem; border-bottom:1px solid var(--line);
+  text-decoration:none; color:var(--fg); font-size:.88rem; }
+.sres:last-child { border-bottom:none; }
+.sres.active, .sres:hover { background:var(--card); }
+.sres .sline { display:flex; align-items:baseline; gap:.4rem; min-width:0; }
+.sres .st { flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.sres .sdoc { display:block; font-size:.78rem; overflow:hidden; text-overflow:ellipsis;
+  white-space:nowrap; }
+.sres.sall { color:var(--accent); text-align:center; }
+.badge.t-document { background:var(--accent); color:var(--bg); }
+.badge.t-claim { background:var(--ok); color:var(--bg); }
+.badge.t-gap { background:var(--warn); color:var(--bg); }
+.badge.t-term { background:var(--accent2); color:var(--bg); }
+.badge.t-concept { background:var(--chip); color:var(--fg); }
+.scard .sx { font-size:.9rem; margin:.3rem 0; }
+.sx mark { background:transparent; color:var(--accent); font-weight:600; }
+.sfilters button, #smore { font:inherit; font-size:.85rem; padding:.25rem .8rem;
+  border-radius:999px; border:1px solid var(--line); background:var(--card);
+  color:var(--fg); cursor:pointer; }
+.sfilters button.active { border-color:var(--accent); color:var(--accent); }
+li:target { box-shadow:inset 3px 0 0 var(--accent); background:var(--card);
+  padding:.4rem .6rem; margin-left:-.6rem; border-radius:0 6px 6px 0; }
+a.alink { color:inherit; text-decoration:underline;
+  text-decoration-color:var(--line); text-underline-offset:2px; }
+a.alink:hover { color:var(--accent); text-decoration-color:var(--accent); }
+</style></head><body><nav class='top'><a href="../index.html">Overview</a><a href="../graph.html">Graph</a><a href="../concepts.html" class=here>Concepts</a><a href="../tensions.html">Tensions</a><a href="../issues.html">Issues</a><a href="../claims.html">Claims</a><a href="../threads.html">Threads</a><a href="../gaps.html">Gaps</a><a href="../timeline.html">Timeline</a><div class='navsearch'><input id='navq' type='search' placeholder='Search&hellip;  /  &#8984;K' autocomplete='off' spellcheck='false'><div id='navdrop' class='sdrop' hidden></div></div></nav><main><h1>Prototype-to-Production Gap</h1><p>The gap between a cheap AI-built prototype or demo and a reliable company tool; closed by early engineer involvement, few system connections and tight scope.</p><p class='muted'>Also known as: deployment gap, demo-to-production gap, demo-to-deployment gap, prototype fidelity confusion, firewall to production</p><h2>How authors use it</h2><p class='muted'>Oldest first (extraction date when no publication date is known).</p><div class='tablewrap'><table><tr><th>Author</th><th>Their term</th><th>Their meaning</th></tr><tr><td><a href="../docs/extract-turn-vibe-coded-prototypes-into-tools-your-company-can-actually-use.html">Turn Vibe-Coded Prototypes Into Tools Your Company Can Actually Use</a><br><span class='muted'><a class="alink" href="../search.html?q=Jos%C3%A9+Parra+Moyano%2C+Karl+Schmedders%2C+Olivier+Laplace%2C+Benjamin+Torben-Nielsen">José Parra Moyano, Karl Schmedders, Olivier Laplace, Benjamin Torben-Nielsen</a> · 2026-10-16</span></td><td><a href='../docs/extract-turn-vibe-coded-prototypes-into-tools-your-company-can-actually-use.html#term-deployment-gap'><b>Deployment gap</b></a></td><td>The gulf between a promising AI-built prototype and a reliable solution used in everyday operations; it widens as users, situations and system connections multiply, and maintenance cost can exceed an off-the-shelf purchase.</td></tr></table></div><h2>Documents (2)</h2><ul class='plain'><li><a href="../docs/extract-from-factory-data-to-trusted-action-putting-agentic-ai-to-work-in-manufacturing.html">From Factory Data to Trusted Action: Putting Agentic AI to Work in Manufacturing</a> <span class='muted'><a class="alink" href="../search.html?q=Harvard+Business+Review+%28sponsor+content+from+AWS+and+4Minds%3B+speakers+Ryan+Trimberger%2C+4Minds%2C+and+Danny+Smith%2C+AWS%29">Harvard Business Review (sponsor content from AWS and 4Minds; speakers Ryan Trimberger, 4Minds, and Danny Smith, AWS)</a> · 2026-10-16</span> <a href="https://hbr.org/sponsored/2026/10/from-factory-data-to-trusted-action-putting-agentic-ai-to-work-in-manufacturing" title="Original source" target="_blank" rel="noopener">source&nbsp;↗</a> <a href="https://read.readwise.io/read/01m582kvdd8wmkzn91xcwq4d4e">Reader</a> <a href="wiseread://read/01m582kvdd8wmkzn91xcwq4d4e" title="Open in Reader app">🖥️</a><br><span class='muted'>4Minds (with AWS) asserts that manufacturers stall in moving agentic AI from proof of concept to production because of ROI, data-quality and security worries, and that a platform grounding models in business context with access controls, isolation and auditability closes that gap and lets leaders trust the output.</span></li><li><a href="../docs/extract-turn-vibe-coded-prototypes-into-tools-your-company-can-actually-use.html">Turn Vibe-Coded Prototypes Into Tools Your Company Can Actually Use</a> <span class='muted'><a class="alink" href="../search.html?q=Jos%C3%A9+Parra+Moyano%2C+Karl+Schmedders%2C+Olivier+Laplace%2C+Benjamin+Torben-Nielsen">José Parra Moyano, Karl Schmedders, Olivier Laplace, Benjamin Torben-Nielsen</a> · 2026-10-16</span> <a href="https://hbr.org/2026/10/turn-vibe-coded-prototypes-into-tools-your-company-can-actually-use" title="Original source" target="_blank" rel="noopener">source&nbsp;↗</a> <a href="https://read.readwise.io/read/01m582hnzbvd28sprby37y2n1p">Reader</a> <a href="wiseread://read/01m582hnzbvd28sprby37y2n1p" title="Open in Reader app">🖥️</a><br><span class='muted'>AI makes a working prototype nearly free to build, but turning it into a tool the company can rely on opens a &#x27;deployment gap&#x27; that is closed only by involving technical experts from the start, keeping the tool&#x27;s connections to other systems few, and holding its scope to the users it was built for (scaling the approach rather than the solution).</span></li></ul><h2>Propositions touching this concept (4)</h2><p class='muted'>By publication month, oldest first (extraction month when no publication date is known).</p><h3>2026-06</h3><ul class='plain'><li><span class='badge explicit'>explicit</span><span class='badge corroborated' title='epistemic status: corroborated'>corroborated</span>The primary bottleneck limiting agentic AI in production is not model capability but reliability, governability, and operational infrastructure — the demo-to-deployment gap is an infrastructure gap, not a capability gap.<div class='rel-line'><a href="../docs/extract-microsoft-foundry-reliability-not-capability.html#p1">With Foundry, Microsoft bets the enterprise AI battle is about reliability, not capability · p1</a></div></li><li><span class='badge explicit'>explicit</span>Whether the platform infrastructure shipped at Build 2026 actually closes the demo-to-deployment gap can only be judged by what enterprises encounter when they try to move agents into production — not by the scope of the announcements themselves.<div class='rel-line'><a href="../docs/extract-microsoft-foundry-reliability-not-capability.html#p8">With Foundry, Microsoft bets the enterprise AI battle is about reliability, not capability · p8</a></div></li></ul><h3>2026-10</h3><ul class='plain'><li><span class='badge explicit'>explicit</span>A working prototype is not a reliable operational tool: as it reaches more users, situations and system connections its complexity grows, problems arise that even experts struggle to fix, and ongoing maintenance can cost more than an off-the-shelf solution would have (the &#x27;deployment gap&#x27;).<div class='rel-line'><a href="../docs/extract-turn-vibe-coded-prototypes-into-tools-your-company-can-actually-use.html#p2">Turn Vibe-Coded Prototypes Into Tools Your Company Can Actually Use · p2</a></div></li><li><span class='badge implicit'>implicit</span>The deployment gap is primarily an organizational and expectation problem (who is involved, what boundaries are held, how builders are held accountable) rather than a tooling problem, so the remedies are managerial practices rather than better AI tools.<div class='rel-line'><a href="../docs/extract-turn-vibe-coded-prototypes-into-tools-your-company-can-actually-use.html#p14">Turn Vibe-Coded Prototypes Into Tools Your Company Can Actually Use · p14</a></div></li></ul><h2>Open gaps (1)</h2><ul class='plain'><li><span class='badge gap'>incomplete</span>No discussion of prototype fidelity confusion. When prototypes look production-quality, stakeholders may mistake them for shippable code, creating misaligned expectations about engineering effort still required.<div class='rel-line'><a href='../docs/extract-protodash-stripe-ai-tool.html#g4'>This week on How I AI: The internal AI tool that&#x27;s transforming how Stripe designs products (Protodash at Stripe)</a></div></li></ul></main><script src='../assets/search.js' defer></script></body></html>

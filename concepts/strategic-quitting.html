@@ -1,0 +1,104 @@
+<!doctype html><html><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>Strategic Quitting &amp; Kill Criteria</title><style>
+:root { --bg:#ffffff; --fg:#1a1a1a; --muted:#6b6b6b; --line:#e3e3e0;
+  --card:#f7f7f5; --accent:#4a6fa5; --accent2:#8a6fae; --warn:#b3593a;
+  --ok:#4a7a55; --chip:#eceff4; }
+@media (prefers-color-scheme: dark) {
+  :root { --bg:#191917; --fg:#e8e6e3; --muted:#9a9892; --line:#33322f;
+    --card:#22211f; --accent:#8fb0dd; --accent2:#b6a2d8; --warn:#d98a68;
+    --ok:#84b591; --chip:#2c2b28; }
+}
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:var(--fg);
+  font:16px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+main { max-width:960px; margin:0 auto; padding:1.5rem 1.25rem 4rem; }
+nav.top { display:flex; flex-wrap:wrap; gap:.35rem 1.1rem; padding:.8rem 1.25rem;
+  border-bottom:1px solid var(--line); font-size:.92rem; }
+nav.top a { color:var(--muted); text-decoration:none; }
+nav.top a:hover, nav.top a.here { color:var(--accent); }
+h1 { font-size:1.55rem; line-height:1.25; margin:.8rem 0 .3rem; }
+h2 { font-size:1.15rem; margin:2rem 0 .6rem; border-bottom:1px solid var(--line);
+  padding-bottom:.3rem; }
+h3 { font-size:1rem; margin:1.2rem 0 .4rem; }
+a { color:var(--accent); }
+.muted { color:var(--muted); font-size:.9rem; }
+.unity { border-left:3px solid var(--accent); background:var(--card);
+  padding:.7rem 1rem; margin:1rem 0; font-style:italic; }
+.chips { display:flex; flex-wrap:wrap; gap:.35rem; margin:.5rem 0; }
+.chip { background:var(--chip); border-radius:999px; padding:.1rem .7rem;
+  font-size:.82rem; text-decoration:none; color:var(--fg); }
+.chip:hover { outline:1px solid var(--accent); }
+.chip.count { color:var(--muted); }
+.card { background:var(--card); border:1px solid var(--line); border-radius:8px;
+  padding: .8rem 1rem; margin:.6rem 0; }
+.badge { font-size:.72rem; border-radius:4px; padding:.05rem .4rem;
+  vertical-align:middle; margin-right:.4rem; white-space:nowrap; }
+.badge.explicit { background:var(--ok); color:var(--bg); }
+.badge.implicit { background:var(--accent2); color:var(--bg); }
+.badge.gap { background:var(--warn); color:var(--bg); }
+.badge.closed { background:var(--ok); color:var(--bg); }
+.badge.rel { background:var(--accent); color:var(--bg); }
+.badge.contested { background:var(--warn); color:var(--bg); }
+.badge.established, .badge.corroborated { background:var(--ok); color:var(--bg); }
+.badge.developed { background:var(--accent2); color:var(--bg); }
+.tag.conf { font-size:.72rem; color:var(--muted); border:1px solid var(--line);
+  border-radius:4px; padding:.05rem .4rem; margin-left:.3rem; }
+ul.plain { list-style:none; padding-left:0; }
+ul.plain > li { margin:.55rem 0; }
+table { border-collapse:collapse; width:100%; font-size:.92rem; }
+th, td { text-align:left; padding:.4rem .6rem; border-bottom:1px solid var(--line);
+  vertical-align:top; }
+.tablewrap { overflow-x:auto; }
+.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:.7rem; }
+.stat { font-size:1.7rem; font-weight:600; color:var(--accent); }
+.rel-line { font-size:.86rem; color:var(--muted); margin:.15rem 0 .15rem 1rem; }
+.searchbox { width:100%; padding:.5rem .8rem; border:1px solid var(--line);
+  border-radius:6px; background:var(--card); color:var(--fg); font-size:1rem; }
+.issue-card h3 { margin:.1rem 0 .5rem; }
+.issue-cols { display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin:.6rem 0; }
+@media (max-width:640px) { .issue-cols { grid-template-columns:1fr; } }
+.issue-side h4 { margin:0 0 .4rem; font-size:.85rem; text-transform:uppercase;
+  letter-spacing:.03em; color:var(--muted); }
+.issue-side li { margin:.6rem 0; }
+.supported-by { margin:.15rem 0 .15rem 1rem; }
+.issue-edges { margin-top:.6rem; font-size:.9rem; }
+.verdict-box { margin-top:.7rem; padding:.6rem .8rem; border-radius:6px; font-size:.92rem; }
+.verdict-box.verdict-set { background:var(--card); border-left:3px solid var(--ok); }
+.verdict-box.verdict-empty { background:var(--card); border-left:3px solid var(--line);
+  color:var(--muted); }
+.verdict-box code { font-size:.85em; }
+.issue-key { margin-top:.4rem; }
+nav.top { align-items:center; }
+.navsearch { margin-left:auto; position:relative; flex:0 1 240px; min-width:150px; }
+.navsearch input { width:100%; padding:.3rem .7rem; border:1px solid var(--line);
+  border-radius:6px; background:var(--card); color:var(--fg); font:inherit; font-size:.88rem; }
+.navsearch input:focus { outline:1px solid var(--accent); }
+.sdrop { position:absolute; right:0; top:calc(100% + 6px); width:min(460px,92vw);
+  max-height:70vh; overflow-y:auto; background:var(--bg); border:1px solid var(--line);
+  border-radius:8px; box-shadow:0 8px 28px rgba(0,0,0,.18); z-index:60; }
+.sres { display:block; padding:.5rem .7rem; border-bottom:1px solid var(--line);
+  text-decoration:none; color:var(--fg); font-size:.88rem; }
+.sres:last-child { border-bottom:none; }
+.sres.active, .sres:hover { background:var(--card); }
+.sres .sline { display:flex; align-items:baseline; gap:.4rem; min-width:0; }
+.sres .st { flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.sres .sdoc { display:block; font-size:.78rem; overflow:hidden; text-overflow:ellipsis;
+  white-space:nowrap; }
+.sres.sall { color:var(--accent); text-align:center; }
+.badge.t-document { background:var(--accent); color:var(--bg); }
+.badge.t-claim { background:var(--ok); color:var(--bg); }
+.badge.t-gap { background:var(--warn); color:var(--bg); }
+.badge.t-term { background:var(--accent2); color:var(--bg); }
+.badge.t-concept { background:var(--chip); color:var(--fg); }
+.scard .sx { font-size:.9rem; margin:.3rem 0; }
+.sx mark { background:transparent; color:var(--accent); font-weight:600; }
+.sfilters button, #smore { font:inherit; font-size:.85rem; padding:.25rem .8rem;
+  border-radius:999px; border:1px solid var(--line); background:var(--card);
+  color:var(--fg); cursor:pointer; }
+.sfilters button.active { border-color:var(--accent); color:var(--accent); }
+li:target { box-shadow:inset 3px 0 0 var(--accent); background:var(--card);
+  padding:.4rem .6rem; margin-left:-.6rem; border-radius:0 6px 6px 0; }
+a.alink { color:inherit; text-decoration:underline;
+  text-decoration-color:var(--line); text-underline-offset:2px; }
+a.alink:hover { color:var(--accent); text-decoration-color:var(--accent); }
+</style></head><body><nav class='top'><a href="../index.html">Overview</a><a href="../graph.html">Graph</a><a href="../concepts.html" class=here>Concepts</a><a href="../tensions.html">Tensions</a><a href="../issues.html">Issues</a><a href="../claims.html">Claims</a><a href="../threads.html">Threads</a><a href="../gaps.html">Gaps</a><a href="../timeline.html">Timeline</a><div class='navsearch'><input id='navq' type='search' placeholder='Search&hellip;  /  &#8984;K' autocomplete='off' spellcheck='false'><div id='navdrop' class='sdrop' hidden></div></div></nav><main><h1>Strategic Quitting &amp; Kill Criteria</h1><p>Deciding in advance which signals will make you stop, paired with a pre-committed action and enforced by structure or a third party, because people do not quit until forced and persistence has opportunity cost. Counters sunk cost, endowment and identity.</p><p class='muted'>Also known as: kill criteria, quit criteria, sunk cost, sunk cost fallacy, escalation of commitment, pre-commitment contract, precommitment contract, when to quit</p><p class='muted'>Part of: <a class="chip" href="../concepts/decision-making.html">Decision-Making Practices</a></p><h2>How authors use it</h2><p class='muted'>Oldest first (extraction date when no publication date is known).</p><div class='tablewrap'><table><tr><th>Author</th><th>Their term</th><th>Their meaning</th></tr><tr><td><a href="../docs/extract-annie-duke-lennys-podcast-better-decision-maker.html">This will make you a better decision maker | Annie Duke (Thinking In Bets, former pro poker player)</a><br><span class='muted'><a class="alink" href="../search.html?q=Lenny+Rachitsky+%28Lenny%27s+Podcast%29+%E2%80%94+guest+Annie+Duke">Lenny Rachitsky (Lenny&#x27;s Podcast) — guest Annie Duke</a> · 2024-05-02</span></td><td><a href='../docs/extract-annie-duke-lennys-podcast-better-decision-maker.html#term-kill-criteria'><b>Kill criteria</b></a></td><td>A pre-committed set of signals that, if observed, triggers a stated action (stop, pivot, or a specific test question), decided before launch.</td></tr><tr><td><a href="../docs/extract-annie-duke-lennys-podcast-better-decision-maker.html">This will make you a better decision maker | Annie Duke (Thinking In Bets, former pro poker player)</a><br><span class='muted'><a class="alink" href="../search.html?q=Lenny+Rachitsky+%28Lenny%27s+Podcast%29+%E2%80%94+guest+Annie+Duke">Lenny Rachitsky (Lenny&#x27;s Podcast) — guest Annie Duke</a> · 2024-05-02</span></td><td><a href='../docs/extract-annie-duke-lennys-podcast-better-decision-maker.html#term-sunk-cost'><b>Sunk cost</b></a></td><td>Letting past investment drive the decision whether to continue. &#x27;Waste is a prospective problem, not a retrospective one&#x27;: if you would not start it today, what you put in from now on is the waste.</td></tr><tr><td><a href="../docs/extract-annie-duke-how-to-make-better-decisions-svic.html">How To Make Better Decisions | Annie Duke | SVIC Podcast</a><br><span class='muted'><a class="alink" href="../search.html?q=SVIC+Podcast">SVIC Podcast</a> · 2024-09-24</span></td><td><a href='../docs/extract-annie-duke-how-to-make-better-decisions-svic.html#term-kill-criteria'><b>kill criteria</b></a></td><td>Signals decided in advance that, if observed, commit you to stop (sell the investment, kill the deal).</td></tr><tr><td><a href="../docs/extract-annie-duke-how-to-make-better-decisions-svic.html">How To Make Better Decisions | Annie Duke | SVIC Podcast</a><br><span class='muted'><a class="alink" href="../search.html?q=SVIC+Podcast">SVIC Podcast</a> · 2024-09-24</span></td><td><a href='../docs/extract-annie-duke-how-to-make-better-decisions-svic.html#term-pre-commitment-contract'><b>pre-commitment contract</b></a></td><td>Binding your future self (and telling someone) to a specific action when specified conditions occur, made in the abstract before being in the moment.</td></tr><tr><td><a href="../docs/extract-annie-duke-how-to-make-better-decisions-svic.html">How To Make Better Decisions | Annie Duke | SVIC Podcast</a><br><span class='muted'><a class="alink" href="../search.html?q=SVIC+Podcast">SVIC Podcast</a> · 2024-09-24</span></td><td><a href='../docs/extract-annie-duke-how-to-make-better-decisions-svic.html#term-sunk-cost-fallacy'><b>sunk cost fallacy</b></a></td><td>Taking past investment into account when deciding whether to continue, which makes stopping very hard.</td></tr></table></div><h2>Documents (2)</h2><ul class='plain'><li><a href="../docs/extract-annie-duke-how-to-make-better-decisions-svic.html">How To Make Better Decisions | Annie Duke | SVIC Podcast</a> <span class='muted'><a class="alink" href="../search.html?q=SVIC+Podcast">SVIC Podcast</a> · 2024-09-24</span> <a href="https://www.youtube.com/watch?v=buwi5qH1I3c" title="Original source" target="_blank" rel="noopener">source&nbsp;↗</a> <a href="https://read.readwise.io/read/01jfat7rwhvs3aq8yqd44zgx80">Reader</a> <a href="wiseread://read/01jfat7rwhvs3aq8yqd44zgx80" title="Open in Reader app">🖥️</a><br><span class='muted'>Because knowing about our biases does not stop us from acting on them, better decisions come from structure rather than awareness: gathering opinions independently before any discussion, deciding in advance (via premortems and kill criteria) what signals will make us stop, and judging decisions apart from their outcomes.</span></li><li><a href="../docs/extract-annie-duke-lennys-podcast-better-decision-maker.html">This will make you a better decision maker | Annie Duke (Thinking In Bets, former pro poker player)</a> <span class='muted'><a class="alink" href="../search.html?q=Lenny+Rachitsky+%28Lenny%27s+Podcast%29+%E2%80%94+guest+Annie+Duke">Lenny Rachitsky (Lenny&#x27;s Podcast) — guest Annie Duke</a> · 2024-05-02</span> <a href="https://www.youtube.com/watch?v=svQMODvIGAE" title="Original source" target="_blank" rel="noopener">source&nbsp;↗</a> <a href="https://read.readwise.io/read/01m5a0z3ntepqbg2312yp0nymq">Reader</a> <a href="wiseread://read/01m5a0z3ntepqbg2312yp0nymq" title="Open in Reader app">🖥️</a><br><span class='muted'>Decision quality improves less by learning about biases than by changing the procedure around the decision: make the implicit explicit (written, rubric-based, forecast-based judgments), gather each person&#x27;s opinion independently before the meeting, reserve the meeting for discussing disagreement, decide outside the room, shorten feedback loops by tracking intermediate signals, and pre-commit to kill criteria — because intuition and group dynamics are unreliable in ways you cannot detect unless the judgment is externalised and checkable.</span></li></ul><h2>Propositions touching this concept (10)</h2><p class='muted'>By publication month, oldest first (extraction month when no publication date is known).</p><h3>2024-05</h3><ul class='plain'><li><span class='badge explicit'>explicit</span>A pre-mortem by itself rarely changes plans or behaviour (Duke&#x27;s own research with Schweitzer and Gandhi at Penn); its best use is to generate kill criteria, a set of early signals each paired with a pre-committed action (stop, pivot, or ask a defined question), agreed before launch.<div class='rel-line'><a href="../docs/extract-annie-duke-lennys-podcast-better-decision-maker.html#p24">This will make you a better decision maker | Annie Duke (Thinking In Bets, former pro poker player) · p24</a></div></li><li><span class='badge explicit'>explicit</span>Once something is launched, people are very slow to quit, so projects run over budget and over timeline and are shut down much later than they should have been. The main drivers are sunk cost, endowment (owning what you built; especially in product), identity and how others will judge you, and wanting certainty before quitting.<div class='rel-line'><a href="../docs/extract-annie-duke-lennys-podcast-better-decision-maker.html#p25">This will make you a better decision maker | Annie Duke (Thinking In Bets, former pro poker player) · p25</a></div></li></ul><h3>2024-09</h3><ul class='plain'><li><span class='badge explicit'>explicit</span>We are bad at certain decisions in the moment but good at deciding on behalf of a future version of ourselves, so decisions should be moved out of the moment through pre-commitment contracts (throw out the ultra-processed food; write down kill criteria and tell someone).<div class='rel-line'><a href="../docs/extract-annie-duke-how-to-make-better-decisions-svic.html#p7">How To Make Better Decisions | Annie Duke | SVIC Podcast · p7</a></div></li><li><span class='badge explicit'>explicit</span>The sunk cost fallacy keeps people in a position because of what they already invested (holding a stock they would not buy at that price to &#x27;get back to even&#x27;); the remedy is to imagine a week from now, write down the signals that would make you sell, and commit to them (ideally to someone else).<div class='rel-line'><a href="../docs/extract-annie-duke-how-to-make-better-decisions-svic.html#p8">How To Make Better Decisions | Annie Duke | SVIC Podcast · p8</a></div></li><li><span class='badge explicit'>explicit</span>A premortem imagines that the bad outcome has already happened and works backward to the early signals that would have warned you; it counters overconfidence, sharpens estimates of failure probability, and yields good kill criteria, checklists and pre-commitment contracts.<div class='rel-line'><a href="../docs/extract-annie-duke-how-to-make-better-decisions-svic.html#p9">How To Make Better Decisions | Annie Duke | SVIC Podcast · p9</a></div></li><li><span class='badge explicit'>explicit</span>Structures that create guardrails matter more than whether people know the bias: the sales team did not need to understand sunk cost because kill criteria became part of deal review, with a carrot (credit for following them) and a stick (a ding for ignoring them).<div class='rel-line'><a href="../docs/extract-annie-duke-how-to-make-better-decisions-svic.html#p32">How To Make Better Decisions | Annie Duke | SVIC Podcast · p32</a></div></li><li><span class='badge explicit'>explicit</span>Decisions are built out of forecasts, and decision skills (agency, pre-commitment, forecasting, resisting bandwagoning) can be taught from kindergarten up, because biases such as sunk cost are pervasive across ages.<div class='rel-line'><a href="../docs/extract-annie-duke-how-to-make-better-decisions-svic.html#p36">How To Make Better Decisions | Annie Duke | SVIC Podcast · p36</a></div></li></ul><h3>2025-03</h3><ul class='plain'><li><span class='badge explicit'>explicit</span>Using AI coding tools has addictive properties similar to slot machines, with sunk cost fallacy and tiredness feedback loops degrading output quality.<div class='rel-line'><a href="../docs/extract-eight-years-wanting-three-months-building-ai.html#p7">Eight years of wanting, three months of building with AI · p7</a></div></li></ul><h3>2026-07</h3><ul class='plain'><li><span class='badge explicit'>explicit</span>The 80/20 rule and &#x27;the perfect is the enemy of the good&#x27; are the same idea: one tells you where results come from, the other when to quit; the real work is having the confidence to stop at good enough.<div class='rel-line'><a href="../docs/extract-good-enough-80-20.html#p8">Why &quot;good enough&quot; is the whole point of 80/20 · p8</a></div></li></ul><h3>2026-09</h3><ul class='plain'><li><span class='badge implicit'>implicit</span>Netflix judges that the long-term maintenance cost of a bespoke autoscaler that has fallen behind the state of the art (community research, ongoing FLIP-271 work, future Flink 2 features) outweighs the sunk cost of its 2019 system and the switching cost of migration.<div class='rel-line'><a href="../docs/extract-netflix-flink-autoscaler.html#p10">Netflix Moves Toward Open Source Flink Autoscaler for 30,000+ Streaming Jobs · p10</a></div></li></ul><h2>Open gaps (1)</h2><ul class='plain'><li><span class='badge gap'>incomplete</span>Failure cases and stranded investments are absent. Every named case study is positive. Enterprises that built pillar-level plugin investments and then watched the underlying model change behaviour, or hit token-cost walls at scale, or saw a competitor leapfrog with a different stack, do not appear. &#x27;Compounding lead&#x27; is presented without a &#x27;compounding sunk cost&#x27; counter-scenario.<div class='rel-line'><a href='../docs/extract-building-ai-agents-for-the-enterprise.html#g7'>Building AI Agents For The Enterprise</a> — read next: Post-mortems of enterprise AI programs; &#x27;killed by GPT-5&#x27; / vendor-strategy-change narratives; gartner-style &#x27;why N% of AI initiatives fail&#x27; research.</div></li></ul></main><script src='../assets/search.js' defer></script></body></html>

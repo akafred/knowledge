@@ -1,0 +1,104 @@
+<!doctype html><html><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>Web PKI &amp; Trust-Anchor Infrastructure</title><style>
+:root { --bg:#ffffff; --fg:#1a1a1a; --muted:#6b6b6b; --line:#e3e3e0;
+  --card:#f7f7f5; --accent:#4a6fa5; --accent2:#8a6fae; --warn:#b3593a;
+  --ok:#4a7a55; --chip:#eceff4; }
+@media (prefers-color-scheme: dark) {
+  :root { --bg:#191917; --fg:#e8e6e3; --muted:#9a9892; --line:#33322f;
+    --card:#22211f; --accent:#8fb0dd; --accent2:#b6a2d8; --warn:#d98a68;
+    --ok:#84b591; --chip:#2c2b28; }
+}
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:var(--fg);
+  font:16px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+main { max-width:960px; margin:0 auto; padding:1.5rem 1.25rem 4rem; }
+nav.top { display:flex; flex-wrap:wrap; gap:.35rem 1.1rem; padding:.8rem 1.25rem;
+  border-bottom:1px solid var(--line); font-size:.92rem; }
+nav.top a { color:var(--muted); text-decoration:none; }
+nav.top a:hover, nav.top a.here { color:var(--accent); }
+h1 { font-size:1.55rem; line-height:1.25; margin:.8rem 0 .3rem; }
+h2 { font-size:1.15rem; margin:2rem 0 .6rem; border-bottom:1px solid var(--line);
+  padding-bottom:.3rem; }
+h3 { font-size:1rem; margin:1.2rem 0 .4rem; }
+a { color:var(--accent); }
+.muted { color:var(--muted); font-size:.9rem; }
+.unity { border-left:3px solid var(--accent); background:var(--card);
+  padding:.7rem 1rem; margin:1rem 0; font-style:italic; }
+.chips { display:flex; flex-wrap:wrap; gap:.35rem; margin:.5rem 0; }
+.chip { background:var(--chip); border-radius:999px; padding:.1rem .7rem;
+  font-size:.82rem; text-decoration:none; color:var(--fg); }
+.chip:hover { outline:1px solid var(--accent); }
+.chip.count { color:var(--muted); }
+.card { background:var(--card); border:1px solid var(--line); border-radius:8px;
+  padding: .8rem 1rem; margin:.6rem 0; }
+.badge { font-size:.72rem; border-radius:4px; padding:.05rem .4rem;
+  vertical-align:middle; margin-right:.4rem; white-space:nowrap; }
+.badge.explicit { background:var(--ok); color:var(--bg); }
+.badge.implicit { background:var(--accent2); color:var(--bg); }
+.badge.gap { background:var(--warn); color:var(--bg); }
+.badge.closed { background:var(--ok); color:var(--bg); }
+.badge.rel { background:var(--accent); color:var(--bg); }
+.badge.contested { background:var(--warn); color:var(--bg); }
+.badge.established, .badge.corroborated { background:var(--ok); color:var(--bg); }
+.badge.developed { background:var(--accent2); color:var(--bg); }
+.tag.conf { font-size:.72rem; color:var(--muted); border:1px solid var(--line);
+  border-radius:4px; padding:.05rem .4rem; margin-left:.3rem; }
+ul.plain { list-style:none; padding-left:0; }
+ul.plain > li { margin:.55rem 0; }
+table { border-collapse:collapse; width:100%; font-size:.92rem; }
+th, td { text-align:left; padding:.4rem .6rem; border-bottom:1px solid var(--line);
+  vertical-align:top; }
+.tablewrap { overflow-x:auto; }
+.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:.7rem; }
+.stat { font-size:1.7rem; font-weight:600; color:var(--accent); }
+.rel-line { font-size:.86rem; color:var(--muted); margin:.15rem 0 .15rem 1rem; }
+.searchbox { width:100%; padding:.5rem .8rem; border:1px solid var(--line);
+  border-radius:6px; background:var(--card); color:var(--fg); font-size:1rem; }
+.issue-card h3 { margin:.1rem 0 .5rem; }
+.issue-cols { display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin:.6rem 0; }
+@media (max-width:640px) { .issue-cols { grid-template-columns:1fr; } }
+.issue-side h4 { margin:0 0 .4rem; font-size:.85rem; text-transform:uppercase;
+  letter-spacing:.03em; color:var(--muted); }
+.issue-side li { margin:.6rem 0; }
+.supported-by { margin:.15rem 0 .15rem 1rem; }
+.issue-edges { margin-top:.6rem; font-size:.9rem; }
+.verdict-box { margin-top:.7rem; padding:.6rem .8rem; border-radius:6px; font-size:.92rem; }
+.verdict-box.verdict-set { background:var(--card); border-left:3px solid var(--ok); }
+.verdict-box.verdict-empty { background:var(--card); border-left:3px solid var(--line);
+  color:var(--muted); }
+.verdict-box code { font-size:.85em; }
+.issue-key { margin-top:.4rem; }
+nav.top { align-items:center; }
+.navsearch { margin-left:auto; position:relative; flex:0 1 240px; min-width:150px; }
+.navsearch input { width:100%; padding:.3rem .7rem; border:1px solid var(--line);
+  border-radius:6px; background:var(--card); color:var(--fg); font:inherit; font-size:.88rem; }
+.navsearch input:focus { outline:1px solid var(--accent); }
+.sdrop { position:absolute; right:0; top:calc(100% + 6px); width:min(460px,92vw);
+  max-height:70vh; overflow-y:auto; background:var(--bg); border:1px solid var(--line);
+  border-radius:8px; box-shadow:0 8px 28px rgba(0,0,0,.18); z-index:60; }
+.sres { display:block; padding:.5rem .7rem; border-bottom:1px solid var(--line);
+  text-decoration:none; color:var(--fg); font-size:.88rem; }
+.sres:last-child { border-bottom:none; }
+.sres.active, .sres:hover { background:var(--card); }
+.sres .sline { display:flex; align-items:baseline; gap:.4rem; min-width:0; }
+.sres .st { flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.sres .sdoc { display:block; font-size:.78rem; overflow:hidden; text-overflow:ellipsis;
+  white-space:nowrap; }
+.sres.sall { color:var(--accent); text-align:center; }
+.badge.t-document { background:var(--accent); color:var(--bg); }
+.badge.t-claim { background:var(--ok); color:var(--bg); }
+.badge.t-gap { background:var(--warn); color:var(--bg); }
+.badge.t-term { background:var(--accent2); color:var(--bg); }
+.badge.t-concept { background:var(--chip); color:var(--fg); }
+.scard .sx { font-size:.9rem; margin:.3rem 0; }
+.sx mark { background:transparent; color:var(--accent); font-weight:600; }
+.sfilters button, #smore { font:inherit; font-size:.85rem; padding:.25rem .8rem;
+  border-radius:999px; border:1px solid var(--line); background:var(--card);
+  color:var(--fg); cursor:pointer; }
+.sfilters button.active { border-color:var(--accent); color:var(--accent); }
+li:target { box-shadow:inset 3px 0 0 var(--accent); background:var(--card);
+  padding:.4rem .6rem; margin-left:-.6rem; border-radius:0 6px 6px 0; }
+a.alink { color:inherit; text-decoration:underline;
+  text-decoration-color:var(--line); text-underline-offset:2px; }
+a.alink:hover { color:var(--accent); text-decoration-color:var(--accent); }
+</style></head><body><nav class='top'><a href="../index.html">Overview</a><a href="../graph.html">Graph</a><a href="../concepts.html" class=here>Concepts</a><a href="../tensions.html">Tensions</a><a href="../issues.html">Issues</a><a href="../claims.html">Claims</a><a href="../threads.html">Threads</a><a href="../gaps.html">Gaps</a><a href="../timeline.html">Timeline</a><div class='navsearch'><input id='navq' type='search' placeholder='Search&hellip;  /  &#8984;K' autocomplete='off' spellcheck='false'><div id='navdrop' class='sdrop' hidden></div></div></nav><main><h1>Web PKI &amp; Trust-Anchor Infrastructure</h1><p>The certificate-authority trust system underlying TLS, code signing and mTLS, covering inherited trust across roots and intermediates, revocation and root-store propagation, and mitigations such as Certificate Transparency, CAA, short certificate lifetimes and post-quantum Merkle Tree Certificates.</p><p class='muted'>Also known as: Web PKI, WebPKI, certificate authority, intermediate CA, root of trust, root store, cacerts bundle, certificate transparency, Merkle Tree Certificates, CAA</p><h2>How authors use it</h2><p class='muted'>Oldest first (extraction date when no publication date is known).</p><div class='tablewrap'><table><tr><th>Author</th><th>Their term</th><th>Their meaning</th></tr><tr><td><a href="../docs/extract-emudhra-intermediate-ca-compromise.html">eMudhra Intermediate CA Compromise</a><br><span class='muted'><a class="alink" href="../search.html?q=Chris+Swan">Chris Swan</a> · 2026-10-21</span></td><td><a href='../docs/extract-emudhra-intermediate-ca-compromise.html#term-intermediate-ca'><b>Intermediate CA</b></a></td><td>A CA certificate chained beneath a trusted root that inherits full trust and can mint a valid-looking certificate for any domain; there are thousands of them.</td></tr><tr><td><a href="../docs/extract-emudhra-intermediate-ca-compromise.html">eMudhra Intermediate CA Compromise</a><br><span class='muted'><a class="alink" href="../search.html?q=Chris+Swan">Chris Swan</a> · 2026-10-21</span></td><td><a href='../docs/extract-emudhra-intermediate-ca-compromise.html#term-caa-dns-certification-authority-authorization'><b>CAA (DNS Certification Authority Authorization)</b></a></td><td>A DNS record limiting which CAs may issue for a domain; a defence that depends on the issuer cooperating, so a forger never checks it.</td></tr></table></div><h2>Documents (1)</h2><ul class='plain'><li><a href="../docs/extract-emudhra-intermediate-ca-compromise.html">eMudhra Intermediate CA Compromise</a> <span class='muted'><a class="alink" href="../search.html?q=Chris+Swan">Chris Swan</a> · 2026-10-21</span> <a href="https://www.infoq.com/news/2026/10/emudhra-ca-compromise/" title="Original source" target="_blank" rel="noopener">source&nbsp;↗</a> <a href="https://read.readwise.io/read/01m5fy8pxnj33yp48cegb8v84q">Reader</a> <a href="wiseread://read/01m5fy8pxnj33yp48cegb8v84q" title="Open in Reader app">🖥️</a><br><span class='muted'>The eMudhra compromise (eight intermediate CA keys that were trivially guessable) shows that the web PKI&#x27;s flat, inherited trust across hundreds of roots and thousands of intermediates cannot be fixed by browser blocklists alone, because the rest of the software ecosystem bundles stale root stores and has largely not adopted the verification mechanisms (CAA, Certificate Transparency, short lifetimes) that would contain such a failure.</span></li></ul><h2>Propositions touching this concept (8)</h2><p class='muted'>By publication month, oldest first (extraction month when no publication date is known).</p><h3>2026-10</h3><ul class='plain'><li><span class='badge explicit'>explicit</span>Eight eMudhra intermediate CA private keys were effectively public because they were generated with almost no entropy (all zero except the last byte), so they could be enumerated and matched to live CA public keys.<div class='rel-line'><a href="../docs/extract-emudhra-intermediate-ca-compromise.html#p1">eMudhra Intermediate CA Compromise · p1</a></div></li><li><span class='badge explicit'>explicit</span>Web PKI trust is structurally wide: hundreds of roots and thousands of intermediates each inherit authority to mint a valid certificate for any domain, so one weak CA exposes the whole system.<div class='rel-line'><a href="../docs/extract-emudhra-intermediate-ca-compromise.html#p3">eMudhra Intermediate CA Compromise · p3</a></div></li><li><span class='badge explicit'>explicit</span>Browsers contained the incident quickly through revocation blocklists, but most other software that relies on web PKI has no mechanism to filter individual intermediate CAs.<div class='rel-line'><a href="../docs/extract-emudhra-intermediate-ca-compromise.html#p4">eMudhra Intermediate CA Compromise · p4</a></div></li><li><span class='badge explicit'>explicit</span>Systems using WebPKI CAs for mTLS client authentication are the most exposed, because an attacker can mint a certificate and authenticate directly with no network attack, and the endpoint likely does not know about the intermediate revocation.<div class='rel-line'><a href="../docs/extract-emudhra-intermediate-ca-compromise.html#p8">eMudhra Intermediate CA Compromise · p8</a></div></li><li><span class='badge explicit'>explicit</span>Certificate Transparency could have contained forged certificates, since clients can reject certificates absent from the logs, but it is mostly enforced only in browsers.<div class='rel-line'><a href="../docs/extract-emudhra-intermediate-ca-compromise.html#p10">eMudhra Intermediate CA Compromise · p10</a></div></li><li><span class='badge explicit'>explicit</span>Moxie Marlinspike&#x27;s 2011 Convergence proposal (distributed observation instead of trusted CAs) failed for lack of traction; Certificate Transparency is its pragmatic successor.<div class='rel-line'><a href="../docs/extract-emudhra-intermediate-ca-compromise.html#p11">eMudhra Intermediate CA Compromise · p11</a></div></li><li><span class='badge explicit'>explicit</span>Shorter certificate lifetimes (47 days by 2029) make it easier to move to new trust anchors, and Merkle Tree Certificates could both lighten handshakes and make key compromise more containable.<div class='rel-line'><a href="../docs/extract-emudhra-intermediate-ca-compromise.html#p13">eMudhra Intermediate CA Compromise · p13</a></div></li><li><span class='badge explicit'>explicit</span>On infrastructure you build yourself you can bootstrap identity however you like, but on managed compute the provider owns the root of trust, so identity must be derived from the provider&#x27;s identity.<div class='rel-line'><a href="../docs/extract-netflix-aws-iam-workload-attestation.html#p1">Netflix Bridges AWS IAM and Internal Identity with Workload Attestation · p1</a></div></li></ul><h2>Open gaps (4)</h2><ul class='plain'><li><span class='badge gap'>incomplete</span>The article never asks how eight intermediate CA keys with near-zero entropy passed key-generation ceremonies, audits (WebTrust/ETSI) and root program inclusion; the governance failure that preceded the technical one is left unexamined, although the same process produces every other CA in the bundle.<div class='rel-line'><a href='../docs/extract-emudhra-intermediate-ca-compromise.html#g1'>eMudhra Intermediate CA Compromise</a> — read next: Read the Mozilla/Chrome root store incident reports and post-mortems on CA audit regimes (e.g. DigiNotar, Symantec distrust) to see whether audits can detect weak key generation.</div></li><li><span class='badge gap'>incomplete</span>No assessment of actual exploitation: whether any forged certificates were minted or used before the blocklists, and what the exposure window was for non-browser clients, code-signing and mTLS relying parties.<div class='rel-line'><a href='../docs/extract-emudhra-intermediate-ca-compromise.html#g2'>eMudhra Intermediate CA Compromise</a> — read next: Read the root-store incident reports and Dennis Jackson&#x27;s emudhra.we-have-a-problem.com summary, plus CT-log analyses of leaf certificates issued under the affected intermediates.</div></li><li><span class='badge gap'>incomplete</span>CT is said to help &#x27;if more widely used outside of browsers&#x27; without saying how non-browser clients (curl, language TLS stacks, embedded devices) would implement and operate SCT verification, or what it costs; the proposed remedy is the same adoption gap that produced the problem.<div class='rel-line'><a href='../docs/extract-emudhra-intermediate-ca-compromise.html#g3'>eMudhra Intermediate CA Compromise</a> — read next: Look at how Go, rustls or curl handle SCT validation, and at Chrome&#x27;s CT policy history, to judge practicality.</div></li><li><span class='badge gap'>incomplete</span>The advice to application developers is left implicit: no guidance on whether to use system roots versus an embedded bundle, how to pin or scope trust to the CAs a system actually needs, or how to manage private CAs for mTLS, even though the piece establishes that stale embedded bundles are the main residual risk.<div class='rel-line'><a href='../docs/extract-emudhra-intermediate-ca-compromise.html#g4'>eMudhra Intermediate CA Compromise</a> — read next: Operational guidance on trust-store management and private-CA mTLS (e.g. SPIFFE/SPIRE, internal PKI practice) for telco and enterprise estates.</div></li></ul></main><script src='../assets/search.js' defer></script></body></html>
